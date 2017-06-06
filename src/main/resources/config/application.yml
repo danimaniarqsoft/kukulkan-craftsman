@@ -55,7 +55,9 @@ spring:
             client-secret: xxx
 
         # jhipster-needle-add-social-configuration
-
+    mandatory-file-encoding: UTF-8
+    jmx:
+      enabled: false
 security:
     basic:
         enabled: false
@@ -116,3 +118,13 @@ jhipster:
 # ===================================================================
 
 application:
+
+kukulkan:
+  outputdir: /home/daniel/git/
+logging:
+  level:
+    root: info
+    org.springframework.web: false
+    org.hibernate: false
+    org.hibernate.SQL: false
+    file: kukulkan.log

@@ -5,8 +5,18 @@ import com.mongodb.MongoClient;
 import io.github.jhipster.config.JHipsterConstants;
 import io.github.jhipster.domain.util.JSR310DateConverters.DateToZonedDateTimeConverter;
 import io.github.jhipster.domain.util.JSR310DateConverters.ZonedDateTimeToDateConverter;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataStore;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
+import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
+import mx.infotec.dads.kukulkan.engine.repository.DataStoreRepository;
+import mx.infotec.dads.kukulkan.engine.repository.DataStoreTypeRepository;
+import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
+import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
+import mx.infotec.dads.kukulkan.util.EntitiesFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.context.annotation.Bean;
@@ -26,13 +36,36 @@ import java.util.List;
 
 @Configuration
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
-@EnableMongoRepositories("mx.infotec.dads.kukulkan.repository")
+@EnableMongoRepositories(basePackages = { "mx.infotec.dads.kukulkan.repository", "mx.infotec.dads.kukulkan.engine.repository" })
 @Import(value = MongoAutoConfiguration.class)
 @EnableMongoAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
+    @Bean
+    CommandLineRunner init(final DataStoreRepository dsRepository, final DataStoreTypeRepository dsTypeRepository,
+            final RuleRepository ruleRepository, final RuleTypeRepository ruleTypeRepository) {
+        return commandLineRunner -> {
+            dsRepository.deleteAll();
+            dsTypeRepository.deleteAll();
+            ruleRepository.deleteAll();
+            ruleTypeRepository.deleteAll();
+            DataStoreType dst = EntitiesFactory.createDefaultDataStoreType();
+            dst = dsTypeRepository.save(dst);
+            DataStore dsValuApp = EntitiesFactory.createDefaultDataStore(dst);
+            dsRepository.save(dsValuApp);
+            DataStore testDs = EntitiesFactory.createTestDataStore(dst);
+            dsRepository.save(testDs);
+            DataStore dsConacyt = EntitiesFactory.createConacytDataStore(dst);
+            dsRepository.save(dsConacyt);
+            RuleType singularRuleType = ruleTypeRepository.save(EntitiesFactory.createDefaultSingularRuleType());
+            ruleTypeRepository.save(EntitiesFactory.createDefaultPluralRuleType());
+            ruleRepository.save(EntitiesFactory.createOsRule(singularRuleType));
+            ruleRepository.save(EntitiesFactory.createEsRule(singularRuleType));
+        };
+    }
+    
     @Bean
     public ValidatingMongoEventListener validatingMongoEventListener() {
         return new ValidatingMongoEventListener(validator());
