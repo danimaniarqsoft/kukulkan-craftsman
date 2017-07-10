@@ -23,6 +23,8 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import mx.infotec.dads.kukulkan.domain.DataStore;
+
 /**
  * JavaDataModelContext
  * 
@@ -31,8 +33,8 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
  */
 public class JavaDataModelContext extends DataModelContext {
 
-    public JavaDataModelContext(DataStore dataStore) {
-        super(dataStore);
-    }
+	public JavaDataModelContext(DataStore dataStore) {
+		super(dataStore);
+	}
 
 }

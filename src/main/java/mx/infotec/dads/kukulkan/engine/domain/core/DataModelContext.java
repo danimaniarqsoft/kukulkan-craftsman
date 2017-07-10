@@ -27,6 +27,8 @@ import java.util.Collection;
 
 import org.apache.metamodel.DataContext;
 
+import mx.infotec.dads.kukulkan.domain.DataStore;
+
 /**
  * The DataModelContext class is an abstraction of the DataModel of the
  * application and it is agnostic technology model.
@@ -36,41 +38,40 @@ import org.apache.metamodel.DataContext;
  */
 public abstract class DataModelContext {
 
-    protected DataContext dataContext;
-    protected DataStore dataStore;
-    protected Collection<DataModelGroup> dataModelGroup;
+	protected DataContext dataContext;
+	protected DataStore dataStore;
+	protected Collection<DataModelGroup> dataModelGroup;
 
-    public DataModelContext(DataStore dataStore) {
-        this.dataStore = dataStore;
-    }
+	public DataModelContext(DataStore dataStore) {
+		this.dataStore = dataStore;
+	}
 
-    protected DataModelContext(DataContext dataContext) {
-        this.dataContext = dataContext;
-    }
+	protected DataModelContext(DataContext dataContext) {
+		this.dataContext = dataContext;
+	}
 
-    public DataContext getDataContext() {
-        return dataContext;
-    }
+	public DataContext getDataContext() {
+		return dataContext;
+	}
 
-    public void setDataContext(DataContext dataContext) {
-        this.dataContext = dataContext;
-    }
+	public void setDataContext(DataContext dataContext) {
+		this.dataContext = dataContext;
+	}
 
+	public DataStore getDataStore() {
+		return dataStore;
+	}
 
-    public DataStore getDataStore() {
-        return dataStore;
-    }
+	public void setDataStore(DataStore dataStore) {
+		this.dataStore = dataStore;
+	}
 
-    public void setDataStore(DataStore dataStore) {
-        this.dataStore = dataStore;
-    }
+	public Collection<DataModelGroup> getDataModelGroup() {
+		return dataModelGroup;
+	}
 
-    public Collection<DataModelGroup> getDataModelGroup() {
-        return dataModelGroup;
-    }
-
-    public void setDataModelGroup(Collection<DataModelGroup> dataModelGroup) {
-        this.dataModelGroup = dataModelGroup;
-    }
+	public void setDataModelGroup(Collection<DataModelGroup> dataModelGroup) {
+		this.dataModelGroup = dataModelGroup;
+	}
 
 }

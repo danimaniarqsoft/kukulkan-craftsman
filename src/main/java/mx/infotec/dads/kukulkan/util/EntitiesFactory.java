@@ -23,7 +23,8 @@
  */
 package mx.infotec.dads.kukulkan.util;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataStore;
+import mx.infotec.dads.kukulkan.domain.DataStore;
+import mx.infotec.dads.kukulkan.domain.enumeration.TableTypes;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.domain.core.Rule;
@@ -35,122 +36,121 @@ import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
  * @author Daniel Cortes Pichardo
  */
 public class EntitiesFactory {
-    private static final String TABLE_VIEW = "TABLE,VIEW";
 
-    private EntitiesFactory() {
+	private EntitiesFactory() {
 
-    }
+	}
 
-    public static DataStore createDataStore() {
-        DataStore ds = new DataStore();
-        ds.setDataStoreType(new DataStoreType());
-        ds.setDriverClass("");
-        ds.setName("");
-        ds.setPassword("");
-        ds.setTableTypes("");
-        ds.setUsername("");
-        return ds;
-    }
+	public static DataStore createDataStore() {
+		DataStore ds = new DataStore();
+		ds.setDataStoreType(new DataStoreType());
+		ds.setDriverClass("");
+		ds.setName("");
+		ds.setPassword("");
+		ds.setTableTypes(TableTypes.TABLE_VIEW);
+		ds.setUsername("");
+		return ds;
+	}
 
-    public static KukulkanContext createDefaultKukulkanContext() {
-        ProjectConfiguration pConf = new ProjectConfiguration();
-        pConf.setId("conacyt");
-        pConf.setGroupId("");
-        pConf.setVersion("1.0.0");
-        pConf.setPackaging("");
-        pConf.setYear("2017");
-        pConf.setAuthor("KUKULKAN");
-        pConf.setWebLayerName("rest");
-        pConf.setServiceLayerName("service");
-        pConf.setDaoLayerName("repository");
-        pConf.setDomainLayerName("model");
-        pConf.setGroupId("mx.infotec.dads");
-        pConf.setPackaging("mx.infotec.dads.conacyt");
-        return new KukulkanContext(pConf, "");
-    }
+	public static KukulkanContext createDefaultKukulkanContext() {
+		ProjectConfiguration pConf = new ProjectConfiguration();
+		pConf.setId("conacyt");
+		pConf.setGroupId("");
+		pConf.setVersion("1.0.0");
+		pConf.setPackaging("");
+		pConf.setYear("2017");
+		pConf.setAuthor("KUKULKAN");
+		pConf.setWebLayerName("rest");
+		pConf.setServiceLayerName("service");
+		pConf.setDaoLayerName("repository");
+		pConf.setDomainLayerName("model");
+		pConf.setGroupId("mx.infotec.dads");
+		pConf.setPackaging("mx.infotec.dads.conacyt");
+		return new KukulkanContext(pConf, "");
+	}
 
-    public static DataStore createDefaultDataStore(DataStoreType dst) {
-        DataStore dsValuApp = new DataStore();
-        dsValuApp.setDataStoreType(dst);
-        dsValuApp.setDriverClass("com.mysql.jdbc.Driver");
-        dsValuApp.setName("valuapp");
-        dsValuApp.setPassword("root");
-        dsValuApp.setTableTypes(TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:mysql://localhost/valuapp?autoReconnect=true");
-        dsValuApp.setUsername("root");
-        return dsValuApp;
-    }
-    
-    public static DataStore createConacytDataStore(DataStoreType dst) {
-        DataStore dsValuApp = new DataStore();
-        dsValuApp.setDataStoreType(dst);
-        dsValuApp.setDriverClass("oracle.jdbc.driver.OracleDriver");
-        dsValuApp.setName("conacyt");
-        dsValuApp.setPassword("ApEfiDEV17");
-        dsValuApp.setTableTypes(TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:oracle:thin:@172.22.13.130:1538/MIICDEV");
-        dsValuApp.setUsername("APPL_EFIDT");
-        return dsValuApp;
-    }
+	public static DataStore createDefaultDataStore(DataStoreType dst) {
+		DataStore dsValuApp = new DataStore();
+		dsValuApp.setDataStoreType(dst);
+		dsValuApp.setDriverClass("com.mysql.jdbc.Driver");
+		dsValuApp.setName("valuapp");
+		dsValuApp.setPassword("root");
+		dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
+		dsValuApp.setUrl("jdbc:mysql://localhost/valuapp?autoReconnect=true");
+		dsValuApp.setUsername("root");
+		return dsValuApp;
+	}
 
-    public static DataStore createTestDataStore(DataStoreType dst) {
-        DataStore dsValuApp = new DataStore();
-        dsValuApp.setDataStoreType(dst);
-        dsValuApp.setDriverClass("org.h2.Driver");
-        dsValuApp.setName("h2-db-test");
-        dsValuApp.setPassword("");
-        dsValuApp.setTableTypes(TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:h2:~/test");
-        dsValuApp.setUsername("");
-        return dsValuApp;
-    }
+	public static DataStore createConacytDataStore(DataStoreType dst) {
+		DataStore dsValuApp = new DataStore();
+		dsValuApp.setDataStoreType(dst);
+		dsValuApp.setDriverClass("oracle.jdbc.driver.OracleDriver");
+		dsValuApp.setName("conacyt");
+		dsValuApp.setPassword("ApEfiDEV17");
+		dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
+		dsValuApp.setUrl("jdbc:oracle:thin:@172.22.13.130:1538/MIICDEV");
+		dsValuApp.setUsername("APPL_EFIDT");
+		return dsValuApp;
+	}
 
-    public static DataStore createMysqlTestDataStore(DataStoreType dst) {
-        DataStore dsValuApp = new DataStore();
-        dsValuApp.setDataStoreType(dst);
-        dsValuApp.setDriverClass("org.h2.Driver");
-        dsValuApp.setName("test");
-        dsValuApp.setPassword("");
-        dsValuApp.setTableTypes(TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:h2:~/test");
-        dsValuApp.setUsername("");
-        return dsValuApp;
-    }
+	public static DataStore createTestDataStore(DataStoreType dst) {
+		DataStore dsValuApp = new DataStore();
+		dsValuApp.setDataStoreType(dst);
+		dsValuApp.setDriverClass("org.h2.Driver");
+		dsValuApp.setName("h2-db-test");
+		dsValuApp.setPassword("");
+		dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
+		dsValuApp.setUrl("jdbc:h2:~/test");
+		dsValuApp.setUsername("");
+		return dsValuApp;
+	}
 
-    public static DataStoreType createDefaultDataStoreType() {
-        DataStoreType dst = new DataStoreType();
-        dst.setDescription("Data Store for JDBC connector");
-        dst.setName("jdbc");
-        return dst;
-    }
+	public static DataStore createMysqlTestDataStore(DataStoreType dst) {
+		DataStore dsValuApp = new DataStore();
+		dsValuApp.setDataStoreType(dst);
+		dsValuApp.setDriverClass("org.h2.Driver");
+		dsValuApp.setName("test");
+		dsValuApp.setPassword("");
+		dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
+		dsValuApp.setUrl("jdbc:h2:~/test");
+		dsValuApp.setUsername("");
+		return dsValuApp;
+	}
 
-    public static RuleType createDefaultSingularRuleType() {
-        RuleType singularRuleType = new RuleType();
-        singularRuleType.setDescription("regla que aplica para palabras convertir palabras de plural a singular");
-        singularRuleType.setName("singular");
-        return singularRuleType;
-    }
+	public static DataStoreType createDefaultDataStoreType() {
+		DataStoreType dst = new DataStoreType();
+		dst.setDescription("Data Store for JDBC connector");
+		dst.setName("jdbc");
+		return dst;
+	}
 
-    public static RuleType createDefaultPluralRuleType() {
-        RuleType plurarlRuleType = new RuleType();
-        plurarlRuleType.setDescription("regla que aplica para palabras convertir palabras de singular a plural");
-        plurarlRuleType.setName("plural");
-        return plurarlRuleType;
-    }
+	public static RuleType createDefaultSingularRuleType() {
+		RuleType singularRuleType = new RuleType();
+		singularRuleType.setDescription("regla que aplica para palabras convertir palabras de plural a singular");
+		singularRuleType.setName("singular");
+		return singularRuleType;
+	}
 
-    public static Rule createOsRule(RuleType ruleType) {
-        Rule osRule = new Rule();
-        osRule.setExpression("os$");
-        osRule.setReplacement("o");
-        osRule.setRuleType(ruleType);
-        return osRule;
-    }
+	public static RuleType createDefaultPluralRuleType() {
+		RuleType plurarlRuleType = new RuleType();
+		plurarlRuleType.setDescription("regla que aplica para palabras convertir palabras de singular a plural");
+		plurarlRuleType.setName("plural");
+		return plurarlRuleType;
+	}
 
-    public static Rule createEsRule(RuleType ruleType) {
-        Rule esRule = new Rule();
-        esRule.setExpression("es$");
-        esRule.setReplacement("");
-        esRule.setRuleType(ruleType);
-        return esRule;
-    }
+	public static Rule createOsRule(RuleType ruleType) {
+		Rule osRule = new Rule();
+		osRule.setExpression("os$");
+		osRule.setReplacement("o");
+		osRule.setRuleType(ruleType);
+		return osRule;
+	}
+
+	public static Rule createEsRule(RuleType ruleType) {
+		Rule esRule = new Rule();
+		esRule.setExpression("es$");
+		esRule.setReplacement("");
+		esRule.setRuleType(ruleType);
+		return esRule;
+	}
 }

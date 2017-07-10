@@ -13,34 +13,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataStore;
-import mx.infotec.dads.kukulkan.engine.repository.DataStoreRepository;
+import mx.infotec.dads.kukulkan.domain.DataStore;
+import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 
 @RestController
 @RequestMapping(value = "/dataContext")
 public class DataContextController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataContextController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DataContextController.class);
 
-    @Autowired
-    private DataStoreRepository repository;
+	@Autowired
+	private DataStoreRepository repository;
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Table getDataContext(@RequestParam MultiValueMap<String, String> params) {
-        LOGGER.debug("params {}", params);
-        try {
-            DataStore dataStore = repository.findAll().get(0);
-            DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
-            properties.put("type", dataStore.getDataStoreType().getName());
-            properties.put("url", dataStore.getUrl());
-            properties.put("driver-class", dataStore.getDriverClass());
-            properties.put("username", dataStore.getUsername());
-            properties.put("password", dataStore.getPassword());
-            return DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties).getDefaultSchema()
-                    .getTable(0);
-        } catch (Exception e) {
-            LOGGER.error("DataContextError", e);
-        }
-        return null;
-    }
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Table getDataContext(@RequestParam MultiValueMap<String, String> params) {
+		LOGGER.debug("params {}", params);
+		try {
+			DataStore dataStore = repository.findAll().get(0);
+			DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
+			properties.put("type", dataStore.getDataStoreType().getName());
+			properties.put("url", dataStore.getUrl());
+			properties.put("driver-class", dataStore.getDriverClass());
+			properties.put("username", dataStore.getUsername());
+			properties.put("password", dataStore.getPassword());
+			return DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties).getDefaultSchema()
+					.getTable(0);
+		} catch (Exception e) {
+			LOGGER.error("DataContextError", e);
+		}
+		return null;
+	}
 }
