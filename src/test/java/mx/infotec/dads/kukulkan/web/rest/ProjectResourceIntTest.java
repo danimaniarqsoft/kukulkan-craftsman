@@ -27,7 +27,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import mx.infotec.dads.kukulkan.domain.enumeration.DataStor;
+import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
 /**
  * Test class for the ProjectResource REST controller.
@@ -59,8 +59,8 @@ public class ProjectResourceIntTest {
     private static final String DEFAULT_PACKAGING = "AAAAAAAAAA";
     private static final String UPDATED_PACKAGING = "BBBBBBBBBB";
 
-    private static final DataStor DEFAULT_DATA_STOR = DataStor.ONE;
-    private static final DataStor UPDATED_DATA_STOR = DataStor.TWO;
+    private static final DataStore DEFAULT_DATA_STOR = new DataStore();
+    private static final DataStore UPDATED_DATA_STOR = new DataStore();
 
     private static final String DEFAULT_DAO_LAYER_NAME = "AAAAAAAAAA";
     private static final String UPDATED_DAO_LAYER_NAME = "BBBBBBBBBB";
@@ -124,7 +124,7 @@ public class ProjectResourceIntTest {
             .year(DEFAULT_YEAR)
             .groupId(DEFAULT_GROUP_ID)
             .packaging(DEFAULT_PACKAGING)
-            .dataStor(DEFAULT_DATA_STOR)
+            .dataStore(DEFAULT_DATA_STOR)
             .daoLayerName(DEFAULT_DAO_LAYER_NAME)
             .domainLayerName(DEFAULT_DOMAIN_LAYER_NAME)
             .serviceLayerName(DEFAULT_SERVICE_LAYER_NAME)
@@ -161,7 +161,7 @@ public class ProjectResourceIntTest {
         assertThat(testProject.getYear()).isEqualTo(DEFAULT_YEAR);
         assertThat(testProject.getGroupId()).isEqualTo(DEFAULT_GROUP_ID);
         assertThat(testProject.getPackaging()).isEqualTo(DEFAULT_PACKAGING);
-        assertThat(testProject.getDataStor()).isEqualTo(DEFAULT_DATA_STOR);
+        assertThat(testProject.getDataStore()).isEqualTo(DEFAULT_DATA_STOR);
         assertThat(testProject.getDaoLayerName()).isEqualTo(DEFAULT_DAO_LAYER_NAME);
         assertThat(testProject.getDomainLayerName()).isEqualTo(DEFAULT_DOMAIN_LAYER_NAME);
         assertThat(testProject.getServiceLayerName()).isEqualTo(DEFAULT_SERVICE_LAYER_NAME);
@@ -502,7 +502,7 @@ public class ProjectResourceIntTest {
             .year(UPDATED_YEAR)
             .groupId(UPDATED_GROUP_ID)
             .packaging(UPDATED_PACKAGING)
-            .dataStor(UPDATED_DATA_STOR)
+            .dataStore(UPDATED_DATA_STOR)
             .daoLayerName(UPDATED_DAO_LAYER_NAME)
             .domainLayerName(UPDATED_DOMAIN_LAYER_NAME)
             .serviceLayerName(UPDATED_SERVICE_LAYER_NAME)
@@ -526,7 +526,7 @@ public class ProjectResourceIntTest {
         assertThat(testProject.getYear()).isEqualTo(UPDATED_YEAR);
         assertThat(testProject.getGroupId()).isEqualTo(UPDATED_GROUP_ID);
         assertThat(testProject.getPackaging()).isEqualTo(UPDATED_PACKAGING);
-        assertThat(testProject.getDataStor()).isEqualTo(UPDATED_DATA_STOR);
+        assertThat(testProject.getDataStore()).isEqualTo(UPDATED_DATA_STOR);
         assertThat(testProject.getDaoLayerName()).isEqualTo(UPDATED_DAO_LAYER_NAME);
         assertThat(testProject.getDomainLayerName()).isEqualTo(UPDATED_DOMAIN_LAYER_NAME);
         assertThat(testProject.getServiceLayerName()).isEqualTo(UPDATED_SERVICE_LAYER_NAME);

@@ -123,10 +123,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.dataStor" for="field_dataStor">Data Stor</label>
-            <select class="form-control" name="dataStor" ng-model="vm.project.dataStor" id="field_dataStor" required>
-                <option value="ONE" data-translate="kukulkancraftsmanApp.DataStor.ONE">ONE</option>
-                <option value="TWO" data-translate="kukulkancraftsmanApp.DataStor.TWO">TWO</option>
-            </select>
+            <select class="form-control" name="dataStor" ng-model="vm.project.dataStor" ng-options="dataStore.name for dataStore in vm.dataStores" id="field_dataStor" required></select>
             <div ng-show="editForm.dataStor.$invalid">
                 <p class="help-block"
                     ng-show="editForm.dataStor.$error.required" data-translate="entity.validation.required">
