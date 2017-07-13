@@ -24,7 +24,7 @@
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
                 sort: sort()
-            }, onSuccess, onError);            
+            }, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
                 if (vm.predicate !== 'id') {

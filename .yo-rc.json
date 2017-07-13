@@ -1,6 +1,10 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.8",
+    "promptValues": {
+      "packageName": "mx.infotec.dads.kukulkan",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "4.5.2",
     "baseName": "kukulkancraftsman",
     "packageName": "mx.infotec.dads.kukulkan",
     "packageFolder": "mx/infotec/dads/kukulkan",
@@ -17,9 +21,9 @@
     "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSocialSignIn": true,
-    "jwtSecretKey": "9d34ae14da6b30afebaa1494f7486a04862204d0",
+    "jwtSecretKey": "626af5070cd1b71e240eb6e262769b39bbb138b7",
     "clientFramework": "angular1",
-    "useSass": true,
+    "useSass": false,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
     "testFrameworks": [
