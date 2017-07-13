@@ -2,16 +2,15 @@
     'use strict';
     angular
         .module('kukulkancraftsmanApp')
-        .factory('DataStore', DataStore);
+        .factory('Project', Project);
 
-    DataStore.$inject = ['$resource'];
+    Project.$inject = ['$resource'];
 
-    function DataStore ($resource) {
-        var resourceUrl =  'api/data-stores/:id';
+    function Project ($resource) {
+        var resourceUrl =  'api/projects/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
-            'getCatalog': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
