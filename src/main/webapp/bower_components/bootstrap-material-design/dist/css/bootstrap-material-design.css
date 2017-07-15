@@ -1968,7 +1968,7 @@ legend {
 .navbar .navbar-nav > .active > a:hover,
 .navbar .navbar-nav > .active > a:focus {
   color: inherit;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: transparent;
 }
 .navbar .navbar-nav > .disabled > a,
 .navbar .navbar-nav > .disabled > a:hover,
