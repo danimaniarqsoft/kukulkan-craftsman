@@ -49,6 +49,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.author" for="field_author">Author</label>
             <input type="text" class="form-control" name="author" id="field_author"
                     ng-model="vm.project.author"
+                    placeholder="kukulkan"
                     required ng-minlength="3"/>
             <div ng-show="editForm.author.$invalid">
                 <p class="help-block"
@@ -65,6 +66,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.version" for="field_version">Version</label>
             <input type="text" class="form-control" name="version" id="field_version"
                     ng-model="vm.project.version"
+                    placeholder="1.0.0"
                     required ng-minlength="3"/>
             <div ng-show="editForm.version.$invalid">
                 <p class="help-block"
@@ -81,6 +83,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.year" for="field_year">Year</label>
             <input type="text" class="form-control" name="year" id="field_year"
                     ng-model="vm.project.year"
+                    placeholder="2017"
                     required ng-minlength="3" ng-pattern="/^[0-9]+/"/>
             <div ng-show="editForm.year.$invalid">
                 <p class="help-block"
@@ -101,6 +104,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.groupId" for="field_groupId">Group Id</label>
             <input type="text" class="form-control" name="groupId" id="field_groupId"
                     ng-model="vm.project.groupId"
+                    placeholder="mx.infotec.dads"
                     required/>
             <div ng-show="editForm.groupId.$invalid">
                 <p class="help-block"
@@ -113,6 +117,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.packaging" for="field_packaging">Packaging</label>
             <input type="text" class="form-control" name="packaging" id="field_packaging"
                     ng-model="vm.project.packaging"
+                    placeholder="mx.infotec.dads.kukulkan"
                     required/>
             <div ng-show="editForm.packaging.$invalid">
                 <p class="help-block"
@@ -122,11 +127,11 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="kukulkancraftsmanApp.project.dataStor" for="field_dataStor">Data Stor</label>
-            <select class="form-control" name="dataStor" ng-model="vm.project.dataStor" ng-options="dataStore.name for dataStore in vm.dataStores" id="field_dataStor" required></select>
-            <div ng-show="editForm.dataStor.$invalid">
+            <label class="control-label" data-translate="kukulkancraftsmanApp.project.dataStore" for="field_dataStore">Data Stor</label>
+            <select class="form-control" name="dataStore" ng-model="vm.project.dataStore" ng-options="dataStore.name for dataStore in vm.dataStores track by dataStore.id" id="field_dataStore" required></select>
+            <div ng-show="editForm.dataStore.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.dataStor.$error.required" data-translate="entity.validation.required">
+                    ng-show="editForm.dataStore.$error.required" data-translate="entity.validation.required">
                     This field is required.
                 </p>
             </div>
@@ -135,6 +140,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.daoLayerName" for="field_daoLayerName">Dao Layer Name</label>
             <input type="text" class="form-control" name="daoLayerName" id="field_daoLayerName"
                     ng-model="vm.project.daoLayerName"
+                    placeholder="dao"
                     required ng-minlength="3"/>
             <div ng-show="editForm.daoLayerName.$invalid">
                 <p class="help-block"
@@ -151,6 +157,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.domainLayerName" for="field_domainLayerName">Domain Layer Name</label>
             <input type="text" class="form-control" name="domainLayerName" id="field_domainLayerName"
                     ng-model="vm.project.domainLayerName"
+                    placeholder="domain"
                     required ng-minlength="3"/>
             <div ng-show="editForm.domainLayerName.$invalid">
                 <p class="help-block"
@@ -167,6 +174,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.serviceLayerName" for="field_serviceLayerName">Service Layer Name</label>
             <input type="text" class="form-control" name="serviceLayerName" id="field_serviceLayerName"
                     ng-model="vm.project.serviceLayerName"
+                    placeholder="service"
                     required ng-minlength="3"/>
             <div ng-show="editForm.serviceLayerName.$invalid">
                 <p class="help-block"
@@ -183,6 +191,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.exceptionLayerName" for="field_exceptionLayerName">Exception Layer Name</label>
             <input type="text" class="form-control" name="exceptionLayerName" id="field_exceptionLayerName"
                     ng-model="vm.project.exceptionLayerName"
+                    placeholder="mx.infotec.exception"
                     required ng-minlength="3"/>
             <div ng-show="editForm.exceptionLayerName.$invalid">
                 <p class="help-block"
@@ -199,6 +208,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.project.webLayerName" for="field_webLayerName">Web Layer Name</label>
             <input type="text" class="form-control" name="webLayerName" id="field_webLayerName"
                     ng-model="vm.project.webLayerName"
+                    placeholder="mx.infotec.web"
                     required/>
             <div ng-show="editForm.webLayerName.$invalid">
                 <p class="help-block"

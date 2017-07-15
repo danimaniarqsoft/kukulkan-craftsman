@@ -23,8 +23,8 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers;
 
+import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
-import mx.infotec.dads.kukulkan.util.ArchetypeType;
 
 /**
  * LayerTask used for generate a layer task
@@ -36,5 +36,5 @@ public interface LayerTask {
 
     boolean doTask(GeneratorContext context);
 
-    ArchetypeType getArchetypeType();
+    Archetype getArchetype();
 }

@@ -30,8 +30,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
 import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
-import mx.infotec.dads.kukulkan.util.ArchetypeType;
 import mx.infotec.dads.kukulkan.util.DataMapping;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
@@ -44,24 +44,24 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 @Service("defaultLayerTaskFactory")
 public class DefaultLayerTaskFactory implements LayerTaskFactory {
 
-    @Autowired
-    private ApplicationContext appContext;
+	@Autowired
+	private ApplicationContext appContext;
 
-    @Override
-    public List<LayerTask> getLayerTaskSet(ArchetypeType archetypeType) {
-        switch (archetypeType) {
-        case REST_SPRING_JPA:
-            Map<String, LayerTask> taskMap = appContext.getBeansOfType(LayerTask.class);
-            return DataMapping.createLaterTaskList(taskMap, ArchetypeType.REST_SPRING_JPA);
-        case PRIMEFACES_SPRING_MYBATIS:
-            Map<String, LayerTask> taskMapFSM = appContext.getBeansOfType(LayerTask.class);
-            return DataMapping.createLaterTaskList(taskMapFSM, ArchetypeType.PRIMEFACES_SPRING_MYBATIS);
-        case CONACYT:
-            Map<String, LayerTask> taskMapCONACYT= appContext.getBeansOfType(LayerTask.class);
-            return DataMapping.createLaterTaskList(taskMapCONACYT, ArchetypeType.CONACYT);
-        default:
-            throw new ApplicationException("Operation Not Supported" + archetypeType.toString());
-        }
+	@Override
+	public List<LayerTask> getLayerTaskSet(Archetype Archetype) {
+		switch (Archetype) {
+		case REST_SPRING_JPA:
+			Map<String, LayerTask> taskMap = appContext.getBeansOfType(LayerTask.class);
+			return DataMapping.createLaterTaskList(taskMap, Archetype.REST_SPRING_JPA);
+		case PRIMEFACES_SPRING_MYBATIS:
+			Map<String, LayerTask> taskMapFSM = appContext.getBeansOfType(LayerTask.class);
+			return DataMapping.createLaterTaskList(taskMapFSM, Archetype.PRIMEFACES_SPRING_MYBATIS);
+		case CONACYT:
+			Map<String, LayerTask> taskMapCONACYT = appContext.getBeansOfType(LayerTask.class);
+			return DataMapping.createLaterTaskList(taskMapCONACYT, Archetype.CONACYT);
+		default:
+			throw new ApplicationException("Operation Not Supported" + Archetype.toString());
+		}
 
-    }
+	}
 }

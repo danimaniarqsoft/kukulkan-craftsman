@@ -25,8 +25,8 @@ package mx.infotec.dads.kukulkan.engine.service.layers.conacyt;
 
 import javax.annotation.PostConstruct;
 
+import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
 import mx.infotec.dads.kukulkan.engine.service.layers.AbstractLayerTaskVisitor;
-import mx.infotec.dads.kukulkan.util.ArchetypeType;
 
 /**
  * ConacytLayerTaskVisitor, abstract Class
@@ -36,15 +36,15 @@ import mx.infotec.dads.kukulkan.util.ArchetypeType;
  */
 public abstract class ConacytLayerTaskVisitor extends AbstractLayerTaskVisitor {
 
-    protected ArchetypeType archetypeType;
+	protected Archetype archetype;
 
-    @PostConstruct
-    public void initIt() {
-        this.archetypeType = ArchetypeType.CONACYT;
-    }
+	@PostConstruct
+	public void initIt() {
+		this.archetype = Archetype.CONACYT;
+	}
 
-    @Override
-    public ArchetypeType getArchetypeType() {
-        return archetypeType;
-    }
+	@Override
+	public Archetype getArchetype() {
+		return archetype;
+	}
 }

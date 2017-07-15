@@ -46,7 +46,7 @@
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('project');
-                    $translatePartialLoader.addPart('dataStor');
+                    $translatePartialLoader.addPart('dataStore');
                     $translatePartialLoader.addPart('archetype');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
@@ -70,7 +70,7 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('project');
-                    $translatePartialLoader.addPart('dataStor');
+                    $translatePartialLoader.addPart('dataStore');
                     $translatePartialLoader.addPart('archetype');
                     return $translate.refresh();
                 }],
@@ -135,7 +135,7 @@
                                 year: null,
                                 groupId: null,
                                 packaging: null,
-                                dataStor: null,
+                                dataStore: null,
                                 daoLayerName: null,
                                 domainLayerName: null,
                                 serviceLayerName: null,

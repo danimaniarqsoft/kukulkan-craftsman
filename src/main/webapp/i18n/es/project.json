@@ -22,7 +22,7 @@
             "year": "Year",
             "groupId": "Group Id",
             "packaging": "Packaging",
-            "dataStor": "Data Stor",
+            "dataStore": "Data Store",
             "daoLayerName": "Dao Layer Name",
             "domainLayerName": "Domain Layer Name",
             "serviceLayerName": "Service Layer Name",

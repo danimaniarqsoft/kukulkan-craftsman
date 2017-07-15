@@ -108,6 +108,7 @@ public class ProjectResource {
     public ResponseEntity<Project> getProject(@PathVariable String id) {
         log.debug("REST request to get Project : {}", id);
         Project project = projectService.findOne(id);
+        log.info("Proyecto info {}", project.getDataStore().getName());
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(project));
     }
 

@@ -35,6 +35,7 @@ import org.apache.metamodel.schema.Column;
 import org.apache.metamodel.schema.ColumnType;
 import org.apache.metamodel.schema.Table;
 
+import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
@@ -198,10 +199,10 @@ public class DataMapping {
 		return dataModelGroupList;
 	}
 
-	public static List<LayerTask> createLaterTaskList(Map<String, LayerTask> map, ArchetypeType archetype) {
+	public static List<LayerTask> createLaterTaskList(Map<String, LayerTask> map, Archetype archetype) {
 		List<LayerTask> layerTaskList = new ArrayList<>();
 		for (Map.Entry<String, LayerTask> layerTaskEntry : map.entrySet()) {
-			if (layerTaskEntry.getValue().getArchetypeType().equals(archetype)) {
+			if (layerTaskEntry.getValue().getArchetype().equals(archetype)) {
 				layerTaskList.add(layerTaskEntry.getValue());
 			}
 		}

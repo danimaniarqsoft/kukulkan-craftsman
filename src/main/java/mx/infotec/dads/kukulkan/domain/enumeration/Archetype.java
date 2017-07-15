@@ -1,8 +1,11 @@
 package mx.infotec.dads.kukulkan.domain.enumeration;
 
 /**
- * The Archetype enumeration.
+ * ArchetypeType
+ * 
+ * @author Daniel Cortes Pichardo
+ *
  */
 public enum Archetype {
-    REST_SPRING_JPA,PRIMEFACES_SPRING_MYBATIS,CONACYT
+	REST_SPRING_JPA, PRIMEFACES_SPRING_MYBATIS, CONACYT
 }
