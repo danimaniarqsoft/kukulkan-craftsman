@@ -9,6 +9,7 @@
                 "main": "Entidades",
                 "dataStore": "Data Store",
                 "project": "Projecto",
+                "file": "File",
                 "asset": "Activo",
                 "levelOfImplementation": "Nivel de Implementación",
                 "granularity": "Granularidad",
