@@ -8,7 +8,14 @@
             "entities": {
                 "main": "Entidades",
                 "dataStore": "Data Store",
-                "project": "Project",
+                "project": "Projecto",
+                "asset": "Activo",
+                "levelOfImplementation": "Nivel de Implementación",
+                "granularity": "Granularidad",
+                "problemDomain": "Dominio del Problema",
+                "phase": "Fase",
+                "discipline": "Disciplina",
+                "state": "Estado",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

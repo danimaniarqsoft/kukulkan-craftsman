@@ -38,69 +38,69 @@ import mx.infotec.dads.kukulkan.util.EntitiesFactory;
 @Configuration
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
 @EnableMongoRepositories(basePackages = { "mx.infotec.dads.kukulkan.repository",
-		"mx.infotec.dads.kukulkan.engine.repository" })
+        "mx.infotec.dads.kukulkan.engine.repository", "mx.infotec.dads.kukulkan.assets.repository" })
 @Import(value = MongoAutoConfiguration.class)
 @EnableMongoAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class DatabaseConfiguration {
 
-	private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
+    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
-	@Bean
-	CommandLineRunner init(final DataStoreRepository dsRepository, final DataStoreTypeRepository dsTypeRepository,
-			final RuleRepository ruleRepository, final RuleTypeRepository ruleTypeRepository) {
-		return commandLineRunner -> {
-			if (dsRepository.count() == 0) {
-				log.info("DELETE DATABASES");
-				dsRepository.deleteAll();
-				dsTypeRepository.deleteAll();
-				ruleRepository.deleteAll();
-				ruleTypeRepository.deleteAll();
-				DataStoreType dst = EntitiesFactory.createDefaultDataStoreType();
-				dst = dsTypeRepository.save(dst);
-				log.info("dataStore1:" + dst.getId());
-				DataStore dsValuApp = EntitiesFactory.createDefaultDataStore(dst);
-				dsRepository.save(dsValuApp);
-				log.info("dataStore2:", dsValuApp.getId());
-				DataStore testDs = EntitiesFactory.createTestDataStore(dst);
-				dsRepository.save(testDs);
-				log.info("dataStore3:", testDs.getId());
-				DataStore dsConacyt = EntitiesFactory.createConacytDataStore(dst);
-				dsRepository.save(dsConacyt);
-				RuleType singularRuleType = ruleTypeRepository.save(EntitiesFactory.createDefaultSingularRuleType());
-				ruleTypeRepository.save(EntitiesFactory.createDefaultPluralRuleType());
-				ruleRepository.save(EntitiesFactory.createOsRule(singularRuleType));
-				ruleRepository.save(EntitiesFactory.createEsRule(singularRuleType));
-			}
-		};
-	}
+    @Bean
+    CommandLineRunner init(final DataStoreRepository dsRepository, final DataStoreTypeRepository dsTypeRepository,
+            final RuleRepository ruleRepository, final RuleTypeRepository ruleTypeRepository) {
+        return commandLineRunner -> {
+            if (dsRepository.count() == 0) {
+                log.info("DELETE DATABASES");
+                dsRepository.deleteAll();
+                dsTypeRepository.deleteAll();
+                ruleRepository.deleteAll();
+                ruleTypeRepository.deleteAll();
+                DataStoreType dst = EntitiesFactory.createDefaultDataStoreType();
+                dst = dsTypeRepository.save(dst);
+                log.info("dataStore1:" + dst.getId());
+                DataStore dsValuApp = EntitiesFactory.createDefaultDataStore(dst);
+                dsRepository.save(dsValuApp);
+                log.info("dataStore2:", dsValuApp.getId());
+                DataStore testDs = EntitiesFactory.createTestDataStore(dst);
+                dsRepository.save(testDs);
+                log.info("dataStore3:", testDs.getId());
+                DataStore dsConacyt = EntitiesFactory.createConacytDataStore(dst);
+                dsRepository.save(dsConacyt);
+                RuleType singularRuleType = ruleTypeRepository.save(EntitiesFactory.createDefaultSingularRuleType());
+                ruleTypeRepository.save(EntitiesFactory.createDefaultPluralRuleType());
+                ruleRepository.save(EntitiesFactory.createOsRule(singularRuleType));
+                ruleRepository.save(EntitiesFactory.createEsRule(singularRuleType));
+            }
+        };
+    }
 
-	@Bean
-	public ValidatingMongoEventListener validatingMongoEventListener() {
-		return new ValidatingMongoEventListener(validator());
-	}
+    @Bean
+    public ValidatingMongoEventListener validatingMongoEventListener() {
+        return new ValidatingMongoEventListener(validator());
+    }
 
-	@Bean
-	public LocalValidatorFactoryBean validator() {
-		return new LocalValidatorFactoryBean();
-	}
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        return new LocalValidatorFactoryBean();
+    }
 
-	@Bean
-	public CustomConversions customConversions() {
-		List<Converter<?, ?>> converters = new ArrayList<>();
-		converters.add(DateToZonedDateTimeConverter.INSTANCE);
-		converters.add(ZonedDateTimeToDateConverter.INSTANCE);
-		return new CustomConversions(converters);
-	}
+    @Bean
+    public CustomConversions customConversions() {
+        List<Converter<?, ?>> converters = new ArrayList<>();
+        converters.add(DateToZonedDateTimeConverter.INSTANCE);
+        converters.add(ZonedDateTimeToDateConverter.INSTANCE);
+        return new CustomConversions(converters);
+    }
 
-	@Bean
-	public Mongobee mongobee(MongoClient mongoClient, MongoTemplate mongoTemplate, MongoProperties mongoProperties) {
-		log.debug("Configuring Mongobee");
-		Mongobee mongobee = new Mongobee(mongoClient);
-		mongobee.setDbName(mongoProperties.getDatabase());
-		mongobee.setMongoTemplate(mongoTemplate);
-		// package to scan for migrations
-		mongobee.setChangeLogsScanPackage("mx.infotec.dads.kukulkan.config.dbmigrations");
-		mongobee.setEnabled(true);
-		return mongobee;
-	}
+    @Bean
+    public Mongobee mongobee(MongoClient mongoClient, MongoTemplate mongoTemplate, MongoProperties mongoProperties) {
+        log.debug("Configuring Mongobee");
+        Mongobee mongobee = new Mongobee(mongoClient);
+        mongobee.setDbName(mongoProperties.getDatabase());
+        mongobee.setMongoTemplate(mongoTemplate);
+        // package to scan for migrations
+        mongobee.setChangeLogsScanPackage("mx.infotec.dads.kukulkan.config.dbmigrations");
+        mongobee.setEnabled(true);
+        return mongobee;
+    }
 }

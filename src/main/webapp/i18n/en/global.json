@@ -9,6 +9,13 @@
                 "main": "Entities",
                 "dataStore": "Data Store",
                 "project": "Project",
+                "asset": "Asset",
+                "levelOfImplementation": "Level Of Implementation",
+                "granularity": "Granularity",
+                "problemDomain": "Problem Domain",
+                "phase": "Phase",
+                "discipline": "Discipline",
+                "state": "State",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
