@@ -105,6 +105,13 @@ Main page styles
     background-size: contain;
 }
 
+.infographic {
+    display: inline-block;
+    width: 1000px;
+    height: 3240px;
+    background: url("../images/infographic.png") no-repeat center top;
+    ba
+
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
 @media
 only screen and (-webkit-min-device-pixel-ratio: 2),
