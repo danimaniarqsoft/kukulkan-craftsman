@@ -19,9 +19,10 @@ public class File implements Serializable {
     @Id
     private String id;
 
+    @Field("file")
     private byte[] file;
 
-    @Field("jhi_file_content_type")
+    @Field("file_content_type")
     private String fileContentType;
 
     @DBRef

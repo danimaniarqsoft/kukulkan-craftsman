@@ -2,9 +2,11 @@ package mx.infotec.dads.kukulkan.assets.service.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import mx.infotec.dads.kukulkan.assets.domain.Asset;
 import mx.infotec.dads.kukulkan.assets.domain.Discipline;
+import mx.infotec.dads.kukulkan.assets.domain.File;
 import mx.infotec.dads.kukulkan.assets.domain.Granularity;
 import mx.infotec.dads.kukulkan.assets.domain.LevelOfImplementation;
 import mx.infotec.dads.kukulkan.assets.domain.Phase;
@@ -44,6 +46,10 @@ public class AssetMapper {
         to.setState(state);
         to.setUseInstructions(dto.getUseInstructions());
         to.setVersion(dto.getVersion());
+        File file = new File();
+        file.setFile(dto.getFile());
+        file.setFileContentType(dto.getFileContentType());
+        to.setFile(file);
         return to;
     }
 
@@ -72,6 +78,10 @@ public class AssetMapper {
         to.setStateId(entity.getState().getId());
         to.setUseInstructions(entity.getUseInstructions());
         to.setVersion(entity.getVersion());
+        Optional.of(entity.getFile()).ifPresent(file -> {
+            to.setFile(file.getFile());
+            to.setFileContentType(file.getFileContentType());
+        });
         return to;
     }
 

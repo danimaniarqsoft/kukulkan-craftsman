@@ -36,7 +36,7 @@ public class DisciplineMapper {
         to.setDescription(entity.getDescription());
         to.setName(entity.getName());
         to.setOrder(entity.getOrder());
-        return null;
+        return to;
     }
 
     public static List<Discipline> toEntity(List<DisciplineDTO> dtoList) {

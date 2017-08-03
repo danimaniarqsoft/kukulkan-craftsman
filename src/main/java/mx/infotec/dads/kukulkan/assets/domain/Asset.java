@@ -16,257 +16,268 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "assets")
 public class Asset implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	@NotNull
-	@Field("name")
-	private String name;
+    @NotNull
+    @Field("name")
+    private String name;
 
-	@NotNull
-	@Field("author")
-	private String author;
+    @NotNull
+    @Field("author")
+    private String author;
 
-	@NotNull
-	@Field("version")
-	private String version;
+    @NotNull
+    @Field("version")
+    private String version;
 
-	@Field("comments")
-	private String comments;
+    @Field("comments")
+    private String comments;
 
-	@NotNull
-	@Field("problem_description")
-	private String problemDescription;
+    @NotNull
+    @Field("problem_description")
+    private String problemDescription;
 
-	@NotNull
-	@Field("use_instructions")
-	private String useInstructions;
+    @NotNull
+    @Field("use_instructions")
+    private String useInstructions;
 
-	@Field("location")
-	private String location;
+    @Field("location")
+    private String location;
 
-	@DBRef
-	private LevelOfImplementation implementationLevel;
+    @DBRef
+    private LevelOfImplementation implementationLevel;
 
-	@DBRef
-	private Granularity granularity;
+    @DBRef
+    private Granularity granularity;
 
-	@DBRef
-	private ProblemDomain problemDomain;
+    @DBRef
+    private ProblemDomain problemDomain;
 
-	@DBRef
-	private Phase phase;
+    @DBRef
+    private Phase phase;
 
-	@DBRef
-	private Discipline discipline;
+    @DBRef
+    private Discipline discipline;
 
-	@DBRef
-	private State state;
+    @DBRef
+    private File file;
 
-	public String getId() {
-		return id;
-	}
+    @DBRef
+    private State state;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public Asset name(String name) {
-		this.name = name;
-		return this;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Asset name(String name) {
+        this.name = name;
+        return this;
+    }
 
-	public String getAuthor() {
-		return author;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Asset author(String author) {
-		this.author = author;
-		return this;
-	}
+    public String getAuthor() {
+        return author;
+    }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+    public Asset author(String author) {
+        this.author = author;
+        return this;
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-	public Asset version(String version) {
-		this.version = version;
-		return this;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public Asset version(String version) {
+        this.version = version;
+        return this;
+    }
 
-	public String getComments() {
-		return comments;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public Asset comments(String comments) {
-		this.comments = comments;
-		return this;
-	}
+    public String getComments() {
+        return comments;
+    }
 
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
+    public Asset comments(String comments) {
+        this.comments = comments;
+        return this;
+    }
 
-	public String getProblemDescription() {
-		return problemDescription;
-	}
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 
-	public Asset problemDescription(String problemDescription) {
-		this.problemDescription = problemDescription;
-		return this;
-	}
+    public String getProblemDescription() {
+        return problemDescription;
+    }
 
-	public void setProblemDescription(String problemDescription) {
-		this.problemDescription = problemDescription;
-	}
+    public Asset problemDescription(String problemDescription) {
+        this.problemDescription = problemDescription;
+        return this;
+    }
 
-	public String getUseInstructions() {
-		return useInstructions;
-	}
+    public void setProblemDescription(String problemDescription) {
+        this.problemDescription = problemDescription;
+    }
 
-	public Asset useInstructions(String useInstructions) {
-		this.useInstructions = useInstructions;
-		return this;
-	}
+    public String getUseInstructions() {
+        return useInstructions;
+    }
 
-	public void setUseInstructions(String useInstructions) {
-		this.useInstructions = useInstructions;
-	}
+    public Asset useInstructions(String useInstructions) {
+        this.useInstructions = useInstructions;
+        return this;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public void setUseInstructions(String useInstructions) {
+        this.useInstructions = useInstructions;
+    }
 
-	public Asset location(String location) {
-		this.location = location;
-		return this;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public Asset location(String location) {
+        this.location = location;
+        return this;
+    }
 
-	public LevelOfImplementation getImplementationLevel() {
-		return implementationLevel;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public Asset implementationLevel(LevelOfImplementation levelOfImplementation) {
-		this.implementationLevel = levelOfImplementation;
-		return this;
-	}
+    public LevelOfImplementation getImplementationLevel() {
+        return implementationLevel;
+    }
 
-	public void setImplementationLevel(LevelOfImplementation levelOfImplementation) {
-		this.implementationLevel = levelOfImplementation;
-	}
+    public Asset implementationLevel(LevelOfImplementation levelOfImplementation) {
+        this.implementationLevel = levelOfImplementation;
+        return this;
+    }
 
-	public Granularity getGranularity() {
-		return granularity;
-	}
+    public void setImplementationLevel(LevelOfImplementation levelOfImplementation) {
+        this.implementationLevel = levelOfImplementation;
+    }
 
-	public Asset granularity(Granularity granularity) {
-		this.granularity = granularity;
-		return this;
-	}
+    public Granularity getGranularity() {
+        return granularity;
+    }
 
-	public void setGranularity(Granularity granularity) {
-		this.granularity = granularity;
-	}
+    public Asset granularity(Granularity granularity) {
+        this.granularity = granularity;
+        return this;
+    }
 
-	public ProblemDomain getProblemDomain() {
-		return problemDomain;
-	}
+    public void setGranularity(Granularity granularity) {
+        this.granularity = granularity;
+    }
 
-	public Asset problemDomain(ProblemDomain problemDomain) {
-		this.problemDomain = problemDomain;
-		return this;
-	}
+    public ProblemDomain getProblemDomain() {
+        return problemDomain;
+    }
 
-	public void setProblemDomain(ProblemDomain problemDomain) {
-		this.problemDomain = problemDomain;
-	}
+    public Asset problemDomain(ProblemDomain problemDomain) {
+        this.problemDomain = problemDomain;
+        return this;
+    }
 
-	public Phase getPhase() {
-		return phase;
-	}
+    public void setProblemDomain(ProblemDomain problemDomain) {
+        this.problemDomain = problemDomain;
+    }
 
-	public Asset phase(Phase phase) {
-		this.phase = phase;
-		return this;
-	}
+    public Phase getPhase() {
+        return phase;
+    }
 
-	public void setPhase(Phase phase) {
-		this.phase = phase;
-	}
+    public Asset phase(Phase phase) {
+        this.phase = phase;
+        return this;
+    }
 
-	public Discipline getDiscipline() {
-		return discipline;
-	}
+    public void setPhase(Phase phase) {
+        this.phase = phase;
+    }
 
-	public Asset discipline(Discipline discipline) {
-		this.discipline = discipline;
-		return this;
-	}
+    public Discipline getDiscipline() {
+        return discipline;
+    }
 
-	public void setDiscipline(Discipline discipline) {
-		this.discipline = discipline;
-	}
+    public Asset discipline(Discipline discipline) {
+        this.discipline = discipline;
+        return this;
+    }
 
-	public State getState() {
-		return state;
-	}
+    public void setDiscipline(Discipline discipline) {
+        this.discipline = discipline;
+    }
 
-	public Asset state(State state) {
-		this.state = state;
-		return this;
-	}
+    public State getState() {
+        return state;
+    }
 
-	public void setState(State state) {
-		this.state = state;
-	}
+    public Asset state(State state) {
+        this.state = state;
+        return this;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		Asset asset = (Asset) o;
-		if (asset.getId() == null || getId() == null) {
-			return false;
-		}
-		return Objects.equals(getId(), asset.getId());
-	}
+    public void setState(State state) {
+        this.state = state;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(getId());
-	}
+    public File getFile() {
+        return file;
+    }
 
-	@Override
-	public String toString() {
-		return "Asset{" + "id=" + getId() + ", name='" + getName() + "'" + ", author='" + getAuthor() + "'"
-				+ ", version='" + getVersion() + "'" + ", comments='" + getComments() + "'" + ", problemDescription='"
-				+ getProblemDescription() + "'" + ", useInstructions='" + getUseInstructions() + "'" + ", location='"
-				+ getLocation() + "'" + "}";
-	}
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Asset asset = (Asset) o;
+        if (asset.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), asset.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Asset{" + "id=" + getId() + ", name='" + getName() + "'" + ", author='" + getAuthor() + "'"
+                + ", version='" + getVersion() + "'" + ", comments='" + getComments() + "'" + ", problemDescription='"
+                + getProblemDescription() + "'" + ", useInstructions='" + getUseInstructions() + "'" + ", location='"
+                + getLocation() + "'" + "}";
+    }
 }

@@ -43,6 +43,10 @@ public class AssetDTO implements Serializable {
 
     private String stateId;
 
+    private byte[] file;
+
+    private String fileContentType;
+
     public String getId() {
         return id;
     }
@@ -153,6 +157,22 @@ public class AssetDTO implements Serializable {
 
     public void setStateId(String stateId) {
         this.stateId = stateId;
+    }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
+    public String getFileContentType() {
+        return fileContentType;
+    }
+
+    public void setFileContentType(String fileContentType) {
+        this.fileContentType = fileContentType;
     }
 
     @Override
