@@ -186,6 +186,28 @@
 							ng-click="languageVm.changeLanguage(language);vm.collapseNavbar();">{{language
 								| findLanguageFromKey}}</a></li>
 					</ul></li>
+				<li ui-sref-active="active"
+					uib-dropdown dropdown><a
+					class="dropdown-toggle" uib-dropdown-toggle href=""
+					id="reports-menu"> <span> <span
+							class="glyphicon glyphicon-stats"></span> <span
+							class="hidden-sm" data-translate="global.menu.reports.main">
+								Reportes </span> <b class="caret"></b>
+					</span>
+				</a>
+					<ul class="dropdown-menu" uib-dropdown-menu>
+						<li ui-sref-active="active"><a ui-sref="report-operation"
+							ng-click="vm.collapseNavbar()"> <span
+								class="glyphicon glyphicon-stats"></span>&nbsp; <span
+								data-translate="global.menu.reports.operation">Operación</span>
+						</a></li>
+						<li ui-sref-active="active"><a ui-sref="report-infrastructure"
+							ng-click="vm.collapseNavbar()"> <span
+								class="glyphicon glyphicon-stats"></span>&nbsp; <span
+								data-translate="global.menu.reports.infrastructure">Infraestructura</span>
+						</a></li>
+						<!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+					</ul></li>
 			</ul>
 		</div>
 	</div>
