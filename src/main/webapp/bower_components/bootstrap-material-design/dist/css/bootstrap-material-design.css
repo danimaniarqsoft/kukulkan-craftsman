@@ -1480,13 +1480,13 @@ fieldset[disabled] .form-group .form-control {
 }
 .form-group.is-focused .form-control {
   outline: none;
-  background-image: linear-gradient(#212121, #212121), linear-gradient(#D2D2D2, #D2D2D2);
+  background-image: linear-gradient(#4db6ac, #4db6ac), linear-gradient(#D2D2D2, #D2D2D2);
   background-size: 100% 2px, 100% 1px;
   box-shadow: none;
   transition-duration: 0.3s;
 }
 .form-group.is-focused .form-control .material-input:after {
-  background-color: #212121;
+  background-color: #4db6ac;
 }
 .form-group.is-focused label,
 .form-group.is-focused label.control-label {
