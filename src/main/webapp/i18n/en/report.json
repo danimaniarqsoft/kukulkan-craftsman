@@ -15,7 +15,7 @@
             "detail": {
                 "title": "Report"
             },
-            "nombre": "Nombre",
+            "nombre": "Name",
             "briefDescription": "Brief Description",
             "description": "Description",
             "reportType": "Report Type"

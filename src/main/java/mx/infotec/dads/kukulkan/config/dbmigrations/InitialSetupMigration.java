@@ -90,6 +90,20 @@ public class InitialSetupMigration {
 		userUser.setCreatedDate(ZonedDateTime.now());
 		userUser.getAuthorities().add(userAuthority);
 		mongoTemplate.save(userUser);
+		
+		User estrella = new User();
+        estrella.setId("estrella");
+        estrella.setLogin("estrella");
+        estrella.setPassword("$2a$04$avZ5hz1AnCIlBTz6rvLf6.L4v6CH/s9Az8Mr5BSwf2A6asygq2QW2");
+        estrella.setFirstName("Estrella");
+        estrella.setLastName("Rodriguez");
+        estrella.setEmail("estrella.rodriguez@infotec.mx");
+        estrella.setActivated(true);
+        estrella.setLangKey("es");
+        estrella.setCreatedBy(systemUser.getLogin());
+        estrella.setCreatedDate(ZonedDateTime.now());
+        estrella.getAuthorities().add(userAuthority);
+        mongoTemplate.save(estrella);
 	}
 
 }

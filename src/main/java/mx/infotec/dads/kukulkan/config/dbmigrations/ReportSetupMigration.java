@@ -29,7 +29,7 @@ public class ReportSetupMigration {
     @ChangeSet(order = "02", author = "dcp", id = "04-reports")
     public void addReports(MongoTemplate mongoTemplate) {
         Report report = new Report();
-        report.setNombre("Operación Infraestructura DADS");
+        report.setNombre("Operación de Infraestructura de Desarrollo en la DADS");
         report.setBriefDescription("Reporte Semanal de Operación");
         report.setDescription("Reporte Semanal de Operación");
         report.setReportType(ReportType.OPERATIONAL);
