@@ -186,7 +186,8 @@
 							ng-click="languageVm.changeLanguage(language);vm.collapseNavbar();">{{language
 								| findLanguageFromKey}}</a></li>
 					</ul></li>
-				<li ui-sref-active="active" uib-dropdown dropdown><a
+				<li ng-class="{active: vm.$state.includes('report')}" uib-dropdown
+					dropdown ng-switch-when="true" has-authority="ROLE_USER"><a
 					class="dropdown-toggle" uib-dropdown-toggle href=""
 					id="reports-menu"> <span> <span
 							class="glyphicon glyphicon-stats"></span> <span class="hidden-sm"

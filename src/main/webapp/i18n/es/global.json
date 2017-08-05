@@ -6,7 +6,7 @@
 			"home": "Inicio",
 			"jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
 			"entities": {
-				"main": "Entidades",
+				"main": "Generador de Codigo",
 				"dataStore": "Data Store",
 				"project": "Projecto",
 				"file": "File",
