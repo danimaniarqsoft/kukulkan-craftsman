@@ -29,7 +29,8 @@ import io.github.jhipster.domain.util.JSR310DateConverters.ZonedDateTimeToDateCo
 @Configuration
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
 @EnableMongoRepositories(basePackages = { "mx.infotec.dads.kukulkan.repository",
-        "mx.infotec.dads.kukulkan.engine.repository", "mx.infotec.dads.kukulkan.assets.repository" })
+        "mx.infotec.dads.kukulkan.engine.repository", "mx.infotec.dads.kukulkan.assets.repository",
+        "mx.infotec.dads.kukulkan.reports.repository" })
 @Import(value = MongoAutoConfiguration.class)
 @EnableMongoAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class DatabaseConfiguration {

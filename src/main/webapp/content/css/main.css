@@ -383,4 +383,25 @@ Fix error field display
     position: static;
 }
 
+.table > thead > tr > td.report,
+.table > tbody > tr > td.report,
+.table > tfoot > tr > td.report,
+.table > thead > tr > th.report,
+.table > tbody > tr > th.report,
+.table > tfoot > tr > th.report,
+.table > thead > tr.report > td,
+.table > tbody > tr.report > td,
+.table > tfoot > tr.report > td,
+.table > thead > tr.report > th,
+.table > tbody > tr.report > th,
+.table > tfoot > tr.report > th {
+  background-color: #729fcf;
+}
+.table-hover > tbody > tr > td.report:hover,
+.table-hover > tbody > tr > th.report:hover,
+.table-hover > tbody > tr.report:hover > td,
+.table-hover > tbody > tr:hover > .report,
+.table-hover > tbody > tr.report:hover > th {
+  background-color: #729fcf;
+}
 /* jhipster-needle-css-add-main JHipster will add new css style */

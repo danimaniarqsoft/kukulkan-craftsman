@@ -17,6 +17,9 @@
 				"phase": "Phase",
 				"discipline": "Discipline",
 				"state": "State",
+				"report": "Operational Report",
+				"reportElement": "Report Element",
+				"reportIndicator": "Report Indicator",
 				"jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
 			},
 			"reports": {

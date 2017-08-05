@@ -186,27 +186,32 @@
 							ng-click="languageVm.changeLanguage(language);vm.collapseNavbar();">{{language
 								| findLanguageFromKey}}</a></li>
 					</ul></li>
-				<li ui-sref-active="active"
-					uib-dropdown dropdown><a
+				<li ui-sref-active="active" uib-dropdown dropdown><a
 					class="dropdown-toggle" uib-dropdown-toggle href=""
 					id="reports-menu"> <span> <span
-							class="glyphicon glyphicon-stats"></span> <span
-							class="hidden-sm" data-translate="global.menu.reports.main">
-								Reportes </span> <b class="caret"></b>
+							class="glyphicon glyphicon-stats"></span> <span class="hidden-sm"
+							data-translate="global.menu.reports.main"> Reportes </span> <b
+							class="caret"></b>
 					</span>
 				</a>
 					<ul class="dropdown-menu" uib-dropdown-menu>
-						<li ui-sref-active="active"><a ui-sref="report-operation"
+						<li ui-sref-active="active"><a ui-sref="report"
 							ng-click="vm.collapseNavbar()"> <span
 								class="glyphicon glyphicon-stats"></span>&nbsp; <span
-								data-translate="global.menu.reports.operation">Operación</span>
+								data-translate="global.menu.entities.report">Report</span>
 						</a></li>
-						<li ui-sref-active="active"><a ui-sref="report-infrastructure"
+						<li ui-sref-active="active"><a ui-sref="report-element"
 							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-stats"></span>&nbsp; <span
-								data-translate="global.menu.reports.infrastructure">Infraestructura</span>
+								class="glyphicon glyphicon-list-alt"></span>&nbsp; <span
+								data-translate="global.menu.entities.reportElement">Report
+									Element</span>
 						</a></li>
-						<!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+						<li ui-sref-active="active"><a ui-sref="report-indicator"
+							ng-click="vm.collapseNavbar()"> <span
+								class="glyphicon glyphicon-tags"></span>&nbsp; <span
+								data-translate="global.menu.entities.reportIndicator">Report
+									Indicator</span>
+						</a></li>
 					</ul></li>
 			</ul>
 		</div>
