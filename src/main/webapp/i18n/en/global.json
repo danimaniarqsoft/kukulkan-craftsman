@@ -21,8 +21,10 @@
 			},
 			"tools": {
 				"main": "Tools",
+				"generatorTitle":"App Generator",
 				"generator": "Generator",
 				"dataStore": "Data Store",
+				"dataPoolTitle":"Data Pool Generation",
 				"dataPool": "Data Pool"
 			},
 			"assets": {

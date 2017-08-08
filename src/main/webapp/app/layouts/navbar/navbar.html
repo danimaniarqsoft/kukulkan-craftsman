@@ -25,28 +25,32 @@
 					dropdown ng-switch-when="true" has-authority="ROLE_USER"><a
 					class="dropdown-toggle" uib-dropdown-toggle href=""
 					id="reports-menu"> <span> <span
-							class="glyphicon glyphicon-wrench"></span> <span class="hidden-sm"
-							data-translate="global.menu.tools.main"> Tools </span> <b
-							class="caret"></b>
+							class="glyphicon glyphicon-wrench"></span> <span
+							class="hidden-sm" data-translate="global.menu.tools.main">
+								Tools </span> <b class="caret"></b>
 					</span>
 				</a>
 					<ul class="dropdown-menu" uib-dropdown-menu>
-						<li ui-sref-active="active"><a ui-sref="report"
+						<li class="dropdown-header"
+							data-translate="global.menu.tools.generatorTitle">Data
+							generator</li>
+						<li ui-sref-active="active"><a ui-sref="project"
 							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-wrench"></span>&nbsp; <span
-								data-translate="global.menu.tools.generator">Project</span>
+								class="glyphicon glyphicon-cog"></span>&nbsp; <span
+								data-translate="global.menu.tools.generator">Generador</span>
 						</a></li>
-						<li ui-sref-active="active"><a ui-sref="report-element"
+						<li ui-sref-active="active"><a ui-sref="data-store"
 							ng-click="vm.collapseNavbar()"> <span
 								class="glyphicon glyphicon-list-alt"></span>&nbsp; <span
-								data-translate="global.menu.tools.dataStore">Data
-									Store</span>
+								data-translate="global.menu.tools.dataStore">Data Store</span>
 						</a></li>
+						<li class="dropdown-header"
+							data-translate="global.menu.tools.dataPoolTitle">Data Pool
+							Generation</li>
 						<li ui-sref-active="active"><a ui-sref="data-pool"
 							ng-click="vm.collapseNavbar()"> <span
 								class="glyphicon glyphicon-duplicate"></span>&nbsp; <span
-								data-translate="global.menu.tools.dataPool">Data
-									Pool</span>
+								data-translate="global.menu.tools.dataPool">Data Pool</span>
 						</a></li>
 					</ul></li>
 				<!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
@@ -105,17 +109,6 @@
 					</span>
 				</a>
 					<ul class="dropdown-menu" uib-dropdown-menu>
-						<li ui-sref-active="active"><a ui-sref="data-store"
-							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-tasks"></span>&nbsp; <span
-								data-translate="global.menu.entities.dataStore">Data
-									Store</span>
-						</a></li>
-						<li ui-sref-active="active"><a ui-sref="project"
-							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-folder-open"></span>&nbsp; <span
-								data-translate="global.menu.entities.project">Project</span>
-						</a></li>
 						<li ui-sref-active="active"><a ui-sref="file"
 							ng-click="vm.collapseNavbar()"> <span
 								class="glyphicon glyphicon-book"></span>&nbsp; <span

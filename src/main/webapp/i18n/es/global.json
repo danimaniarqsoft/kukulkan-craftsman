@@ -22,8 +22,10 @@
 			},
 			"tools": {
 				"main": "Herramientas",
+				"generatorTitle": "Generador de Aplicaciones",
 				"generator": "Generador",
 				"dataStore": "Conexiones",
+				"dataPoolTitle": "Generador de Datos",
 				"dataPool": "Pool de Datos"
 			},
 			"assets": {
