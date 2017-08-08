@@ -54,9 +54,9 @@
 					dropdown ng-switch-when="true" has-authority="ROLE_USER"><a
 					class="dropdown-toggle" uib-dropdown-toggle href=""
 					id="reports-menu"> <span> <span
-							class="glyphicon glyphicon-retweet"></span> <span class="hidden-sm"
-							data-translate="global.menu.assets.main"> Assets </span> <b
-							class="caret"></b>
+							class="glyphicon glyphicon-retweet"></span> <span
+							class="hidden-sm" data-translate="global.menu.assets.main">
+								Assets </span> <b class="caret"></b>
 					</span>
 				</a>
 					<ul class="dropdown-menu" uib-dropdown-menu>
@@ -226,6 +226,11 @@
 							ng-click="languageVm.changeLanguage(language);vm.collapseNavbar();">{{language
 								| findLanguageFromKey}}</a></li>
 					</ul></li>
+				<li ui-sref-active="active"><a ui-sref="team"
+					ng-click="vm.collapseNavbar()"> <span
+						class="glyphicon glyphicon-heart"></span> <span class="hidden-sm"
+						data-translate="global.menu.team">Team</span>
+				</a></li>
 			</ul>
 		</div>
 	</div>
