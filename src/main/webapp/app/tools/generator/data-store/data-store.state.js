@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('data-store', {
-            parent: 'entity',
+            parent: 'generator',
             url: '/data-store?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
@@ -18,7 +18,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/data-store/data-stores.html',
+                    templateUrl: 'app/tools/generator/data-store/data-stores.html',
                     controller: 'DataStoreController',
                     controllerAs: 'vm'
                 }
@@ -61,7 +61,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/data-store/data-store-detail.html',
+                    templateUrl: 'app/tools/generator/data-store/data-store-detail.html',
                     controller: 'DataStoreDetailController',
                     controllerAs: 'vm'
                 }
@@ -93,7 +93,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/data-store/data-store-dialog.html',
+                    templateUrl: 'app/tools/generator/data-store/data-store-dialog.html',
                     controller: 'DataStoreDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -118,7 +118,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/data-store/data-store-dialog.html',
+                    templateUrl: 'app/tools/generator/data-store/data-store-dialog.html',
                     controller: 'DataStoreDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -151,7 +151,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/data-store/data-store-dialog.html',
+                    templateUrl: 'app/tools/generator/data-store/data-store-dialog.html',
                     controller: 'DataStoreDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -176,7 +176,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/data-store/data-store-delete-dialog.html',
+                    templateUrl: 'app/tools/generator/data-store/data-store-delete-dialog.html',
                     controller: 'DataStoreDeleteController',
                     controllerAs: 'vm',
                     size: 'md',

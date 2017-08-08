@@ -7,7 +7,7 @@
 			"team": "Team",
 			"jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
 			"entities": {
-				"main": "App Generation",
+				"main": "Catalog Management",
 				"dataStore": "Data Store",
 				"project": "Project",
 				"file": "File",
@@ -18,6 +18,12 @@
 				"discipline": "Discipline",
 				"state": "State",
 				"jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+			},
+			"tools": {
+				"main": "Tools",
+				"generator": "Generator",
+				"dataStore": "Data Store",
+				"dataPool": "Data Pool"
 			},
 			"assets": {
 				"main": "Asset",

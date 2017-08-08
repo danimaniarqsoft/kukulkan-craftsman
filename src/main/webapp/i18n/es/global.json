@@ -7,10 +7,10 @@
 			"team": "Equipo",
 			"jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
 			"entities": {
-				"main": "Generador de Codigo",
+				"main": "Admo. de Catálogos",
 				"dataStore": "Data Store",
-				"project": "Projecto",
-				"file": "File",
+				"project": "Proyecto",
+				"file": "Archivo",
 				"asset": "Activo",
 				"levelOfImplementation": "Nivel de Implementación",
 				"granularity": "Granularidad",
@@ -19,6 +19,12 @@
 				"discipline": "Disciplina",
 				"state": "Estado",
 				"jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+			},
+			"tools": {
+				"main": "Herramientas",
+				"generator": "Generador",
+				"dataStore": "Conexiones",
+				"dataPool": "Pool de Datos"
 			},
 			"assets": {
 				"main": "Componentes Reutilizable",
