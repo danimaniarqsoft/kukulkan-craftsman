@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('report', {
-            parent: 'entity',
-            url: '/report?page&sort&search',
+        .state('asset', {
+            parent: 'asset-management',
+            url: '/asset?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'kukulkancraftsmanApp.report.home.title'
+                pageTitle: 'kukulkancraftsmanApp.asset.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/report/reports.html',
-                    controller: 'ReportController',
+                    templateUrl: 'app/asset-management/asset/assets.html',
+                    controller: 'AssetController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,39 +45,37 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('report');
-                    $translatePartialLoader.addPart('reportType');
+                    $translatePartialLoader.addPart('asset');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('report-detail', {
-            parent: 'report',
-            url: '/report/{id}',
+        .state('asset-detail', {
+            parent: 'asset',
+            url: '/asset/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'kukulkancraftsmanApp.report.detail.title'
+                pageTitle: 'kukulkancraftsmanApp.asset.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/report/report-detail.html',
-                    controller: 'ReportDetailController',
+                    templateUrl: 'app/asset-management/asset/asset-detail.html',
+                    controller: 'AssetDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('report');
-                    $translatePartialLoader.addPart('reportType');
+                    $translatePartialLoader.addPart('asset');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Report', function($stateParams, Report) {
-                    return Report.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'Asset', function($stateParams, Asset) {
+                    return Asset.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'report',
+                        name: $state.current.name || 'asset',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -85,22 +83,22 @@
                 }]
             }
         })
-        .state('report-detail.edit', {
-            parent: 'report-detail',
+        .state('asset-detail.edit', {
+            parent: 'asset-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/report/report-dialog.html',
-                    controller: 'ReportDialogController',
+                    templateUrl: 'app/asset-management/asset/asset-dialog.html',
+                    controller: 'AssetDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Report', function(Report) {
-                            return Report.get({id : $stateParams.id}).$promise;
+                        entity: ['Asset', function(Asset) {
+                            return Asset.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -110,81 +108,84 @@
                 });
             }]
         })
-        .state('report.new', {
-            parent: 'report',
+        .state('asset.new', {
+            parent: 'asset',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/report/report-dialog.html',
-                    controller: 'ReportDialogController',
+                    templateUrl: 'app/asset-management/asset/asset-dialog.html',
+                    controller: 'AssetDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                nombre: null,
-                                briefDescription: null,
-                                description: null,
-                                reportType: null,
+                                name: null,
+                                author: null,
+                                version: null,
+                                comments: null,
+                                problemDescription: null,
+                                useInstructions: null,
+                                location: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('report', null, { reload: 'report' });
+                    $state.go('asset', null, { reload: 'asset' });
                 }, function() {
-                    $state.go('report');
+                    $state.go('asset');
                 });
             }]
         })
-        .state('report.edit', {
-            parent: 'report',
+        .state('asset.edit', {
+            parent: 'asset',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/report/report-dialog.html',
-                    controller: 'ReportDialogController',
+                    templateUrl: 'app/asset-management/asset/asset-dialog.html',
+                    controller: 'AssetDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Report', function(Report) {
-                            return Report.get({id : $stateParams.id}).$promise;
+                        entity: ['Asset', function(Asset) {
+                            return Asset.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('report', null, { reload: 'report' });
+                    $state.go('asset', null, { reload: 'asset' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('report.delete', {
-            parent: 'report',
+        .state('asset.delete', {
+            parent: 'asset',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/report/report-delete-dialog.html',
-                    controller: 'ReportDeleteController',
+                    templateUrl: 'app/asset-management/asset/asset-delete-dialog.html',
+                    controller: 'AssetDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Report', function(Report) {
-                            return Report.get({id : $stateParams.id}).$promise;
+                        entity: ['Asset', function(Asset) {
+                            return Asset.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('report', null, { reload: 'report' });
+                    $state.go('asset', null, { reload: 'asset' });
                 }, function() {
                     $state.go('^');
                 });

@@ -22,6 +22,51 @@
 						data-translate="global.menu.home">Home</span>
 				</a></li>
 				<!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+				<li ng-class="{active: vm.$state.includes('report')}" uib-dropdown
+					dropdown ng-switch-when="true" has-authority="ROLE_USER"><a
+					class="dropdown-toggle" uib-dropdown-toggle href=""
+					id="reports-menu"> <span> <span
+							class="glyphicon glyphicon-stats"></span> <span class="hidden-sm"
+							data-translate="global.menu.reports.main"> Reportes </span> <b
+							class="caret"></b>
+					</span>
+				</a>
+					<ul class="dropdown-menu" uib-dropdown-menu>
+						<li ui-sref-active="active"><a ui-sref="report"
+							ng-click="vm.collapseNavbar()"> <span
+								class="glyphicon glyphicon-stats"></span>&nbsp; <span
+								data-translate="global.menu.reports.report">Report</span>
+						</a></li>
+						<li ui-sref-active="active"><a ui-sref="report-element"
+							ng-click="vm.collapseNavbar()"> <span
+								class="glyphicon glyphicon-list-alt"></span>&nbsp; <span
+								data-translate="global.menu.reports.reportElement">Report
+									Element</span>
+						</a></li>
+						<li ui-sref-active="active"><a ui-sref="report-indicator"
+							ng-click="vm.collapseNavbar()"> <span
+								class="glyphicon glyphicon-tags"></span>&nbsp; <span
+								data-translate="global.menu.reports.reportIndicator">Report
+									Indicator</span>
+						</a></li>
+					</ul></li>
+				<li ng-class="{active: vm.$state.includes('asset')}" uib-dropdown
+					dropdown ng-switch-when="true" has-authority="ROLE_USER"><a
+					class="dropdown-toggle" uib-dropdown-toggle href=""
+					id="reports-menu"> <span> <span
+							class="glyphicon glyphicon-retweet"></span> <span class="hidden-sm"
+							data-translate="global.menu.assets.main"> Assets </span> <b
+							class="caret"></b>
+					</span>
+				</a>
+					<ul class="dropdown-menu" uib-dropdown-menu>
+						<li ui-sref-active="active"><a ui-sref="asset"
+							ng-click="vm.collapseNavbar()"> <span
+								class="glyphicon glyphicon-briefcase"></span>&nbsp; <span
+								data-translate="global.menu.assets.asset">Asset</span>
+						</a></li>
+					</ul></li>
+
 				<li ng-class="{active: vm.$state.includes('entity')}"
 					ng-switch-when="true" uib-dropdown dropdown><a
 					class="dropdown-toggle" uib-dropdown-toggle href=""
@@ -45,44 +90,39 @@
 						</a></li>
 						<li ui-sref-active="active"><a ui-sref="file"
 							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-asterisk"></span>&nbsp; <span
+								class="glyphicon glyphicon-book"></span>&nbsp; <span
 								data-translate="global.menu.entities.file">File</span>
-						</a></li>
-						<li ui-sref-active="active"><a ui-sref="asset"
-							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-asterisk"></span>&nbsp; <span
-								data-translate="global.menu.entities.asset">Asset</span>
 						</a></li>
 						<li ui-sref-active="active"><a
 							ui-sref="level-of-implementation" ng-click="vm.collapseNavbar()">
-								<span class="glyphicon glyphicon-asterisk"></span>&nbsp; <span
+								<span class="glyphicon glyphicon-book"></span>&nbsp; <span
 								data-translate="global.menu.entities.levelOfImplementation">Level
 									Of Implementation</span>
 						</a></li>
 						<li ui-sref-active="active"><a ui-sref="granularity"
 							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-asterisk"></span>&nbsp; <span
+								class="glyphicon glyphicon-book"></span>&nbsp; <span
 								data-translate="global.menu.entities.granularity">Granularity</span>
 						</a></li>
 						<li ui-sref-active="active"><a ui-sref="problem-domain"
 							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-asterisk"></span>&nbsp; <span
+								class="glyphicon glyphicon-book"></span>&nbsp; <span
 								data-translate="global.menu.entities.problemDomain">Problem
 									Domain</span>
 						</a></li>
 						<li ui-sref-active="active"><a ui-sref="phase"
 							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-asterisk"></span>&nbsp; <span
+								class="glyphicon glyphicon-book"></span>&nbsp; <span
 								data-translate="global.menu.entities.phase">Phase</span>
 						</a></li>
 						<li ui-sref-active="active"><a ui-sref="discipline"
 							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-asterisk"></span>&nbsp; <span
+								class="glyphicon glyphicon-book"></span>&nbsp; <span
 								data-translate="global.menu.entities.discipline">Discipline</span>
 						</a></li>
 						<li ui-sref-active="active"><a ui-sref="state"
 							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-asterisk"></span>&nbsp; <span
+								class="glyphicon glyphicon-book"></span>&nbsp; <span
 								data-translate="global.menu.entities.state">State</span>
 						</a></li>
 						<!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
@@ -185,34 +225,6 @@
 							ng-repeat="language in languageVm.languages"><a href=""
 							ng-click="languageVm.changeLanguage(language);vm.collapseNavbar();">{{language
 								| findLanguageFromKey}}</a></li>
-					</ul></li>
-				<li ng-class="{active: vm.$state.includes('report')}" uib-dropdown
-					dropdown ng-switch-when="true" has-authority="ROLE_USER"><a
-					class="dropdown-toggle" uib-dropdown-toggle href=""
-					id="reports-menu"> <span> <span
-							class="glyphicon glyphicon-stats"></span> <span class="hidden-sm"
-							data-translate="global.menu.reports.main"> Reportes </span> <b
-							class="caret"></b>
-					</span>
-				</a>
-					<ul class="dropdown-menu" uib-dropdown-menu>
-						<li ui-sref-active="active"><a ui-sref="report"
-							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-stats"></span>&nbsp; <span
-								data-translate="global.menu.entities.report">Report</span>
-						</a></li>
-						<li ui-sref-active="active"><a ui-sref="report-element"
-							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-list-alt"></span>&nbsp; <span
-								data-translate="global.menu.entities.reportElement">Report
-									Element</span>
-						</a></li>
-						<li ui-sref-active="active"><a ui-sref="report-indicator"
-							ng-click="vm.collapseNavbar()"> <span
-								class="glyphicon glyphicon-tags"></span>&nbsp; <span
-								data-translate="global.menu.entities.reportIndicator">Report
-									Indicator</span>
-						</a></li>
 					</ul></li>
 			</ul>
 		</div>

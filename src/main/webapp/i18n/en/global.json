@@ -10,22 +10,25 @@
 				"dataStore": "Data Store",
 				"project": "Project",
 				"file": "File",
-				"asset": "Asset",
 				"levelOfImplementation": "Level Of Implementation",
 				"granularity": "Granularity",
 				"problemDomain": "Problem Domain",
 				"phase": "Phase",
 				"discipline": "Discipline",
 				"state": "State",
-				"report": "Operational Report",
-				"reportElement": "Report Element",
-				"reportIndicator": "Report Indicator",
 				"jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
 			},
+			"assets": {
+				"main": "Asset",
+				"asset": "Asset"
+			},
 			"reports": {
-				"main": "Reports",
-				"operation": "Operation",
-				"infrastructure": "Infrastructure"
+				"main": "Reportes",
+				"report": "Reporte Operacional",
+				"reportElement": "Elementos de Reporte",
+				"reportIndicator": "Indicadores",
+				"operation": "Operación",
+				"infrastructure": "Infraestructura"
 			},
 			"account": {
 				"main": "Account",

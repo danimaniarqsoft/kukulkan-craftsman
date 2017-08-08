@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('report-element', {
-            parent: 'entity',
-            url: '/report-element?page&sort&search',
+        .state('report-indicator', {
+            parent: 'report',
+            url: '/report-indicator?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'kukulkancraftsmanApp.reportElement.home.title'
+                pageTitle: 'kukulkancraftsmanApp.reportIndicator.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/report-element/report-elements.html',
-                    controller: 'ReportElementController',
+                    templateUrl: 'app/reports/report-indicator/report-indicators.html',
+                    controller: 'ReportIndicatorController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,37 +45,37 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('reportElement');
+                    $translatePartialLoader.addPart('reportIndicator');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('report-element-detail', {
-            parent: 'report-element',
-            url: '/report-element/{id}',
+        .state('report-indicator-detail', {
+            parent: 'report-indicator',
+            url: '/report-indicator/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'kukulkancraftsmanApp.reportElement.detail.title'
+                pageTitle: 'kukulkancraftsmanApp.reportIndicator.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/report-element/report-element-detail.html',
-                    controller: 'ReportElementDetailController',
+                    templateUrl: 'app/reports/report-indicator/report-indicator-detail.html',
+                    controller: 'ReportIndicatorDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('reportElement');
+                    $translatePartialLoader.addPart('reportIndicator');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'ReportElement', function($stateParams, ReportElement) {
-                    return ReportElement.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'ReportIndicator', function($stateParams, ReportIndicator) {
+                    return ReportIndicator.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'report-element',
+                        name: $state.current.name || 'report-indicator',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -83,22 +83,22 @@
                 }]
             }
         })
-        .state('report-element-detail.edit', {
-            parent: 'report-element-detail',
+        .state('report-indicator-detail.edit', {
+            parent: 'report-indicator-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/report-element/report-element-dialog.html',
-                    controller: 'ReportElementDialogController',
+                    templateUrl: 'app/reports/report-indicator/report-indicator-dialog.html',
+                    controller: 'ReportIndicatorDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['ReportElement', function(ReportElement) {
-                            return ReportElement.get({id : $stateParams.id}).$promise;
+                        entity: ['ReportIndicator', function(ReportIndicator) {
+                            return ReportIndicator.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -108,16 +108,16 @@
                 });
             }]
         })
-        .state('report-element.new', {
-            parent: 'report-element',
+        .state('report-indicator.new', {
+            parent: 'report-indicator',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/report-element/report-element-dialog.html',
-                    controller: 'ReportElementDialogController',
+                    templateUrl: 'app/reports/report-indicator/report-indicator-dialog.html',
+                    controller: 'ReportIndicatorDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
@@ -125,63 +125,64 @@
                         entity: function () {
                             return {
                                 nombre: null,
+                                briefDescription: null,
                                 description: null,
-                                weight: null,
+                                order: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('report-element', null, { reload: 'report-element' });
+                    $state.go('report-indicator', null, { reload: 'report-indicator' });
                 }, function() {
-                    $state.go('report-element');
+                    $state.go('report-indicator');
                 });
             }]
         })
-        .state('report-element.edit', {
-            parent: 'report-element',
+        .state('report-indicator.edit', {
+            parent: 'report-indicator',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/report-element/report-element-dialog.html',
-                    controller: 'ReportElementDialogController',
+                    templateUrl: 'app/reports/report-indicator/report-indicator-dialog.html',
+                    controller: 'ReportIndicatorDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['ReportElement', function(ReportElement) {
-                            return ReportElement.get({id : $stateParams.id}).$promise;
+                        entity: ['ReportIndicator', function(ReportIndicator) {
+                            return ReportIndicator.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('report-element', null, { reload: 'report-element' });
+                    $state.go('report-indicator', null, { reload: 'report-indicator' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('report-element.delete', {
-            parent: 'report-element',
+        .state('report-indicator.delete', {
+            parent: 'report-indicator',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/report-element/report-element-delete-dialog.html',
-                    controller: 'ReportElementDeleteController',
+                    templateUrl: 'app/reports/report-indicator/report-indicator-delete-dialog.html',
+                    controller: 'ReportIndicatorDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['ReportElement', function(ReportElement) {
-                            return ReportElement.get({id : $stateParams.id}).$promise;
+                        entity: ['ReportIndicator', function(ReportIndicator) {
+                            return ReportIndicator.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('report-element', null, { reload: 'report-element' });
+                    $state.go('report-indicator', null, { reload: 'report-indicator' });
                 }, function() {
                     $state.go('^');
                 });
