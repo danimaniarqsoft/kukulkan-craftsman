@@ -15,6 +15,7 @@
 		vm.previousState = previousState.name;
 		vm.byteSize = DataUtils.byteSize;
 		vm.openFile = DataUtils.openFile;
+		vm.tableFooter = [];
 		vm.searchIndicator = function(indicadorStatus, id) {
 			var i = 0, len = indicadorStatus.length;
 			for (; i < len; i++) {
@@ -25,6 +26,7 @@
 			}
 			return "N/A";
 		}
+
 		var unsubscribe = $rootScope.$on('kukulkancraftsmanApp:reportUpdate',
 				function(event, result) {
 					vm.report = result;

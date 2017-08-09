@@ -40,7 +40,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr bgcolor="#065DA9">
-				    <th><span><font color="#F2F6FA">#</font></span></th>
+					<th><span><font color="#F2F6FA">#</font></span></th>
 					<th><font color="#F2F6FA">Proyecto</font></th>
 					<th
 						ng-repeat="indicator in vm.report.indicators track by indicator.id">
@@ -50,11 +50,16 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="element in vm.report.elements track by element.id">
-				    <td bgcolor="#B9E0F2"><b>{{$index+1}}</b></td>
+					<td bgcolor="#B9E0F2"><b>{{$index+1}}</b></td>
 					<td bgcolor="#D7F0FC"><b>{{element.nombre}}</b></td>
 					<td
-						ng-class="indicatorState.state.name == 'Responsabilidades Asignadas' ? 'active' : (indicatorState.state.name == 'Especificado' ? 'active' : (indicatorState.state.name == 'Implementado' ? 'danger' : (indicatorState.state.name == 'Integrado' ? 'warning' : (indicatorState.state.name == 'Verificado' ? 'info' : (indicatorState.state.name == 'Liberado' ? 'success' : 'active')))))"
-						ng-repeat="indicatorState in element.indicatorStatus">{{indicatorState.state.name}}</td>
+						ng-class="element.indicatorStatus.state.name == 'Responsabilidades Asignadas' ? 'active' : (indicatorState.state.name == 'Especificado' ? 'active' : (indicatorState.state.name == 'Implementado' ? 'danger' : (indicatorState.state.name == 'Integrado' ? 'warning' : (indicatorState.state.name == 'Verificado' ? 'info' : (indicatorState.state.name == 'Liberado' ? 'success' : 'active')))))"
+						ng-repeat="indicator in vm.report.indicators track by indicator.id">{{vm.searchIndicator(element.indicatorStatus,indicator.id)}}</td>
+				</tr>
+				<tr>
+					<td bgcolor="#B9E0F2"><b>TOTAL</b></td>
+					<td bgcolor="#D7F0FC"><b>TOTAL</b></td>
+					<td ng-repeat="valores in vm.tableFooter">{{valores.count}}</td>
 				</tr>
 			</tbody>
 		</table>
