@@ -53,7 +53,19 @@
 					<td bgcolor="#B9E0F2"><b>{{$index+1}}</b></td>
 					<td bgcolor="#D7F0FC"><b>{{element.nombre}}</b></td>
 					<td
-						ng-repeat="indicator in vm.tableFooter[$index]">{{indicator}}</td>
+						ng-class="statusLabel == 'Responsabilidades Asignadas' ? 'active' : (statusLabel == 'Especificado' ? 'active' : (statusLabel == 'Implementado' ? 'danger' : (statusLabel == 'Integrado' ? 'warning' : (statusLabel == 'Verificado' ? 'info' : (statusLabel == 'Liberado' ? 'success' : 'active')))))"
+						ng-repeat="statusLabel in element.statusLabel track by $index">{{statusLabel}}</td>
+				</tr>
+				<tr>
+					<td bgcolor="#B9E0F2"><b></b></td>
+					<td bgcolor="#F78181"><b>Total</b></td>
+					<td bgcolor="#F6D8CE"
+						ng-repeat="totalPercent in vm.report.totalPercent track by $index"><b>{{totalPercent}}</b></td>
+				</tr>
+				<tr>
+					<td bgcolor="#B9E0F2"><b></b></td>
+					<td bgcolor="#F78181"><b>Total Implementado</b></td>
+					<td bgcolor="#F6D8CE"><b>{{vm.report.totalImplemented}}</b></td>
 				</tr>
 			</tbody>
 		</table>

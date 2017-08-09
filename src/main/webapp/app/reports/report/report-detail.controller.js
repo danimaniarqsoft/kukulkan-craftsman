@@ -15,13 +15,9 @@
 		vm.previousState = previousState.name;
 		vm.byteSize = DataUtils.byteSize;
 		vm.openFile = DataUtils.openFile;
-		vm.tableFooter = [];
-		for(var x = 0; x < 100; x++){
-			vm.tableFooter[x] = [];    
-		    for(var y = 0; y < 100; y++){ 
-		    	vm.tableFooter[x][y] = "";    
-		    }    
-		}
+		vm.report.total = new Array(vm.report.indicators.length).fill(0);
+		vm.report.totalPercent= new Array(vm.report.indicators.length).fill(0);
+		vm.report.totalImplemented = 0;
 		computeReport(vm.report);
 		vm.searchIndicator = function(indicadorStatus, id) {
 			var i = 0, len = indicadorStatus.length;
@@ -33,28 +29,33 @@
 			return "N/A";
 		}
 		
-		function computeReport(data){
-			var indicators = data.indicators;
-			var elements = data.elements;
-			console.log("iterate");
-			for (var i = 0; i < indicators.length; i++) {
+		function computeReport(report){
+			var indicators = report.indicators;
+			var elements = report.elements;
+			for (var i = 0; i < elements.length; i++) {
 				var indicatorStatus = elements[i].indicatorStatus;
-				for (var j = 0; i < indicatorStatus.length; i++) {
-					if(indicatorStatus[j].indicator.id==indicators[i].id){
-						vm.tableFooter[i][j] = indicatorStatus[j].state.name;						
+				vm.report.elements[i].statusLabel = [];
+				for(var j = 0; j < indicators.length ; j++){
+					vm.report.elements[i].statusLabel[j] = findStatusInList(indicatorStatus, indicators[j].id);
+					if(vm.report.elements[i].statusLabel[j]==='Liberado'){
+						vm.report.total[j]=vm.report.total[j]+1;
+						vm.report.totalImplemented= vm.report.totalImplemented+1;
 					}
-				}	
+				}
 			}
-			
-			console.log("iterate"+vm.tableFooter.length);
-			for(var i = 0; i < vm.tableFooter.length; i++) {
-			    var cube = vm.tableFooter[i];
-			    for(var j = 0; j < cube.length; j++) {
-			    	console.log("cube[" + i + "][" + j + "] = " + cube[j]);
-			    }
+			vm.report.totalImplemented = Math.floor((vm.report.totalImplemented / (elements.length * vm.report.indicators.length)) * 100)+" %";
+			for (var i = 0; i < vm.report.total.length; i++) {
+				vm.report.totalPercent[i]=Math.floor((vm.report.total[i] / elements.length) * 100)+" %";
 			}
-			console.log("iterate");
-
+		}
+		
+		function findStatusInList(indicatorStatus,indicatorId){
+			for (var i = 0; i < indicatorStatus.length; i++) {
+				if(indicatorStatus[i].indicator.id==indicatorId){
+					return indicatorStatus[i].state.name;						
+				}
+			}
+			return "N/A";
 		}
 
 		var unsubscribe = $rootScope.$on('kukulkancraftsmanApp:reportUpdate',
