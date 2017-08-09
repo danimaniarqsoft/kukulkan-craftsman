@@ -53,13 +53,7 @@
 					<td bgcolor="#B9E0F2"><b>{{$index+1}}</b></td>
 					<td bgcolor="#D7F0FC"><b>{{element.nombre}}</b></td>
 					<td
-						ng-class="element.indicatorStatus.state.name == 'Responsabilidades Asignadas' ? 'active' : (indicatorState.state.name == 'Especificado' ? 'active' : (indicatorState.state.name == 'Implementado' ? 'danger' : (indicatorState.state.name == 'Integrado' ? 'warning' : (indicatorState.state.name == 'Verificado' ? 'info' : (indicatorState.state.name == 'Liberado' ? 'success' : 'active')))))"
-						ng-repeat="indicator in vm.report.indicators track by indicator.id">{{vm.searchIndicator(element.indicatorStatus,indicator.id)}}</td>
-				</tr>
-				<tr>
-					<td bgcolor="#B9E0F2"><b>TOTAL</b></td>
-					<td bgcolor="#D7F0FC"><b>TOTAL</b></td>
-					<td ng-repeat="valores in vm.tableFooter">{{valores.count}}</td>
+						ng-repeat="indicator in vm.tableFooter[$index]">{{indicator}}</td>
 				</tr>
 			</tbody>
 		</table>
