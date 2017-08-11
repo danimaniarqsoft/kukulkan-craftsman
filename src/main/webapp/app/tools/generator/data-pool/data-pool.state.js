@@ -8,7 +8,7 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('generator', {
+        $stateProvider.state('data-pool', {
             abstract: true,
             parent: 'tools'
         });
