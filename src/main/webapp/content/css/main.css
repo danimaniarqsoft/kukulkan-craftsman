@@ -404,4 +404,13 @@ Fix error field display
 .table-hover > tbody > tr.report:hover > th {
   background-color: #729fcf;
 }
+
+.innerbox {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
 /* jhipster-needle-css-add-main JHipster will add new css style */
