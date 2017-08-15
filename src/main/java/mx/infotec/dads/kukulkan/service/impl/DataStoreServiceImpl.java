@@ -114,7 +114,7 @@ public class DataStoreServiceImpl implements DataStoreService {
     }
 
     @Override
-    public DataContext getDataContext(DataStore dataStore) {
+    public DataContext createDataContext(DataStore dataStore) {
         if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_JDBC)) {
             DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
             properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());

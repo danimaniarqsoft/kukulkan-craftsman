@@ -1,3 +1,4 @@
+<#assign aDateTime = .now>
 /*
  *  
  * The MIT License (MIT)
@@ -36,7 +37,7 @@ ${importPrimaryKey}
  * ${name}Service
  * 
  * @author ${author}
- *
+ * @kukulkanGenerated ${aDateTime?iso_utc}
  */
 public interface ${name}Service {
 

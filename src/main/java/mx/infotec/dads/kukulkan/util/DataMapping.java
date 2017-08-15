@@ -30,7 +30,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.metamodel.DataContext;
 import org.apache.metamodel.schema.Column;
 import org.apache.metamodel.schema.ColumnType;
 import org.apache.metamodel.schema.Table;
@@ -63,15 +62,14 @@ public class DataMapping {
      * @param dataContext
      * @return DataModelGroup
      */
-    public static DataModelGroup createDataModelGroup(DataContext dataContext, List<String> tablesToProcess) {
+    public static DataModelGroup createDefaultDataModelGroup(Table[] tables, List<String> excludedTables) {
         DataModelGroup dmg = new DataModelGroup();
         dmg.setName("");
         dmg.setDescription("Default package");
         dmg.setBriefDescription("Default package");
         dmg.setDataModelElements(new ArrayList<>());
-        Table[] tables = dataContext.getDefaultSchema().getTables();
         List<DataModelElement> dmeList = new ArrayList<>();
-        createDataModelElement(tablesToProcess, tables, dmeList);
+        createDataModelElement(excludedTables, tables, dmeList);
         dmg.setDataModelElements(dmeList);
         return dmg;
     }
@@ -192,20 +190,19 @@ public class DataMapping {
      * @param dataContext
      * @return
      */
-    public static List<DataModelGroup> createSingleDataModelGroupList(DataContext dataContext,
-            List<String> tablesToProcess) {
+    public static List<DataModelGroup> createSingleDataModelGroupList(Table[] tables, List<String> excludedTables) {
         List<DataModelGroup> dataModelGroupList = new ArrayList<>();
-        dataModelGroupList.add(createDataModelGroup(dataContext, tablesToProcess));
+        dataModelGroupList.add(createDefaultDataModelGroup(tables, excludedTables));
         return dataModelGroupList;
     }
 
     public static List<LayerTask> createLaterTaskList(Map<String, LayerTask> map, Archetype archetype) {
         List<LayerTask> layerTaskList = new ArrayList<>();
-        for (Map.Entry<String, LayerTask> layerTaskEntry : map.entrySet()) {
+        map.entrySet().forEach(layerTaskEntry -> {
             if (layerTaskEntry.getValue().getArchetype().equals(archetype)) {
                 layerTaskList.add(layerTaskEntry.getValue());
             }
-        }
+        });
         return layerTaskList;
     }
 

@@ -36,42 +36,42 @@ import mx.infotec.dads.kukulkan.domain.DataStore;
  * @author Daniel Cortes Pichardo
  *
  */
-public abstract class DataModelContext {
+public abstract class DataModel {
 
-	protected DataContext dataContext;
-	protected DataStore dataStore;
-	protected Collection<DataModelGroup> dataModelGroup;
+    protected DataContext dataContext;
+    protected DataStore dataStore;
+    protected Collection<DataModelGroup> dataModelGroup;
 
-	public DataModelContext(DataStore dataStore) {
-		this.dataStore = dataStore;
-	}
+    public DataModel(DataStore dataStore) {
+        this.dataStore = dataStore;
+    }
 
-	protected DataModelContext(DataContext dataContext) {
-		this.dataContext = dataContext;
-	}
+    protected DataModel(DataContext dataContext) {
+        this.dataContext = dataContext;
+    }
 
-	public DataContext getDataContext() {
-		return dataContext;
-	}
+    public DataContext getDataContext() {
+        return dataContext;
+    }
 
-	public void setDataContext(DataContext dataContext) {
-		this.dataContext = dataContext;
-	}
+    public void setDataContext(DataContext dataContext) {
+        this.dataContext = dataContext;
+    }
 
-	public DataStore getDataStore() {
-		return dataStore;
-	}
+    public DataStore getDataStore() {
+        return dataStore;
+    }
 
-	public void setDataStore(DataStore dataStore) {
-		this.dataStore = dataStore;
-	}
+    public void setDataStore(DataStore dataStore) {
+        this.dataStore = dataStore;
+    }
 
-	public Collection<DataModelGroup> getDataModelGroup() {
-		return dataModelGroup;
-	}
+    public Collection<DataModelGroup> getDataModelGroup() {
+        return dataModelGroup;
+    }
 
-	public void setDataModelGroup(Collection<DataModelGroup> dataModelGroup) {
-		this.dataModelGroup = dataModelGroup;
-	}
+    public void setDataModelGroup(Collection<DataModelGroup> dataModelGroup) {
+        this.dataModelGroup = dataModelGroup;
+    }
 
 }

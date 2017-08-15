@@ -25,7 +25,7 @@ package mx.infotec.dads.kukulkan.engine.domain.java;
 
 import org.apache.metamodel.DataContext;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 
 /**
  * The JavaDataModelContext is used to represent a DataModel into Java
@@ -34,7 +34,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DataModelContext;
  * @author Daniel Cortes Pichardo
  *
  */
-public class JavaDataModelContext extends DataModelContext {
+public class JavaDataModelContext extends DataModel {
 
     protected JavaDataModelContext(DataContext dataContext) {
         super(dataContext);

@@ -42,7 +42,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaDataModelContext;
@@ -64,53 +64,53 @@ import mx.infotec.dads.kukulkan.util.KukulkanContext;
 @RequestMapping(value = "/generateApplication")
 public class KukulkanRestController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(KukulkanRestController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(KukulkanRestController.class);
 
-	@Autowired
-	private GenerationService generationService;
-	@Autowired
-	private DataStoreService dataStoreService;
-	@Autowired
-	private LayerTaskFactory layerTaskFactory;
+    @Autowired
+    private GenerationService generationService;
+    @Autowired
+    private DataStoreService dataStoreService;
+    @Autowired
+    private LayerTaskFactory layerTaskFactory;
 
-	/**
-	 * CREATE
-	 * 
-	 * @param dataStore
-	 * @param ucBuilder
-	 * @return
-	 */
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> generateApplication(@RequestBody KukulkanContext ctx, UriComponentsBuilder ucBuilder) {
-		// Create DataStore
-		LOGGER.debug("Creating DataStore object");
-		DataStore dataStore = dataStoreService.findById(ctx.getDataStore());
-		// Create DataModel
-		LOGGER.debug("Creating DataModel object");
-		DataModelContext dmCtx = new JavaDataModelContext(dataStore);
-		// Create DataContext
-		LOGGER.debug("Creating DataContext object");
-		DataContext dataContext = dataStoreService.getDataContext(dataStore);
-		dmCtx.setDataContext(dataContext);
-		// Tables to process
-		List<String> tablesToProcess = new ArrayList<>();
-		// Mapping DataContext into DataModel
-		List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(dmCtx.getDataContext(),
-				tablesToProcess);
-		dmCtx.setDataModelGroup(dmgList);
-		// Create GeneratorContext
-		LOGGER.debug("Creating GeneratorContext object");
-		GeneratorContext genCtx = new GeneratorContext(dmCtx, ctx.getPc());
-		// Process Activities
-		LOGGER.debug("Executing generation service");
-		generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(Archetype.REST_SPRING_JPA));
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/{id}").buildAndExpand("generated").toUri());
-		return new ResponseEntity<>(headers, HttpStatus.CREATED);
-	}
+    /**
+     * CREATE
+     * 
+     * @param dataStore
+     * @param ucBuilder
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> generateApplication(@RequestBody KukulkanContext ctx, UriComponentsBuilder ucBuilder) {
+        // Create DataStore
+        LOGGER.debug("Creating DataStore object");
+        DataStore dataStore = dataStoreService.findById(ctx.getDataStore());
+        // Create DataModel
+        LOGGER.debug("Creating DataModel object");
+        DataModel dmCtx = new JavaDataModelContext(dataStore);
+        // Create DataContext
+        LOGGER.debug("Creating DataContext object");
+        DataContext dataContext = dataStoreService.createDataContext(dataStore);
+        dmCtx.setDataContext(dataContext);
+        // Tables to process
+        List<String> tablesToProcess = new ArrayList<>();
+        // Mapping DataContext into DataModel
+        List<DataModelGroup> dmgList = DataMapping
+                .createSingleDataModelGroupList(dmCtx.getDataContext().getDefaultSchema().getTables(), tablesToProcess);
+        dmCtx.setDataModelGroup(dmgList);
+        // Create GeneratorContext
+        LOGGER.debug("Creating GeneratorContext object");
+        GeneratorContext genCtx = new GeneratorContext(dmCtx, ctx.getPc());
+        // Process Activities
+        LOGGER.debug("Executing generation service");
+        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(Archetype.REST_SPRING_JPA));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/{id}").buildAndExpand("generated").toUri());
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
 
-	@RequestMapping(value = "/newContext", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<KukulkanContext> getNewContext() {
-		return new ResponseEntity<>(EntitiesFactory.createDefaultKukulkanContext(), HttpStatus.OK);
-	}
+    @RequestMapping(value = "/newContext", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<KukulkanContext> getNewContext() {
+        return new ResponseEntity<>(EntitiesFactory.createDefaultKukulkanContext(), HttpStatus.OK);
+    }
 }

@@ -31,10 +31,10 @@ import mx.infotec.dads.kukulkan.domain.DataStore;
  * @author Daniel Cortes Pichardo
  *
  */
-public class JavaDataModelContext extends DataModelContext {
+public class JavaDataModelContext extends DataModel {
 
-	public JavaDataModelContext(DataStore dataStore) {
-		super(dataStore);
-	}
+    public JavaDataModelContext(DataStore dataStore) {
+        super(dataStore);
+    }
 
 }

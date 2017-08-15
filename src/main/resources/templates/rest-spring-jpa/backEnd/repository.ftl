@@ -1,3 +1,4 @@
+<#assign aDateTime = .now>
 /*
  *  
  * The MIT License (MIT)
@@ -33,7 +34,7 @@ ${importPrimaryKey}
  * ${name}Repository
  * 
  * @author ${author}
- *
+ * @kukulkanGenerated ${aDateTime?iso_utc}
  */
 public interface ${name}Repository extends JpaRepository<${name}, ${id}> {
 

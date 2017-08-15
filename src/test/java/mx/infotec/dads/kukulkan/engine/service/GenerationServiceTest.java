@@ -26,7 +26,6 @@ package mx.infotec.dads.kukulkan.engine.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.metamodel.DataContext;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +39,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import mx.infotec.dads.kukulkan.KukulkancraftsmanApp;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaDataModelContext;
@@ -111,25 +110,22 @@ public class GenerationServiceTest {
         pConf.setDomainLayerName("model");
         pConf.setGlobalGenerationType(GenerationType.SEQUENCE);
         // Create DataStore
-        // Create DataStore
         DataStore dsExample = new DataStore();
         dsExample.setName("h2-db-test");
         Example<DataStore> dataStoreFilter = Example.of(dsExample);
         List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
         DataStore dataStore = findAllDataStores.get(0);
         // Create DataModel
-        DataModelContext dmCtx = new JavaDataModelContext(dataStore);
-        // Create DataContext
-        DataContext dataContext = dataStoreService.getDataContext(dataStore);
-        dmCtx.setDataContext(dataContext);
+        DataModel dataModel = new JavaDataModelContext(dataStore);
+        dataModel.setDataContext(dataStoreService.createDataContext(dataStore));
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(dmCtx.getDataContext(),
-                tablesToProcess);
-        dmCtx.setDataModelGroup(dmgList);
+        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
+                dataModel.getDataContext().getDefaultSchema().getTables(), tablesToProcess);
+        dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
-        GeneratorContext genCtx = new GeneratorContext(dmCtx, pConf);
+        GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
         // Process Activities
         generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(Archetype.ANGULAR_SPRING));
     }

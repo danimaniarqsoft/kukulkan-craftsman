@@ -26,7 +26,8 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
 import java.util.Collection;
 
 /**
- * The DataModelGroup class
+ * The DataModelGroup class, it is a Group element used to represent a package o
+ * module in a real application.
  * 
  * @author Daniel Cortes Pichardo
  *

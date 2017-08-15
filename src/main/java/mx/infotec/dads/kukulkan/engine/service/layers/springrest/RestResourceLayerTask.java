@@ -48,13 +48,13 @@ import mx.infotec.dads.kukulkan.util.NameConventions;
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("restControllerLayerTask")
-public class RestControllerLayerTask extends SpringRestLayerTaskVisitor {
+@Service("restResourceLayerTask")
+public class RestResourceLayerTask extends SpringRestLayerTaskVisitor {
 
     @Autowired
     private TemplateService templateService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestControllerLayerTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestResourceLayerTask.class);
 
     @Override
     public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
