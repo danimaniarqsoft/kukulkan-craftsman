@@ -47,7 +47,7 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
  */
 @Service("modelLayerTask")
 public class ModelLayerTask extends SpringRestLayerTaskVisitor {
-    
+
     @Autowired
     private TemplateService templateService;
 
@@ -67,10 +67,12 @@ public class ModelLayerTask extends SpringRestLayerTaskVisitor {
             model.put("properties", dmElement.getProperties());
             dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
             model.put("primaryKey", dmElement.getPrimaryKey());
+            if (!dmElement.getMandatoryProperties().isEmpty()) {
+                dmElement.getImports().add("javax.validation.constraints.NotNull");
+            }
             model.put("mandatoryProperties", dmElement.getMandatoryProperties());
             dmElement.getImports().add("javax.persistence.*");
             dmElement.getImports().add("java.io.Serializable");
-            dmElement.getImports().add("java.util.Objects");
             model.put("imports", dmElement.getImports());
             fillModel(pConf, model, dmgName, basePackage, dmElement);
             fillPrimaryKey(pConf, model, dmgName, basePackage, dmElement);

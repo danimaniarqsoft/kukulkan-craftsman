@@ -53,168 +53,168 @@ import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
  */
 public class DataMapping {
 
-	private DataMapping() {
+    private DataMapping() {
 
-	}
+    }
 
-	/**
-	 * Create a DataModelGroup Class
-	 * 
-	 * @param dataContext
-	 * @return DataModelGroup
-	 */
-	public static DataModelGroup createDataModelGroup(DataContext dataContext, List<String> tablesToProcess) {
-		DataModelGroup dmg = new DataModelGroup();
-		dmg.setName("");
-		dmg.setDescription("Default package");
-		dmg.setBriefDescription("Default package");
-		dmg.setDataModelElements(new ArrayList<>());
-		Table[] tables = dataContext.getDefaultSchema().getTables();
-		List<DataModelElement> dmeList = new ArrayList<>();
-		createDataModelElement(tablesToProcess, tables, dmeList);
-		dmg.setDataModelElements(dmeList);
-		return dmg;
-	}
+    /**
+     * Create a DataModelGroup Class
+     * 
+     * @param dataContext
+     * @return DataModelGroup
+     */
+    public static DataModelGroup createDataModelGroup(DataContext dataContext, List<String> tablesToProcess) {
+        DataModelGroup dmg = new DataModelGroup();
+        dmg.setName("");
+        dmg.setDescription("Default package");
+        dmg.setBriefDescription("Default package");
+        dmg.setDataModelElements(new ArrayList<>());
+        Table[] tables = dataContext.getDefaultSchema().getTables();
+        List<DataModelElement> dmeList = new ArrayList<>();
+        createDataModelElement(tablesToProcess, tables, dmeList);
+        dmg.setDataModelElements(dmeList);
+        return dmg;
+    }
 
-	private static void createDataModelElement(List<String> tablesToProcess, Table[] tables,
-			List<DataModelElement> dmeList) {
-		for (Table table : tables) {
-			if ((tablesToProcess.contains(table.getName()) || tablesToProcess.isEmpty())
-					&& hasPrimaryKey(table.getPrimaryKeys())) {
-				DataModelElement dme = DataModelElement.createOrderedDataModel();
-				String singularName = InflectorProcessor.getInstance().singularize(table.getName());
-				dme.setTableName(table.getName());
-				dme.setName(SchemaPropertiesParser.parseToClassName(singularName));
-				dme.setPropertyName(SchemaPropertiesParser.parseToPropertyName(singularName));
-				extractPrimaryKey(dme, singularName, table.getPrimaryKeys());
-				extractProperties(dme, table);
-				dmeList.add(dme);
-			}
-		}
-	}
+    private static void createDataModelElement(List<String> tablesToProcess, Table[] tables,
+            List<DataModelElement> dmeList) {
+        for (Table table : tables) {
+            if ((tablesToProcess.contains(table.getName()) || tablesToProcess.isEmpty())
+                    && hasPrimaryKey(table.getPrimaryKeys())) {
+                DataModelElement dme = DataModelElement.createOrderedDataModel();
+                String singularName = InflectorProcessor.getInstance().singularize(table.getName());
+                dme.setTableName(table.getName());
+                dme.setName(SchemaPropertiesParser.parseToClassName(singularName));
+                dme.setPropertyName(SchemaPropertiesParser.parseToPropertyName(singularName));
+                extractPrimaryKey(dme, singularName, table.getPrimaryKeys());
+                extractProperties(dme, table);
+                dmeList.add(dme);
+            }
+        }
+    }
 
-	public static void extractPrimaryKey(DataModelElement dme, String singularName, Column[] columns) {
-		dme.setPrimaryKey(mapPrimaryKeyElements(singularName, columns));
-		if (!dme.getPrimaryKey().isComposed()) {
-			dme.getImports().add(dme.getPrimaryKey().getQualifiedLabel());
-		}
-	}
+    public static void extractPrimaryKey(DataModelElement dme, String singularName, Column[] columns) {
+        dme.setPrimaryKey(mapPrimaryKeyElements(singularName, columns));
+        if (!dme.getPrimaryKey().isComposed()) {
+            dme.getImports().add(dme.getPrimaryKey().getQualifiedLabel());
+        }
+    }
 
-	public static void extractProperties(DataModelElement dme, Table table) {
-		Column[] columns = table.getColumns();
-		String propertyName = null;
-		String propertyType = null;
-		for (Column column : columns) {
-			if (!column.isPrimaryKey()) {
-				propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
-				propertyType = extractPropertyType(column);
-				PropertyHolder<JavaProperty> javaProperty = JavaProperty.builder().withPropertyName(propertyName)
-						.withPropertyType(propertyType).withColumnName(column.getName())
-						.withColumnType(column.getNativeType()).withQualifiedName(extractQualifiedType(column))
-						.isNullable(column.isNullable()).isPrimaryKey(false).isIndexed(column.isIndexed()).build();
-				dme.addProperty(javaProperty);
-				addImports(dme.getImports(), column.getType());
-				dme.getMandatoryProperties().add(new MandatoryProperty(propertyType, propertyName));
-				if (!column.isNullable()) {
-					dme.setHasNotNullElements(true);
-				}
-			}
-		}
-	}
+    public static void extractProperties(DataModelElement dme, Table table) {
+        Column[] columns = table.getColumns();
+        String propertyName = null;
+        String propertyType = null;
+        for (Column column : columns) {
+            if (!column.isPrimaryKey()) {
+                propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
+                propertyType = extractPropertyType(column);
+                PropertyHolder<JavaProperty> javaProperty = JavaProperty.builder().withPropertyName(propertyName)
+                        .withPropertyType(propertyType).withColumnName(column.getName())
+                        .withColumnType(column.getNativeType()).withQualifiedName(extractQualifiedType(column))
+                        .isNullable(column.isNullable()).isPrimaryKey(false).isIndexed(column.isIndexed()).build();
+                dme.addProperty(javaProperty);
+                addImports(dme.getImports(), column.getType());
+                dme.getMandatoryProperties().add(new MandatoryProperty(propertyType, propertyName));
+                if (!column.isNullable()) {
+                    dme.setHasNotNullElements(true);
+                }
+            }
+        }
+    }
 
-	private static boolean addImports(Collection<String> imports, ColumnType columnType) {
-		String javaType = columnType.getJavaEquivalentClass().getCanonicalName();
-		if (columnType.equals(ColumnType.BLOB) || columnType.equals(ColumnType.CLOB)
-				|| columnType.equals(ColumnType.NCLOB) || javaType.contains(".lang.") || javaType.contains(".Blob.")) {
-			return false;
-		}
-		imports.add(javaType);
-		return true;
-	}
+    private static boolean addImports(Collection<String> imports, ColumnType columnType) {
+        String javaType = columnType.getJavaEquivalentClass().getCanonicalName();
+        if (columnType.equals(ColumnType.BLOB) || columnType.equals(ColumnType.CLOB)
+                || columnType.equals(ColumnType.NCLOB) || javaType.contains(".lang.") || javaType.contains(".Blob.")) {
+            return false;
+        }
+        imports.add(javaType);
+        return true;
+    }
 
-	private static String extractPropertyType(Column column) {
-		String propertyType = column.getType().getJavaEquivalentClass().getSimpleName();
-		if (column.isIndexed() && column.getType().isNumber()) {
-			return "Long";
-		} else if ("Blob".equals(propertyType) || "Clob".equals(propertyType)) {
-			return "byte[]";
-		} else {
-			return propertyType;
-		}
-	}
+    private static String extractPropertyType(Column column) {
+        String propertyType = column.getType().getJavaEquivalentClass().getSimpleName();
+        if (column.isIndexed() && column.getType().isNumber()) {
+            return "Long";
+        } else if ("Blob".equals(propertyType) || "Clob".equals(propertyType)) {
+            return "byte[]";
+        } else {
+            return propertyType;
+        }
+    }
 
-	private static String extractQualifiedType(Column column) {
-		if (column.isIndexed() && column.getType().isNumber()) {
-			return "java.lang.Long";
-		} else {
-			return column.getType().getJavaEquivalentClass().getCanonicalName();
-		}
-	}
+    private static String extractQualifiedType(Column column) {
+        if (column.isIndexed() && column.getType().isNumber()) {
+            return "java.lang.Long";
+        } else {
+            return column.getType().getJavaEquivalentClass().getCanonicalName();
+        }
+    }
 
-	public static boolean hasPrimaryKey(Column[] columns) {
-		return columns.length == 0 ? false : true;
-	}
+    public static boolean hasPrimaryKey(Column[] columns) {
+        return columns.length == 0 ? false : true;
+    }
 
-	public static PrimaryKey mapPrimaryKeyElements(String singularName, Column[] columns) {
-		PrimaryKey pk = PrimaryKey.createOrderedDataModel();
-		// Not found primary key
-		if (columns.length == 0) {
-			return null;
-		}
-		// Simple Primary key
-		if (columns.length == 1) {
-			pk.setType("Long");
-			pk.setName(SchemaPropertiesParser.parseToPropertyName(columns[0].getName()));
-			pk.setQualifiedLabel("java.lang.Long");
-			pk.setComposed(false);
-		} else {
-			// Composed Primary key
-			pk.setType(SchemaPropertiesParser.parseToClassName(singularName) + "PK");
-			pk.setName(SchemaPropertiesParser.parseToPropertyName(singularName) + "PK");
-			pk.setComposed(true);
-			for (Column columnElement : columns) {
-				String propertyName = SchemaPropertiesParser.parseToPropertyName(columnElement.getName());
-				String propertyType = columnElement.getType().getJavaEquivalentClass().getSimpleName();
-				String qualifiedLabel = columnElement.getType().getJavaEquivalentClass().toString();
-				pk.addProperty(JavaProperty.builder().withPropertyName(propertyName).withPropertyType(propertyType)
-						.withColumnName(columnElement.getName()).withColumnType(columnElement.getNativeType())
-						.withQualifiedName(qualifiedLabel).isNullable(columnElement.isNullable()).isPrimaryKey(true)
-						.isIndexed(columnElement.isIndexed()).build());
-			}
-		}
-		return pk;
-	}
+    public static PrimaryKey mapPrimaryKeyElements(String singularName, Column[] columns) {
+        PrimaryKey pk = PrimaryKey.createOrderedDataModel();
+        // Not found primary key
+        if (columns.length == 0) {
+            return null;
+        }
+        // Simple Primary key
+        if (columns.length == 1) {
+            pk.setType("Long");
+            pk.setName(SchemaPropertiesParser.parseToPropertyName(columns[0].getName()));
+            pk.setQualifiedLabel("java.lang.Long");
+            pk.setComposed(false);
+        } else {
+            // Composed Primary key
+            pk.setType(SchemaPropertiesParser.parseToClassName(singularName) + "PK");
+            pk.setName(SchemaPropertiesParser.parseToPropertyName(singularName) + "PK");
+            pk.setComposed(true);
+            for (Column columnElement : columns) {
+                String propertyName = SchemaPropertiesParser.parseToPropertyName(columnElement.getName());
+                String propertyType = columnElement.getType().getJavaEquivalentClass().getSimpleName();
+                String qualifiedLabel = columnElement.getType().getJavaEquivalentClass().toString();
+                pk.addProperty(JavaProperty.builder().withPropertyName(propertyName).withPropertyType(propertyType)
+                        .withColumnName(columnElement.getName()).withColumnType(columnElement.getNativeType())
+                        .withQualifiedName(qualifiedLabel).isNullable(columnElement.isNullable()).isPrimaryKey(true)
+                        .isIndexed(columnElement.isIndexed()).build());
+            }
+        }
+        return pk;
+    }
 
-	/**
-	 * Create a List of DataModelGroup into a single group from a DataContext
-	 * Element
-	 * 
-	 * @param dataContext
-	 * @return
-	 */
-	public static List<DataModelGroup> createSingleDataModelGroupList(DataContext dataContext,
-			List<String> tablesToProcess) {
-		List<DataModelGroup> dataModelGroupList = new ArrayList<>();
-		dataModelGroupList.add(createDataModelGroup(dataContext, tablesToProcess));
-		return dataModelGroupList;
-	}
+    /**
+     * Create a List of DataModelGroup into a single group from a DataContext
+     * Element
+     * 
+     * @param dataContext
+     * @return
+     */
+    public static List<DataModelGroup> createSingleDataModelGroupList(DataContext dataContext,
+            List<String> tablesToProcess) {
+        List<DataModelGroup> dataModelGroupList = new ArrayList<>();
+        dataModelGroupList.add(createDataModelGroup(dataContext, tablesToProcess));
+        return dataModelGroupList;
+    }
 
-	public static List<LayerTask> createLaterTaskList(Map<String, LayerTask> map, Archetype archetype) {
-		List<LayerTask> layerTaskList = new ArrayList<>();
-		for (Map.Entry<String, LayerTask> layerTaskEntry : map.entrySet()) {
-			if (layerTaskEntry.getValue().getArchetype().equals(archetype)) {
-				layerTaskList.add(layerTaskEntry.getValue());
-			}
-		}
-		return layerTaskList;
-	}
+    public static List<LayerTask> createLaterTaskList(Map<String, LayerTask> map, Archetype archetype) {
+        List<LayerTask> layerTaskList = new ArrayList<>();
+        for (Map.Entry<String, LayerTask> layerTaskEntry : map.entrySet()) {
+            if (layerTaskEntry.getValue().getArchetype().equals(archetype)) {
+                layerTaskList.add(layerTaskEntry.getValue());
+            }
+        }
+        return layerTaskList;
+    }
 
-	public void mapCommonProperties(ProjectConfiguration pConf, Map<String, Object> model, DataModelElement dmElement,
-			String basePackage) {
-		model.put("package", formatToPackageStatement(basePackage, pConf.getWebLayerName()));
-		model.put("propertyName", dmElement.getPropertyName());
-		model.put("name", dmElement.getName());
-		model.put("id", "Long");
-	}
+    public void mapCommonProperties(ProjectConfiguration pConf, Map<String, Object> model, DataModelElement dmElement,
+            String basePackage) {
+        model.put("package", formatToPackageStatement(basePackage, pConf.getWebLayerName()));
+        model.put("propertyName", dmElement.getPropertyName());
+        model.put("name", dmElement.getName());
+        model.put("id", "Long");
+    }
 
 }

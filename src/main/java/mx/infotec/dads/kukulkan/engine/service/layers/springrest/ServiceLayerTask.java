@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.NameConventions;
@@ -67,7 +68,8 @@ public class ServiceLayerTask extends SpringRestLayerTaskVisitor {
                     dmElement.getName() + NameConventions.DAO));
             model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
                     dmElement.getName() + NameConventions.SERVICE));
-            templateService.fillModel(pConf.getId(), "rest-spring-jpa/service.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl",
+                    model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/"
                             + dmElement.getName() + NameConventions.SERVICE + ".java");
             templateService.fillModel(pConf.getId(), "rest-spring-jpa/serviceImpl.ftl", model,

@@ -1,21 +1,26 @@
 package mx.infotec.dads.kukulkan.config.dbmigrations;
 
-import java.util.List;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDefaultDataStoreType;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDefaultPluralRuleType;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDefaultSingularRuleType;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDisciplines;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDomains;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createEsRule;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createGranularities;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createLevelOfImplementation;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createOsRule;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createPhases;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createStates;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createTestDataStore;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.github.mongobee.changeset.ChangeLog;
 import com.github.mongobee.changeset.ChangeSet;
 
-import mx.infotec.dads.kukulkan.assets.domain.Discipline;
-import mx.infotec.dads.kukulkan.assets.domain.LevelOfImplementation;
-import mx.infotec.dads.kukulkan.assets.domain.Phase;
-import mx.infotec.dads.kukulkan.assets.domain.ProblemDomain;
-import mx.infotec.dads.kukulkan.assets.domain.State;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
 import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
-import static mx.infotec.dads.kukulkan.util.EntitiesFactory.*;
 
 /**
  * Creates the initial database setup
@@ -24,7 +29,7 @@ import static mx.infotec.dads.kukulkan.util.EntitiesFactory.*;
 public class CatalogSetupMigration {
 
     @ChangeSet(order = "01", author = "dcp", id = "02-kukulkan")
-    public void addAuthorities(MongoTemplate mongoTemplate) {
+    public void addDataStoreType(MongoTemplate mongoTemplate) {
         DataStoreType dst = createDefaultDataStoreType();
         mongoTemplate.save(dst);
         DataStore testDs = createTestDataStore(dst);

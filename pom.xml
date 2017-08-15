@@ -352,6 +352,11 @@
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- Test -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
         <!-- jhipster-needle-maven-add-dependency -->
         <dependency>
 			<groupId>org.springframework.boot</groupId>
