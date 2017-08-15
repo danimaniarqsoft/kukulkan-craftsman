@@ -23,13 +23,14 @@
  */
 ${packageImpl}
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 ${importModel}
 <#if importPrimaryKey??>
 ${importPrimaryKey}
@@ -47,24 +48,22 @@ ${importService}
 @Transactional
 public class ${name}ServiceImpl implements ${name}Service {
 
+    private final Logger log = LoggerFactory.getLogger(${name}ServiceImpl.class);
+
     @Autowired
     private ${name}Repository repository;
 
     @Override
     @Transactional(readOnly = true)
-    public Page<${name}> findAllByPage(Pageable pagable) {
-        return repository.findAll(pagable);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<${name}> findAll() {
-        return repository.findAll();
+    public Page<${name}> findAll(Pageable pageable) {
+        log.debug("Request to get all ${name}");
+        return repository.findAll(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
     public ${name} findById(${id} id) {
+        log.debug("Request to get ${name} : {}", id);
         return repository.findOne(id);
     }
 
@@ -80,11 +79,20 @@ public class ${name}ServiceImpl implements ${name}Service {
 
     @Override
     public void delete(${id} id) {
+        log.debug("Request to delete ${name} : {}", id);
         repository.delete(id);
     }
 
     @Override
     public void deleteAll() {
+        log.debug("Request to delete All ${name}");
         repository.deleteAll();
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Page<${name}> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of ${name} ");
+        return repository.findAll(pageable);
     }
 }

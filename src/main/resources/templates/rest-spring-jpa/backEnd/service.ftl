@@ -23,8 +23,6 @@
  */
 ${package}
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -45,17 +43,9 @@ public interface ${name}Service {
     /**
      * regresa una lista con todos los elementos ${name}
      * 
-     * @return List<${name}>
+     * @return Page<${name}>
      */
-    List<${name}> findAll();
-
-    /**
-     * regresa una lista de elementos ${name} por página
-     * 
-     * @param pagable
-     * @return
-     */
-    Page<${name}> findAllByPage(Pageable pagable);
+    Page<${name}> findAll(Pageable pageable);
 
     /**
      * Consulta un ${name} por su llave primaria
@@ -96,12 +86,12 @@ public interface ${name}Service {
     void deleteAll();
     
     /**
-     * Buscar el for  ${name} correspondiente al query.
+     * Buscar ${name} con el correspondiente al query.
      *
      *  @param query El query de la busqueda
      *  
      *  @param pageable la información de paginación
-     *  @return List de todas las entidades
+     *  @return Page de todas las entidades
      */
     Page<${name}> search(String query, Pageable pageable);
 }

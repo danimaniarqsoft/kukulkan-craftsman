@@ -48,118 +48,118 @@ import mx.infotec.dads.kukulkan.util.Constants;
 @Service
 public class DataStoreServiceImpl implements DataStoreService {
 
-	private final Logger log = LoggerFactory.getLogger(DataStoreServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(DataStoreServiceImpl.class);
 
-	private static final String DATA_STORE_TYPE = "type";
-	private static final String DATA_STORE_URL = "url";
-	private static final String DATA_STORE_DRIVER_CLASS = "driver-class";
-	private static final String DATA_STORE_USERNAME = "username";
-	private static final String DATA_STORE_PASSWORD = "password";
+    private static final String DATA_STORE_TYPE = "type";
+    private static final String DATA_STORE_URL = "url";
+    private static final String DATA_STORE_DRIVER_CLASS = "driver-class";
+    private static final String DATA_STORE_USERNAME = "username";
+    private static final String DATA_STORE_PASSWORD = "password";
 
-	private final DataStoreRepository dataStoreRepository;
+    private final DataStoreRepository dataStoreRepository;
 
-	public DataStoreServiceImpl(DataStoreRepository dataStoreRepository) {
-		this.dataStoreRepository = dataStoreRepository;
-	}
+    public DataStoreServiceImpl(DataStoreRepository dataStoreRepository) {
+        this.dataStoreRepository = dataStoreRepository;
+    }
 
-	/**
-	 * Save a dataStore.
-	 *
-	 * @param dataStore
-	 *            the entity to save
-	 * @return the persisted entity
-	 */
-	@Override
-	public DataStore save(DataStore dataStore) {
-		log.debug("Request to save DataStore : {}", dataStore);
-		return dataStoreRepository.save(dataStore);
-	}
+    /**
+     * Save a dataStore.
+     *
+     * @param dataStore
+     *            the entity to save
+     * @return the persisted entity
+     */
+    @Override
+    public DataStore save(DataStore dataStore) {
+        log.debug("Request to save DataStore : {}", dataStore);
+        return dataStoreRepository.save(dataStore);
+    }
 
-	/**
-	 * Get all the dataStores.
-	 *
-	 * @param pageable
-	 *            the pagination information
-	 * @return the list of entities
-	 */
-	@Override
-	public Page<DataStore> findAll(Pageable pageable) {
-		log.debug("Request to get all DataStores");
-		return dataStoreRepository.findAll(pageable);
-	}
+    /**
+     * Get all the dataStores.
+     *
+     * @param pageable
+     *            the pagination information
+     * @return the list of entities
+     */
+    @Override
+    public Page<DataStore> findAll(Pageable pageable) {
+        log.debug("Request to get all DataStores");
+        return dataStoreRepository.findAll(pageable);
+    }
 
-	/**
-	 * Get one dataStore by id.
-	 *
-	 * @param id
-	 *            the id of the entity
-	 * @return the entity
-	 */
-	@Override
-	public DataStore findOne(String id) {
-		log.debug("Request to get DataStore : {}", id);
-		return dataStoreRepository.findOne(id);
-	}
+    /**
+     * Get one dataStore by id.
+     *
+     * @param id
+     *            the id of the entity
+     * @return the entity
+     */
+    @Override
+    public DataStore findOne(String id) {
+        log.debug("Request to get DataStore : {}", id);
+        return dataStoreRepository.findOne(id);
+    }
 
-	/**
-	 * Delete the dataStore by id.
-	 *
-	 * @param id
-	 *            the id of the entity
-	 */
-	@Override
-	public void delete(String id) {
-		log.debug("Request to delete DataStore : {}", id);
-		dataStoreRepository.delete(id);
-	}
+    /**
+     * Delete the dataStore by id.
+     *
+     * @param id
+     *            the id of the entity
+     */
+    @Override
+    public void delete(String id) {
+        log.debug("Request to delete DataStore : {}", id);
+        dataStoreRepository.delete(id);
+    }
 
-	@Override
-	public DataContext getDataContext(DataStore dataStore) {
-		if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_JDBC)) {
-			DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
-			properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
-			properties.put(DATA_STORE_URL, dataStore.getUrl());
-			properties.put(DATA_STORE_DRIVER_CLASS, dataStore.getDriverClass());
-			properties.put(DATA_STORE_USERNAME, dataStore.getUsername());
-			properties.put(DATA_STORE_PASSWORD, dataStore.getPassword());
-			return DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties);
-		} else if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_CSV)) {
-			DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
-			properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
-			properties.put(DATA_STORE_URL, dataStore.getUrl());
-			return DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties);
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public DataContext getDataContext(DataStore dataStore) {
+        if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_JDBC)) {
+            DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
+            properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
+            properties.put(DATA_STORE_URL, dataStore.getUrl());
+            properties.put(DATA_STORE_DRIVER_CLASS, dataStore.getDriverClass());
+            properties.put(DATA_STORE_USERNAME, dataStore.getUsername());
+            properties.put(DATA_STORE_PASSWORD, dataStore.getPassword());
+            return DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties);
+        } else if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_CSV)) {
+            DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
+            properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
+            properties.put(DATA_STORE_URL, dataStore.getUrl());
+            return DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties);
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public DataStore getDataStore(String id) {
-		return dataStoreRepository.findOne(id);
-	}
+    @Override
+    public DataStore getDataStore(String id) {
+        return dataStoreRepository.findOne(id);
+    }
 
-	@Override
-	public List<DataStore> findAll() {
-		return dataStoreRepository.findAll();
-	}
+    @Override
+    public List<DataStore> findAll() {
+        return dataStoreRepository.findAll();
+    }
 
-	@Override
-	public Page<DataStore> findAllByPage(Pageable pagable) {
-		return dataStoreRepository.findAll(pagable);
-	}
+    @Override
+    public Page<DataStore> findAllByPage(Pageable pagable) {
+        return dataStoreRepository.findAll(pagable);
+    }
 
-	@Override
-	public DataStore findById(String id) {
-		return dataStoreRepository.findOne(id);
-	}
+    @Override
+    public DataStore findById(String id) {
+        return dataStoreRepository.findOne(id);
+    }
 
-	@Override
-	public boolean exists(String id) {
-		return dataStoreRepository.exists(id);
-	}
+    @Override
+    public boolean exists(String id) {
+        return dataStoreRepository.exists(id);
+    }
 
-	@Override
-	public void deleteAll() {
-		dataStoreRepository.deleteAll();
-	}
+    @Override
+    public void deleteAll() {
+        dataStoreRepository.deleteAll();
+    }
 }

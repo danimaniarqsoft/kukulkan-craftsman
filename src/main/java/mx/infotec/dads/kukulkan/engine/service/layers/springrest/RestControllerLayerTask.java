@@ -72,7 +72,7 @@ public class RestControllerLayerTask extends SpringRestLayerTaskVisitor {
             model.put("urlName", dmElement.getPropertyName());
             model.put("primaryKey", dmElement.getPrimaryKey());
             templateService.fillModel(pConf.getId(),
-                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restController.ftl", model,
+                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl", model,
                     BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getWebLayerName() + "/"
                             + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");
