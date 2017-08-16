@@ -3,20 +3,20 @@
 
     angular
         .module('atlasApp')
-        .controller('UsuarioDetailController', UsuarioDetailController);
+        .controller('${name}DetailController', ${name}DetailController);
 
-    UsuarioDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'DataUtils', 'entity', 'Usuario'];
+    ${name}DetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'DataUtils', 'entity', '${name}'];
 
-    function UsuarioDetailController($scope, $rootScope, $stateParams, previousState, DataUtils, entity, Usuario) {
+    function ${name}DetailController($scope, $rootScope, $stateParams, previousState, DataUtils, entity, ${name}) {
         var vm = this;
 
-        vm.usuario = entity;
+        vm.${propertyName} = entity;
         vm.previousState = previousState.name;
         vm.byteSize = DataUtils.byteSize;
         vm.openFile = DataUtils.openFile;
 
-        var unsubscribe = $rootScope.$on('atlasApp:usuarioUpdate', function(event, result) {
-            vm.usuario = result;
+        var unsubscribe = $rootScope.$on('atlasApp:${propertyName}Update', function(event, result) {
+            vm.${propertyName} = result;
         });
         $scope.$on('$destroy', unsubscribe);
     }

@@ -3,12 +3,12 @@
 
     angular
         .module('atlasApp')
-        .factory('UsuarioSearch', UsuarioSearch);
+        .factory('${name}Search', ${name}Search);
 
-    UsuarioSearch.$inject = ['$resource'];
+    ${name}Search.$inject = ['$resource'];
 
-    function UsuarioSearch($resource) {
-        var resourceUrl =  'api/_search/usuarios/:id';
+    function ${name}Search($resource) {
+        var resourceUrl =  'api/_search/${propertyNamePlural}/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true}

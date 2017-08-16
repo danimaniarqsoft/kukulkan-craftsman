@@ -3,11 +3,11 @@
 
     angular
         .module('atlasApp')
-        .controller('UsuarioController', UsuarioController);
+        .controller('${name}Controller', ${name}Controller);
 
-    UsuarioController.$inject = ['$state', 'DataUtils', 'Usuario', 'UsuarioSearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    ${name}Controller.$inject = ['$state', 'DataUtils', '${name}', '${name}Search', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function UsuarioController($state, DataUtils, Usuario, UsuarioSearch, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function ${name}Controller($state, DataUtils, ${name}, ${name}Search, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
 
@@ -28,14 +28,14 @@
 
         function loadAll () {
             if (pagingParams.search) {
-                UsuarioSearch.query({
+                ${name}Search.query({
                     query: pagingParams.search,
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
                 }, onSuccess, onError);
             } else {
-                Usuario.query({
+                ${name}.query({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
@@ -52,7 +52,7 @@
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
                 vm.queryCount = vm.totalItems;
-                vm.usuarios = data;
+                vm.${propertyNamePlural} = data;
                 vm.page = pagingParams.page;
             }
             function onError(error) {

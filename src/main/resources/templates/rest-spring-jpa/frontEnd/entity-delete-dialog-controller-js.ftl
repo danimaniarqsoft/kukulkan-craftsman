@@ -3,14 +3,14 @@
 
     angular
         .module('atlasApp')
-        .controller('UsuarioDeleteController',UsuarioDeleteController);
+        .controller('${name}DeleteController',${name}DeleteController);
 
-    UsuarioDeleteController.$inject = ['$uibModalInstance', 'entity', 'Usuario'];
+    ${name}DeleteController.$inject = ['$uibModalInstance', 'entity', '${name}'];
 
-    function UsuarioDeleteController($uibModalInstance, entity, Usuario) {
+    function ${name}DeleteController($uibModalInstance, entity, ${name}) {
         var vm = this;
 
-        vm.usuario = entity;
+        vm.${name} = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
 
@@ -19,7 +19,7 @@
         }
 
         function confirmDelete (id) {
-            Usuario.delete({id: id},
+            ${name}.delete({id: id},
                 function () {
                     $uibModalInstance.close(true);
                 });
