@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular
-        .module('atlasApp')
+        .module('${projectName}App')
         .factory('Usuario', Usuario);
 
     Usuario.$inject = ['$resource', 'DateUtils'];

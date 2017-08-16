@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasApp')
+        .module('${projectName}App')
         .factory('${name}Search', ${name}Search);
 
     ${name}Search.$inject = ['$resource'];

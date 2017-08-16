@@ -30,7 +30,7 @@ package mx.infotec.dads.kukulkan.util;
  *
  */
 public enum BasePathEnum {
-    SRC_MAIN_JAVA("src/main/java"), SRC_TEST_JAVA("src/test/java");
+    SRC_MAIN_JAVA("src/main/java"), SRC_TEST_JAVA("src/test/java"), WEB_APP_ENTITIES("src/main/webapp/app/entities");
 
     private String path;
 

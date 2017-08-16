@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasApp')
+        .module('${projectName}App')
         .controller('${name}DeleteController',${name}DeleteController);
 
     ${name}DeleteController.$inject = ['$uibModalInstance', 'entity', '${name}'];

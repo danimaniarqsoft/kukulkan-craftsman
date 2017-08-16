@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasApp')
+        .module('${projectName}App')
         .controller('${name}Controller', ${name}Controller);
 
     ${name}Controller.$inject = ['$state', 'DataUtils', '${name}', '${name}Search', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];

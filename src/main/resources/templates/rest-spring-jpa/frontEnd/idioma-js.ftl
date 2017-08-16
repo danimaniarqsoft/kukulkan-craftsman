@@ -1,5 +1,5 @@
 {
-    "atlasApp": {
+    "${projectName}App": {
         "usuario" : {
             "home": {
                 "title": "Usuarios",

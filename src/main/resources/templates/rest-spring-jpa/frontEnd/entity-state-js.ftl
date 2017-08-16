@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasApp')
+        .module('${projectName}App')
         .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];

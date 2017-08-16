@@ -23,9 +23,6 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
 
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToImportStatement;
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
-
 import java.util.Collection;
 import java.util.Map;
 
@@ -36,11 +33,8 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
-import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
-import mx.infotec.dads.kukulkan.util.InflectorProcessor;
-import mx.infotec.dads.kukulkan.util.NameConventions;
 
 /**
  * Service Layer Task
@@ -60,23 +54,25 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
     public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
             Map<String, Object> model, String dmgName) {
         String basePackage = pConf.getPackaging() + dmgName;
-        LOGGER.debug("Base package {}", basePackage);
+        LOGGER.info("AngularLayerTask {}", basePackage);
         for (DataModelElement dmElement : dmElementCollection) {
-            addCommonDataModelElements(pConf, model, basePackage, dmElement);
-            model.put("package", formatToPackageStatement(basePackage, pConf.getWebLayerName()));
-            model.put("importRepository", formatToImportStatement(basePackage, pConf.getDaoLayerName(),
-                    dmElement.getName() + NameConventions.DAO));
-            model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
-                    dmElement.getName() + NameConventions.SERVICE));
-            model.put("propertyNamePlural", InflectorProcessor.getInstance().pluralize(dmElement.getPropertyName()));
-            model.put("urlName", dmElement.getPropertyName());
-            model.put("primaryKey", dmElement.getPrimaryKey());
-            templateService.fillModel(pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl",
-                    model, BasePathEnum.SRC_MAIN_JAVA,
-                    basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getWebLayerName() + "/"
-                            + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");
-
+            model.put("propertyName", dmElement.getPropertyName());
+            model.put("name", dmElement.getName());
+            model.put("id", dmElement.getPrimaryKey().getType());
+            model.put("properties", dmElement.getProperties());
+            model.put("projectName", pConf.getId());
+            model.put("entityHyphenNotation", dmElement.getPropertyName());
+            dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
+            fillEntityDetailHtml(pConf, model, dmgName, basePackage, dmElement);
         }
     }
 
+    // rest-spring-jpa/frontEnd/entity-detail-html.ftls
+    private void fillEntityDetailHtml(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", basePackage);
+
+        templateService.fillModel(pConf.getId(), "rest-spring-jpa/frontEnd/entity-detail-html.ftl", model,
+                BasePathEnum.WEB_APP_ENTITIES, dmElement.getPropertyName() + "-detail" + ".html");
+    }
 }

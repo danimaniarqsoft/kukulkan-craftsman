@@ -64,7 +64,6 @@ public class TemplateServiceImpl implements TemplateService {
         try {
             template = fmConfiguration.getTemplate(templateName);
             File file = new File(prop.getOutputdir() + proyectoId + "/" + path.getPath() + "/" + filePath);
-            LOGGER.info("Generating in: {}", file.getAbsolutePath());
             if (!file.exists()) {
                 File parent = file.getParentFile();
                 if (!parent.exists() && !parent.mkdirs()) {
@@ -72,6 +71,7 @@ public class TemplateServiceImpl implements TemplateService {
                 }
                 file.createNewFile();
             }
+            LOGGER.info("Generating in: {}", file.getAbsolutePath());
             Writer fileWriter = new FileWriter(file);
             template.process(model, fileWriter);
         } catch (IOException | TemplateException e) {

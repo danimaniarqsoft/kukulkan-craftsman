@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('atlasApp')
+        .module('${projectName}App')
         .controller('UsuarioDialogController', UsuarioDialogController);
 
     UsuarioDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'Usuario'];
