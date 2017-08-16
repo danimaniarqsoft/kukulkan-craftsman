@@ -18,6 +18,13 @@
 		vm.report.total = new Array(vm.report.indicators.length).fill(0);
 		vm.report.totalPercent= new Array(vm.report.indicators.length).fill(0);
 		vm.report.totalImplemented = 0;
+		vm.code ='public class Entity{}';
+		vm.editorOptions = {
+				lineWrapping : true,
+				lineNumbers: true,
+				matchBrackets: true,
+				mode: 'text/x-java',
+			};
 		computeReport(vm.report);
 		vm.searchIndicator = function(indicadorStatus, id) {
 			var i = 0, len = indicadorStatus.length;

@@ -17,6 +17,7 @@
             'ui.router',
             'infinite-scroll',
             'chart.js',
+            'ui.codemirror',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar'
         ])
