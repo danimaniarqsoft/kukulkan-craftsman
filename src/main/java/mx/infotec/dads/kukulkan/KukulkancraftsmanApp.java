@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import io.github.jhipster.config.JHipsterConstants;
 import mx.infotec.dads.kukulkan.config.ApplicationProperties;
@@ -24,6 +25,7 @@ import mx.infotec.dads.kukulkan.config.DefaultProfileUtil;
 @ComponentScan
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
 @EnableConfigurationProperties({ApplicationProperties.class})
+@EnableMongoRepositories
 public class KukulkancraftsmanApp {
 
     private static final Logger log = LoggerFactory.getLogger(KukulkancraftsmanApp.class);
