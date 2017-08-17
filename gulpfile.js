@@ -97,7 +97,8 @@ gulp.task('ngconstant:dev', function () {
         name: 'kukulkancraftsmanApp',
         constants: {
             VERSION: util.parseVersion(),
-            DEBUG_INFO_ENABLED: true
+            DEBUG_INFO_ENABLED: true,
+            URL_DSL_MODELER: 'http://200.38.177.199/dsl-core'
         },
         template: config.constantTemplate,
         stream: true
@@ -111,7 +112,8 @@ gulp.task('ngconstant:prod', function () {
         name: 'kukulkancraftsmanApp',
         constants: {
             VERSION: util.parseVersion(),
-            DEBUG_INFO_ENABLED: false
+            DEBUG_INFO_ENABLED: false,
+            URL_DSL_MODELER: 'http://localhost:3000/'
         },
         template: config.constantTemplate,
         stream: true

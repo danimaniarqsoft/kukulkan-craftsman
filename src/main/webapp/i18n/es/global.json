@@ -22,6 +22,7 @@
 			},
 			"tools": {
 				"main": "Herramientas",
+				"dslModelerTitle": "DSL - Kukulkan",
 				"generatorTitle": "Generador de Aplicaciones",
 				"generator": "Generador",
 				"dataStore": "Conexiones",
