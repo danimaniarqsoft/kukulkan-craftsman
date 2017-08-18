@@ -45,17 +45,17 @@ public class GeneratorContext {
     /**
      * The DataModelContext of the MetaModel
      */
-    private DataModelContext dataModelContext;
+    private DataModel dataModel;
 
-    public GeneratorContext(DataModelContext dataModelContext, ProjectConfiguration projectConfiguration) {
-        this.dataModelContext = dataModelContext;
+    public GeneratorContext(DataModel dataModel, ProjectConfiguration projectConfiguration) {
+        this.dataModel = dataModel;
         this.setProjectConfiguration(projectConfiguration);
     }
 
-    public DataModelContext getDataModelContext() {
-        return dataModelContext;
+    public DataModel getDataModel() {
+        return dataModel;
     }
-    
+
     public ProjectConfiguration getProjectConfiguration() {
         return projectConfiguration;
     }

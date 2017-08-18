@@ -5,5 +5,6 @@
         .module('kukulkancraftsmanApp')
         .constant('VERSION', "0.0.1-SNAPSHOT")
         .constant('DEBUG_INFO_ENABLED', true)
+        .constant('URL_DSL_MODELER', "http://200.38.177.199/dsl-core")
 ;
 })();

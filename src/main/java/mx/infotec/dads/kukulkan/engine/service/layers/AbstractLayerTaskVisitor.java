@@ -43,14 +43,16 @@ import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 public abstract class AbstractLayerTaskVisitor implements LayerTask {
 
     @Override
-    public boolean doTask(GeneratorContext context) {
+    public void doTask(GeneratorContext context) {
+        Map<String, Object> model = createGeneralDescription(context);
+        doForEachDataModelGroup(context.getProjectConfiguration(), context.getDataModel().getDataModelGroup(), model);
+    }
+
+    private Map<String, Object> createGeneralDescription(GeneratorContext context) {
         Map<String, Object> model = new HashMap<>();
         model.put("year", context.getProjectConfiguration().getYear());
         model.put("author", context.getProjectConfiguration().getAuthor());
-        ProjectConfiguration pConfiguration = context.getProjectConfiguration();
-        Collection<DataModelGroup> dataModelGroup = context.getDataModelContext().getDataModelGroup();
-        doForEachDataModelGroup(pConfiguration, dataModelGroup, model);
-        return true;
+        return model;
     }
 
     public void doForEachDataModelGroup(ProjectConfiguration pConf, Collection<DataModelGroup> dmGroup,

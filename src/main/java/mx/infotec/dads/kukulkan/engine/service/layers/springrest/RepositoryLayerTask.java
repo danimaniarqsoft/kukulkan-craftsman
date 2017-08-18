@@ -35,6 +35,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.NameConventions;
@@ -61,8 +62,8 @@ public class RepositoryLayerTask extends SpringRestLayerTaskVisitor {
         for (DataModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
             model.put("package", formatToPackageStatement(basePackage, pConf.getDaoLayerName()));
-            templateService.fillModel(pConf.getId(), "rest-spring-jpa/repository.ftl", model,
-                    BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
+            templateService.fillModel(pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/repository.ftl",
+                    model, BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
                             + pConf.getDaoLayerName() + "/" + dmElement.getName() + NameConventions.DAO + ".java");
         }
     }

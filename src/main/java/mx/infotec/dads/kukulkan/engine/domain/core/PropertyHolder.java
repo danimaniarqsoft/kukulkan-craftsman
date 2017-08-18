@@ -27,7 +27,8 @@ import java.util.Collection;
 
 /**
  * 
- * PropertyHolder Class that is used for hold the properties of a table
+ * PropertyHolder Class that is used for hold the properties of a table and
+ * properties representations in the Object domain.
  * 
  * @author Daniel Cortes Pichardo
  * @param <T>

@@ -88,5 +88,7 @@ jhipster:
 # More documentation is available at:
 # https://jhipster.github.io/common-application-properties/
 # ===================================================================
-
+kukulkan:
+  outputdir: /home/daniel/git/
+  
 application:

@@ -34,7 +34,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
  */
 public interface LayerTask {
 
-    boolean doTask(GeneratorContext context);
+    void doTask(GeneratorContext context);
 
     Archetype getArchetype();
 }

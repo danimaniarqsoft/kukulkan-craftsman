@@ -6,16 +6,17 @@
         .factory('stateHandler', stateHandler);
 
     stateHandler.$inject = ['$rootScope', '$state', '$sessionStorage', '$translate', 'JhiLanguageService', 'translationHandler', '$window',
-        'Auth', 'Principal', 'VERSION'];
+        'Auth', 'Principal', 'VERSION', 'URL_DSL_MODELER'];
 
     function stateHandler($rootScope, $state, $sessionStorage, $translate, JhiLanguageService, translationHandler, $window,
-        Auth, Principal, VERSION) {
+        Auth, Principal, VERSION, URL_DSL_MODELER) {
         return {
             initialize: initialize
         };
 
         function initialize() {
             $rootScope.VERSION = VERSION;
+            $rootScope.URL_DSL_MODELER = URL_DSL_MODELER;
 
             var stateChangeStart = $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams, fromState) {
                 $rootScope.toState = toState;
