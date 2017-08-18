@@ -18,6 +18,8 @@
             'infinite-scroll',
             'chart.js',
             'ui.codemirror',
+            'ngCsv',
+            'papa-promise',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar'
         ])

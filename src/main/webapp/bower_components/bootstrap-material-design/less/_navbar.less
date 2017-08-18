@@ -2,7 +2,6 @@
   background-color: @brand-primary;
   border: 0;
   border-radius: 0;
-  margin-bottom: 0px !important;
 
   .navbar-brand {
     position: relative;
@@ -35,11 +34,11 @@
       }
     }
     > .active > a {
-      &,  
+      &,
       &:hover,
       &:focus {
         color: inherit;
-        background-color: transparent;
+        background-color: rgba(255, 255, 255, 0.1);
       }
     }
     > .disabled > a {
@@ -203,17 +202,17 @@
         padding: 13px 16px;
         &:hover,
         &:focus {
-          color: @white;
-          background-color: @teal-300;
+          color: @variation-color;
+          background-color: @grey-200;
         }
       }
       .active > a {
         &:hover,
         &:focus {
-          color: @white;
+          color: @variation-color-text;
         }
-        background-color: @teal-300;
-        color: @white;
+        background-color: @variation-color;
+        color: @variation-color-text;
       }
     }
   });

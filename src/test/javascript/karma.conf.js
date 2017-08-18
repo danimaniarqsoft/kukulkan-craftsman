@@ -31,6 +31,7 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/codemirror/lib/codemirror.js',
             'src/main/webapp/bower_components/codemirror/mode/clike/clike.js',
             'src/main/webapp/bower_components/chart.js/dist/Chart.js',
+            'src/main/webapp/bower_components/papaparse/papaparse.js',
             'src/main/webapp/bower_components/angular/angular.js',
             'src/main/webapp/bower_components/angular-aria/angular-aria.js',
             'src/main/webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
@@ -53,6 +54,8 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/bootstrap-material-design/dist/js/ripples.js',
             'src/main/webapp/bower_components/angular-ui-codemirror/ui-codemirror.js',
             'src/main/webapp/bower_components/angular-chart.js/dist/angular-chart.js',
+            'src/main/webapp/bower_components/angular-papa-promise/dist/angular-papa-promise.js',
+            'src/main/webapp/bower_components/ng-csv/build/ng-csv.min.js',
             'src/main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'src/main/webapp/app/app.module.js',
