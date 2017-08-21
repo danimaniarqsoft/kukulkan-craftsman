@@ -100,23 +100,41 @@ public class DataMapping {
 
     public static void extractProperties(DataModelElement dme, Table table) {
         Column[] columns = table.getColumns();
-        String propertyName = null;
-        String propertyType = null;
         for (Column column : columns) {
             if (!column.isPrimaryKey()) {
-                propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
-                propertyType = extractPropertyType(column);
-                PropertyHolder<JavaProperty> javaProperty = JavaProperty.builder().withPropertyName(propertyName)
-                        .withPropertyType(propertyType).withColumnName(column.getName())
-                        .withColumnType(column.getNativeType()).withQualifiedName(extractQualifiedType(column))
-                        .isNullable(column.isNullable()).isPrimaryKey(false).isIndexed(column.isIndexed()).build();
-                dme.addProperty(javaProperty);
-                addImports(dme.getImports(), column.getType());
-                dme.getMandatoryProperties().add(new MandatoryProperty(propertyType, propertyName));
-                if (!column.isNullable()) {
-                    dme.setHasNotNullElements(true);
-                }
+                processNotPrimaryProperties(dme, column);
             }
+        }
+    }
+
+    private static void processNotPrimaryProperties(DataModelElement dme, Column column) {
+        String propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
+        String propertyType = extractPropertyType(column);
+        PropertyHolder<JavaProperty> javaProperty = JavaProperty.builder().withPropertyName(propertyName)
+                .withPropertyType(propertyType)
+                .withColumnName(column.getName())
+                .withColumnType(column.getNativeType())
+                .withQualifiedName(extractQualifiedType(column))
+                .isNullable(column.isNullable())
+                .isPrimaryKey(false)
+                .isIndexed(column.isIndexed())
+                .isBlob(column.getType().isBinary())
+                .isTime(column.getType().isTimeBased()).build();
+        dme.addProperty(javaProperty);
+        addImports(dme.getImports(), column.getType());
+        dme.getMandatoryProperties().add(new MandatoryProperty(propertyType, propertyName));
+        fillModelMetaData(dme, javaProperty);
+    }
+
+    private static void fillModelMetaData(DataModelElement dme, PropertyHolder<JavaProperty> javaProperty) {
+        if (!javaProperty.isNullable()) {
+            dme.setHasNotNullElements(true);
+        }
+        if (javaProperty.isTime()) {
+            dme.setHasTimeProperties(true);
+        }
+        if (javaProperty.isBlob()) {
+            dme.setHasBlobProperties(true);
         }
     }
 

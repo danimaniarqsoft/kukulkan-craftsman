@@ -44,6 +44,8 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
     private boolean indexed;
     private boolean nullable;
     private boolean primaryKey;
+    private boolean blob;
+    private boolean time;
 
     private JavaProperty() {
 
@@ -51,6 +53,24 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 
     public static JavaPropertyBuilder builder() {
         return new JavaPropertyBuilder();
+    }
+
+    @Override
+    public boolean isBlob() {
+        return blob;
+    }
+
+    public void setBlob(boolean blob) {
+        this.blob = blob;
+    }
+
+    @Override
+    public boolean isTime() {
+        return time;
+    }
+
+    public void setTime(boolean time) {
+        this.time = time;
     }
 
     @Override
@@ -201,6 +221,16 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 
         public JavaPropertyBuilder isIndexed(boolean indexed) {
             this.javaProperty.setIndexed(indexed);
+            return this;
+        }
+
+        public JavaPropertyBuilder isTime(boolean time) {
+            this.javaProperty.setTime(time);
+            return this;
+        }
+
+        public JavaPropertyBuilder isBlob(boolean blob) {
+            this.javaProperty.setTime(blob);
             return this;
         }
 

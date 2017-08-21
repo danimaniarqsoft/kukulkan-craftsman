@@ -69,18 +69,22 @@ public class DataModelElement {
      * The columns mapped into the PropertyHolder class
      */
     protected String qualifiedName;
-    
+
     /**
      * The columns mapped into the PropertyHolder class
      */
     protected Collection<PropertyHolder> properties;
-    
+
     /**
      * The columns mapped into the PropertyHolder class
      */
-    private Collection<MandatoryProperty> mandatoryProperties ;
-    
+    private Collection<MandatoryProperty> mandatoryProperties;
+
     protected boolean hasNotNullElements;
+
+    protected boolean hasTimeProperties;
+
+    protected boolean hasBlobProperties;
 
     private DataModelElement() {
 
@@ -176,5 +180,21 @@ public class DataModelElement {
 
     public void setMandatoryProperties(Collection<MandatoryProperty> mandatoryProperties) {
         this.mandatoryProperties = mandatoryProperties;
+    }
+
+    public boolean isHasTimeProperties() {
+        return hasTimeProperties;
+    }
+
+    public void setHasTimeProperties(boolean hasTimeProperties) {
+        this.hasTimeProperties = hasTimeProperties;
+    }
+
+    public boolean isHasBlobProperties() {
+        return hasBlobProperties;
+    }
+
+    public void setHasBlobProperties(boolean hasBlobProperties) {
+        this.hasBlobProperties = hasBlobProperties;
     }
 }

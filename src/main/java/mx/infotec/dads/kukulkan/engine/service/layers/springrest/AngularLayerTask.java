@@ -33,8 +33,11 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
+import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.TemplateFormatter;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
+import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 
 /**
  * Service Layer Task
@@ -62,17 +65,96 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
             model.put("properties", dmElement.getProperties());
             model.put("projectName", pConf.getId());
             model.put("entityHyphenNotation", dmElement.getPropertyName());
+            model.put("propertyNamePlural", InflectorProcessor.getInstance().pluralize(dmElement.getPropertyName()));
+            model.put("hasTimeProperties", dmElement.isHasTimeProperties());
+            model.put("hasBlobProperties", dmElement.isHasBlobProperties());
             dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
+            fillEntityDeleteDialogControllerJs(pConf, model, dmgName, basePackage, dmElement);
+            fillEntityDeleteDialogHtml(pConf, model, dmgName, basePackage, dmElement);
+            fillEntityDetailControllerJs(pConf, model, dmgName, basePackage, dmElement);
             fillEntityDetailHtml(pConf, model, dmgName, basePackage, dmElement);
+            fillEntityDialogControllerJs(pConf, model, dmgName, basePackage, dmElement);
+            fillEntityDialogHtml(pConf, model, dmgName, basePackage, dmElement);
+            fillEntityHtml(pConf, model, dmgName, basePackage, dmElement);
+            fillEntitySearchServiceJs(pConf, model, dmgName, basePackage, dmElement);
+            fillEntityServiceJs(pConf, model, dmgName, basePackage, dmElement);
+            fillEntityStateJs(pConf, model, dmgName, basePackage, dmElement);
+            fillIdiomaJs(pConf, model, dmgName, basePackage, dmElement);
         }
     }
 
-    // rest-spring-jpa/frontEnd/entity-detail-html.ftls
+    private void fillIdiomaJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
+            DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.IDIOMA_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.IDIOMA_JS);
+    }
+
+    private void fillEntityStateJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_STATE_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_STATE_JS);
+    }
+
+    private void fillEntityServiceJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_SERVICE_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_SERVICE_JS);
+    }
+
+    private void fillEntitySearchServiceJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_SEARCH_SERVICE_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_SEARCH_SERVICE_JS);
+    }
+
+    private void fillEntityHtml(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_HTML);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_HTML);
+    }
+
+    private void fillEntityDialogHtml(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DETAIL_HTML);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_DIALOG_HTML);
+    }
+
+    private void fillEntityDialogControllerJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DIALOG_CONTROLLER_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_DIALOG_CONTROLLER_JS);
+    }
+
+    private void fillEntityDetailControllerJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DETAIL_CONTROLLER_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_DETAIL_CONTROLLER_JS);
+    }
+
     private void fillEntityDetailHtml(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
             String basePackage, DataModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", basePackage);
-
-        templateService.fillModel(pConf.getId(), "rest-spring-jpa/frontEnd/entity-detail-html.ftl", model,
-                BasePathEnum.WEB_APP_ENTITIES, dmElement.getPropertyName() + "-detail" + ".html");
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DETAIL_HTML);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_DETAIL_HTML);
     }
+
+    private void fillEntityDeleteDialogHtml(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DELETE_DIALOG_HTML);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_DELETE_DIALOG_HTML);
+    }
+
+    private void fillEntityDeleteDialogControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
+            String dmgName, String basePackage, DataModelElement dmElement) {
+        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DELETE_DIALOG_CONTROLLER_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.ENTITY_DELETE_DIALOG_CONTROLLER_JS);
+    }
+
+    private void saveFrontEndTemplate(ProjectConfiguration pConf, Map<String, Object> model, DataModelElement dmElement,
+            String templateName) {
+        // pfCOnf.getId, templateName, model, dmElement.getPropertyName.
+        templateService.fillModel(pConf.getId(), "rest-spring-jpa/frontEnd/" + templateName, model,
+                BasePathEnum.WEB_APP_ENTITIES,
+                dmElement.getPropertyName()+"/"+dmElement.getPropertyName() + TemplateFormatter.formatNameTemplate(templateName));
+    }
+
 }

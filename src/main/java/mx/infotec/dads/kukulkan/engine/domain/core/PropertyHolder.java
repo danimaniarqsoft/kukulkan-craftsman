@@ -94,6 +94,20 @@ public interface PropertyHolder<T> extends Comparable<T> {
     boolean isIndexed();
 
     /**
+     * Return true if it blob o clob element
+     * 
+     * @return boolean
+     */
+    boolean isBlob();
+
+    /**
+     * Return true if it is Time element
+     * 
+     * @return boolean
+     */
+    boolean isTime();
+
+    /**
      * Return associations if it exists
      * 
      * @return associations

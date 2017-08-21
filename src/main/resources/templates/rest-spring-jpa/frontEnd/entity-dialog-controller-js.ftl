@@ -2,20 +2,24 @@
     'use strict';
 
     angular
-        .module('${projectName}App')
-        .controller('UsuarioDialogController', UsuarioDialogController);
+        .module('${name}App')
+        .controller('${name}DialogController', ${name}DialogController);
 
-    UsuarioDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'Usuario'];
+    ${name}DialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', '${name}'];
 
-    function UsuarioDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, Usuario) {
+    function ${name}DialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, ${name}) {
         var vm = this;
 
-        vm.usuario = entity;
+        vm.${propertyName} = entity;
         vm.clear = clear;
+        <#if hasTimeProperties == true>
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
+        <#else>
+        <#if hasBlobProperties == true>
         vm.byteSize = DataUtils.byteSize;
         vm.openFile = DataUtils.openFile;
+        <#else>
         vm.save = save;
 
         $timeout(function (){
@@ -28,15 +32,15 @@
 
         function save () {
             vm.isSaving = true;
-            if (vm.usuario.id !== null) {
-                Usuario.update(vm.usuario, onSaveSuccess, onSaveError);
+            if (vm.${propertyName}.id !== null) {
+                ${name}.update(vm.${propertyName}, onSaveSuccess, onSaveError);
             } else {
-                Usuario.save(vm.usuario, onSaveSuccess, onSaveError);
+                ${name}.save(vm.${propertyName}, onSaveSuccess, onSaveError);
             }
         }
 
         function onSaveSuccess (result) {
-            $scope.$emit('atlasApp:usuarioUpdate', result);
+            $scope.$emit('atlasApp:${propertyName}Update', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;
         }
@@ -45,40 +49,42 @@
             vm.isSaving = false;
         }
 
+        <#if hasTimeProperties == true>
         vm.datePickerOpenStatus.tLocalDate = false;
         vm.datePickerOpenStatus.tZonedDateTime = false;
+        <#else>
 
-        vm.setTBlob = function ($file, usuario) {
+        vm.setTBlob = function ($file, ${propertyName}) {
             if ($file) {
                 DataUtils.toBase64($file, function(base64Data) {
                     $scope.$apply(function() {
-                        usuario.tBlob = base64Data;
-                        usuario.tBlobContentType = $file.type;
+                        ${propertyName}.tBlob = base64Data;
+                        ${propertyName}.tBlobContentType = $file.type;
                     });
                 });
             }
         };
 
-        vm.setTAnyBlob = function ($file, usuario) {
+        vm.setTAnyBlob = function ($file, ${propertyName}) {
             if ($file) {
                 DataUtils.toBase64($file, function(base64Data) {
                     $scope.$apply(function() {
-                        usuario.tAnyBlob = base64Data;
-                        usuario.tAnyBlobContentType = $file.type;
+                        ${propertyName}.tAnyBlob = base64Data;
+                        ${propertyName}.tAnyBlobContentType = $file.type;
                     });
                 });
             }
         };
 
-        vm.setTImageBlob = function ($file, usuario) {
+        vm.setTImageBlob = function ($file, ${propertyName}) {
             if ($file && $file.$error === 'pattern') {
                 return;
             }
             if ($file) {
                 DataUtils.toBase64($file, function(base64Data) {
                     $scope.$apply(function() {
-                        usuario.tImageBlob = base64Data;
-                        usuario.tImageBlobContentType = $file.type;
+                        ${propertyName}.tImageBlob = base64Data;
+                        ${propertyName}.tImageBlobContentType = $file.type;
                     });
                 });
             }
