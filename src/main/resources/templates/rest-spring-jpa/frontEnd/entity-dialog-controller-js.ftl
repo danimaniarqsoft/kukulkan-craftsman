@@ -21,6 +21,14 @@
         vm.openFile = DataUtils.openFile;
         </#if>
         vm.save = save;
+          
+        <#if hasTimeProperties == true>
+        	<#list properties as property>
+        	<#if property.time == true> 
+        vm.datePickerOpenStatus.${property.propertyName} = false;
+            </#if>
+        	</#list>
+        </#if>
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -49,23 +57,15 @@
             vm.isSaving = false;
         }
         
-        <#if hasTimeProperties == true>
-        	<#list properties as property>
-        	<#if property.isTime == true> 
-        vm.datePickerOpenStatus.${property.propertyName} = false;
-            </#if>
-        	</#list>
-        </#if>
-        
         <#if hasBlobProperties == true>
         	<#list properties as property>
-        	<#if property.isBlob == true> 
-        vm.set#{property.propertyName?cap_first} = function ($file, ${propertyName}) {
+        	<#if property.blob == true> 
+        vm.set${property.propertyName?cap_first} = function ($file, ${propertyName}) {
             if ($file) {
                 DataUtils.toBase64($file, function(base64Data) {
                     $scope.$apply(function() {
-                        ${propertyName}.#{property.propertyName} = base64Data;
-                        ${propertyName}.#{property.propertyName} = $file.type;
+                        ${propertyName}.${property.propertyName} = base64Data;
+                        ${propertyName}.${property.propertyName}ContentType = $file.type;
                     });
                 });
             }

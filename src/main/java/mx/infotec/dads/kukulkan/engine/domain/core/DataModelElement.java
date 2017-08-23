@@ -34,167 +34,177 @@ import java.util.TreeSet;
  */
 public class DataModelElement {
 
-    /**
-     * id of the dataModelElement, it is the primary key
-     */
-    protected PrimaryKey primaryKey;
+	/**
+	 * id of the dataModelElement, it is the primary key
+	 */
+	protected PrimaryKey primaryKey;
 
-    /**
-     * urlName statements of the elements
-     */
-    protected String urlName;
+	/**
+	 * urlName statements of the elements
+	 */
+	protected String urlName;
 
-    /**
-     * imports statements of the elements
-     */
-    protected Collection<String> imports;
+	/**
+	 * imports statements of the elements
+	 */
+	protected Collection<String> imports;
 
-    /**
-     * Name of the dataModel, usually it is the name of the Schema formatted for
-     * specific technology. For instance, in java it is the java Class name
-     */
-    protected String name;
+	/**
+	 * Name of the dataModel, usually it is the name of the Schema formatted for
+	 * specific technology. For instance, in java it is the java Class name
+	 */
+	protected String name;
 
-    /**
-     * The name of the database Table
-     */
-    protected String tableName;
+	/**
+	 * The name of the database Table
+	 */
+	protected String tableName;
 
-    /**
-     * The name of the table formated to java world.
-     */
-    protected String propertyName;
+	/**
+	 * The name of the table formated to java world.
+	 */
+	protected String propertyName;
 
-    /**
-     * The columns mapped into the PropertyHolder class
-     */
-    protected String qualifiedName;
+	/**
+	 * The columns mapped into the PropertyHolder class
+	 */
+	protected String qualifiedName;
 
-    /**
-     * The columns mapped into the PropertyHolder class
-     */
-    protected Collection<PropertyHolder> properties;
+	/**
+	 * The columns mapped into the PropertyHolder class
+	 */
+	protected Collection<PropertyHolder> properties;
 
-    /**
-     * The columns mapped into the PropertyHolder class
-     */
-    private Collection<MandatoryProperty> mandatoryProperties;
+	/**
+	 * The columns mapped into the PropertyHolder class
+	 */
+	private Collection<MandatoryProperty> mandatoryProperties;
 
-    protected boolean hasNotNullElements;
+	protected boolean hasNotNullElements;
 
-    protected boolean hasTimeProperties;
+	protected boolean hasTimeProperties;
 
-    protected boolean hasBlobProperties;
+	protected boolean hasBlobProperties;
 
-    private DataModelElement() {
+	protected boolean hasClobProperties;
 
-    }
+	private DataModelElement() {
 
-    public String getName() {
-        return name;
-    }
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Collection<PropertyHolder> getProperties() {
-        return properties;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setProperties(Collection<PropertyHolder> properties) {
-        this.properties = properties;
-    }
+	public Collection<PropertyHolder> getProperties() {
+		return properties;
+	}
 
-    public String getTableName() {
-        return tableName;
-    }
+	public void setProperties(Collection<PropertyHolder> properties) {
+		this.properties = properties;
+	}
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
+	public String getTableName() {
+		return tableName;
+	}
 
-    public String getPropertyName() {
-        return propertyName;
-    }
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
 
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
-    }
+	public String getPropertyName() {
+		return propertyName;
+	}
 
-    public String getUrlName() {
-        return urlName;
-    }
+	public void setPropertyName(String propertyName) {
+		this.propertyName = propertyName;
+	}
 
-    public void setUrlName(String urlName) {
-        this.urlName = urlName;
-    }
+	public String getUrlName() {
+		return urlName;
+	}
 
-    public Collection<String> getImports() {
-        return imports;
-    }
+	public void setUrlName(String urlName) {
+		this.urlName = urlName;
+	}
 
-    public void setImports(Collection<String> imports) {
-        this.imports = imports;
-    }
+	public Collection<String> getImports() {
+		return imports;
+	}
 
-    public PrimaryKey getPrimaryKey() {
-        return primaryKey;
-    }
+	public void setImports(Collection<String> imports) {
+		this.imports = imports;
+	}
 
-    public void setPrimaryKey(PrimaryKey primaryKey) {
-        this.primaryKey = primaryKey;
-    }
+	public PrimaryKey getPrimaryKey() {
+		return primaryKey;
+	}
 
-    public void addProperty(PropertyHolder propertyHolder) {
-        properties.add(propertyHolder);
-    }
+	public void setPrimaryKey(PrimaryKey primaryKey) {
+		this.primaryKey = primaryKey;
+	}
 
-    public static DataModelElement createOrderedDataModel() {
-        DataModelElement dme = new DataModelElement();
-        dme.setImports(new TreeSet<>());
-        dme.setProperties(new TreeSet<>());
-        dme.setMandatoryProperties(new TreeSet<>());
-        return dme;
-    }
+	public void addProperty(PropertyHolder propertyHolder) {
+		properties.add(propertyHolder);
+	}
 
-    public String getQualifiedName() {
-        return qualifiedName;
-    }
+	public static DataModelElement createOrderedDataModel() {
+		DataModelElement dme = new DataModelElement();
+		dme.setImports(new TreeSet<>());
+		dme.setProperties(new TreeSet<>());
+		dme.setMandatoryProperties(new TreeSet<>());
+		return dme;
+	}
 
-    public void setQualifiedName(String qualifiedName) {
-        this.qualifiedName = qualifiedName;
-    }
+	public String getQualifiedName() {
+		return qualifiedName;
+	}
 
-    public boolean isHasNotNullElements() {
-        return hasNotNullElements;
-    }
+	public void setQualifiedName(String qualifiedName) {
+		this.qualifiedName = qualifiedName;
+	}
 
-    public void setHasNotNullElements(boolean hasNotNullElements) {
-        this.hasNotNullElements = hasNotNullElements;
-    }
+	public boolean isHasNotNullElements() {
+		return hasNotNullElements;
+	}
 
-    public Collection<MandatoryProperty> getMandatoryProperties() {
-        return mandatoryProperties;
-    }
+	public void setHasNotNullElements(boolean hasNotNullElements) {
+		this.hasNotNullElements = hasNotNullElements;
+	}
 
-    public void setMandatoryProperties(Collection<MandatoryProperty> mandatoryProperties) {
-        this.mandatoryProperties = mandatoryProperties;
-    }
+	public Collection<MandatoryProperty> getMandatoryProperties() {
+		return mandatoryProperties;
+	}
 
-    public boolean isHasTimeProperties() {
-        return hasTimeProperties;
-    }
+	public void setMandatoryProperties(Collection<MandatoryProperty> mandatoryProperties) {
+		this.mandatoryProperties = mandatoryProperties;
+	}
 
-    public void setHasTimeProperties(boolean hasTimeProperties) {
-        this.hasTimeProperties = hasTimeProperties;
-    }
+	public boolean isHasTimeProperties() {
+		return hasTimeProperties;
+	}
 
-    public boolean isHasBlobProperties() {
-        return hasBlobProperties;
-    }
+	public void setHasTimeProperties(boolean hasTimeProperties) {
+		this.hasTimeProperties = hasTimeProperties;
+	}
 
-    public void setHasBlobProperties(boolean hasBlobProperties) {
-        this.hasBlobProperties = hasBlobProperties;
-    }
+	public boolean isHasBlobProperties() {
+		return hasBlobProperties;
+	}
+
+	public void setHasBlobProperties(boolean hasBlobProperties) {
+		this.hasBlobProperties = hasBlobProperties;
+	}
+
+	public void setHasClobProperties(boolean hasClobProperties) {
+		this.hasClobProperties = hasClobProperties;
+	}
+
+	public boolean isHasClobProperties() {
+		return hasClobProperties;
+	}
 }

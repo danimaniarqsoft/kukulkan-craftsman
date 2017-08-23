@@ -119,6 +119,7 @@ public class DataMapping {
                 .isPrimaryKey(false)
                 .isIndexed(column.isIndexed())
                 .isBlob(column.getType().isBinary())
+                .isClob(column.getType().isLargeObject())
                 .isTime(column.getType().isTimeBased()).build();
         dme.addProperty(javaProperty);
         addImports(dme.getImports(), column.getType());
@@ -132,9 +133,14 @@ public class DataMapping {
         }
         if (javaProperty.isTime()) {
             dme.setHasTimeProperties(true);
+            return;
         }
         if (javaProperty.isBlob()) {
             dme.setHasBlobProperties(true);
+            return;
+        }
+        if(javaProperty.isClob()) {
+        	dme.setHasClobProperties(true);
         }
     }
 

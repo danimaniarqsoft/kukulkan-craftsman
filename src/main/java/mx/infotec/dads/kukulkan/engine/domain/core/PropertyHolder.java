@@ -36,82 +36,89 @@ import java.util.Collection;
  */
 public interface PropertyHolder<T> extends Comparable<T> {
 
-    /**
-     * Return the name of the property
-     * 
-     * @return propertyName
-     */
-    String getPropertyName();
+	/**
+	 * Return the name of the property
+	 * 
+	 * @return propertyName
+	 */
+	String getPropertyName();
 
-    /**
-     * Return the type of the property
-     * 
-     * @return propertyType
-     */
-    String getPropertyType();
+	/**
+	 * Return the type of the property
+	 * 
+	 * @return propertyType
+	 */
+	String getPropertyType();
 
-    /**
-     * Return the name of the property
-     * 
-     * @return propertyName
-     */
-    String getColumnName();
+	/**
+	 * Return the name of the property
+	 * 
+	 * @return propertyName
+	 */
+	String getColumnName();
 
-    /**
-     * Return the columnType of the table
-     * 
-     * @return columnType
-     */
-    String getColumnType();
+	/**
+	 * Return the columnType of the table
+	 * 
+	 * @return columnType
+	 */
+	String getColumnType();
 
-    /**
-     * Return the qualified name of the type of the Property, in order to create
-     * a import statement in the generation fase;
-     * 
-     * @return qualifiedName
-     */
-    String getQualifiedName();
+	/**
+	 * Return the qualified name of the type of the Property, in order to create a
+	 * import statement in the generation fase;
+	 * 
+	 * @return qualifiedName
+	 */
+	String getQualifiedName();
 
-    /**
-     * Return if it is a primary key property
-     * 
-     * @return boolean
-     */
-    boolean isPrimaryKey();
+	/**
+	 * Return if it is a primary key property
+	 * 
+	 * @return boolean
+	 */
+	boolean isPrimaryKey();
 
-    /**
-     * Return true if it is nullable
-     * 
-     * @return boolean
-     */
-    boolean isNullable();
+	/**
+	 * Return true if it is nullable
+	 * 
+	 * @return boolean
+	 */
+	boolean isNullable();
 
-    /**
-     * Return true if it is index
-     * 
-     * @return boolean
-     */
-    boolean isIndexed();
+	/**
+	 * Return true if it is index
+	 * 
+	 * @return boolean
+	 */
+	boolean isIndexed();
 
-    /**
-     * Return true if it blob o clob element
-     * 
-     * @return boolean
-     */
-    boolean isBlob();
+	/**
+	 * Return true if it blob o clob element
+	 * 
+	 * @return boolean
+	 */
+	boolean isBlob();
 
-    /**
-     * Return true if it is Time element
-     * 
-     * @return boolean
-     */
-    boolean isTime();
+	/**
+	 * Return true if it is Time element
+	 * 
+	 * @return boolean
+	 */
+	boolean isTime();
 
-    /**
-     * Return associations if it exists
-     * 
-     * @return associations
-     */
-    Collection<PropertyHolder> getAssociations();
+	/**
+	 * Return true if it is Clob element
+	 * 
+	 * @return boolean
+	 */
+	boolean isClob();
+
+	/**
+	 * Return associations if it exists
+	 * 
+	 * @return associations
+	 */
+	Collection<PropertyHolder> getAssociations();
 
 }

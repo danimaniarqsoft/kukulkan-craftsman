@@ -36,208 +36,223 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
  */
 public class JavaProperty implements PropertyHolder<JavaProperty> {
 
-    private String propertyName;
-    private String propertyType;
-    private String qualifiedName;
-    private String columnName;
-    private String columnType;
-    private boolean indexed;
-    private boolean nullable;
-    private boolean primaryKey;
-    private boolean blob;
-    private boolean time;
+	private String propertyName;
+	private String propertyType;
+	private String qualifiedName;
+	private String columnName;
+	private String columnType;
+	private boolean indexed;
+	private boolean nullable;
+	private boolean primaryKey;
+	private boolean blob;
+	private boolean time;
+	private boolean clob;
 
-    private JavaProperty() {
+	private JavaProperty() {
 
-    }
+	}
 
-    public static JavaPropertyBuilder builder() {
-        return new JavaPropertyBuilder();
-    }
+	public static JavaPropertyBuilder builder() {
+		return new JavaPropertyBuilder();
+	}
 
-    @Override
-    public boolean isBlob() {
-        return blob;
-    }
+	@Override
+	public boolean isBlob() {
+		return blob;
+	}
 
-    public void setBlob(boolean blob) {
-        this.blob = blob;
-    }
+	public void setBlob(boolean blob) {
+		this.blob = blob;
+	}
 
-    @Override
-    public boolean isTime() {
-        return time;
-    }
+	@Override
+	public boolean isTime() {
+		return time;
+	}
 
-    public void setTime(boolean time) {
-        this.time = time;
-    }
+	public void setTime(boolean time) {
+		this.time = time;
+	}
 
-    @Override
-    public String getPropertyName() {
-        return this.propertyName;
-    }
+	@Override
+	public String getPropertyName() {
+		return this.propertyName;
+	}
 
-    @Override
-    public String getPropertyType() {
-        return this.propertyType;
-    }
+	@Override
+	public String getPropertyType() {
+		return this.propertyType;
+	}
 
-    @Override
-    public String getQualifiedName() {
-        return this.qualifiedName;
-    }
+	@Override
+	public String getQualifiedName() {
+		return this.qualifiedName;
+	}
 
-    @Override
-    public Collection<PropertyHolder> getAssociations() {
-        throw new ApplicationException("Method not implemented");
-    }
+	@Override
+	public Collection<PropertyHolder> getAssociations() {
+		throw new ApplicationException("Method not implemented");
+	}
 
-    @Override
-    public boolean isPrimaryKey() {
-        return this.primaryKey;
-    }
+	@Override
+	public boolean isPrimaryKey() {
+		return this.primaryKey;
+	}
 
-    @Override
-    public int compareTo(JavaProperty o) {
-        return propertyName.compareTo(o.getPropertyName());
-    }
+	@Override
+	public int compareTo(JavaProperty o) {
+		return propertyName.compareTo(o.getPropertyName());
+	}
 
-    @Override
-    public String getColumnName() {
-        return this.columnName;
-    }
+	@Override
+	public String getColumnName() {
+		return this.columnName;
+	}
 
-    @Override
-    public String getColumnType() {
-        return this.columnType;
-    }
+	@Override
+	public String getColumnType() {
+		return this.columnType;
+	}
 
-    @Override
-    public boolean isNullable() {
-        return nullable;
-    }
+	@Override
+	public boolean isNullable() {
+		return nullable;
+	}
 
-    public void setIndexed(boolean indexed) {
-        this.indexed = indexed;
-    }
+	public void setIndexed(boolean indexed) {
+		this.indexed = indexed;
+	}
 
-    @Override
-    public boolean isIndexed() {
-        return this.indexed;
-    }
+	@Override
+	public boolean isIndexed() {
+		return this.indexed;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((propertyName == null) ? 0 : propertyName.hashCode());
-        return result;
-    }
+	@Override
+	public boolean isClob() {
+		return this.clob;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        JavaProperty other = (JavaProperty) obj;
-        if (propertyName == null) {
-            if (other.propertyName != null)
-                return false;
-        } else if (!propertyName.equals(other.propertyName))
-            return false;
-        return true;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((propertyName == null) ? 0 : propertyName.hashCode());
+		return result;
+	}
 
-    protected void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		JavaProperty other = (JavaProperty) obj;
+		if (propertyName == null) {
+			if (other.propertyName != null)
+				return false;
+		} else if (!propertyName.equals(other.propertyName))
+			return false;
+		return true;
+	}
 
-    protected void setPropertyType(String propertyType) {
-        this.propertyType = propertyType;
-    }
+	protected void setPropertyName(String propertyName) {
+		this.propertyName = propertyName;
+	}
 
-    protected void setQualifiedName(String qualifiedName) {
-        this.qualifiedName = qualifiedName;
-    }
+	protected void setPropertyType(String propertyType) {
+		this.propertyType = propertyType;
+	}
 
-    protected void setColumnName(String columnName) {
-        this.columnName = columnName;
-    }
+	protected void setQualifiedName(String qualifiedName) {
+		this.qualifiedName = qualifiedName;
+	}
 
-    protected void setColumnType(String columnType) {
-        this.columnType = columnType;
-    }
+	protected void setColumnName(String columnName) {
+		this.columnName = columnName;
+	}
 
-    protected void setNullable(boolean nullable) {
-        this.nullable = nullable;
-    }
+	protected void setColumnType(String columnType) {
+		this.columnType = columnType;
+	}
 
-    protected void setPrimaryKey(boolean primaryKey) {
-        this.primaryKey = primaryKey;
-    }
+	protected void setNullable(boolean nullable) {
+		this.nullable = nullable;
+	}
 
-    public static class JavaPropertyBuilder {
+	protected void setPrimaryKey(boolean primaryKey) {
+		this.primaryKey = primaryKey;
+	}
 
-        private JavaProperty javaProperty = new JavaProperty();
+	protected void setClob(boolean clob) {
+		this.clob = clob;
+	}
 
-        public JavaPropertyBuilder withPropertyName(String propertyName) {
-            this.javaProperty.setPropertyName(propertyName);
-            return this;
-        }
+	public static class JavaPropertyBuilder {
 
-        public JavaPropertyBuilder withPropertyType(String propertyType) {
-            this.javaProperty.setPropertyType(propertyType);
-            return this;
-        }
+		private JavaProperty javaProperty = new JavaProperty();
 
-        public JavaPropertyBuilder withQualifiedName(String qualifiedName) {
-            this.javaProperty.setQualifiedName(qualifiedName);
-            return this;
-        }
+		public JavaPropertyBuilder withPropertyName(String propertyName) {
+			this.javaProperty.setPropertyName(propertyName);
+			return this;
+		}
 
-        public JavaPropertyBuilder withColumnName(String columnName) {
-            this.javaProperty.setColumnName(columnName);
-            return this;
-        }
+		public JavaPropertyBuilder withPropertyType(String propertyType) {
+			this.javaProperty.setPropertyType(propertyType);
+			return this;
+		}
 
-        public JavaPropertyBuilder withColumnType(String columnType) {
-            this.javaProperty.setColumnType(columnType);
-            return this;
-        }
+		public JavaPropertyBuilder withQualifiedName(String qualifiedName) {
+			this.javaProperty.setQualifiedName(qualifiedName);
+			return this;
+		}
 
-        public JavaPropertyBuilder isNullable(boolean nullable) {
-            this.javaProperty.setNullable(nullable);
-            return this;
-        }
+		public JavaPropertyBuilder withColumnName(String columnName) {
+			this.javaProperty.setColumnName(columnName);
+			return this;
+		}
 
-        public JavaPropertyBuilder isPrimaryKey(boolean isPrimaryKey) {
-            this.javaProperty.setPrimaryKey(isPrimaryKey);
-            return this;
-        }
+		public JavaPropertyBuilder withColumnType(String columnType) {
+			this.javaProperty.setColumnType(columnType);
+			return this;
+		}
 
-        public JavaPropertyBuilder isIndexed(boolean indexed) {
-            this.javaProperty.setIndexed(indexed);
-            return this;
-        }
+		public JavaPropertyBuilder isNullable(boolean nullable) {
+			this.javaProperty.setNullable(nullable);
+			return this;
+		}
 
-        public JavaPropertyBuilder isTime(boolean time) {
-            this.javaProperty.setTime(time);
-            return this;
-        }
+		public JavaPropertyBuilder isPrimaryKey(boolean isPrimaryKey) {
+			this.javaProperty.setPrimaryKey(isPrimaryKey);
+			return this;
+		}
 
-        public JavaPropertyBuilder isBlob(boolean blob) {
-            this.javaProperty.setTime(blob);
-            return this;
-        }
+		public JavaPropertyBuilder isIndexed(boolean indexed) {
+			this.javaProperty.setIndexed(indexed);
+			return this;
+		}
 
-        public JavaProperty build() {
-            return this.javaProperty;
-        }
+		public JavaPropertyBuilder isTime(boolean time) {
+			this.javaProperty.setTime(time);
+			return this;
+		}
 
-    }
+		public JavaPropertyBuilder isBlob(boolean blob) {
+			this.javaProperty.setBlob(blob);
+			return this;
+		}
+
+		public JavaPropertyBuilder isClob(boolean clob) {
+			this.javaProperty.setClob(clob);
+			return this;
+		}
+
+		public JavaProperty build() {
+			return this.javaProperty;
+		}
+
+	}
 
 }
