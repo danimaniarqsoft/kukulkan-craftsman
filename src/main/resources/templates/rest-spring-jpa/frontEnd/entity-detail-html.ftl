@@ -5,12 +5,24 @@
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
     <#list properties as property>
-        <dt><span data-translate="${projectName}App.${property.propertyName}.cadena">${property.propertyName}</span></dt>
+        <dt><span data-translate="${projectName}App.${propertyName}.${property.propertyName}">${property.propertyName}</span></dt>
         <dd>
-            <span>{{vm.${propertyName}.${property.propertyName}}}</span>
+    	<#if  property.qualifiedName == "java.sql.Blob">
+            <div ng-if="vm.${propertyName}.${property.propertyName}">
+                <a ng-click="vm.openFile(vm.${propertyName}.${property.propertyName}ContentType, vm.${propertyName}.${property.propertyName})" data-translate="entity.action.open">open</a>
+                {{vm.${propertyName}.${property.propertyName}ContentType}}, {{vm.byteSize(vm.${propertyName}.${property.propertyName})}}
+            </div>
+    	<#elseif property.columnType?contains("TIMESTAMP")>
+        	<span>{{vm.${propertyName}.${property.propertyName} | date:'medium'}}</span>
+    	<#elseif property.columnType?contains("DATE")>
+    		<span>{{vm.${propertyName}.${property.propertyName} | date:'mediumDate'}}</span>
+        <#else>
+        	<span>{{vm.${propertyName}.${property.propertyName}}}</span>
+    	</#if>
         </dd>
-    </dl>
 	</#list>
+    </dl>
+
     <button type="submit"
             ui-sref="{{ vm.previousState }}"
             class="btn btn-info">

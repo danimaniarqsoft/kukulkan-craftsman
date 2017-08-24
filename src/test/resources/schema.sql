@@ -2,7 +2,7 @@ CREATE SEQUENCE IF NOT EXISTS credentials_id_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE IF NOT EXISTS account_id_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE IF NOT EXISTS usuario_id_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE IF NOT EXISTS app_user_id_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS imagen_id_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS image_id_seq START WITH 1 INCREMENT BY 1;
 /*==============================================================*/
 /*Table: data_store_type                                        */
 /*==============================================================*/
@@ -80,15 +80,15 @@ CREATE TABLE IF NOT EXISTS usuario_detalle (
   constraint fk_usuario foreign key (usuario_id) references usuario (id)
  );
  
- CREATE TABLE IF NOT EXISTS imagen (
-  imagen_id             SERIAL NOT NULL, 
-  nombre                VARCHAR(150) NOT NULL,
-  mime_type             VARCHAR(20) NOT NULL,
-  contenido             longtext NOT NULL,
-  blob                  blob NOT NULL,
-  clob                  clob NOT NULL,
-  sha256sum             VARCHAR(64) NOT NULL,
-  constraint pk_imagen primary key (imagen_id)
+ CREATE TABLE IF NOT EXISTS image (
+  id                     SERIAL NOT NULL, 
+  nombre                 VARCHAR(150) NOT NULL,
+  contenido              longtext NOT NULL,
+  blob                   blob NOT NULL,
+  blob_content_type      VARCHAR(20) NOT NULL,
+  clob                   clob NOT NULL,
+  sha256sum              VARCHAR(64) NOT NULL,
+  constraint pk_image primary key (id)
 );
 /*==============================================================*/
 /*Table: usuario_perfil                                         */
