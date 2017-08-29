@@ -29,14 +29,14 @@ import ${import};
 </#list>
 
 /**
- * The ${className}
+ * The ${entity}
  * 
  * @author ${author}
  *
  */
 @Entity
 @Table(name = "${tableName}")
-public class ${className} implements Serializable {
+public class ${entity} implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -95,7 +95,7 @@ public class ${className} implements Serializable {
      * Este constructor fue generado automáticamente por ${author}
      * 
      */
-    public ${className}() {
+    public ${entity}() {
 
     }
 	<#if mandatoryProperties?has_content>
@@ -103,7 +103,7 @@ public class ${className} implements Serializable {
      * Este constructor fue generado automáticamente por ${author}
      * 
      */
-    public ${className}(<#list mandatoryProperties[0..*1] as property>${property.type} ${property.name}</#list><#list mandatoryProperties[1..] as property>, ${property.type} ${property.name}</#list>) {
+    public ${entity}(<#list mandatoryProperties[0..*1] as property>${property.type} ${property.name}</#list><#list mandatoryProperties[1..] as property>, ${property.type} ${property.name}</#list>) {
     <#list mandatoryProperties as property>
         this.${property.name} = ${property.name};
     </#list>
@@ -164,7 +164,7 @@ public class ${className} implements Serializable {
     /**
      * Este método fue generado automaticamente por ${author}
      *
-     * @return el valor de representado por la entidad ${className}
+     * @return el valor de representado por la entidad ${entity}
      *
      * @kukulkanGenerated ${aDateTime?iso_utc}
      */

@@ -68,8 +68,8 @@ public class RestResourceLayerTask extends SpringRestLayerTaskVisitor {
                     dmElement.getName() + NameConventions.DAO));
             model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
                     dmElement.getName() + NameConventions.SERVICE));
-            model.put("propertyNamePlural", InflectorProcessor.getInstance().pluralize(dmElement.getPropertyName()));
-            model.put("urlName", dmElement.getPropertyName());
+            model.put("entityCamelCasePlural", InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
+            model.put("urlName", dmElement.getCamelCaseFormat());
             model.put("primaryKey", dmElement.getPrimaryKey());
             templateService.fillModel(pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl",
                     model, BasePathEnum.SRC_MAIN_JAVA,

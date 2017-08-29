@@ -68,8 +68,8 @@ public abstract class AbstractLayerTaskVisitor implements LayerTask {
     public void addCommonDataModelElements(ProjectConfiguration pConf, Map<String, Object> model, String basePackage,
             DataModelElement dmElement) {
         model.put("importModel", formatToImportStatement(basePackage, pConf.getDomainLayerName(), dmElement.getName()));
-        model.put("propertyName", dmElement.getPropertyName());
-        model.put("name", dmElement.getName());
+        model.put("entityCamelCase", dmElement.getCamelCaseFormat());
+        model.put("entity", dmElement.getName());
         model.put("id", dmElement.getPrimaryKey().getType());
         if (dmElement.getPrimaryKey().isComposed()) {
             model.put("importPrimaryKey", formatToImportStatement(basePackage, pConf.getDomainLayerName(),

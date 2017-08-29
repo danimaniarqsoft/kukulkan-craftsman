@@ -1,20 +1,19 @@
-
 <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="vm.clear()">&times;</button>
-        <h4 class="modal-title" id="myUsuarioLabel" data-translate="atlasApp.usuario.home.createOrEditLabel">Create or edit a Usuario</h4>
+        <h4 class="modal-title" id="my${entity}Label" data-translate="${projectName}App.${entityCamelCase}.home.createOrEditLabel">Create or edit a ${entity}</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.usuario.id">
+        <div class="form-group" ng-show="vm.${entityCamelCase}.id">
             <label for="id" data-translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.usuario.id" readonly />
+                    ng-model="vm.${entityCamelCase}.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="atlasApp.usuario.cadena" for="field_cadena">Cadena</label>
+            <label class="control-label" data-translate="${projectName}App.usuario.cadena" for="field_cadena">Cadena</label>
             <input type="text" class="form-control" name="cadena" id="field_cadena"
                     ng-model="vm.usuario.cadena"
                     required ng-minlength="2" ng-maxlength="5" ng-pattern="/patter/"/>

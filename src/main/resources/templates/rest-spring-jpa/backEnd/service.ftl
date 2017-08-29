@@ -34,38 +34,38 @@ ${importPrimaryKey}
 </#if>
 
 /**
- * ${name}Service
+ * ${entity}Service
  * 
  * @author ${author}
  * @kukulkanGenerated ${aDateTime?iso_utc}
  */
-public interface ${name}Service {
+public interface ${entity}Service {
 
     /**
-     * regresa una lista con todos los elementos ${name}
+     * regresa una lista con todos los elementos ${entity}
      * 
-     * @return Page<${name}>
+     * @return Page<${entity}>
      */
-    Page<${name}> findAll(Pageable pageable);
+    Page<${entity}> findAll(Pageable pageable);
 
     /**
-     * Consulta un ${name} por su llave primaria
+     * Consulta un ${entity} por su llave primaria
      * 
      * @param id
-     * @return ${name}
+     * @return ${entity}
      */
-    ${name} findById(${id} id);
+    ${entity} findById(${id} id);
 
     /**
-     * Guarda o actualiza un ${name}
+     * Guarda o actualiza un ${entity}
      * 
-     * @param ${propertyName}
+     * @param ${entityCamelCase}
      * @return boolean
      */
-    ${name} save(${name} ${propertyName});
+    ${entity} save(${entity} ${entityCamelCase});
 
     /**
-     * Regresa true o false si existe un ${name} almacenado
+     * Regresa true o false si existe un ${entity} almacenado
      * 
      * @param id
      * @return boolean
@@ -73,26 +73,26 @@ public interface ${name}Service {
     boolean exists(${id} id);
 
     /**
-     * Borrar un ${name} por su llave primaria
+     * Borrar un ${entity} por su llave primaria
      * 
      * @param id
      */
     void delete(${id} id);
 
     /**
-     * Borrar todos los elementos ${name} almacenados
+     * Borrar todos los elementos ${entity} almacenados
      * 
      * @param id
      */
     void deleteAll();
     
     /**
-     * Buscar ${name} con el correspondiente al query.
+     * Buscar ${entity} con el correspondiente al query.
      *
      *  @param query El query de la busqueda
      *  
      *  @param pageable la información de paginación
      *  @return Page de todas las entidades
      */
-    Page<${name}> search(String query, Pageable pageable);
+    Page<${entity}> search(String query, Pageable pageable);
 }

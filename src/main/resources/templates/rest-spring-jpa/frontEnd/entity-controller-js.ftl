@@ -3,11 +3,11 @@
 
     angular
         .module('${projectName}App')
-        .controller('${name}Controller', ${name}Controller);
+        .controller('${entityCamelCase}Controller', ${entityCamelCase}Controller);
 
-    ${name}Controller.$inject = ['$state', 'DataUtils', '${name}', '${name}Search', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    ${entityCamelCase}Controller.$inject = ['$state', 'DataUtils', '${entityCamelCase}', '${entityCamelCase}Search', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function ${name}Controller($state, DataUtils, ${name}, ${name}Search, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function ${entityCamelCase}Controller($state, DataUtils, ${entityCamelCase}, ${entityCamelCase}Search, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
 
@@ -21,21 +21,23 @@
         vm.loadAll = loadAll;
         vm.searchQuery = pagingParams.search;
         vm.currentSearch = pagingParams.search;
+        <#if hasBlobProperties == true>
         vm.openFile = DataUtils.openFile;
         vm.byteSize = DataUtils.byteSize;
+        </#if>
 
         loadAll();
 
         function loadAll () {
             if (pagingParams.search) {
-                ${name}Search.query({
+                ${entityCamelCase}Search.query({
                     query: pagingParams.search,
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
                 }, onSuccess, onError);
             } else {
-                ${name}.query({
+                ${entityCamelCase}.query({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
@@ -52,7 +54,7 @@
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
                 vm.queryCount = vm.totalItems;
-                vm.${propertyNamePlural} = data;
+                vm.${entityCamelCasePlural} = data;
                 vm.page = pagingParams.page;
             }
             function onError(error) {

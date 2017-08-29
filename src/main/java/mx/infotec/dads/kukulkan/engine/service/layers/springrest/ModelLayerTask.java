@@ -61,7 +61,7 @@ public class ModelLayerTask extends SpringRestLayerTaskVisitor {
         for (DataModelElement dmElement : dmElementCollection) {
             model.put("id", dmElement.getPrimaryKey().getType());
             model.put("tableName", dmElement.getTableName());
-            model.put("className", dmElement.getName());
+            model.put("entity", dmElement.getName());
             importPrimaryKey(pConf, model, basePackage, dmElement);
             model.put("package", formatToPackageStatement(basePackage, pConf.getDomainLayerName()));
             model.put("properties", dmElement.getProperties());

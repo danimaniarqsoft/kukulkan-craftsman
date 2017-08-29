@@ -3,12 +3,12 @@
 
     angular
         .module('${projectName}App')
-        .factory('${name}Search', ${name}Search);
+        .factory('${entity}Search', ${entity}Search);
 
-    ${name}Search.$inject = ['$resource'];
+    ${entity}Search.$inject = ['$resource'];
 
-    function ${name}Search($resource) {
-        var resourceUrl =  'api/_search/${propertyNamePlural}/:id';
+    function ${entity}Search($resource) {
+        var resourceUrl =  'api/_search/${entityCamelCasePlural}/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true}

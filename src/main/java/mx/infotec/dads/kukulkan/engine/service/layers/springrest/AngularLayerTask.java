@@ -63,13 +63,13 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
 		String basePackage = pConf.getPackaging() + dmgName;
 		LOGGER.info("AngularLayerTask {}", basePackage);
 		for (DataModelElement dmElement : dmElementCollection) {
-			model.put("propertyName", dmElement.getPropertyName());
-			model.put("name", dmElement.getName());
+			model.put("entityCamelCase", dmElement.getCamelCaseFormat());
+			model.put("entity", dmElement.getName());
 			model.put("id", dmElement.getPrimaryKey().getType());
 			model.put("properties", dmElement.getProperties());
 			model.put("projectName", pConf.getId());
-			model.put("entityHyphenNotation", dmElement.getPropertyName());
-			model.put("propertyNamePlural", InflectorProcessor.getInstance().pluralize(dmElement.getPropertyName()));
+			model.put("entityHyphenNotation", camelCaseToHyphens(dmElement.getCamelCaseFormat()));
+			model.put("entityCamelCasePlural", InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
 			model.put("hasTimeProperties", dmElement.isHasTimeProperties());
 			model.put("hasBlobProperties", dmElement.isHasBlobProperties());
 			dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
@@ -156,7 +156,7 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
 	private void saveFrontEndTemplate(ProjectConfiguration pConf, Map<String, Object> model, DataModelElement dmElement,
 			String templateName) {
 		// pfCOnf.getId, templateName, model, dmElement.getPropertyName.
-		String fileNamingConvention = camelCaseToHyphens(dmElement.getPropertyName());
+		String fileNamingConvention = camelCaseToHyphens(dmElement.getCamelCaseFormat());
 		templateService.fillModel(pConf.getId(), "rest-spring-jpa/frontEnd/" + templateName, model,
 				BasePathEnum.WEB_APP_ENTITIES,
 				fileNamingConvention + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName));

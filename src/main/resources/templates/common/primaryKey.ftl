@@ -29,7 +29,7 @@ import ${import};
 </#list>
 
 /**
- * The ${className}
+ * The ${entity}
  * 
  * @author ${author}
  *

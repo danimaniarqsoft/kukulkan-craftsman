@@ -1,4 +1,4 @@
-<form name="deleteForm" ng-submit="vm.confirmDelete(vm.${propertyName}.id)">
+<form name="deleteForm" ng-submit="vm.confirmDelete(vm.${entityCamelCase}.id)">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="vm.clear()">&times;</button>
@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <p data-translate="atlasApp.${propertyName}.delete.question" translate-values="{id: '{{vm.${propertyName}.id}}'}">Are you sure you want to delete this ${name}?</p>
+        <p data-translate="${projectName}App.${entityCamelCase}.delete.question" translate-values="{id: '{{vm.${entityCamelCase}.id}}'}">Are you sure you want to delete this ${entity}?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

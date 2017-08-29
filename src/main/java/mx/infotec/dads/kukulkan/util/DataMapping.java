@@ -83,7 +83,7 @@ public class DataMapping {
                 String singularName = InflectorProcessor.getInstance().singularize(table.getName());
                 dme.setTableName(table.getName());
                 dme.setName(SchemaPropertiesParser.parseToClassName(singularName));
-                dme.setPropertyName(SchemaPropertiesParser.parseToPropertyName(singularName));
+                dme.setCamelCaseFormat(SchemaPropertiesParser.parseToPropertyName(singularName));
                 extractPrimaryKey(dme, singularName, table.getPrimaryKeys());
                 extractProperties(dme, table);
                 dmeList.add(dme);
@@ -233,7 +233,7 @@ public class DataMapping {
     public void mapCommonProperties(ProjectConfiguration pConf, Map<String, Object> model, DataModelElement dmElement,
             String basePackage) {
         model.put("package", formatToPackageStatement(basePackage, pConf.getWebLayerName()));
-        model.put("propertyName", dmElement.getPropertyName());
+        model.put("entityCamelCaseFormat", dmElement.getCamelCaseFormat());
         model.put("name", dmElement.getName());
         model.put("id", "Long");
     }

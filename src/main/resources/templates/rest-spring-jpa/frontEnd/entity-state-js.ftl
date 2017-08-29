@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('usuario', {
+        .state('${entityCamelCase}', {
             parent: 'entity',
-            url: '/usuario?page&sort&search',
+            url: '/${entityCamelCasePlural}?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'atlasApp.usuario.home.title'
+                pageTitle: '${projectName}App.${entityCamelCase}.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/usuario/usuarios.html',
-                    controller: 'UsuarioController',
+                    templateUrl: 'app/entities/${entityHyphenNotation}/${entityHyphenNotation}.html',
+                    controller: '${entity}Controller',
                     controllerAs: 'vm'
                 }
             },
@@ -45,37 +45,37 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('usuario');
+                    $translatePartialLoader.addPart('${entityCamelCase}');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('usuario-detail', {
-            parent: 'usuario',
-            url: '/usuario/{id}',
+        .state('${entityCamelCase}-detail', {
+            parent: '${entityCamelCase}',
+            url: '/${entityCamelCasePlural}/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'atlasApp.usuario.detail.title'
+                pageTitle: '${projectName}App.${entityCamelCase}.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/usuario/usuario-detail.html',
-                    controller: 'UsuarioDetailController',
+                    templateUrl: 'app/entities/${entityHyphenNotation}/${entityHyphenNotation}-detail.html',
+                    controller: '${entity}DetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('usuario');
+                    $translatePartialLoader.addPart('${entityCamelCase}');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Usuario', function($stateParams, Usuario) {
-                    return Usuario.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', '${entity}', function($stateParams, ${entity}) {
+                    return ${entity}.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'usuario',
+                        name: $state.current.name || '${entityCamelCase}',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -83,22 +83,22 @@
                 }]
             }
         })
-        .state('usuario-detail.edit', {
-            parent: 'usuario-detail',
+        .state('${entityCamelCase}-detail.edit', {
+            parent: '${entityCamelCase}-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/usuario/usuario-dialog.html',
-                    controller: 'UsuarioDialogController',
+                    templateUrl: 'app/entities/${entityHyphenNotation}/${entityHyphenNotation}-dialog.html',
+                    controller: '${entity}DialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Usuario', function(Usuario) {
-                            return Usuario.get({id : $stateParams.id}).$promise;
+                        entity: ['${entity}', function(${entity}) {
+                            return ${entity}.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -108,94 +108,79 @@
                 });
             }]
         })
-        .state('usuario.new', {
-            parent: 'usuario',
+        .state('${entityCamelCase}.new', {
+            parent: '${entityCamelCase}',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/usuario/usuario-dialog.html',
-                    controller: 'UsuarioDialogController',
+                    templateUrl: 'app/entities/${entityHyphenNotation}/${entityHyphenNotation}-dialog.html',
+                    controller: '${entity}DialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                cadena: null,
-                                entero: null,
-                                tLong: null,
-                                tBigDecimal: null,
-                                tFloat: null,
-                                tDouble: null,
-                                tActivo: null,
-                                tLocalDate: null,
-                                tZonedDateTime: null,
-                                tBlob: null,
-                                tBlobContentType: null,
-                                tAnyBlob: null,
-                                tAnyBlobContentType: null,
-                                tImageBlob: null,
-                                tImageBlobContentType: null,
-                                tTextBlob: null,
-                                tInstant: null,
-                                id: null
+                          	    <#list properties as property>
+                                ${property.propertyName}: null<#sep>, </#sep>
+                    			</#list>
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('usuario', null, { reload: 'usuario' });
+                    $state.go('${entityCamelCase}', null, { reload: '${entityCamelCase}' });
                 }, function() {
-                    $state.go('usuario');
+                    $state.go('${entityCamelCase}');
                 });
             }]
         })
-        .state('usuario.edit', {
-            parent: 'usuario',
+        .state('${entityCamelCase}.edit', {
+            parent: '${entityCamelCase}',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/usuario/usuario-dialog.html',
-                    controller: 'UsuarioDialogController',
+                    templateUrl: 'app/entities/${entityHyphenNotation}/${entityHyphenNotation}-dialog.html',
+                    controller: '${entity}DialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Usuario', function(Usuario) {
-                            return Usuario.get({id : $stateParams.id}).$promise;
+                        entity: ['${entity}', function(${entity}) {
+                            return ${entity}.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('usuario', null, { reload: 'usuario' });
+                    $state.go('${entityCamelCase}', null, { reload: '${entityCamelCase}' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('usuario.delete', {
-            parent: 'usuario',
+        .state('${entityCamelCase}.delete', {
+            parent: '${entityCamelCase}',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/usuario/usuario-delete-dialog.html',
-                    controller: 'UsuarioDeleteController',
+                    templateUrl: 'app/entities/${entityHyphenNotation}/${entityHyphenNotation}-delete-dialog.html',
+                    controller: '${entity}DeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Usuario', function(Usuario) {
-                            return Usuario.get({id : $stateParams.id}).$promise;
+                        entity: ['${entity}', function(${entity}) {
+                            return ${entity}.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('usuario', null, { reload: 'usuario' });
+                    $state.go('${entityCamelCase}', null, { reload: '${entityCamelCase}' });
                 }, function() {
                     $state.go('^');
                 });

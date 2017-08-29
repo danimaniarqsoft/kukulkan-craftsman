@@ -63,7 +63,7 @@ public class DataModelElement {
 	/**
 	 * The name of the table formated to java world.
 	 */
-	protected String propertyName;
+	protected String camelCaseFormat;
 
 	/**
 	 * The columns mapped into the PropertyHolder class
@@ -116,12 +116,12 @@ public class DataModelElement {
 		this.tableName = tableName;
 	}
 
-	public String getPropertyName() {
-		return propertyName;
+	public String getCamelCaseFormat() {
+		return camelCaseFormat;
 	}
 
-	public void setPropertyName(String propertyName) {
-		this.propertyName = propertyName;
+	public void setCamelCaseFormat(String camelCaseFormat) {
+		this.camelCaseFormat = camelCaseFormat;
 	}
 
 	public String getUrlName() {

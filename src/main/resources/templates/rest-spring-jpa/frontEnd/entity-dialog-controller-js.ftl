@@ -2,15 +2,15 @@
     'use strict';
 
     angular
-        .module('${name}App')
-        .controller('${name}DialogController', ${name}DialogController);
+        .module('${entity}App')
+        .controller('${entity}DialogController', ${entity}DialogController);
 
-    ${name}DialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', '${name}'];
+    ${entity}DialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', '${entity}'];
 
-    function ${name}DialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, ${name}) {
+    function ${entity}DialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, ${entity}) {
         var vm = this;
 
-        vm.${propertyName} = entity;
+        vm.${entityCamelCase} = entity;
         vm.clear = clear;
         <#if hasTimeProperties == true>
         vm.datePickerOpenStatus = {};
@@ -40,15 +40,15 @@
 
         function save () {
             vm.isSaving = true;
-            if (vm.${propertyName}.id !== null) {
-                ${name}.update(vm.${propertyName}, onSaveSuccess, onSaveError);
+            if (vm.${entityCamelCase}.id !== null) {
+                ${entity}.update(vm.${entityCamelCase}, onSaveSuccess, onSaveError);
             } else {
-                ${name}.save(vm.${propertyName}, onSaveSuccess, onSaveError);
+                ${entity}.save(vm.${entityCamelCase}, onSaveSuccess, onSaveError);
             }
         }
 
         function onSaveSuccess (result) {
-            $scope.$emit('${projectName}App:${propertyName}Update', result);
+            $scope.$emit('${projectName}App:${entityCamelCase}Update', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;
         }
@@ -60,12 +60,12 @@
         <#if hasBlobProperties == true>
         	<#list properties as property>
         	<#if property.blob == true> 
-        vm.set${property.propertyName?cap_first} = function ($file, ${propertyName}) {
+        vm.set${property.propertyName?cap_first} = function ($file, ${entityCamelCase}) {
             if ($file) {
                 DataUtils.toBase64($file, function(base64Data) {
                     $scope.$apply(function() {
-                        ${propertyName}.${property.propertyName} = base64Data;
-                        ${propertyName}.${property.propertyName}ContentType = $file.type;
+                        ${entityCamelCase}.${property.propertyName} = base64Data;
+                        ${entityCamelCase}.${property.propertyName}ContentType = $file.type;
                     });
                 });
             }

@@ -3,12 +3,12 @@
     'use strict';
     angular
         .module('${projectName}')
-        .factory('${name}', ${name});
+        .factory('${entityCamelCasePlural}', ${entityCamelCasePlural});
 
-    ${name}.$inject = ['$resource'<#if hasTimeProperties == true>, 'DateUtils'</#if>];
+    ${entityCamelCasePlural}.$inject = ['$resource'<#if hasTimeProperties == true>, 'DateUtils'</#if>];
 
-    function ${name} ($resource<#if hasTimeProperties == true>, 'DateUtils'</#if>) {
-        var resourceUrl = 'api/${propertyNamePlural}/:id';
+    function ${entityCamelCasePlural} ($resource<#if hasTimeProperties == true>, 'DateUtils'</#if>) {
+        var resourceUrl = 'api/${entityCamelCasePlural}/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
