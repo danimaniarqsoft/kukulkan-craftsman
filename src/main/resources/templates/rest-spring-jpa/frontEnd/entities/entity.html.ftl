@@ -10,7 +10,7 @@ ${projectName}App.${entityCamelCase}
                 <button class="btn btn-primary" ui-sref="${entityCamelCase}.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span class="hidden-xs-down" data-translate="${translateKey}.home.createLabel">
-                        Create new <%= entityClassHumanized %>
+                        Create new ${entity}
                     </span>
                 </button>
             </div>

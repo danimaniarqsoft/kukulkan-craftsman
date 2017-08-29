@@ -64,6 +64,12 @@ public class DataModelElement {
 	 * The name of the table formated to java world.
 	 */
 	protected String camelCaseFormat;
+	
+	/**
+	 * The name of the table formated to java world.
+	 */
+	protected String camelCasePluralFormat;
+
 
 	/**
 	 * The columns mapped into the PropertyHolder class
@@ -206,5 +212,13 @@ public class DataModelElement {
 
 	public boolean isHasClobProperties() {
 		return hasClobProperties;
+	}
+
+	public String getCamelCasePluralFormat() {
+		return camelCasePluralFormat;
+	}
+
+	public void setCamelCasePluralFormat(String camelCasePluralFormat) {
+		this.camelCasePluralFormat = camelCasePluralFormat;
 	}
 }

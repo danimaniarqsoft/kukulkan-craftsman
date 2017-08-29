@@ -84,6 +84,7 @@ public class DataMapping {
                 dme.setTableName(table.getName());
                 dme.setName(SchemaPropertiesParser.parseToClassName(singularName));
                 dme.setCamelCaseFormat(SchemaPropertiesParser.parseToPropertyName(singularName));
+                dme.setCamelCasePluralFormat(InflectorProcessor.getInstance().pluralize(dme.getCamelCaseFormat()));
                 extractPrimaryKey(dme, singularName, table.getPrimaryKeys());
                 extractProperties(dme, table);
                 dmeList.add(dme);
