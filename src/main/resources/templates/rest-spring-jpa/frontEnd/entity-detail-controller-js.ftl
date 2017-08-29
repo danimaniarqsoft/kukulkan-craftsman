@@ -15,7 +15,7 @@
         vm.byteSize = DataUtils.byteSize;
         vm.openFile = DataUtils.openFile;
 
-        var unsubscribe = $rootScope.$on('atlasApp:${propertyName}Update', function(event, result) {
+        var unsubscribe = $rootScope.$on('${projectName}App:${entityCamelCase}Update', function(event, result) {
             vm.${entityCamelCase}= result;
         });
         $scope.$on('$destroy', unsubscribe);
