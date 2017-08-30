@@ -124,7 +124,6 @@ public class DataMapping {
                 .isTime(column.getType().isTimeBased()).build();
         dme.addProperty(javaProperty);
         addImports(dme.getImports(), column.getType());
-        dme.getMandatoryProperties().add(new MandatoryProperty(propertyType, propertyName));
         fillModelMetaData(dme, javaProperty);
     }
 
@@ -142,6 +141,10 @@ public class DataMapping {
         }
         if(javaProperty.isClob()) {
         	dme.setHasClobProperties(true);
+        	return;
+        }
+        if(javaProperty.isZoneDateTime()) {
+        	dme.setHasZoneDateTime(true);
         }
     }
 

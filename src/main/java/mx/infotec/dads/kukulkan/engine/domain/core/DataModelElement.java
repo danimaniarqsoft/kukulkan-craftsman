@@ -64,12 +64,11 @@ public class DataModelElement {
 	 * The name of the table formated to java world.
 	 */
 	protected String camelCaseFormat;
-	
+
 	/**
 	 * The name of the table formated to java world.
 	 */
 	protected String camelCasePluralFormat;
-
 
 	/**
 	 * The columns mapped into the PropertyHolder class
@@ -80,12 +79,7 @@ public class DataModelElement {
 	 * The columns mapped into the PropertyHolder class
 	 */
 	protected Collection<PropertyHolder> properties;
-
-	/**
-	 * The columns mapped into the PropertyHolder class
-	 */
-	private Collection<MandatoryProperty> mandatoryProperties;
-
+	
 	protected boolean hasNotNullElements;
 
 	protected boolean hasTimeProperties;
@@ -93,6 +87,56 @@ public class DataModelElement {
 	protected boolean hasBlobProperties;
 
 	protected boolean hasClobProperties;
+
+	protected boolean hasConstraints;
+
+	protected boolean hasBigDecimal;
+
+	protected boolean hasInstant;
+
+	protected boolean hasLocalDate;
+
+	protected boolean hasZoneDateTime;
+
+	public boolean isHasConstraints() {
+		return hasConstraints;
+	}
+
+	public void setHasConstraints(boolean hasConstraints) {
+		this.hasConstraints = hasConstraints;
+	}
+
+	public boolean isHasBigDecimal() {
+		return hasBigDecimal;
+	}
+
+	public void setHasBigDecimal(boolean hasBigDecimal) {
+		this.hasBigDecimal = hasBigDecimal;
+	}
+
+	public boolean isHasInstant() {
+		return hasInstant;
+	}
+
+	public void setHasInstant(boolean hasInstant) {
+		this.hasInstant = hasInstant;
+	}
+
+	public boolean isHasLocalDate() {
+		return hasLocalDate;
+	}
+
+	public void setHasLocalDate(boolean hasLocalDate) {
+		this.hasLocalDate = hasLocalDate;
+	}
+
+	public boolean isHasZoneDateTime() {
+		return hasZoneDateTime;
+	}
+
+	public void setHasZoneDateTime(boolean hasZoneDateTime) {
+		this.hasZoneDateTime = hasZoneDateTime;
+	}
 
 	private DataModelElement() {
 
@@ -162,7 +206,6 @@ public class DataModelElement {
 		DataModelElement dme = new DataModelElement();
 		dme.setImports(new TreeSet<>());
 		dme.setProperties(new TreeSet<>());
-		dme.setMandatoryProperties(new TreeSet<>());
 		return dme;
 	}
 
@@ -180,14 +223,6 @@ public class DataModelElement {
 
 	public void setHasNotNullElements(boolean hasNotNullElements) {
 		this.hasNotNullElements = hasNotNullElements;
-	}
-
-	public Collection<MandatoryProperty> getMandatoryProperties() {
-		return mandatoryProperties;
-	}
-
-	public void setMandatoryProperties(Collection<MandatoryProperty> mandatoryProperties) {
-		this.mandatoryProperties = mandatoryProperties;
 	}
 
 	public boolean isHasTimeProperties() {

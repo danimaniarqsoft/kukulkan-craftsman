@@ -27,7 +27,14 @@ ${package}
 <#list imports as import>
 import ${import};
 </#list>
-
+import javax.persistence.*;
+<#if hasConstraints == true>import javax.validation.constraints.*;</#if>
+import java.io.Serializable;<% if (fieldsContainBigDecimal == true) { %>
+<#if hasBigDecimal == true>import java.math.BigDecimal;</#if>
+if (fieldsContainInstant == true) { %>
+<#if hasInstant == true>import java.time.Instant;</#if>
+<#if hasLocalDate == true>import java.time.LocalDate;</#if>
+<#if hasZoneDateTime == true>import java.time.ZonedDateTime;</#if>
 /**
  * The ${entity}
  * 
@@ -103,7 +110,7 @@ public class ${entity} implements Serializable {
      * Este constructor fue generado automáticamente por ${author}
      * 
      */
-    public ${entity}(<#list mandatoryProperties[0..*1] as property>${property.type} ${property.name}</#list><#list mandatoryProperties[1..] as property>, ${property.type} ${property.name}</#list>) {
+    public ${entity}(<#list mandatoryProperties as property>${property.type} ${property.name}<#sep>, </#sep></#list>) {
     <#list mandatoryProperties as property>
         this.${property.name} = ${property.name};
     </#list>

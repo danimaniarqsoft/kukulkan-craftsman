@@ -115,6 +115,34 @@ public interface PropertyHolder<T> extends Comparable<T> {
 	boolean isClob();
 
 	/**
+	 * Return true if it is Clob element
+	 * 
+	 * @return boolean
+	 */
+	boolean isBigDecimal();
+
+	/**
+	 * Return true if it is Clob element
+	 * 
+	 * @return boolean
+	 */
+	boolean isLocalDate();
+
+	/**
+	 * Return true if it is Clob element
+	 * 
+	 * @return boolean
+	 */
+	boolean isInstance();
+
+	/**
+	 * Return true if it is Clob element
+	 * 
+	 * @return boolean
+	 */
+	boolean isZoneDateTime();
+
+	/**
 	 * Return associations if it exists
 	 * 
 	 * @return associations

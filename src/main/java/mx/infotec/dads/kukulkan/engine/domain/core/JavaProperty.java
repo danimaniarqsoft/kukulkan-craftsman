@@ -47,6 +47,46 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 	private boolean blob;
 	private boolean time;
 	private boolean clob;
+	private boolean bigDecimal;
+	private boolean localDate;
+	private boolean instance;
+	private boolean zoneDateTime;
+
+	@Override
+	public boolean isBigDecimal() {
+		return bigDecimal;
+	}
+
+	public void setBigDecimal(boolean bigDecimal) {
+		this.bigDecimal = bigDecimal;
+	}
+
+	@Override
+	public boolean isLocalDate() {
+		return localDate;
+	}
+
+	public void setLocalDate(boolean localDate) {
+		this.localDate = localDate;
+	}
+
+	@Override
+	public boolean isInstance() {
+		return instance;
+	}
+
+	public void setInstance(boolean instance) {
+		this.instance = instance;
+	}
+
+	@Override
+	public boolean isZoneDateTime() {
+		return zoneDateTime;
+	}
+
+	public void setZoneDateTime(boolean zoneDateTime) {
+		this.zoneDateTime = zoneDateTime;
+	}
 
 	private JavaProperty() {
 
@@ -246,6 +286,26 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 
 		public JavaPropertyBuilder isClob(boolean clob) {
 			this.javaProperty.setClob(clob);
+			return this;
+		}
+
+		public JavaPropertyBuilder isBigDecimal(boolean bigDecimal) {
+			this.javaProperty.setBigDecimal(bigDecimal);
+			return this;
+		}
+
+		public JavaPropertyBuilder isLocalDate(boolean localDate) {
+			this.javaProperty.setClob(localDate);
+			return this;
+		}
+
+		public JavaPropertyBuilder isZoneDateTime(boolean zoneDateTime) {
+			this.javaProperty.setZoneDateTime(zoneDateTime);
+			return this;
+		}
+
+		public JavaPropertyBuilder isInstance(boolean instance) {
+			this.javaProperty.setInstance(instance);
 			return this;
 		}
 
