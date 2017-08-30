@@ -34,21 +34,21 @@ import java.util.Collection;
  * @param <T>
  *
  */
-public interface PropertyHolder<T> extends Comparable<T> {
+public interface Property<T> extends Comparable<T> {
 
 	/**
 	 * Return the name of the property
 	 * 
 	 * @return propertyName
 	 */
-	String getPropertyName();
+	String getName();
 
 	/**
 	 * Return the type of the property
 	 * 
 	 * @return propertyType
 	 */
-	String getPropertyType();
+	String getType();
 
 	/**
 	 * Return the name of the property
@@ -71,27 +71,6 @@ public interface PropertyHolder<T> extends Comparable<T> {
 	 * @return qualifiedName
 	 */
 	String getQualifiedName();
-
-	/**
-	 * Return if it is a primary key property
-	 * 
-	 * @return boolean
-	 */
-	boolean isPrimaryKey();
-
-	/**
-	 * Return true if it is nullable
-	 * 
-	 * @return boolean
-	 */
-	boolean isNullable();
-
-	/**
-	 * Return true if it is index
-	 * 
-	 * @return boolean
-	 */
-	boolean isIndexed();
 
 	/**
 	 * Return true if it blob o clob element
@@ -147,6 +126,11 @@ public interface PropertyHolder<T> extends Comparable<T> {
 	 * 
 	 * @return associations
 	 */
-	Collection<PropertyHolder> getAssociations();
+	Collection<Property> getAssociations();
+
+	/**
+	 * Return the constraint applied
+	 */
+	Constraint getConstraint();
 
 }

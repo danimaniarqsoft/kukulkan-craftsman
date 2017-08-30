@@ -65,7 +65,6 @@ public class DtoLayerTask extends ConacytLayerTaskVisitor {
             model.put("properties", dmElement.getProperties());
             dmElement.getImports().add("java.io.Serializable");
             dmElement.getImports().remove("java.lang.Long");
-            model.put("mandatoryProperties", dmElement.getMandatoryProperties());
             model.put("imports", dmElement.getImports());
             fillModel(pConf, model, dmgName, basePackage, dmElement);
         }

@@ -34,16 +34,13 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
  * @author Daniel Cortes Pichardo
  *
  */
-public class JavaProperty implements PropertyHolder<JavaProperty> {
+public class JavaProperty implements Property<JavaProperty> {
 
-	private String propertyName;
-	private String propertyType;
+	private String name;
+	private String type;
 	private String qualifiedName;
 	private String columnName;
 	private String columnType;
-	private boolean indexed;
-	private boolean nullable;
-	private boolean primaryKey;
 	private boolean blob;
 	private boolean time;
 	private boolean clob;
@@ -51,6 +48,7 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 	private boolean localDate;
 	private boolean instance;
 	private boolean zoneDateTime;
+	private Constraint constraint;
 
 	@Override
 	public boolean isBigDecimal() {
@@ -115,13 +113,13 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 	}
 
 	@Override
-	public String getPropertyName() {
-		return this.propertyName;
+	public String getName() {
+		return this.name;
 	}
 
 	@Override
-	public String getPropertyType() {
-		return this.propertyType;
+	public String getType() {
+		return this.type;
 	}
 
 	@Override
@@ -130,18 +128,13 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 	}
 
 	@Override
-	public Collection<PropertyHolder> getAssociations() {
+	public Collection<Property> getAssociations() {
 		throw new ApplicationException("Method not implemented");
 	}
 
 	@Override
-	public boolean isPrimaryKey() {
-		return this.primaryKey;
-	}
-
-	@Override
 	public int compareTo(JavaProperty o) {
-		return propertyName.compareTo(o.getPropertyName());
+		return name.compareTo(o.getName());
 	}
 
 	@Override
@@ -155,20 +148,6 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 	}
 
 	@Override
-	public boolean isNullable() {
-		return nullable;
-	}
-
-	public void setIndexed(boolean indexed) {
-		this.indexed = indexed;
-	}
-
-	@Override
-	public boolean isIndexed() {
-		return this.indexed;
-	}
-
-	@Override
 	public boolean isClob() {
 		return this.clob;
 	}
@@ -177,8 +156,13 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((propertyName == null) ? 0 : propertyName.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
+	}
+
+	@Override
+	public Constraint getConstraint() {
+		return constraint;
 	}
 
 	@Override
@@ -190,20 +174,20 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 		if (getClass() != obj.getClass())
 			return false;
 		JavaProperty other = (JavaProperty) obj;
-		if (propertyName == null) {
-			if (other.propertyName != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!propertyName.equals(other.propertyName))
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
 
-	protected void setPropertyName(String propertyName) {
-		this.propertyName = propertyName;
+	protected void setName(String name) {
+		this.name = name;
 	}
 
-	protected void setPropertyType(String propertyType) {
-		this.propertyType = propertyType;
+	protected void setType(String type) {
+		this.type = type;
 	}
 
 	protected void setQualifiedName(String qualifiedName) {
@@ -218,29 +202,30 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 		this.columnType = columnType;
 	}
 
-	protected void setNullable(boolean nullable) {
-		this.nullable = nullable;
-	}
-
-	protected void setPrimaryKey(boolean primaryKey) {
-		this.primaryKey = primaryKey;
-	}
-
 	protected void setClob(boolean clob) {
 		this.clob = clob;
 	}
 
+	protected void setConstraint(Constraint constraint) {
+		this.constraint = constraint;
+	}
+
 	public static class JavaPropertyBuilder {
 
-		private JavaProperty javaProperty = new JavaProperty();
+		private JavaProperty javaProperty;
+		
+		public JavaPropertyBuilder() {
+			this.javaProperty= new JavaProperty();
+			this.javaProperty.setConstraint(new Constraint());
+		}
 
-		public JavaPropertyBuilder withPropertyName(String propertyName) {
-			this.javaProperty.setPropertyName(propertyName);
+		public JavaPropertyBuilder withName(String propertyName) {
+			this.javaProperty.setName(propertyName);
 			return this;
 		}
 
-		public JavaPropertyBuilder withPropertyType(String propertyType) {
-			this.javaProperty.setPropertyType(propertyType);
+		public JavaPropertyBuilder withType(String propertyType) {
+			this.javaProperty.setType(propertyType);
 			return this;
 		}
 
@@ -260,17 +245,17 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 		}
 
 		public JavaPropertyBuilder isNullable(boolean nullable) {
-			this.javaProperty.setNullable(nullable);
+			this.javaProperty.getConstraint().setNullable(nullable);
 			return this;
 		}
 
 		public JavaPropertyBuilder isPrimaryKey(boolean isPrimaryKey) {
-			this.javaProperty.setPrimaryKey(isPrimaryKey);
+			this.javaProperty.getConstraint().setPrimaryKey(isPrimaryKey);
 			return this;
 		}
 
 		public JavaPropertyBuilder isIndexed(boolean indexed) {
-			this.javaProperty.setIndexed(indexed);
+			this.javaProperty.getConstraint().setIndexed(indexed);
 			return this;
 		}
 

@@ -32,7 +32,6 @@ public class H2FileDatabaseConfiguration {
             DeleteDbFiles.execute("~", "test", true);
             String schemaPath = new ClassPathResource(DB_SCHEMA).getFile().getAbsolutePath();
             RunScript.execute(DB_CONNECTION, DB_USER, DB_PASSWORD, schemaPath, null, false);
-            System.out.println(schemaPath);
         } catch (SQLException e) {
             LOGGER.error("SQLException: ", e);
             return false;

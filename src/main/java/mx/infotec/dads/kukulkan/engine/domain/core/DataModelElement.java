@@ -78,7 +78,7 @@ public class DataModelElement {
 	/**
 	 * The columns mapped into the PropertyHolder class
 	 */
-	protected Collection<PropertyHolder> properties;
+	protected Collection<Property> properties;
 	
 	protected boolean hasNotNullElements;
 
@@ -150,11 +150,11 @@ public class DataModelElement {
 		this.name = name;
 	}
 
-	public Collection<PropertyHolder> getProperties() {
+	public Collection<Property> getProperties() {
 		return properties;
 	}
 
-	public void setProperties(Collection<PropertyHolder> properties) {
+	public void setProperties(Collection<Property> properties) {
 		this.properties = properties;
 	}
 
@@ -198,7 +198,7 @@ public class DataModelElement {
 		this.primaryKey = primaryKey;
 	}
 
-	public void addProperty(PropertyHolder propertyHolder) {
+	public void addProperty(Property propertyHolder) {
 		properties.add(propertyHolder);
 	}
 

@@ -41,11 +41,11 @@ public class PrimaryKey {
     private String name;
     private String type;
     private String qualifiedLabel;
-    private Collection<PropertyHolder> properties;
+    private Collection<Property> properties;
     private boolean isComposed;
     private GenerationType generationType;
 
-    public boolean addProperty(PropertyHolder propertyHolder) {
+    public boolean addProperty(Property propertyHolder) {
         return properties.add(propertyHolder);
     }
 
@@ -89,11 +89,11 @@ public class PrimaryKey {
         this.generationType = generationType;
     }
 
-    public Collection<PropertyHolder> getProperties() {
+    public Collection<Property> getProperties() {
         return properties;
     }
 
-    public void setProperties(Collection<PropertyHolder> properties) {
+    public void setProperties(Collection<Property> properties) {
         this.properties = properties;
     }
 
