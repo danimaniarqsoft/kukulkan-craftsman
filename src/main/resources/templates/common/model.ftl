@@ -121,7 +121,7 @@ public class ${entity} implements Serializable {
     
     /**
      * Este método fue generado automaticamente por ${author} 
-     * Este método GETTER fue generado para la ${tableName}.${primaryKey.name}
+     * Este método GETTER fue generado para la llave primaria ${tableName}.${primaryKey.name}
      *
      * @return el valor de ${primaryKey.name}
      *
@@ -133,7 +133,7 @@ public class ${entity} implements Serializable {
 
     /**
      * Este método fue generado automaticamente por ${author} 
-     * Este método SETTER fue generado para la tabla. ${tableName}.${primaryKey.name}
+     * Este método SETTER fue generado para la llave primaria. ${tableName}.${primaryKey.name}
      *
      * @return el valor de area_conocimiento.id
      *
@@ -146,7 +146,7 @@ public class ${entity} implements Serializable {
 	<#list properties as property>
     /**
      * Este método fue generado automaticamente por ${author} 
-     * Este método GETTER fue generado para la ${tableName}.${property.columnName}
+     * Este método GETTER fue generado para la propiedad ${tableName}.${property.columnName}
      *
      * @return el valor de ${property.name}
      *
@@ -158,7 +158,7 @@ public class ${entity} implements Serializable {
 
     /**
      * Este método fue generado automaticamente por ${author} 
-     * Este método SETTER fue generado para la tabla. ${tableName}.${property.name}
+     * Este método SETTER fue generado para la propiedad. ${tableName}.${property.name}
      *
      * @return el valor de ${property.name?cap_first}
      *

@@ -122,6 +122,7 @@ public class DataMapping {
 	private static void fillModelMetaData(DataModelElement dme, Property<JavaProperty> javaProperty) {
 		if (!javaProperty.getConstraint().isNullable()) {
 			dme.setHasNotNullElements(true);
+			dme.setHasConstraints(true);
 		}
 		if (javaProperty.isTime()) {
 			dme.setHasTimeProperties(true);
