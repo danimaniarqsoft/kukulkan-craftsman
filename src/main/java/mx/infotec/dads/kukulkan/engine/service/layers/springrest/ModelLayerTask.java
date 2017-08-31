@@ -69,12 +69,9 @@ public class ModelLayerTask extends SpringRestLayerTaskVisitor {
 			model.put("hasBigDecimal", dmElement.isHasBigDecimal());
 			importPrimaryKey(pConf, model, basePackage, dmElement);
 			model.put("package", formatToPackageStatement(basePackage, pConf.getDomainLayerName()));
-			System.out.println(dmElement.getProperties().size());
 			model.put("properties", dmElement.getProperties());
 			dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
 			model.put("primaryKey", dmElement.getPrimaryKey());
-			dmElement.getImports().add("javax.persistence.*");
-			dmElement.getImports().add("java.io.Serializable");
 			model.put("imports", dmElement.getImports());
 			fillModel(pConf, model, dmgName, basePackage, dmElement);
 			fillPrimaryKey(pConf, model, dmgName, basePackage, dmElement);

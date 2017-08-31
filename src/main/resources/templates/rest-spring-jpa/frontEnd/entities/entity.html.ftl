@@ -40,8 +40,8 @@ ${projectName}App.${entityCamelCase}
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <#list properties as property>
-                    	<#if property.propertyName != "id">
-                    <th jh-sort-by="${property.propertyName}"><span data-translate="${translateKey}.${property.propertyName}">${property.propertyName}</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    	<#if property.name != "id">
+                    <th jh-sort-by="${property.name}"><span data-translate="${translateKey}.${property.name}">${property.name}</span> <span class="glyphicon glyphicon-sort"></span></th>
                     	</#if>
                     </#list>
                     <th></th>
@@ -50,18 +50,18 @@ ${projectName}App.${entityCamelCase}
             <tbody ng-repeat="${entityCamelCase} in vm.${entityCamelCasePlural} track by ${entityCamelCase}.id">
                     <td><a ui-sref="${entityCamelCase}-detail({id:${entityCamelCase}.id})">{{${entityCamelCase}.id}}</a></td>
 				   <#list properties as property>
-                    	<#if property.propertyName != "id">
+                    	<#if property.name != "id">
                     		<#if  property.columnType?contains("TIMESTAMP")>
-					<td>{{${entityCamelCase}.${property.propertyName} | date:'medium'}}</td>
+					<td>{{${entityCamelCase}.${property.name} | date:'medium'}}</td>
 							<#elseif property.columnType?contains("DATE")>
-					<td>{{${entityCamelCase}.${property.propertyName} | date:'mediumDate'}}</td>
+					<td>{{${entityCamelCase}.${property.name} | date:'mediumDate'}}</td>
 					        <#elseif property.blob == true>
 					<td>
-						<a ng-if="${entityCamelCase}.${property.propertyName}" ng-click="vm.openFile(${entityCamelCase}.${property.propertyName}ContentType, ${entityCamelCase}.${property.propertyName})" data-translate="entity.action.open">open</a>
-                        <span ng-if="${entityCamelCase}.${property.propertyName}">{{${entityCamelCase}.${property.propertyName}ContentType}}, {{vm.byteSize(${entityCamelCase}.${property.propertyName})}}</span> 
+						<a ng-if="${entityCamelCase}.${property.name}" ng-click="vm.openFile(${entityCamelCase}.${property.name}ContentType, ${entityCamelCase}.${property.name})" data-translate="entity.action.open">open</a>
+                        <span ng-if="${entityCamelCase}.${property.name}">{{${entityCamelCase}.${property.name}ContentType}}, {{vm.byteSize(${entityCamelCase}.${property.name})}}</span> 
 					</td>     
                     		<#else>
-					<td>{{${entityCamelCase}.${property.propertyName}}}</td>
+					<td>{{${entityCamelCase}.${property.name}}}</td>
 							</#if>
                     	</#if>
                     </#list>

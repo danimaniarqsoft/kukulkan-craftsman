@@ -125,7 +125,7 @@
                         entity: function () {
                             return {
                           	    <#list properties as property>
-                                ${property.propertyName}: null<#sep>, </#sep>
+                                ${property.name}: null<#sep>, </#sep>
                     			</#list>
                             };
                         }

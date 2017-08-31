@@ -28,13 +28,22 @@ ${package}
 import ${import};
 </#list>
 import javax.persistence.*;
-<#if hasConstraints == true>import javax.validation.constraints.*;</#if>
-import java.io.Serializable;<% if (fieldsContainBigDecimal == true) { %>
-<#if hasBigDecimal == true>import java.math.BigDecimal;</#if>
-if (fieldsContainInstant == true) { %>
-<#if hasInstant == true>import java.time.Instant;</#if>
-<#if hasLocalDate == true>import java.time.LocalDate;</#if>
-<#if hasZoneDateTime == true>import java.time.ZonedDateTime;</#if>
+<#if hasConstraints == true>
+import javax.validation.constraints.*;
+</#if>
+import java.io.Serializable;
+<#if hasBigDecimal == true>
+import java.math.BigDecimal;
+</#if>
+<#if hasInstant == true>
+import java.time.Instant;
+</#if>
+<#if hasLocalDate == true>
+import java.time.LocalDate;
+</#if>
+<#if hasZoneDateTime == true>
+import java.time.ZonedDateTime;
+</#if>
 /**
  * The ${entity}
  * 
@@ -79,23 +88,15 @@ public class ${entity} implements Serializable {
      *
      * @kukulkanGenerated ${aDateTime?iso_utc}
      */
-    <#if property.nullable==false>
+    <#if property.constraint.nullable==false>
     @NotNull
     </#if> 
-    @Column(name = "${property.columnName}"<#if property.indexed==true>, unique=true</#if><#if property.nullable==false>, nullable = false</#if>)
-    <#if property.qualifiedName == "java.util.Date">
-    	<#if property.columnType?contains("DATE")>
-    @Temporal(TemporalType.DATE)    	
-    <#elseif property.columnType?contains("TIMESTAMP")>
-    @Temporal(TemporalType.TIMESTAMP)
-    	<#elseif property.columnType?contains("TIME")>
-    @Temporal(TemporalType.TIME)
-    	</#if>
-    <#elseif property.qualifiedName == "java.sql.Blob" || property.qualifiedName == "java.sql.Clob">
+    @Column(name = "${property.columnName}"<#if property.constraint.indexed==true>, unique=true</#if><#if property.constraint.nullable==false>, nullable = false</#if>)
+    <#if property.qualifiedName == "java.sql.Blob" || property.qualifiedName == "java.sql.Clob">
     @Basic(fetch = FetchType.LAZY)
     @Lob
     </#if> 
-    private ${property.propertyType} ${property.propertyName};
+    private ${property.type} ${property.name};
 	</#list>
 	
     /**
@@ -147,24 +148,24 @@ public class ${entity} implements Serializable {
      * Este método fue generado automaticamente por ${author} 
      * Este método GETTER fue generado para la ${tableName}.${property.columnName}
      *
-     * @return el valor de ${property.propertyName}
+     * @return el valor de ${property.name}
      *
      * @kukulkanGenerated ${aDateTime?iso_utc}
      */
-    public ${property.propertyType} get${property.propertyName?cap_first}() {
-        return ${property.propertyName};
+    public ${property.type} get${property.name?cap_first}() {
+        return ${property.name};
     }
 
     /**
      * Este método fue generado automaticamente por ${author} 
-     * Este método SETTER fue generado para la tabla. ${tableName}.${property.propertyName}
+     * Este método SETTER fue generado para la tabla. ${tableName}.${property.name}
      *
-     * @return el valor de ${property.propertyName?cap_first}
+     * @return el valor de ${property.name?cap_first}
      *
      * @kukulkanGenerated ${aDateTime?iso_utc}
      */
-    public void set${property.propertyName?cap_first}(${property.propertyType} ${property.propertyName}) {
-        this.${property.propertyName} = ${property.propertyName};
+    public void set${property.name?cap_first}(${property.type} ${property.name}) {
+        this.${property.name} = ${property.name};
     }
     </#list>
 
@@ -182,7 +183,7 @@ public class ${entity} implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         <#list properties as property>
-        sb.append(", ${property.propertyName}=").append(${property.propertyName});
+        sb.append(", ${property.name}=").append(${property.name});
         </#list>
         sb.append("]");
         return sb.toString();

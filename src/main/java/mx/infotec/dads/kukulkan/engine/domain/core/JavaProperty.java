@@ -25,6 +25,9 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
 
 import java.util.Collection;
 
+import org.apache.metamodel.schema.Column;
+import org.apache.metamodel.schema.ColumnType;
+
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -46,7 +49,7 @@ public class JavaProperty implements Property<JavaProperty> {
 	private boolean clob;
 	private boolean bigDecimal;
 	private boolean localDate;
-	private boolean instance;
+	private boolean instant;
 	private boolean zoneDateTime;
 	private Constraint constraint;
 
@@ -64,17 +67,18 @@ public class JavaProperty implements Property<JavaProperty> {
 		return localDate;
 	}
 
+	@Override
+	public boolean isInstant() {
+		return instant;
+	}
+
+	public void setInstant(boolean instant) {
+		this.instant = instant;
+
+	}
+
 	public void setLocalDate(boolean localDate) {
 		this.localDate = localDate;
-	}
-
-	@Override
-	public boolean isInstance() {
-		return instance;
-	}
-
-	public void setInstance(boolean instance) {
-		this.instance = instance;
 	}
 
 	@Override
@@ -213,9 +217,9 @@ public class JavaProperty implements Property<JavaProperty> {
 	public static class JavaPropertyBuilder {
 
 		private JavaProperty javaProperty;
-		
+
 		public JavaPropertyBuilder() {
-			this.javaProperty= new JavaProperty();
+			this.javaProperty = new JavaProperty();
 			this.javaProperty.setConstraint(new Constraint());
 		}
 
@@ -259,8 +263,17 @@ public class JavaProperty implements Property<JavaProperty> {
 			return this;
 		}
 
-		public JavaPropertyBuilder isTime(boolean time) {
+		public JavaPropertyBuilder isTime(boolean time, ColumnType columnType) {
 			this.javaProperty.setTime(time);
+			if (time) {
+				if (columnType == ColumnType.TIMESTAMP) {
+					this.javaProperty.setZoneDateTime(true);
+				} else if (columnType == ColumnType.DATE) {
+					this.javaProperty.setLocalDate(true);
+				} else {
+					throw new ApplicationException("Not Time Mapping" + columnType.getName());
+				}
+			}
 			return this;
 		}
 
@@ -289,8 +302,8 @@ public class JavaProperty implements Property<JavaProperty> {
 			return this;
 		}
 
-		public JavaPropertyBuilder isInstance(boolean instance) {
-			this.javaProperty.setInstance(instance);
+		public JavaPropertyBuilder isInstance(boolean instant) {
+			this.javaProperty.setInstant(instant);
 			return this;
 		}
 

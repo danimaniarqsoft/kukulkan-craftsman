@@ -5,19 +5,19 @@
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
     <#list properties as property>
-        <dt><span data-translate="${projectName}App.${entityCamelCase}.${property.propertyName}">${property.propertyName}</span></dt>
+        <dt><span data-translate="${projectName}App.${entityCamelCase}.${property.name}">${property.name}</span></dt>
         <dd>
     	<#if  property.qualifiedName == "java.sql.Blob">
-            <div ng-if="vm.${entityCamelCase}.${property.propertyName}">
-                <a ng-click="vm.openFile(vm.${entityCamelCase}.${property.propertyName}ContentType, vm.${entityCamelCase}.${property.propertyName})" data-translate="entity.action.open">open</a>
-                {{vm.${entityCamelCase}.${property.propertyName}ContentType}}, {{vm.byteSize(vm.${entityCamelCase}.${property.propertyName})}}
+            <div ng-if="vm.${entityCamelCase}.${property.name}">
+                <a ng-click="vm.openFile(vm.${entityCamelCase}.${property.name}ContentType, vm.${entityCamelCase}.${property.name})" data-translate="entity.action.open">open</a>
+                {{vm.${entityCamelCase}.${property.name}ContentType}}, {{vm.byteSize(vm.${entityCamelCase}.${property.name})}}
             </div>
     	<#elseif property.columnType?contains("TIMESTAMP")>
-        	<span>{{vm.${entityCamelCase}.${property.propertyName} | date:'medium'}}</span>
+        	<span>{{vm.${entityCamelCase}.${property.name} | date:'medium'}}</span>
     	<#elseif property.columnType?contains("DATE")>
-    		<span>{{vm.${entityCamelCase}.${property.propertyName} | date:'mediumDate'}}</span>
+    		<span>{{vm.${entityCamelCase}.${property.name} | date:'mediumDate'}}</span>
         <#else>
-        	<span>{{vm.${entityCamelCase}.${property.propertyName}}}</span>
+        	<span>{{vm.${entityCamelCase}.${property.name}}}</span>
     	</#if>
         </dd>
 	</#list>

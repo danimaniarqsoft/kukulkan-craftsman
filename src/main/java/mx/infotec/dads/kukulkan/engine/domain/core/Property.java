@@ -112,7 +112,7 @@ public interface Property<T> extends Comparable<T> {
 	 * 
 	 * @return boolean
 	 */
-	boolean isInstance();
+	boolean isInstant();
 
 	/**
 	 * Return true if it is Clob element

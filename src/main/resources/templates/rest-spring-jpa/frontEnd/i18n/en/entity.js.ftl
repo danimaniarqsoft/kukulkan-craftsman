@@ -16,7 +16,7 @@
                 "title": "${entity}"
             },
            <#list properties as property>
-            "${property.propertyName}": "${property.propertyName?cap_first}"<#sep>, </#sep>
+            "${property.name}": "${property.name?cap_first}"<#sep>, </#sep>
            </#list>
         }
     }

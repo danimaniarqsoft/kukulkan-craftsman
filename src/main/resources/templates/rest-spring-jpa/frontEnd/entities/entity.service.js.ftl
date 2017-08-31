@@ -21,10 +21,10 @@
         			    	<#list properties as property>
 				        		<#if property.time == true> 
 				        			<#if  property.columnType?contains("TIMESTAMP")>
-				        data.${property.propertyName} = DateUtils.convertDateTimeFromServer(data.${property.propertyName});
+				        data.${property.name} = DateUtils.convertDateTimeFromServer(data.${property.name});
 							    	<#elseif property.columnType?contains("DATE")>
 							    	<#assign hasLocalDate = true>
-						data.${property.propertyName} = DateUtils.convertLocalDateFromServer(data.${property.propertyName});
+						data.${property.name} = DateUtils.convertLocalDateFromServer(data.${property.name});
 							    	</#if>
 				            	</#if>
 				        	</#list>
@@ -42,7 +42,7 @@
         			<#list properties as property>
 				    	<#if property.time == true> 
 				        	<#if  property.columnType?contains("DATE")>
-				    copy.${property.propertyName} = DateUtils.convertLocalDateToServer(copy.${property.propertyName});
+				    copy.${property.name} = DateUtils.convertLocalDateToServer(copy.${property.name});
 							</#if>
 				    	</#if>
 					</#list>
@@ -57,7 +57,7 @@
         			<#list properties as property>
 				    	<#if property.time == true> 
 				        	<#if  property.columnType?contains("DATE")>
-				    copy.${property.propertyName} = DateUtils.convertLocalDateToServer(copy.${property.propertyName});
+				    copy.${property.name} = DateUtils.convertLocalDateToServer(copy.${property.name});
 							</#if>
 				    	</#if>
 					</#list>

@@ -30,8 +30,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.apache.metamodel.schema.Column;
 import org.apache.metamodel.schema.ColumnType;
@@ -103,23 +101,19 @@ public class DataMapping {
 	}
 
 	public static void extractProperties(DataModelElement dme, Table table) {
-		Arrays.stream(table.getColumns())
-		.filter(column -> !column.isPrimaryKey())
-		.forEach(column -> processNotPrimaryProperties(dme, column));
+		Arrays.stream(table.getColumns()).filter(column -> !column.isPrimaryKey())
+				.forEach(column -> processNotPrimaryProperties(dme, column));
 	}
 
 	private static void processNotPrimaryProperties(DataModelElement dme, Column column) {
 		String propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
 		String propertyType = extractPropertyType(column);
-		Property<JavaProperty> javaProperty = JavaProperty.builder().withName(propertyName)
-				.withType(propertyType).withColumnName(column.getName()).withColumnType(column.getNativeType())
-				.withQualifiedName(extractQualifiedType(column))
-				.isNullable(column.isNullable())
-				.isPrimaryKey(false)
-				.isIndexed(column.isIndexed())
-				.isBlob(column.getType().isBinary())
-				.isClob(column.getType().isLargeObject())
-				.isTime(column.getType().isTimeBased()).build();
+		Property<JavaProperty> javaProperty = JavaProperty.builder().withName(propertyName).withType(propertyType)
+				.withColumnName(column.getName()).withColumnType(column.getNativeType())
+				.withQualifiedName(extractQualifiedType(column)).isNullable(column.isNullable()).isPrimaryKey(false)
+				.isIndexed(column.isIndexed()).isBlob(column.getType().isBinary())
+				.isClob(column.getType().isLargeObject()).isTime(column.getType().isTimeBased(), column.getType())
+				.build();
 		dme.addProperty(javaProperty);
 		addImports(dme.getImports(), column.getType());
 		fillModelMetaData(dme, javaProperty);
@@ -154,20 +148,36 @@ public class DataMapping {
 
 	private static boolean addImports(Collection<String> imports, ColumnType columnType) {
 		String javaType = columnType.getJavaEquivalentClass().getCanonicalName();
-		if (columnType.equals(ColumnType.BLOB) || columnType.equals(ColumnType.CLOB)
-				|| columnType.equals(ColumnType.NCLOB) || javaType.contains(".lang.") || javaType.contains(".Blob.")) {
+		if (columnType == ColumnType.BLOB || columnType == ColumnType.CLOB || columnType == ColumnType.NCLOB
+				|| isWrapperClass(columnType) || columnType == ColumnType.DATE || columnType == ColumnType.TIMESTAMP) {
 			return false;
 		}
 		imports.add(javaType);
 		return true;
 	}
 
+	private static boolean isWrapperClass(ColumnType columnType) {
+		Class<?> testClass = columnType.getJavaEquivalentClass();
+		if (testClass.equals(Boolean.class) || testClass.equals(Double.class) || testClass.equals(Integer.class)
+				|| testClass.equals(Long.class) || testClass.equals(Float.class) || testClass.equals(String.class)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	private static String extractPropertyType(Column column) {
 		String propertyType = column.getType().getJavaEquivalentClass().getSimpleName();
 		if (column.isIndexed() && column.getType().isNumber()) {
 			return "Long";
-		} else if ("Blob".equals(propertyType) || "Clob".equals(propertyType)) {
+		} else if (column.getType() == ColumnType.BLOB) {
 			return "byte[]";
+		} else if (column.getType() == ColumnType.CLOB) {
+			return "String";
+		} else if (column.getType() == ColumnType.DATE) {
+			return "LocalDate";
+		} else if (column.getType() == ColumnType.TIMESTAMP) {
+			return "ZonedDateTime";
 		} else {
 			return propertyType;
 		}
