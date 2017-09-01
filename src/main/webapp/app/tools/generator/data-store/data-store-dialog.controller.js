@@ -13,6 +13,7 @@
         vm.dataStore = entity;
         vm.clear = clear;
         vm.save = save;
+        vm.isTestingConnection = false;
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -23,12 +24,16 @@
         }
 
         function save () {
-            vm.isSaving = true;
-            if (vm.dataStore.id !== null) {
-                DataStore.update(vm.dataStore, onSaveSuccess, onSaveError);
-            } else {
-                DataStore.save(vm.dataStore, onSaveSuccess, onSaveError);
-            }
+        if(vm.isTestingConnection===false){
+        	vm.isSaving = true;
+        	if (vm.dataStore.id !== null) {
+        		DataStore.update(vm.dataStore, onSaveSuccess, onSaveError);
+        	} else {
+        		DataStore.save(vm.dataStore, onSaveSuccess, onSaveError);
+        	}        	
+        }else{
+        	console.log("testing...")
+        }
         }
 
         function onSaveSuccess (result) {
