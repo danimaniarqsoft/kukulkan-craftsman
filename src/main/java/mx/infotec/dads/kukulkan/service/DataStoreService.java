@@ -102,4 +102,11 @@ public interface DataStoreService {
      * @param id
      */
     void deleteAll();
+
+    /**
+     * 
+     * @param dataStore
+     * @return boolean
+     */
+    boolean testConnection(DataStore dataStore);
 }

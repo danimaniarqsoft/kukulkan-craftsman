@@ -41,52 +41,63 @@ public class DataStoreResource {
     }
 
     /**
-     * POST  /data-stores : Create a new dataStore.
+     * POST /data-stores : Create a new dataStore.
      *
-     * @param dataStore the dataStore to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new dataStore, or with status 400 (Bad Request) if the dataStore has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param dataStore
+     *            the dataStore to create
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     *         new dataStore, or with status 400 (Bad Request) if the dataStore
+     *         has already an ID
+     * @throws URISyntaxException
+     *             if the Location URI syntax is incorrect
      */
     @PostMapping("/data-stores")
     @Timed
-    public ResponseEntity<DataStore> createDataStore(@Valid @RequestBody DataStore dataStore) throws URISyntaxException {
+    public ResponseEntity<DataStore> createDataStore(@Valid @RequestBody DataStore dataStore)
+            throws URISyntaxException {
         log.debug("REST request to save DataStore : {}", dataStore);
         if (dataStore.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new dataStore cannot already have an ID")).body(null);
+            return ResponseEntity.badRequest().headers(
+                    HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new dataStore cannot already have an ID"))
+                    .body(null);
         }
         DataStore result = dataStoreService.save(dataStore);
         return ResponseEntity.created(new URI("/api/data-stores/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
     }
 
     /**
-     * PUT  /data-stores : Updates an existing dataStore.
+     * PUT /data-stores : Updates an existing dataStore.
      *
-     * @param dataStore the dataStore to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated dataStore,
-     * or with status 400 (Bad Request) if the dataStore is not valid,
-     * or with status 500 (Internal Server Error) if the dataStore couldnt be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param dataStore
+     *            the dataStore to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     *         dataStore, or with status 400 (Bad Request) if the dataStore is
+     *         not valid, or with status 500 (Internal Server Error) if the
+     *         dataStore couldnt be updated
+     * @throws URISyntaxException
+     *             if the Location URI syntax is incorrect
      */
     @PutMapping("/data-stores")
     @Timed
-    public ResponseEntity<DataStore> updateDataStore(@Valid @RequestBody DataStore dataStore) throws URISyntaxException {
+    public ResponseEntity<DataStore> updateDataStore(@Valid @RequestBody DataStore dataStore)
+            throws URISyntaxException {
         log.debug("REST request to update DataStore : {}", dataStore);
         if (dataStore.getId() == null) {
             return createDataStore(dataStore);
         }
         DataStore result = dataStoreService.save(dataStore);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, dataStore.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, dataStore.getId().toString())).body(result);
     }
 
     /**
-     * GET  /data-stores : get all the dataStores.
+     * GET /data-stores : get all the dataStores.
      *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of dataStores in body
+     * @param pageable
+     *            the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of
+     *         dataStores in body
      */
     @GetMapping("/data-stores")
     @Timed
@@ -98,10 +109,12 @@ public class DataStoreResource {
     }
 
     /**
-     * GET  /data-stores/:id : get the "id" dataStore.
+     * GET /data-stores/:id : get the "id" dataStore.
      *
-     * @param id the id of the dataStore to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the dataStore, or with status 404 (Not Found)
+     * @param id
+     *            the id of the dataStore to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     *         dataStore, or with status 404 (Not Found)
      */
     @GetMapping("/data-stores/{id}")
     @Timed
@@ -112,9 +125,10 @@ public class DataStoreResource {
     }
 
     /**
-     * DELETE  /data-stores/:id : delete the "id" dataStore.
+     * DELETE /data-stores/:id : delete the "id" dataStore.
      *
-     * @param id the id of the dataStore to delete
+     * @param id
+     *            the id of the dataStore to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/data-stores/{id}")
@@ -123,5 +137,30 @@ public class DataStoreResource {
         log.debug("REST request to delete DataStore : {}", id);
         dataStoreService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+    }
+
+    /**
+     * POST /data-stores : Create a new dataStore.
+     *
+     * @param dataStore
+     *            the dataStore to create
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     *         new dataStore, or with status 400 (Bad Request) if the dataStore
+     *         has already an ID
+     * @throws URISyntaxException
+     *             if the Location URI syntax is incorrect
+     */
+    @PostMapping("/data-stores/testConnection")
+    @Timed
+    public ResponseEntity<DataStore> testConnection(@Valid @RequestBody DataStore dataStore) throws URISyntaxException {
+        log.info("REST connection DataStore : {}", dataStore);
+        if (dataStoreService.testConnection(dataStore)) {
+            return ResponseEntity.created(new URI("/api/data-stores/testConnection"))
+                    .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "testing")).body(dataStore);
+        } else {
+            return ResponseEntity.badRequest().headers(
+                    HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "La conexión no fue exitosa"))
+                    .body(null);
+        }
     }
 }

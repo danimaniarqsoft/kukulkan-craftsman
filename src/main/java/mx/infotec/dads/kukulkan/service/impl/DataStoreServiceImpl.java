@@ -162,4 +162,9 @@ public class DataStoreServiceImpl implements DataStoreService {
     public void deleteAll() {
         dataStoreRepository.deleteAll();
     }
+
+    @Override
+    public boolean testConnection(DataStore dataStore) {
+        return true;
+    }
 }

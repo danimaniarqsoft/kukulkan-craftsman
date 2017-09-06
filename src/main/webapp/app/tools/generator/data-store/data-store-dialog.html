@@ -8,6 +8,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
         <div class="form-group" ng-show="vm.dataStore.id">
             <label for="id" data-translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
@@ -75,6 +76,9 @@
         </button>
         <button type="submit" ng-click="vm.isTestingConnection=true" class="btn btn-primary">
             <span class="glyphicon glyphicon-transfer"></span>&nbsp;<span data-translate="kukulkancraftsmanApp.dataStore.action.testConnection">Test Connection</span>
+        </button>        
+        <button type="submit" ng-click="vm.isTestingConnection=false" class="btn btn-primary">
+            <span class="glyphicon glyphicon-transfer"></span>&nbsp;<span >false</span>
         </button>        
         <button type="submit" ng-click="vm.isTestingConnection=false" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
