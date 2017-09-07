@@ -16,9 +16,9 @@ public final class HeaderUtil {
     private HeaderUtil() {
     }
 
-    public static HttpHeaders createAlert(String message, String param) {
+    public static HttpHeaders createAlert(String angularMessageId, String param) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-kukulkancraftsmanApp-alert", message);
+        headers.add("X-kukulkancraftsmanApp-alert", angularMessageId);
         headers.add("X-kukulkancraftsmanApp-params", param);
         return headers;
     }
@@ -33,6 +33,14 @@ public final class HeaderUtil {
 
     public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
         return createAlert(APPLICATION_NAME + "." + entityName + ".deleted", param);
+    }
+    
+    public static HttpHeaders createSuccessDataStoreStatus(String entityName, String param) {
+        return createAlert(APPLICATION_NAME + "." + entityName + ".action.connection.success", param);
+    }
+    
+    public static HttpHeaders createFailureDataStoreStatus(String entityName, String param) {
+        return createAlert(APPLICATION_NAME + "." + entityName + ".action.connection.failure", param);
     }
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {

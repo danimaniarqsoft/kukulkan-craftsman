@@ -5,9 +5,9 @@
         .module('kukulkancraftsmanApp')
         .controller('DataStoreDialogController', DataStoreDialogController);
 
-    DataStoreDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'DataStore', 'TestConnection', 'AlertService'];
+    DataStoreDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'DataStore', 'DataStoreConnection', 'AlertService'];
 
-    function DataStoreDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, DataStore, TestConnection, AlertService) {
+    function DataStoreDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, DataStore, DataStoreConnection, AlertService) {
         var vm = this;
 
         vm.dataStore = entity;
@@ -32,7 +32,7 @@
 	        		DataStore.save(vm.dataStore, onSaveSuccess, onSaveError);
 	        	}        	
 	        }else{
-	        	TestConnection.testConnection(vm.dataStore, onTestSuccess, onTestError);
+	        	DataStoreConnection.connect(vm.dataStore, onConnectionSuccess, onConnectionError);
 	        }
         }
 
@@ -43,16 +43,14 @@
         }
 
         function onSaveError (error) {
-        	AlertService.error("error!!!!");
             vm.isSaving = false;
         }
         
-        function onTestSuccess (result) {
-        	AlertService.error("Exitoso");
+        function onConnectionSuccess (result) {
             vm.isSaving = false;
         }
         
-        function onTestError () {
+        function onConnectionError () {
             vm.isSaving = false;
         }
     }

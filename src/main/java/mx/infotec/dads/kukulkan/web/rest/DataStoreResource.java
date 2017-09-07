@@ -150,17 +150,16 @@ public class DataStoreResource {
      * @throws URISyntaxException
      *             if the Location URI syntax is incorrect
      */
-    @PostMapping("/data-stores/testConnection")
+    @PostMapping("/data-stores/test")
     @Timed
     public ResponseEntity<DataStore> testConnection(@Valid @RequestBody DataStore dataStore) throws URISyntaxException {
         log.info("REST connection DataStore : {}", dataStore);
         if (dataStoreService.testConnection(dataStore)) {
-            return ResponseEntity.created(new URI("/api/data-stores/testConnection"))
-                    .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "testing")).body(dataStore);
+            return ResponseEntity.ok().headers(HeaderUtil.createSuccessDataStoreStatus(ENTITY_NAME, "ok"))
+                    .body(dataStore);
         } else {
-            return ResponseEntity.badRequest().headers(
-                    HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "La conexión no fue exitosa"))
-                    .body(null);
+            return ResponseEntity.ok().headers(HeaderUtil.createFailureDataStoreStatus(ENTITY_NAME, "failure"))
+                    .body(dataStore);
         }
     }
 }

@@ -16,7 +16,11 @@
 				"title": "Data Store"
 			},
 			"action": {
-				"testConnection": "Probar Conexión"
+				"testConnection": "Probar Conexión",
+				"connection": {
+					"success": "Conexión Exitosa!",
+					"failure": "Error en la Conexión"
+				}
 			},
 			"name": "Name",
 			"url": "Url",

@@ -16,7 +16,11 @@
 				"title": "Data Store"
 			},
 			"action": {
-				"testConnection": "Test Connection"
+				"testConnection": "Test Connection",
+				"connection": {
+					"success": "Test Connection Success",
+					"failure": "Test Connection Failure"
+				}
 			},
 			"name": "Name",
 			"url": "Url",
