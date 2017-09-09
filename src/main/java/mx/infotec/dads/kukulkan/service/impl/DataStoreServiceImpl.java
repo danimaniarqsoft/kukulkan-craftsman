@@ -24,6 +24,7 @@
 package mx.infotec.dads.kukulkan.service.impl;
 
 import java.util.List;
+import java.util.Random;
 
 import org.apache.metamodel.DataContext;
 import org.apache.metamodel.factory.DataContextFactoryRegistryImpl;
@@ -165,6 +166,7 @@ public class DataStoreServiceImpl implements DataStoreService {
 
     @Override
     public boolean testConnection(DataStore dataStore) {
-        return true;
+        Random random = new Random();
+        return random.nextBoolean();
     }
 }

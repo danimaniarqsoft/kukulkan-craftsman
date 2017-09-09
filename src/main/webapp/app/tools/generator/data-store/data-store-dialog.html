@@ -7,7 +7,8 @@
         <h4 class="modal-title" id="myDataStoreLabel" data-translate="kukulkancraftsmanApp.dataStore.home.createOrEditLabel">Create or edit a Data Store</h4>
     </div>
     <div class="modal-body">
-        <jhi-alert></jhi-alert>
+        <jhi-data-store-alert></jhi-data-store-alert> 
+        <jhi-alert-error></jhi-alert-error>
         <div class="form-group" ng-show="vm.dataStore.id">
             <label for="id" data-translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
