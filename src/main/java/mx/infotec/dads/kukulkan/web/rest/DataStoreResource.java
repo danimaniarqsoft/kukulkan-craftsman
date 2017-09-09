@@ -158,7 +158,7 @@ public class DataStoreResource {
             return ResponseEntity.ok().headers(HeaderUtil.createSuccessDataStoreStatus(ENTITY_NAME, "ok"))
                     .body(dataStore);
         } else {
-            return ResponseEntity.ok().headers(HeaderUtil.createFailureDataStoreStatus(ENTITY_NAME, "failure"))
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureDataStoreStatus(ENTITY_NAME, "failure"))
                     .body(dataStore);
         }
     }
