@@ -23,8 +23,11 @@
  */
 package mx.infotec.dads.kukulkan.service.impl;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
+import java.util.Properties;
 
 import org.apache.metamodel.DataContext;
 import org.apache.metamodel.factory.DataContextFactoryRegistryImpl;
@@ -166,7 +169,15 @@ public class DataStoreServiceImpl implements DataStoreService {
 
     @Override
     public boolean testConnection(DataStore dataStore) {
-        Random random = new Random();
-        return random.nextBoolean();
+
+        Properties connectionProps = new Properties();
+        connectionProps.put("user", dataStore.getUsername());
+        connectionProps.put("password", dataStore.getPassword() == null ? "" : dataStore.getPassword());
+        try {
+            DriverManager.getConnection(dataStore.getUrl(), connectionProps);
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 }

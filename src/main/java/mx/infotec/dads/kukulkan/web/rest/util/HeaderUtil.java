@@ -34,19 +34,27 @@ public final class HeaderUtil {
     public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
         return createAlert(APPLICATION_NAME + "." + entityName + ".deleted", param);
     }
-    
+
     public static HttpHeaders createSuccessDataStoreStatus(String entityName, String param) {
         return createAlert(APPLICATION_NAME + "." + entityName + ".action.connection.success", param);
     }
-    
-    public static HttpHeaders createFailureDataStoreStatus(String entityName, String param) {
-        return createAlert(APPLICATION_NAME + "." + entityName + ".action.connection.failure", param);
+
+    public static HttpHeaders createFailureDataStoreStatus(String entityName, String defaultMessage) {
+        return createModalFailureAlert(entityName, APPLICATION_NAME + "." + entityName + ".action.connection.failure", defaultMessage);
     }
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         log.error("Entity creation failed, {}", defaultMessage);
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-kukulkancraftsmanApp-error", "error." + errorKey);
+        headers.add("X-kukulkancraftsmanApp-params", entityName);
+        return headers;
+    }
+    
+    public static HttpHeaders createModalFailureAlert(String entityName, String angularMessageId, String defaultMessage) {
+        log.error("Entity creation failed, {}", defaultMessage);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-kukulkancraftsmanApp-error", angularMessageId);
         headers.add("X-kukulkancraftsmanApp-params", entityName);
         return headers;
     }

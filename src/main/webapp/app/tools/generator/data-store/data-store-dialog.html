@@ -7,7 +7,7 @@
         <h4 class="modal-title" id="myDataStoreLabel" data-translate="kukulkancraftsmanApp.dataStore.home.createOrEditLabel">Create or edit a Data Store</h4>
     </div>
     <div class="modal-body">
-        <jhi-alert-dialog></jhi-alert-dialog> 
+        <jhi-alert-error></jhi-alert-error>
         <div class="form-group" ng-show="vm.dataStore.id">
             <label for="id" data-translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
@@ -23,7 +23,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.dataStore.url" for="field_url">Url</label>
             <input type="text" class="form-control" name="url" id="field_url"
                     ng-model="vm.dataStore.url"
-                    ng-pattern="/^[a-zA-Z0-9]*$/"/>
+                    ng-pattern=""/>
             <div ng-show="editForm.url.$invalid">
                 <p class="help-block"
                     ng-show="editForm.url.$error.pattern" data-translate="entity.validation.pattern" translate-value-pattern="Url">
@@ -35,7 +35,7 @@
             <label class="control-label" data-translate="kukulkancraftsmanApp.dataStore.driverClass" for="field_driverClass">Driver Class</label>
             <input type="text" class="form-control" name="driverClass" id="field_driverClass"
                     ng-model="vm.dataStore.driverClass"
-                    required ng-pattern="/^[a-zA-Z0-9]*$/"/>
+                    required ng-pattern=""/>
             <div ng-show="editForm.driverClass.$invalid">
                 <p class="help-block"
                     ng-show="editForm.driverClass.$error.required" data-translate="entity.validation.required">
