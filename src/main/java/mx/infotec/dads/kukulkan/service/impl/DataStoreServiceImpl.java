@@ -42,6 +42,7 @@ import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.util.Constants;
+import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
  * DataStoreServiceImpl
@@ -175,9 +176,13 @@ public class DataStoreServiceImpl implements DataStoreService {
         connectionProps.put("password", dataStore.getPassword() == null ? "" : dataStore.getPassword());
         try {
             DriverManager.getConnection(dataStore.getUrl(), connectionProps);
-            return true;
+            throw new ApplicationException("Error Espeerado true");
+
+//            return true;
         } catch (SQLException e) {
-            return false;
+            throw new ApplicationException("Error Espeerado false");
+
+//            return false;
         }
     }
 }

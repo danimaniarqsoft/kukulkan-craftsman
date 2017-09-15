@@ -1,11 +1,16 @@
 package mx.infotec.dads.kukulkan.web.rest;
 
-import mx.infotec.dads.kukulkan.KukulkancraftsmanApp;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import mx.infotec.dads.kukulkan.domain.Project;
-import mx.infotec.dads.kukulkan.repository.ProjectRepository;
-import mx.infotec.dads.kukulkan.service.ProjectService;
-import mx.infotec.dads.kukulkan.web.rest.errors.ExceptionTranslator;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,15 +25,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import mx.infotec.dads.kukulkan.KukulkancraftsmanApp;
 import mx.infotec.dads.kukulkan.domain.DataStore;
-import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
+import mx.infotec.dads.kukulkan.domain.Project;
+import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
+import mx.infotec.dads.kukulkan.repository.ProjectRepository;
+import mx.infotec.dads.kukulkan.service.ProjectService;
+import mx.infotec.dads.kukulkan.web.rest.errors.ExceptionTranslator;
 /**
  * Test class for the ProjectResource REST controller.
  *
@@ -77,8 +80,8 @@ public class ProjectResourceIntTest {
     private static final String DEFAULT_WEB_LAYER_NAME = "AAAAAAAAAA";
     private static final String UPDATED_WEB_LAYER_NAME = "BBBBBBBBBB";
 
-    private static final Archetype DEFAULT_ARCHETYPE = Archetype.REST_SPRING_JPA;
-    private static final Archetype UPDATED_ARCHETYPE = Archetype.PRIMEFACES_SPRING_MYBATIS;
+    private static final ArchetypeType DEFAULT_ARCHETYPE = ArchetypeType.REST_SPRING_JPA;
+    private static final ArchetypeType UPDATED_ARCHETYPE = ArchetypeType.PRIMEFACES_SPRING_MYBATIS;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -130,7 +133,7 @@ public class ProjectResourceIntTest {
             .serviceLayerName(DEFAULT_SERVICE_LAYER_NAME)
             .exceptionLayerName(DEFAULT_EXCEPTION_LAYER_NAME)
             .webLayerName(DEFAULT_WEB_LAYER_NAME)
-            .archetype(DEFAULT_ARCHETYPE);
+            .archetypeType(DEFAULT_ARCHETYPE);
         return project;
     }
 
@@ -413,7 +416,7 @@ public class ProjectResourceIntTest {
     public void checkArchetypeIsRequired() throws Exception {
         int databaseSizeBeforeTest = projectRepository.findAll().size();
         // set the field null
-        project.setArchetype(null);
+        project.setArchetypeType(null);
 
         // Create the Project, which fails.
 
@@ -508,7 +511,7 @@ public class ProjectResourceIntTest {
             .serviceLayerName(UPDATED_SERVICE_LAYER_NAME)
             .exceptionLayerName(UPDATED_EXCEPTION_LAYER_NAME)
             .webLayerName(UPDATED_WEB_LAYER_NAME)
-            .archetype(UPDATED_ARCHETYPE);
+            .archetypeType(UPDATED_ARCHETYPE);
 
         restProjectMockMvc.perform(put("/api/projects")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)

@@ -35,7 +35,7 @@ import org.apache.metamodel.schema.Column;
 import org.apache.metamodel.schema.ColumnType;
 import org.apache.metamodel.schema.Table;
 
-import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
+import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
@@ -53,208 +53,208 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
  */
 public class DataMapping {
 
-	private DataMapping() {
+    private DataMapping() {
 
-	}
+    }
 
-	/**
-	 * Create a DataModelGroup Class
-	 * 
-	 * @param dataContext
-	 * @return DataModelGroup
-	 */
-	public static DataModelGroup createDefaultDataModelGroup(Table[] tables, List<String> excludedTables) {
-		DataModelGroup dmg = new DataModelGroup();
-		dmg.setName("");
-		dmg.setDescription("Default package");
-		dmg.setBriefDescription("Default package");
-		dmg.setDataModelElements(new ArrayList<>());
-		List<DataModelElement> dmeList = new ArrayList<>();
-		createDataModelElement(excludedTables, tables, dmeList);
-		dmg.setDataModelElements(dmeList);
-		return dmg;
-	}
+    /**
+     * Create a DataModelGroup Class
+     * 
+     * @param dataContext
+     * @return DataModelGroup
+     */
+    public static DataModelGroup createDefaultDataModelGroup(Table[] tables, List<String> excludedTables) {
+        DataModelGroup dmg = new DataModelGroup();
+        dmg.setName("");
+        dmg.setDescription("Default package");
+        dmg.setBriefDescription("Default package");
+        dmg.setDataModelElements(new ArrayList<>());
+        List<DataModelElement> dmeList = new ArrayList<>();
+        createDataModelElement(excludedTables, tables, dmeList);
+        dmg.setDataModelElements(dmeList);
+        return dmg;
+    }
 
-	private static void createDataModelElement(List<String> tablesToProcess, Table[] tables,
-			List<DataModelElement> dmeList) {
-		for (Table table : tables) {
-			if ((tablesToProcess.contains(table.getName()) || tablesToProcess.isEmpty())
-					&& hasPrimaryKey(table.getPrimaryKeys())) {
-				DataModelElement dme = DataModelElement.createOrderedDataModel();
-				String singularName = InflectorProcessor.getInstance().singularize(table.getName());
-				dme.setTableName(table.getName());
-				dme.setName(SchemaPropertiesParser.parseToClassName(singularName));
-				dme.setCamelCaseFormat(SchemaPropertiesParser.parseToPropertyName(singularName));
-				dme.setCamelCasePluralFormat(InflectorProcessor.getInstance().pluralize(dme.getCamelCaseFormat()));
-				extractPrimaryKey(dme, singularName, table.getPrimaryKeys());
-				extractProperties(dme, table);
-				dmeList.add(dme);
-			}
-		}
-	}
+    private static void createDataModelElement(List<String> tablesToProcess, Table[] tables,
+            List<DataModelElement> dmeList) {
+        for (Table table : tables) {
+            if ((tablesToProcess.contains(table.getName()) || tablesToProcess.isEmpty())
+                    && hasPrimaryKey(table.getPrimaryKeys())) {
+                DataModelElement dme = DataModelElement.createOrderedDataModel();
+                String singularName = InflectorProcessor.getInstance().singularize(table.getName());
+                dme.setTableName(table.getName());
+                dme.setName(SchemaPropertiesParser.parseToClassName(singularName));
+                dme.setCamelCaseFormat(SchemaPropertiesParser.parseToPropertyName(singularName));
+                dme.setCamelCasePluralFormat(InflectorProcessor.getInstance().pluralize(dme.getCamelCaseFormat()));
+                extractPrimaryKey(dme, singularName, table.getPrimaryKeys());
+                extractProperties(dme, table);
+                dmeList.add(dme);
+            }
+        }
+    }
 
-	public static void extractPrimaryKey(DataModelElement dme, String singularName, Column[] columns) {
-		dme.setPrimaryKey(mapPrimaryKeyElements(singularName, columns));
-		if (!dme.getPrimaryKey().isComposed()) {
-			dme.getImports().add(dme.getPrimaryKey().getQualifiedLabel());
-		}
-	}
+    public static void extractPrimaryKey(DataModelElement dme, String singularName, Column[] columns) {
+        dme.setPrimaryKey(mapPrimaryKeyElements(singularName, columns));
+        if (!dme.getPrimaryKey().isComposed()) {
+            dme.getImports().add(dme.getPrimaryKey().getQualifiedLabel());
+        }
+    }
 
-	public static void extractProperties(DataModelElement dme, Table table) {
-		Arrays.stream(table.getColumns()).filter(column -> !column.isPrimaryKey())
-				.forEach(column -> processNotPrimaryProperties(dme, column));
-	}
+    public static void extractProperties(DataModelElement dme, Table table) {
+        Arrays.stream(table.getColumns()).filter(column -> !column.isPrimaryKey())
+                .forEach(column -> processNotPrimaryProperties(dme, column));
+    }
 
-	private static void processNotPrimaryProperties(DataModelElement dme, Column column) {
-		String propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
-		String propertyType = extractPropertyType(column);
-		Property<JavaProperty> javaProperty = JavaProperty.builder().withName(propertyName).withType(propertyType)
-				.withColumnName(column.getName()).withColumnType(column.getNativeType())
-				.withQualifiedName(extractQualifiedType(column)).isNullable(column.isNullable()).isPrimaryKey(false)
-				.isIndexed(column.isIndexed()).isBlob(column.getType().isBinary())
-				.isClob(column.getType().isLargeObject()).isTime(column.getType().isTimeBased(), column.getType())
-				.build();
-		dme.addProperty(javaProperty);
-		addImports(dme.getImports(), column.getType());
-		fillModelMetaData(dme, javaProperty);
-	}
+    private static void processNotPrimaryProperties(DataModelElement dme, Column column) {
+        String propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
+        String propertyType = extractPropertyType(column);
+        Property<JavaProperty> javaProperty = JavaProperty.builder().withName(propertyName).withType(propertyType)
+                .withColumnName(column.getName()).withColumnType(column.getNativeType())
+                .withQualifiedName(extractQualifiedType(column)).isNullable(column.isNullable()).isPrimaryKey(false)
+                .isIndexed(column.isIndexed()).isBlob(column.getType().isBinary())
+                .isClob(column.getType().isLargeObject()).isTime(column.getType().isTimeBased(), column.getType())
+                .build();
+        dme.addProperty(javaProperty);
+        addImports(dme.getImports(), column.getType());
+        fillModelMetaData(dme, javaProperty);
+    }
 
-	private static void fillModelMetaData(DataModelElement dme, Property<JavaProperty> javaProperty) {
-		if (!javaProperty.getConstraint().isNullable()) {
-			dme.setHasNotNullElements(true);
-			dme.setHasConstraints(true);
-		}
-		if (javaProperty.isTime()) {
-			dme.setHasTimeProperties(true);
-			if (javaProperty.isZoneDateTime()) {
-				dme.setHasZoneDateTime(true);
-			} else if (javaProperty.isLocalDate()) {
-				dme.setHasLocalDate(true);
-			} else if (javaProperty.isZoneDateTime()) {
-				dme.setHasZoneDateTime(true);
-			} else {
-				throw new ApplicationException("Not java Time Equivalent: " + javaProperty.getColumnName());
-			}
-			return;
-		}
-		if (javaProperty.isBlob()) {
-			dme.setHasBlobProperties(true);
-			return;
-		}
-		if (javaProperty.isClob()) {
-			dme.setHasClobProperties(true);
-			return;
-		}
-	}
+    private static void fillModelMetaData(DataModelElement dme, Property<JavaProperty> javaProperty) {
+        if (!javaProperty.getConstraint().isNullable()) {
+            dme.setHasNotNullElements(true);
+            dme.setHasConstraints(true);
+        }
+        if (javaProperty.isTime()) {
+            dme.setHasTimeProperties(true);
+            if (javaProperty.isZoneDateTime()) {
+                dme.setHasZoneDateTime(true);
+            } else if (javaProperty.isLocalDate()) {
+                dme.setHasLocalDate(true);
+            } else if (javaProperty.isZoneDateTime()) {
+                dme.setHasZoneDateTime(true);
+            } else {
+                throw new ApplicationException("Not java Time Equivalent: " + javaProperty.getColumnName());
+            }
+            return;
+        }
+        if (javaProperty.isBlob()) {
+            dme.setHasBlobProperties(true);
+            return;
+        }
+        if (javaProperty.isClob()) {
+            dme.setHasClobProperties(true);
+            return;
+        }
+    }
 
-	private static boolean addImports(Collection<String> imports, ColumnType columnType) {
-		String javaType = columnType.getJavaEquivalentClass().getCanonicalName();
-		if (columnType == ColumnType.BLOB || columnType == ColumnType.CLOB || columnType == ColumnType.NCLOB
-				|| isWrapperClass(columnType) || columnType == ColumnType.DATE || columnType == ColumnType.TIMESTAMP) {
-			return false;
-		}
-		imports.add(javaType);
-		return true;
-	}
+    private static boolean addImports(Collection<String> imports, ColumnType columnType) {
+        String javaType = columnType.getJavaEquivalentClass().getCanonicalName();
+        if (columnType == ColumnType.BLOB || columnType == ColumnType.CLOB || columnType == ColumnType.NCLOB
+                || isWrapperClass(columnType) || columnType == ColumnType.DATE || columnType == ColumnType.TIMESTAMP) {
+            return false;
+        }
+        imports.add(javaType);
+        return true;
+    }
 
-	private static boolean isWrapperClass(ColumnType columnType) {
-		Class<?> testClass = columnType.getJavaEquivalentClass();
-		if (testClass.equals(Boolean.class) || testClass.equals(Double.class) || testClass.equals(Integer.class)
-				|| testClass.equals(Long.class) || testClass.equals(Float.class) || testClass.equals(String.class)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    private static boolean isWrapperClass(ColumnType columnType) {
+        Class<?> testClass = columnType.getJavaEquivalentClass();
+        if (testClass.equals(Boolean.class) || testClass.equals(Double.class) || testClass.equals(Integer.class)
+                || testClass.equals(Long.class) || testClass.equals(Float.class) || testClass.equals(String.class)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	private static String extractPropertyType(Column column) {
-		String propertyType = column.getType().getJavaEquivalentClass().getSimpleName();
-		if (column.isIndexed() && column.getType().isNumber()) {
-			return "Long";
-		} else if (column.getType() == ColumnType.BLOB) {
-			return "byte[]";
-		} else if (column.getType() == ColumnType.CLOB) {
-			return "String";
-		} else if (column.getType() == ColumnType.DATE) {
-			return "LocalDate";
-		} else if (column.getType() == ColumnType.TIMESTAMP) {
-			return "ZonedDateTime";
-		} else {
-			return propertyType;
-		}
-	}
+    private static String extractPropertyType(Column column) {
+        String propertyType = column.getType().getJavaEquivalentClass().getSimpleName();
+        if (column.isIndexed() && column.getType().isNumber()) {
+            return "Long";
+        } else if (column.getType() == ColumnType.BLOB) {
+            return "byte[]";
+        } else if (column.getType() == ColumnType.CLOB) {
+            return "String";
+        } else if (column.getType() == ColumnType.DATE) {
+            return "LocalDate";
+        } else if (column.getType() == ColumnType.TIMESTAMP) {
+            return "ZonedDateTime";
+        } else {
+            return propertyType;
+        }
+    }
 
-	private static String extractQualifiedType(Column column) {
-		if (column.isIndexed() && column.getType().isNumber()) {
-			return "java.lang.Long";
-		} else {
-			return column.getType().getJavaEquivalentClass().getCanonicalName();
-		}
-	}
+    private static String extractQualifiedType(Column column) {
+        if (column.isIndexed() && column.getType().isNumber()) {
+            return "java.lang.Long";
+        } else {
+            return column.getType().getJavaEquivalentClass().getCanonicalName();
+        }
+    }
 
-	public static boolean hasPrimaryKey(Column[] columns) {
-		return columns.length == 0 ? false : true;
-	}
+    public static boolean hasPrimaryKey(Column[] columns) {
+        return columns.length == 0 ? false : true;
+    }
 
-	public static PrimaryKey mapPrimaryKeyElements(String singularName, Column[] columns) {
-		PrimaryKey pk = PrimaryKey.createOrderedDataModel();
-		// Not found primary key
-		if (columns.length == 0) {
-			return null;
-		}
-		// Simple Primary key
-		if (columns.length == 1) {
-			pk.setType("Long");
-			pk.setName(SchemaPropertiesParser.parseToPropertyName(columns[0].getName()));
-			pk.setQualifiedLabel("java.lang.Long");
-			pk.setComposed(false);
-		} else {
-			// Composed Primary key
-			pk.setType(SchemaPropertiesParser.parseToClassName(singularName) + "PK");
-			pk.setName(SchemaPropertiesParser.parseToPropertyName(singularName) + "PK");
-			pk.setComposed(true);
-			for (Column columnElement : columns) {
-				String propertyName = SchemaPropertiesParser.parseToPropertyName(columnElement.getName());
-				String propertyType = columnElement.getType().getJavaEquivalentClass().getSimpleName();
-				String qualifiedLabel = columnElement.getType().getJavaEquivalentClass().toString();
-				pk.addProperty(JavaProperty.builder().withName(propertyName).withType(propertyType)
-						.withColumnName(columnElement.getName()).withColumnType(columnElement.getNativeType())
-						.withQualifiedName(qualifiedLabel).isNullable(columnElement.isNullable()).isPrimaryKey(true)
-						.isIndexed(columnElement.isIndexed()).build());
-			}
-		}
-		return pk;
-	}
+    public static PrimaryKey mapPrimaryKeyElements(String singularName, Column[] columns) {
+        PrimaryKey pk = PrimaryKey.createOrderedDataModel();
+        // Not found primary key
+        if (columns.length == 0) {
+            return null;
+        }
+        // Simple Primary key
+        if (columns.length == 1) {
+            pk.setType("Long");
+            pk.setName(SchemaPropertiesParser.parseToPropertyName(columns[0].getName()));
+            pk.setQualifiedLabel("java.lang.Long");
+            pk.setComposed(false);
+        } else {
+            // Composed Primary key
+            pk.setType(SchemaPropertiesParser.parseToClassName(singularName) + "PK");
+            pk.setName(SchemaPropertiesParser.parseToPropertyName(singularName) + "PK");
+            pk.setComposed(true);
+            for (Column columnElement : columns) {
+                String propertyName = SchemaPropertiesParser.parseToPropertyName(columnElement.getName());
+                String propertyType = columnElement.getType().getJavaEquivalentClass().getSimpleName();
+                String qualifiedLabel = columnElement.getType().getJavaEquivalentClass().toString();
+                pk.addProperty(JavaProperty.builder().withName(propertyName).withType(propertyType)
+                        .withColumnName(columnElement.getName()).withColumnType(columnElement.getNativeType())
+                        .withQualifiedName(qualifiedLabel).isNullable(columnElement.isNullable()).isPrimaryKey(true)
+                        .isIndexed(columnElement.isIndexed()).build());
+            }
+        }
+        return pk;
+    }
 
-	/**
-	 * Create a List of DataModelGroup into a single group from a DataContext
-	 * Element
-	 * 
-	 * @param dataContext
-	 * @return
-	 */
-	public static List<DataModelGroup> createSingleDataModelGroupList(Table[] tables, List<String> excludedTables) {
-		List<DataModelGroup> dataModelGroupList = new ArrayList<>();
-		dataModelGroupList.add(createDefaultDataModelGroup(tables, excludedTables));
-		return dataModelGroupList;
-	}
+    /**
+     * Create a List of DataModelGroup into a single group from a DataContext
+     * Element
+     * 
+     * @param dataContext
+     * @return
+     */
+    public static List<DataModelGroup> createSingleDataModelGroupList(Table[] tables, List<String> excludedTables) {
+        List<DataModelGroup> dataModelGroupList = new ArrayList<>();
+        dataModelGroupList.add(createDefaultDataModelGroup(tables, excludedTables));
+        return dataModelGroupList;
+    }
 
-	public static List<LayerTask> createLaterTaskList(Map<String, LayerTask> map, Archetype archetype) {
-		List<LayerTask> layerTaskList = new ArrayList<>();
-		map.entrySet().forEach(layerTaskEntry -> {
-			if (layerTaskEntry.getValue().getArchetype().equals(archetype)) {
-				layerTaskList.add(layerTaskEntry.getValue());
-			}
-		});
-		return layerTaskList;
-	}
+    public static List<LayerTask> createLaterTaskList(Map<String, LayerTask> map, ArchetypeType archetype) {
+        List<LayerTask> layerTaskList = new ArrayList<>();
+        map.entrySet().forEach(layerTaskEntry -> {
+            if (layerTaskEntry.getValue().getArchetype().equals(archetype)) {
+                layerTaskList.add(layerTaskEntry.getValue());
+            }
+        });
+        return layerTaskList;
+    }
 
-	public void mapCommonProperties(ProjectConfiguration pConf, Map<String, Object> model, DataModelElement dmElement,
-			String basePackage) {
-		model.put("package", formatToPackageStatement(basePackage, pConf.getWebLayerName()));
-		model.put("entityCamelCaseFormat", dmElement.getCamelCaseFormat());
-		model.put("name", dmElement.getName());
-		model.put("id", "Long");
-	}
+    public void mapCommonProperties(ProjectConfiguration pConf, Map<String, Object> model, DataModelElement dmElement,
+            String basePackage) {
+        model.put("package", formatToPackageStatement(basePackage, pConf.getWebLayerName()));
+        model.put("entityCamelCaseFormat", dmElement.getCamelCaseFormat());
+        model.put("name", dmElement.getName());
+        model.put("id", "Long");
+    }
 
 }

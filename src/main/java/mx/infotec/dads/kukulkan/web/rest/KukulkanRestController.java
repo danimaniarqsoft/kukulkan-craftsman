@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import mx.infotec.dads.kukulkan.domain.DataStore;
-import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
+import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
@@ -103,7 +103,7 @@ public class KukulkanRestController {
         GeneratorContext genCtx = new GeneratorContext(dmCtx, ctx.getPc());
         // Process Activities
         LOGGER.debug("Executing generation service");
-        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(Archetype.REST_SPRING_JPA));
+        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.REST_SPRING_JPA));
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/{id}").buildAndExpand("generated").toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);

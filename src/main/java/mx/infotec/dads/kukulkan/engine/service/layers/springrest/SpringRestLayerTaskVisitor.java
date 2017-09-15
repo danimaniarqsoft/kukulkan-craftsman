@@ -25,7 +25,7 @@ package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
 
 import javax.annotation.PostConstruct;
 
-import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
+import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.service.layers.AbstractLayerTaskVisitor;
 
 /**
@@ -35,15 +35,15 @@ import mx.infotec.dads.kukulkan.engine.service.layers.AbstractLayerTaskVisitor;
  * 
  */
 public abstract class SpringRestLayerTaskVisitor extends AbstractLayerTaskVisitor {
-    protected Archetype archetype;
+    protected ArchetypeType archetype;
 
     @PostConstruct
     public void initIt() {
-        this.archetype = Archetype.REST_SPRING_JPA;
+        this.archetype = ArchetypeType.REST_SPRING_JPA;
     }
 
     @Override
-    public Archetype getArchetype() {
+    public ArchetypeType getArchetype() {
         return archetype;
     }
 }

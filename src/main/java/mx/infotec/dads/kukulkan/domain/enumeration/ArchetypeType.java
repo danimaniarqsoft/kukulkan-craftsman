@@ -21,30 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.engine.service.layers.conacyt;
-
-import javax.annotation.PostConstruct;
-
-import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
-import mx.infotec.dads.kukulkan.engine.service.layers.AbstractLayerTaskVisitor;
+package mx.infotec.dads.kukulkan.domain.enumeration;
 
 /**
- * ConacytLayerTaskVisitor, abstract Class
+ * ArchetypeType
  * 
  * @author Daniel Cortes Pichardo
- * 
+ *
  */
-public abstract class ConacytLayerTaskVisitor extends AbstractLayerTaskVisitor {
-
-	protected ArchetypeType archetype;
-
-	@PostConstruct
-	public void initIt() {
-		this.archetype = ArchetypeType.CONACYT;
-	}
-
-	@Override
-	public ArchetypeType getArchetype() {
-		return archetype;
-	}
+public enum ArchetypeType {
+    REST_SPRING_JPA, PRIMEFACES_SPRING_MYBATIS, CONACYT, ANGULAR_SPRING, NULL
 }
