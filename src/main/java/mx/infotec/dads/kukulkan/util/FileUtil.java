@@ -25,6 +25,10 @@ package mx.infotec.dads.kukulkan.util;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,4 +55,18 @@ public class FileUtil {
         }
     }
 
+    public static Path createPath(String proyectoId, BasePathEnum path, String filePath, String outPutDir) {
+        return Paths.get(outPutDir + proyectoId + "/" + path.getPath() + "/" + filePath);
+    }
+
+    public static boolean createParentsFileIfNotExist(Path path) {
+        if (!Files.exists(path.getParent(), new LinkOption[] { LinkOption.NOFOLLOW_LINKS })) {
+            try {
+                Files.createDirectories(path.getParent());
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

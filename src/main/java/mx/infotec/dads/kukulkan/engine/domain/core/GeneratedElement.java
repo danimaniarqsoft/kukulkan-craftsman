@@ -1,6 +1,6 @@
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
-import java.io.File;
+import java.nio.file.Path;
 
 /**
  * KukulkanProject represent a generated project
@@ -9,16 +9,22 @@ import java.io.File;
  *
  */
 public class GeneratedElement {
+    /**
+     * The Path where the content must be generated
+     */
+    private Path path;
 
-    private File file;
+    /**
+     * The content of the generated Element, it is filled from the freemarker
+     * Template,
+     */
     private String content;
 
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
+    public GeneratedElement(){}
+    
+    public GeneratedElement(Path path, String content) {
+        this.path = path;
+        this.content = content;
     }
 
     public String getContent() {
@@ -27,5 +33,13 @@ public class GeneratedElement {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Path getPath() {
+        return path;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
     }
 }

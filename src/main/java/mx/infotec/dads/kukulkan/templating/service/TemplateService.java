@@ -23,6 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.templating.service;
 
+import java.util.Optional;
+
+import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 
 /**
@@ -34,6 +37,6 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
 @FunctionalInterface
 public interface TemplateService {
 
-    String fillModel(String projectId, String templateName, Object model, BasePathEnum path, String filePath);
+    Optional<GeneratedElement> fillModel(String projectId, String templateName, Object model, BasePathEnum path, String filePath);
 
 }
