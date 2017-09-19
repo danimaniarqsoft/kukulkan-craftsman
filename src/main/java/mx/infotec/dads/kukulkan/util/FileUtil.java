@@ -33,6 +33,8 @@ import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
+
 /**
  * The FileUtil Class is used for common File operations
  * 
@@ -40,11 +42,25 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class FileUtil {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
 
     private FileUtil() {
     }
 
+    /**
+     * Closes this stream and releases any system resources associated with it.
+     * If the stream is already closed then invoking this method has no effect.
+     *
+     * <p>
+     * As noted in {@link AutoCloseable#close()}, cases where the close may fail
+     * require careful attention. It is strongly advised to relinquish the
+     * underlying resources and to internally <em>mark</em> the
+     * {@code Closeable} as closed, prior to throwing the {@code IOException}.
+     *
+     * @throws IOException
+     *             if an I/O error occurs
+     */
     public static void close(Closeable resource) {
         if (resource != null) {
             try {
@@ -61,12 +77,22 @@ public class FileUtil {
 
     public static boolean createParentsFileIfNotExist(Path path) {
         if (!Files.exists(path.getParent(), new LinkOption[] { LinkOption.NOFOLLOW_LINKS })) {
-            try {
-                Files.createDirectories(path.getParent());
-            } catch (IOException e) {
-                return false;
-            }
+            return createDirectories(path.getParent());
+        } else {
+            return true;
         }
-        return true;
+    }
+
+    public static boolean createDirectories(Path path) {
+        try {
+            Files.createDirectories(path.getParent());
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+    
+    public static boolean saveGeneratedElement(GeneratedElement ge){
+        FileUtil.createParentsFileIfNotExist(ge.getPath());
     }
 }

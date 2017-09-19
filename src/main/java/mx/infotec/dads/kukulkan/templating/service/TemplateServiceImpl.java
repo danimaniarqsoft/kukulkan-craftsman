@@ -68,7 +68,6 @@ public class TemplateServiceImpl implements TemplateService {
         Optional<Template> templateOptional = TemplateUtil.getTemplate(fmConfiguration, templateName);
         if (templateOptional.isPresent()) {
             Path path = FileUtil.createPath(proyectoId, basePath, filePath, prop.getOutputdir());
-            FileUtil.createParentsFileIfNotExist(path);
             dme.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
         }
     }
@@ -89,7 +88,6 @@ public class TemplateServiceImpl implements TemplateService {
         Optional<Template> templateOptional = TemplateUtil.getTemplate(fmConfiguration, templateName);
         if (templateOptional.isPresent()) {
             Path path = FileUtil.createPath(proyectoId, basePath, filePath, prop.getOutputdir());
-            FileUtil.createParentsFileIfNotExist(path);
             processTemplate(model, templateOptional.get(), path);
         }
     }
