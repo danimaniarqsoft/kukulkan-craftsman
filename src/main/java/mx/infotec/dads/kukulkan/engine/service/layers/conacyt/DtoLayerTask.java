@@ -72,7 +72,7 @@ public class DtoLayerTask extends ConacytLayerTaskVisitor {
 
     private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
             DataModelElement dmElement) {
-        templateService.fillModel(pConf.getId(), "conacyt/dto.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+        templateService.fillModel(dmElement, pConf.getId(), "conacyt/dto.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                 basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDtoLayerName() + "/"
                         + dmElement.getName() + NameConventions.DTO + ".java");
     }

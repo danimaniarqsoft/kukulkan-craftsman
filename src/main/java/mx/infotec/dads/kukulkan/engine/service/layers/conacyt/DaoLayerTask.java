@@ -65,10 +65,10 @@ public class DaoLayerTask extends ConacytLayerTaskVisitor {
             model.put("name", dmElement.getName());
             model.put("importDao", formatToImportStatement(basePackage, pConf.getConacytDaoLayerName(),
                     dmElement.getName() + NameConventions.CONACYT_DAO));
-            templateService.fillModel(pConf.getId(), "conacyt/hibernate-dao.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(dmElement, pConf.getId(), "conacyt/hibernate-dao.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getConacytDaoLayerName() + "/"
                             + dmElement.getName() + NameConventions.CONACYT_DAO + ".java");
-            templateService.fillModel(pConf.getId(), "conacyt/hibernate-dao-impl.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(dmElement, pConf.getId(), "conacyt/hibernate-dao-impl.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getConacytDaoLayerName() + "/impl/"
                             + dmElement.getName() + NameConventions.CONACYT_DAO_IMPLEMENTS + ".java");
         }

@@ -71,7 +71,7 @@ public class RestResourceLayerTask extends SpringRestLayerTaskVisitor {
             model.put("entityCamelCasePlural", InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
             model.put("urlName", dmElement.getCamelCaseFormat());
             model.put("primaryKey", dmElement.getPrimaryKey());
-            templateService.fillModel(pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl",
+            templateService.fillModel(dmElement, pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl",
                     model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getWebLayerName() + "/"
                             + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");

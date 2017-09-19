@@ -89,4 +89,15 @@ public class TemplateServiceImpl implements TemplateService {
 		sw.write("hola mundo");
 		System.out.println(sw.toString());
 	}
+
+	@Override
+	public void fillModel(String proyectoId, String templateName, Object model, BasePathEnum basePath,
+			String filePath) {
+		Optional<Template> templateOptional = TemplateUtil.getTemplate(fmConfiguration, templateName);
+		if (templateOptional.isPresent()) {
+			Path path = FileUtil.createPath(proyectoId, basePath, filePath, prop.getOutputdir());
+			FileUtil.createParentsFileIfNotExist(path);
+			processTemplate(model, templateOptional.get(), path);
+		}
+	}
 }

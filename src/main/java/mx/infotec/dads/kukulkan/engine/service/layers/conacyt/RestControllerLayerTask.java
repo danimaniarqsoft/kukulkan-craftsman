@@ -70,7 +70,7 @@ public class RestControllerLayerTask extends ConacytLayerTaskVisitor {
             model.put("entityCamelCasePlural", InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
             model.put("urlName", dmElement.getCamelCaseFormat());
             model.put("primaryKey", dmElement.getPrimaryKey());
-            templateService.fillModel(pConf.getId(), "conacyt/restController.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(dmElement, pConf.getId(), "conacyt/restController.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getWebLayerName() + "/"
                             + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");
 

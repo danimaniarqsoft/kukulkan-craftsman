@@ -54,7 +54,7 @@ public class RepositoryLayerTestTask extends SpringRestLayerTaskVisitor {
         for (DataModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
             model.put("package", formatToPackageStatement(basePackage, pConf.getDaoLayerName()));
-            templateService.fillModel(pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL +"/repository.ftl", model,
+            templateService.fillModel(dmElement, pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL +"/repository.ftl", model,
                     BasePathEnum.SRC_TEST_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
                             + pConf.getDaoLayerName() + "/" + dmElement.getName() + "Repository.java");
         }

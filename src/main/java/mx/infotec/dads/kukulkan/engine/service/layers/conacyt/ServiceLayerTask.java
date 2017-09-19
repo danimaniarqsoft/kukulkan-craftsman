@@ -67,10 +67,10 @@ public class ServiceLayerTask extends ConacytLayerTaskVisitor {
                     dmElement.getName() + NameConventions.DAO));
             model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
                     dmElement.getName() + NameConventions.SERVICE));
-            templateService.fillModel(pConf.getId(), "conacyt/service.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(dmElement, pConf.getId(), "conacyt/service.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/"
                             + dmElement.getName() + NameConventions.SERVICE + ".java");
-            templateService.fillModel(pConf.getId(), "conacyt/serviceImpl.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(dmElement, pConf.getId(), "conacyt/serviceImpl.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/impl/"
                             + dmElement.getName() + NameConventions.SERVICE_IMPLEMENTS + ".java");
         }

@@ -68,11 +68,11 @@ public class ServiceLayerTask extends SpringRestLayerTaskVisitor {
                     dmElement.getName() + NameConventions.DAO));
             model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
                     dmElement.getName() + NameConventions.SERVICE));
-            templateService.fillModel(pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl",
+            templateService.fillModel(dmElement, pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl",
                     model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/"
                             + dmElement.getName() + NameConventions.SERVICE + ".java");
-            templateService.fillModel(pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/serviceImpl.ftl",
+            templateService.fillModel(dmElement, pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/serviceImpl.ftl",
                     model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/impl/"
                             + dmElement.getName() + NameConventions.SERVICE_IMPLEMENTS + ".java");
