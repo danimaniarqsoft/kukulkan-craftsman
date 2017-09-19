@@ -77,7 +77,7 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     public static GeneratedElement processTemplate(Object model, Template template, Path path) {
-        try (Writer stringWriter = new FileWriter(path.toFile())) {
+        try (StringWriter stringWriter = new StringWriter()) {
             LOGGER.info("Generating to: {}", path.normalize().toFile());
             template.process(model, stringWriter);
             return new GeneratedElement(path, stringWriter.toString());

@@ -23,7 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -79,7 +81,12 @@ public class DataModelElement {
 	 * The columns mapped into the PropertyHolder class
 	 */
 	protected Collection<Property> properties;
-	
+
+	/**
+	 * The generated elements
+	 */
+	protected List<GeneratedElement> generatedElements = new ArrayList<>();
+
 	protected boolean hasNotNullElements;
 
 	protected boolean hasTimeProperties;
@@ -255,5 +262,17 @@ public class DataModelElement {
 
 	public void setCamelCasePluralFormat(String camelCasePluralFormat) {
 		this.camelCasePluralFormat = camelCasePluralFormat;
+	}
+
+	public List<GeneratedElement> getGeneratedElements() {
+		return generatedElements;
+	}
+
+	public void setGeneratedElements(List<GeneratedElement> generatedElements) {
+		this.generatedElements = generatedElements;
+	}
+	
+	public void addGeneratedElement(GeneratedElement element){
+		this.generatedElements.add(element);
 	}
 }
