@@ -23,10 +23,8 @@
  */
 package mx.infotec.dads.kukulkan.templating.service;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.nio.file.Path;
 import java.util.Optional;
 
@@ -39,6 +37,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.FileUtil;
@@ -55,40 +54,39 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 @Service
 public class TemplateServiceImpl implements TemplateService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TemplateServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TemplateServiceImpl.class);
 
-    @Autowired
-    private Configuration fmConfiguration;
+	@Autowired
+	private Configuration fmConfiguration;
 
-    @Autowired
-    private KukulkanConfigurationProperties prop;
+	@Autowired
+	private KukulkanConfigurationProperties prop;
 
-    @Override
-    public Optional<GeneratedElement> fillModel(String proyectoId, String templateName, Object model,
-            BasePathEnum basePath, String filePath) {
-        Optional<Template> templateOptional = TemplateUtil.getTemplate(fmConfiguration, templateName);
-        GeneratedElement gElement = null;
-        if (templateOptional.isPresent()) {
-            Path path = FileUtil.createPath(proyectoId, basePath, filePath, prop.getOutputdir());
-            FileUtil.createParentsFileIfNotExist(path);
-            gElement = processTemplate(model, templateOptional.get(), path);
-        }
-        return Optional.ofNullable(gElement);
-    }
+	@Override
+	public void fillModel(DataModelElement dme, String proyectoId, String templateName, Object model,
+			BasePathEnum basePath, String filePath) {
+		Optional<Template> templateOptional = TemplateUtil.getTemplate(fmConfiguration, templateName);
+		GeneratedElement gElement = null;
+		if (templateOptional.isPresent()) {
+			Path path = FileUtil.createPath(proyectoId, basePath, filePath, prop.getOutputdir());
+			FileUtil.createParentsFileIfNotExist(path);
+			dme.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
+		}
+	}
 
-    public static GeneratedElement processTemplate(Object model, Template template, Path path) {
-        try (StringWriter stringWriter = new StringWriter()) {
-            LOGGER.info("Generating to: {}", path.normalize().toFile());
-            template.process(model, stringWriter);
-            return new GeneratedElement(path, stringWriter.toString());
-        } catch (IOException | TemplateException e) {
-            throw new ApplicationException("Fill Model Error", e);
-        }
-    }
-    
-    public static void main(String[] args) {
-        StringWriter sw = new StringWriter();
-        sw.write("hola mundo");
-        System.out.println(sw.toString());
-    }
+	public static GeneratedElement processTemplate(Object model, Template template, Path path) {
+		try (StringWriter stringWriter = new StringWriter()) {
+			LOGGER.info("Generating to: {}", path.normalize().toFile());
+			template.process(model, stringWriter);
+			return new GeneratedElement(path, stringWriter.toString());
+		} catch (IOException | TemplateException e) {
+			throw new ApplicationException("Fill Model Error", e);
+		}
+	}
+
+	public static void main(String[] args) {
+		StringWriter sw = new StringWriter();
+		sw.write("hola mundo");
+		System.out.println(sw.toString());
+	}
 }

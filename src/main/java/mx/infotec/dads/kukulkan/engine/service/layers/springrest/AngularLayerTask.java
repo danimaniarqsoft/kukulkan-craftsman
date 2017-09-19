@@ -193,9 +193,8 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
 			entityName = camelCaseToHyphens(dmElement.getCamelCasePluralFormat());
 		}
 		templateService
-				.fillModel(pConf.getId(), templateLocation + templateName, model, BasePathEnum.WEB_APP_ENTITIES,
-						fileNamingConvention + "/" + entityName + TemplateFormatter.formatNameTemplate(templateName))
-				.ifPresent(item -> dmElement.addGeneratedElement(item));
+				.fillModel(dmElement, pConf.getId(), templateLocation + templateName, model, BasePathEnum.WEB_APP_ENTITIES,
+						fileNamingConvention + "/" + entityName + TemplateFormatter.formatNameTemplate(templateName));
 	}
 
 	private void saveInternationalizationTemplate(ProjectConfiguration pConf, Map<String, Object> model,
@@ -203,9 +202,8 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
 		// pfCOnf.getId, templateName, model, dmElement.getPropertyName.
 		String fileNamingConvention = dmElement.getName();
 		templateService
-				.fillModel(pConf.getId(), templateLocation + templateName, model, BasePathEnum.WEN_APP_I18N,
-						idiomaKey + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName))
-				.ifPresent(item -> dmElement.addGeneratedElement(item));
+				.fillModel(dmElement, pConf.getId(), templateLocation + templateName, model, BasePathEnum.WEN_APP_I18N,
+						idiomaKey + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName));
 	}
 
 }

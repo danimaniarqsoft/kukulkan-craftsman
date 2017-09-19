@@ -80,7 +80,7 @@ public class ModelLayerTask extends SpringRestLayerTaskVisitor {
 
 	private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
 			DataModelElement dmElement) {
-		templateService.fillModel(pConf.getId(), "common/model.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+		templateService.fillModel(dmElement, pConf.getId(), "common/model.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
 				basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
 						+ dmElement.getName() + ".java");
 	}
@@ -88,7 +88,7 @@ public class ModelLayerTask extends SpringRestLayerTaskVisitor {
 	private void fillPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
 			String basePackage, DataModelElement dmElement) {
 		if (dmElement.getPrimaryKey().isComposed()) {
-			templateService.fillModel(pConf.getId(), "common/primaryKey.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+			templateService.fillModel(dmElement, pConf.getId(), "common/primaryKey.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
 					basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
 							+ dmElement.getPrimaryKey().getType() + ".java");
 		}
@@ -101,5 +101,4 @@ public class ModelLayerTask extends SpringRestLayerTaskVisitor {
 					dmElement.getPrimaryKey().getType()));
 		}
 	}
-
 }
