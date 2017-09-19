@@ -66,7 +66,6 @@ public class TemplateServiceImpl implements TemplateService {
     public void fillModel(DataModelElement dme, String proyectoId, String templateName, Object model,
             BasePathEnum basePath, String filePath) {
         Optional<Template> templateOptional = TemplateUtil.getTemplate(fmConfiguration, templateName);
-        GeneratedElement gElement = null;
         if (templateOptional.isPresent()) {
             Path path = FileUtil.createPath(proyectoId, basePath, filePath, prop.getOutputdir());
             FileUtil.createParentsFileIfNotExist(path);
