@@ -83,12 +83,6 @@ public class TemplateServiceImpl implements TemplateService {
         }
     }
 
-    public static void main(String[] args) {
-        StringWriter sw = new StringWriter();
-        sw.write("hola mundo");
-        System.out.println(sw.toString());
-    }
-
     @Override
     public void fillModel(String proyectoId, String templateName, Object model, BasePathEnum basePath,
             String filePath) {
