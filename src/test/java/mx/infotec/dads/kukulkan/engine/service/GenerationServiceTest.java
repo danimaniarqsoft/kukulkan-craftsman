@@ -68,72 +68,72 @@ import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 @DirtiesContext
 public class GenerationServiceTest {
 
-	@Autowired
-	private GenerationService generationService;
-	@Autowired
-	private DataStoreService dataStoreService;
-	@Autowired
-	private DataStoreRepository dataStoreRepository;
-	@Autowired
-	private RuleRepository ruleRepository;
-	@Autowired
-	private LayerTaskFactory layerTaskFactory;
-	@Autowired
-	private RuleTypeRepository ruleTypeRepository;
+    @Autowired
+    private GenerationService generationService;
+    @Autowired
+    private DataStoreService dataStoreService;
+    @Autowired
+    private DataStoreRepository dataStoreRepository;
+    @Autowired
+    private RuleRepository ruleRepository;
+    @Autowired
+    private LayerTaskFactory layerTaskFactory;
+    @Autowired
+    private RuleTypeRepository ruleTypeRepository;
 
-	@BeforeClass
-	public static void runOnceBeforeClass() {
-		H2FileDatabaseConfiguration.run();
-	}
+    @BeforeClass
+    public static void runOnceBeforeClass() {
+        H2FileDatabaseConfiguration.run();
+    }
 
-	@Test
-	public void generationService() throws Exception {
-		Rule rule = new Rule();
-		RuleType ruleType = ruleTypeRepository.findAll().get(0);
-		ruleType.setName("singular");
-		rule.setRuleType(ruleType);
-		Example<Rule> ruleExample = Example.of(rule);
-		List<Rule> rulesList = ruleRepository.findAll(ruleExample);
-		for (Rule item : rulesList) {
-			InflectorProcessor.getInstance().addSingularize(item.getExpression(), item.getReplacement());
-		}
-		// Create ProjectConfiguration
-		ProjectConfiguration pConf = new ProjectConfiguration();
-		pConf.setId("test-kukulkan");
-		pConf.setGroupId("mx.infotec.dads");
-		pConf.setVersion("1.0.0");
-		pConf.setPackaging("mx.infotec.dads.rsr");
-		pConf.setYear("2017");
-		pConf.setAuthor("KUKULKAN");
-		pConf.setWebLayerName("rest");
-		pConf.setServiceLayerName("service");
-		pConf.setDaoLayerName("repository");
-		pConf.setDomainLayerName("model");
-		pConf.setGlobalGenerationType(GenerationType.SEQUENCE);
-		// Create DataStore
-		DataStore dsExample = new DataStore();
-		dsExample.setName("h2-db-test");
-		Example<DataStore> dataStoreFilter = Example.of(dsExample);
-		List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
-		DataStore dataStore = findAllDataStores.get(0);
-		// Create DataModel
-		DataModel dataModel = new JavaDataModelContext(dataStore);
-		dataModel.setDataContext(dataStoreService.createDataContext(dataStore));
-		// Tables to process
-		List<String> tablesToProcess = new ArrayList<>();
-		// Mapping DataContext into DataModel
-		List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
-				dataModel.getDataContext().getDefaultSchema().getTables(), tablesToProcess);
-		dataModel.setDataModelGroup(dmgList);
-		// Create GeneratorContext
-		GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
-		// Process Activities
-		generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
+    @Test
+    public void generationService() throws Exception {
+        Rule rule = new Rule();
+        RuleType ruleType = ruleTypeRepository.findAll().get(0);
+        ruleType.setName("singular");
+        rule.setRuleType(ruleType);
+        Example<Rule> ruleExample = Example.of(rule);
+        List<Rule> rulesList = ruleRepository.findAll(ruleExample);
+        for (Rule item : rulesList) {
+            InflectorProcessor.getInstance().addSingularize(item.getExpression(), item.getReplacement());
+        }
+        // Create ProjectConfiguration
+        ProjectConfiguration pConf = new ProjectConfiguration();
+        pConf.setId("test-kukulkan");
+        pConf.setGroupId("mx.infotec.dads");
+        pConf.setVersion("1.0.0");
+        pConf.setPackaging("mx.infotec.dads.rsr");
+        pConf.setYear("2017");
+        pConf.setAuthor("KUKULKAN");
+        pConf.setWebLayerName("rest");
+        pConf.setServiceLayerName("service");
+        pConf.setDaoLayerName("repository");
+        pConf.setDomainLayerName("model");
+        pConf.setGlobalGenerationType(GenerationType.SEQUENCE);
+        // Create DataStore
+        DataStore dsExample = new DataStore();
+        dsExample.setName("h2-db-test");
+        Example<DataStore> dataStoreFilter = Example.of(dsExample);
+        List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
+        DataStore dataStore = findAllDataStores.get(0);
+        // Create DataModel
+        DataModel dataModel = new JavaDataModelContext(dataStore);
+        dataModel.setDataContext(dataStoreService.createDataContext(dataStore));
+        // Tables to process
+        List<String> tablesToProcess = new ArrayList<>();
+        // Mapping DataContext into DataModel
+        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
+                dataModel.getDataContext().getDefaultSchema().getTables(), tablesToProcess);
+        dataModel.setDataModelGroup(dmgList);
+        // Create GeneratorContext
+        GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
+        // Process Activities
+        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
 
-		genCtx.getDataModel().getDataModelGroup()
-				.forEach(dmg -> dmg.getDataModelElements().forEach(dme -> dme.getGeneratedElements().forEach(ge -> {
-					System.out.println(ge.getPath().toFile().getAbsolutePath());
-					System.out.println(ge.getContent());
-				})));
-	}
+        genCtx.getDataModel().getDataModelGroup()
+                .forEach(dmg -> dmg.getDataModelElements().forEach(dme -> dme.getGeneratedElements().forEach(ge -> {
+                    System.out.println(ge.getPath().toFile().getAbsolutePath());
+                    System.out.println(ge.getContent());
+                })));
+    }
 }
