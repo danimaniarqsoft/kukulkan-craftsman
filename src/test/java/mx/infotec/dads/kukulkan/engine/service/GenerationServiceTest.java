@@ -25,7 +25,6 @@ package mx.infotec.dads.kukulkan.engine.service;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.junit.BeforeClass;
