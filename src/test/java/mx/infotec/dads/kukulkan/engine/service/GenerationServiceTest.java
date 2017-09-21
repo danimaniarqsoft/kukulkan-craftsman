@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.service;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,6 +38,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.KukulkancraftsmanApp;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
@@ -82,6 +84,9 @@ public class GenerationServiceTest {
     @Autowired
     private RuleTypeRepository ruleTypeRepository;
 
+    @Autowired
+    private KukulkanConfigurationProperties prop;
+
     @BeforeClass
     public static void runOnceBeforeClass() {
         H2FileDatabaseConfiguration.run();
@@ -100,7 +105,7 @@ public class GenerationServiceTest {
         }
         // Create ProjectConfiguration
         ProjectConfiguration pConf = new ProjectConfiguration();
-        pConf.setId("test-kukulkan");
+        pConf.setId("kukulkantest");
         pConf.setGroupId("mx.infotec.dads");
         pConf.setVersion("1.0.0");
         pConf.setPackaging("mx.infotec.dads.rsr");
@@ -130,6 +135,7 @@ public class GenerationServiceTest {
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
         // Process Activities
         generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
-
+        FileUtil.saveToFile(genCtx);
+        FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "compressedFile");
     }
 }

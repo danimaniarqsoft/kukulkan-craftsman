@@ -120,7 +120,7 @@ jhipster:
 application:
 
 kukulkan:
-  outputdir: /home/daniel/git/
+  outputdir: /tmp/
 logging:
   level:
     root: info
