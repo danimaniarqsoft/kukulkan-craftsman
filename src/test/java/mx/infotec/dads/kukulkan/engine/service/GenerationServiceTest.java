@@ -53,6 +53,7 @@ import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.util.DataMapping;
+import mx.infotec.dads.kukulkan.util.FileUtil;
 import mx.infotec.dads.kukulkan.util.GenerationType;
 import mx.infotec.dads.kukulkan.util.H2FileDatabaseConfiguration;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
@@ -130,10 +131,5 @@ public class GenerationServiceTest {
         // Process Activities
         generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
 
-        genCtx.getDataModel().getDataModelGroup()
-                .forEach(dmg -> dmg.getDataModelElements().forEach(dme -> dme.getGeneratedElements().forEach(ge -> {
-                    System.out.println(ge.getPath().toFile().getAbsolutePath());
-                    System.out.println(ge.getContent());
-                })));
     }
 }

@@ -22,7 +22,7 @@ public class TemplateUtil {
     private TemplateUtil() {
     }
 
-    public static Optional<Template> getTemplate(Configuration config, String templateName) {
+    public static Optional<Template> get(Configuration config, String templateName) {
         Template template = null;
         try {
             template = config.getTemplate(templateName);

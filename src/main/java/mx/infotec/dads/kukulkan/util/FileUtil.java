@@ -23,17 +23,22 @@
  */
 package mx.infotec.dads.kukulkan.util;
 
+import java.io.BufferedWriter;
 import java.io.Closeable;
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 
 /**
  * The FileUtil Class is used for common File operations
@@ -71,7 +76,7 @@ public class FileUtil {
         }
     }
 
-    public static Path createPath(String proyectoId, BasePathEnum path, String filePath, String outPutDir) {
+    public static Path buildPath(String proyectoId, BasePathEnum path, String filePath, String outPutDir) {
         return Paths.get(outPutDir + proyectoId + "/" + path.getPath() + "/" + filePath);
     }
 
@@ -79,7 +84,16 @@ public class FileUtil {
         if (!Files.exists(path.getParent(), new LinkOption[] { LinkOption.NOFOLLOW_LINKS })) {
             return createDirectories(path.getParent());
         } else {
-            return true;
+            return false;
+        }
+    }
+
+    public static boolean createFileIfNotExist(File file) {
+        try {
+            return file.createNewFile();
+        } catch (IOException e) {
+            LOGGER.error("FileUtil.createFileIfNotExist: ", e);
+            return false;
         }
     }
 
@@ -91,8 +105,24 @@ public class FileUtil {
             return false;
         }
     }
-    
-    public static boolean saveGeneratedElement(GeneratedElement ge){
-        FileUtil.createParentsFileIfNotExist(ge.getPath());
+
+    public static boolean saveToFile(GeneratedElement ge) {
+        createDirectories(ge.getPath());
+        try (final BufferedWriter out = Files.newBufferedWriter(ge.getPath(), StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+            out.write(ge.getContent());
+            return true;
+        } catch (IOException ioe) {
+            LOGGER.error("FileUtil.createFileIfNotExist: ", ioe);
+            return false;
+        }
+    }
+
+    public static boolean saveToFile(GeneratorContext genCtx) {
+        genCtx.getDataModel().getDataModelGroup()
+                .forEach(dmg -> dmg.getDataModelElements().forEach(dme -> dme.getGeneratedElements().forEach(ge -> {
+                    FileUtil.saveToFile(ge);
+                })));
+        return true;
     }
 }
