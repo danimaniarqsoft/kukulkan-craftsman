@@ -89,6 +89,9 @@ public class Project implements Serializable {
     @Field("web_layer_name")
     private String webLayerName;
 
+    @Field("file")
+    private byte[] file;
+
     @NotNull
     @Field("archetype")
     private ArchetypeType archetype;
@@ -296,6 +299,14 @@ public class Project implements Serializable {
             return false;
         }
         return Objects.equals(getId(), project.getId());
+    }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
     }
 
     @Override
