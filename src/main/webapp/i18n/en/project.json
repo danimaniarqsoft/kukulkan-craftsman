@@ -28,7 +28,8 @@
 			"serviceLayerName": "Nombre de la Capa de Servicio",
 			"exceptionLayerName": "Nombre de la Capa de Excepciones",
 			"webLayerName": "Nombre de la Capa Web",
-			"archetype": "Arquetipo"
+			"archetype": "Arquetipo",
+			"file":"Archivo"
 		}
 	}
 }

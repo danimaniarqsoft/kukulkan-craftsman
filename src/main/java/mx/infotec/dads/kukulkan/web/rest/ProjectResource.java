@@ -1,27 +1,56 @@
 package mx.infotec.dads.kukulkan.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import mx.infotec.dads.kukulkan.domain.Project;
-import mx.infotec.dads.kukulkan.service.ProjectService;
-import mx.infotec.dads.kukulkan.web.rest.util.HeaderUtil;
-import mx.infotec.dads.kukulkan.web.rest.util.PaginationUtil;
-import io.swagger.annotations.ApiParam;
-import io.github.jhipster.web.util.ResponseUtil;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.codahale.metrics.annotation.Timed;
 
-import java.util.List;
-import java.util.Optional;
+import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
+import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
+import mx.infotec.dads.kukulkan.assets.service.mapper.ProjectMapper;
+import mx.infotec.dads.kukulkan.domain.Project;
+import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
+import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.JavaDataModelContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.factories.LayerTaskFactory;
+import mx.infotec.dads.kukulkan.engine.service.GenerationService;
+import mx.infotec.dads.kukulkan.service.DataStoreService;
+import mx.infotec.dads.kukulkan.service.ProjectService;
+import mx.infotec.dads.kukulkan.util.DataMapping;
+import mx.infotec.dads.kukulkan.util.FileUtil;
+import mx.infotec.dads.kukulkan.web.rest.util.HeaderUtil;
+import mx.infotec.dads.kukulkan.web.rest.util.PaginationUtil;
 
 /**
  * REST controller for managing Project.
@@ -35,6 +64,18 @@ public class ProjectResource {
     private static final String ENTITY_NAME = "project";
 
     private final ProjectService projectService;
+    
+    @Autowired
+    private DataStoreService dataStoreService;
+    
+    @Autowired
+    private GenerationService generationService;
+    
+    @Autowired
+    private KukulkanConfigurationProperties prop;
+    
+    @Autowired
+    private LayerTaskFactory layerTaskFactory;
 
     public ProjectResource(ProjectService projectService) {
         this.projectService = projectService;
@@ -108,6 +149,38 @@ public class ProjectResource {
     public ResponseEntity<Project> getProject(@PathVariable String id) {
         log.debug("REST request to get Project : {}", id);
         Project project = projectService.findOne(id);
+        ProjectConfiguration pConf = ProjectMapper.toEntity(project);
+        DataModel dataModel = new JavaDataModelContext(project.getDataStore());
+        DataStoreType dst = new DataStoreType();
+        dst.setName("jdbc");
+        project.getDataStore().setDataStoreType(dst);
+        dataModel.setDataContext(dataStoreService.createDataContext(project.getDataStore()));
+        // Tables to process
+        List<String> tablesToProcess = new ArrayList<>();
+        // Mapping DataContext into DataModel
+        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
+                dataModel.getDataContext().getDefaultSchema().getTables(), tablesToProcess);
+        dataModel.setDataModelGroup(dmgList);
+        // Create GeneratorContext
+        GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
+        // Process Activities
+        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
+        FileUtil.saveToFile(genCtx);
+        try {
+            FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "compressedFile");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Path fileLocation = Paths.get(prop.getOutputdir() + "/compressedFile.zip");
+        try {
+            byte[] data = Files.readAllBytes(fileLocation);
+            project.setFile(data);
+            project.setFileContentType("application/zip");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         log.info("Proyecto info {}", project.getDataStore().getName());
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(project));
     }

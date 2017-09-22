@@ -61,6 +61,13 @@
             <dd>
                 <span data-translate="{{'kukulkancraftsmanApp.Archetype.' + vm.project.archetype}}">{{vm.project.archetype}}</span>
             </dd>
+            <dt><span data-translate="kukulkancraftsmanApp.project.file">File</span></dt>
+       	    <dd>
+            <div ng-if="vm.project.file">
+                <a ng-click="vm.openFile(vm.project.fileContentType, vm.project.file)" data-translate="entity.action.open">open</a>
+                {{vm.project.fileContentType}}, {{vm.byteSize(vm.project.file)}}
+            </div>
+        </dd>
         </dl>
 
         <button type="submit"

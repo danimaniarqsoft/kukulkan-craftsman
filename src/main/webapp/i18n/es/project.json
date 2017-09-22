@@ -28,7 +28,8 @@
             "serviceLayerName": "Service Layer Name",
             "exceptionLayerName": "Exception Layer Name",
             "webLayerName": "Web Layer Name",
-            "archetype": "Archetype"
+            "archetype": "Archetype",
+			"file":"File"
         }
     }
 }

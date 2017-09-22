@@ -47,7 +47,7 @@ public class ${primaryKey.type} implements Serializable {
      * @kukulkanGenerated ${aDateTime?iso_utc}
      */
     @Column(name="${property.columnName}")
-    private ${property.propertyType} ${property.propertyName};
+    private ${property.type} ${property.name};
 	</#list>
 	
 	<#list primaryKey.properties as property>
@@ -55,24 +55,24 @@ public class ${primaryKey.type} implements Serializable {
      * Este método fue generado automaticamente por ${author} 
      * Este método GETTER fue generado para la ${tableName}.${property.columnName}
      *
-     * @return el valor de ${property.propertyName}
+     * @return el valor de ${property.name}
      *
      * @kukulkanGenerated ${aDateTime?iso_utc}
      */
-    public ${property.propertyType} get${property.propertyName?cap_first}() {
-        return ${property.propertyName};
+    public ${property.type} get${property.name?cap_first}() {
+        return ${property.name};
     }
 
     /**
      * Este método fue generado automaticamente por ${author} 
-     * Este método GETTER fue generado para la tabla. ${tableName}.${property.propertyName}
+     * Este método GETTER fue generado para la tabla. ${tableName}.${property.name}
      *
-     * @return el valor de ${property.propertyName?cap_first}
+     * @return el valor de ${property.name?cap_first}
      *
      * @kukulkanGenerated ${aDateTime?iso_utc}
      */
-    public void set${property.propertyName?cap_first}(${property.propertyType} ${property.propertyName}) {
-        this.${property.propertyName} = ${property.propertyName};
+    public void set${property.name?cap_first}(${property.type} ${property.name}) {
+        this.${property.name} = ${property.name};
     }
     </#list>
     
@@ -85,8 +85,8 @@ public class ${primaryKey.type} implements Serializable {
             return false;
         }
         ${primaryKey.type} castOther = (${primaryKey.type}) other;
-        return <#list primaryKey.properties as property><#if property?counter==1>(this.${property.propertyName} == castOther.${property.propertyName})<#else>
-                && this.${property.propertyName}.equals(castOther.${property.propertyName})</#if></#list>; 
+        return <#list primaryKey.properties as property><#if property?counter==1>(this.${property.name} == castOther.${property.name})<#else>
+                && this.${property.name}.equals(castOther.${property.name})</#if></#list>; 
     }
     
     @Override
@@ -94,7 +94,7 @@ public class ${primaryKey.type} implements Serializable {
         final int prime = 31;
         int result = 1;
         <#list primaryKey.properties as property>
-        result = prime * result + ((${property.propertyName} == null) ? 0 : ${property.propertyName}.hashCode());
+        result = prime * result + ((${property.name} == null) ? 0 : ${property.name}.hashCode());
         </#list>
         return result;
     }

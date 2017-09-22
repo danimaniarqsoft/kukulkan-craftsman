@@ -5,13 +5,15 @@
         .module('kukulkancraftsmanApp')
         .controller('ProjectDetailController', ProjectDetailController);
 
-    ProjectDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Project'];
+    ProjectDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'DataUtils', 'entity', 'Project'];
 
-    function ProjectDetailController($scope, $rootScope, $stateParams, previousState, entity, Project) {
+    function ProjectDetailController($scope, $rootScope, $stateParams, previousState, DataUtils, entity, Project) {
         var vm = this;
 
         vm.project = entity;
         vm.previousState = previousState.name;
+        vm.byteSize = DataUtils.byteSize;
+        vm.openFile = DataUtils.openFile;
 
         var unsubscribe = $rootScope.$on('kukulkancraftsmanApp:projectUpdate', function(event, result) {
             vm.project = result;

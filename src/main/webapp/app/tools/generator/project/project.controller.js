@@ -5,9 +5,9 @@
         .module('kukulkancraftsmanApp')
         .controller('ProjectController', ProjectController);
 
-    ProjectController.$inject = ['$state', 'Project', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    ProjectController.$inject = ['$state', 'DataUtils', 'Project', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function ProjectController($state, Project, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function ProjectController($state, DataUtils, Project, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
 
@@ -16,6 +16,9 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.loadAll = loadAll;
+        vm.openFile = DataUtils.openFile;
+        vm.byteSize = DataUtils.byteSize;
 
         loadAll();
 

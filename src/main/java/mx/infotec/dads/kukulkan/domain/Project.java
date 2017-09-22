@@ -92,6 +92,9 @@ public class Project implements Serializable {
     @Field("file")
     private byte[] file;
 
+    @Field("content_type")
+    private String fileContentType;
+
     @NotNull
     @Field("archetype")
     private ArchetypeType archetype;
@@ -307,6 +310,14 @@ public class Project implements Serializable {
 
     public void setFile(byte[] file) {
         this.file = file;
+    }
+
+    public String getFileContentType() {
+        return fileContentType;
+    }
+
+    public void setFileContentType(String fileContentType) {
+        this.fileContentType = fileContentType;
     }
 
     @Override

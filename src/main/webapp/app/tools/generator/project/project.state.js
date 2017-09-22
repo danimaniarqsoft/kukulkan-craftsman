@@ -139,6 +139,8 @@
                                 daoLayerName: null,
                                 domainLayerName: null,
                                 serviceLayerName: null,
+                                file: null,
+                                fileContentType: null,
                                 exceptionLayerName: null,
                                 webLayerName: null,
                                 archetype: null,
