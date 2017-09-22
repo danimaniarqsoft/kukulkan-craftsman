@@ -63,7 +63,7 @@ public class DataMapping {
      * @param dataContext
      * @return DataModelGroup
      */
-    public static DataModelGroup createDefaultDataModelGroup(Table[] tables, List<String> excludedTables) {
+    public static DataModelGroup createDefaultDataModelGroup(List<Table> tables, List<String> excludedTables) {
         DataModelGroup dmg = new DataModelGroup();
         dmg.setName("");
         dmg.setDescription("Default package");
@@ -75,7 +75,7 @@ public class DataMapping {
         return dmg;
     }
 
-    private static void createDataModelElement(List<String> tablesToProcess, Table[] tables,
+    private static void createDataModelElement(List<String> tablesToProcess, List<Table> tables,
             List<DataModelElement> dmeList) {
         for (Table table : tables) {
             if ((tablesToProcess.contains(table.getName()) || tablesToProcess.isEmpty())
@@ -93,7 +93,7 @@ public class DataMapping {
         }
     }
 
-    public static void extractPrimaryKey(DataModelElement dme, String singularName, Column[] columns) {
+    public static void extractPrimaryKey(DataModelElement dme, String singularName, List<Column> columns) {
         dme.setPrimaryKey(mapPrimaryKeyElements(singularName, columns));
         if (!dme.getPrimaryKey().isComposed()) {
             dme.getImports().add(dme.getPrimaryKey().getQualifiedLabel());
@@ -101,7 +101,7 @@ public class DataMapping {
     }
 
     public static void extractProperties(DataModelElement dme, Table table) {
-        Arrays.stream(table.getColumns()).filter(column -> !column.isPrimaryKey())
+        table.getColumns().stream().filter(column -> !column.isPrimaryKey())
                 .forEach(column -> processNotPrimaryProperties(dme, column));
     }
 
@@ -192,20 +192,20 @@ public class DataMapping {
         }
     }
 
-    public static boolean hasPrimaryKey(Column[] columns) {
-        return columns.length == 0 ? false : true;
+    public static boolean hasPrimaryKey(List<Column> columns) {
+        return columns.size() == 0 ? false : true;
     }
 
-    public static PrimaryKey mapPrimaryKeyElements(String singularName, Column[] columns) {
+    public static PrimaryKey mapPrimaryKeyElements(String singularName, List<Column> columns) {
         PrimaryKey pk = PrimaryKey.createOrderedDataModel();
         // Not found primary key
-        if (columns.length == 0) {
+        if (columns.size() == 0) {
             return null;
         }
         // Simple Primary key
-        if (columns.length == 1) {
+        if (columns.size() == 1) {
             pk.setType("Long");
-            pk.setName(SchemaPropertiesParser.parseToPropertyName(columns[0].getName()));
+            pk.setName(SchemaPropertiesParser.parseToPropertyName(columns.get(0).getName()));
             pk.setQualifiedLabel("java.lang.Long");
             pk.setComposed(false);
         } else {
@@ -233,7 +233,7 @@ public class DataMapping {
      * @param dataContext
      * @return
      */
-    public static List<DataModelGroup> createSingleDataModelGroupList(Table[] tables, List<String> excludedTables) {
+    public static List<DataModelGroup> createSingleDataModelGroupList(List<Table> tables, List<String> excludedTables) {
         List<DataModelGroup> dataModelGroupList = new ArrayList<>();
         dataModelGroupList.add(createDefaultDataModelGroup(tables, excludedTables));
         return dataModelGroupList;
