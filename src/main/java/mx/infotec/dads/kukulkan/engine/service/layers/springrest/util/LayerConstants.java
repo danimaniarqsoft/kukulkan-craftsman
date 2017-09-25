@@ -25,6 +25,6 @@ public class LayerConstants {
 	public static String ENTITY_SEARCH_SERVICE_JS = "entity.search.service.js.ftl";
 	public static String ENTITY_SERVICE_JS = "entity.service.js.ftl";
 	public static String ENTITY_STATE_JS = "entity.state.js.ftl";
-	public static String IDIOMA_JS = "entity.js.ftl";
+	public static String IDIOMA_JS = "entity.json.ftl";
 	public static String ENTITY_DETAIL_HTML = "entity-detail.html.ftl";
 }
