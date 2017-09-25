@@ -89,6 +89,6 @@ jhipster:
 # https://jhipster.github.io/common-application-properties/
 # ===================================================================
 kukulkan:
-  outputdir: /tmp/
+  outputdir: /home/daniel/git/
   
 application:
