@@ -113,7 +113,7 @@ public class GenerationServiceTest {
         pConf.setWebLayerName("rest");
         pConf.setServiceLayerName("service");
         pConf.setDaoLayerName("repository");
-        pConf.setDomainLayerName("model");
+        pConf.setDomainLayerName("domain");
         pConf.setGlobalGenerationType(GenerationType.SEQUENCE);
         // Create DataStore
         DataStore dsExample = new DataStore();
