@@ -200,7 +200,7 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
     private void saveInternationalizationTemplate(ProjectConfiguration pConf, Map<String, Object> model,
             DataModelElement dmElement, String templateLocation, String templateName, String idiomaKey) {
         // pfCOnf.getId, templateName, model, dmElement.getPropertyName.
-        String fileNamingConvention = dmElement.getCamelCaseFormat();
+        String fileNamingConvention = camelCaseToHyphens(dmElement.getCamelCaseFormat());
         templateService.fillModel(dmElement, pConf.getId(), templateLocation + templateName, model,
                 BasePathEnum.WEN_APP_I18N,
                 idiomaKey + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName));
