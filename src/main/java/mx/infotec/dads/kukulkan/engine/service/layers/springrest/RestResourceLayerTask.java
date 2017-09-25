@@ -40,6 +40,7 @@ import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConst
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
+import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.*;
 import mx.infotec.dads.kukulkan.util.NameConventions;
 
 /**
@@ -61,19 +62,23 @@ public class RestResourceLayerTask extends SpringRestLayerTaskVisitor {
             Map<String, Object> model, String dmgName) {
         String basePackage = pConf.getPackaging() + dmgName;
         LOGGER.debug("Base package {}", basePackage);
+        String webLayerDotFormat = replaceSlashByDot(pConf.getWebLayerName());
+        String webLayerSlashFormat = replaceDotBySlash(pConf.getWebLayerName());
         for (DataModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
-            model.put("package", formatToPackageStatement(basePackage, pConf.getWebLayerName()));
+            model.put("package", formatToPackageStatement(basePackage, webLayerDotFormat));
             model.put("importRepository", formatToImportStatement(basePackage, pConf.getDaoLayerName(),
                     dmElement.getName() + NameConventions.DAO));
             model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
                     dmElement.getName() + NameConventions.SERVICE));
-            model.put("entityCamelCasePlural", InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
+            model.put("entityCamelCasePlural",
+                    InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
             model.put("urlName", dmElement.getCamelCaseFormat());
             model.put("primaryKey", dmElement.getPrimaryKey());
-            templateService.fillModel(dmElement, pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl",
-                    model, BasePathEnum.SRC_MAIN_JAVA,
-                    basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getWebLayerName() + "/"
+            templateService.fillModel(dmElement, pConf.getId(),
+                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl", model,
+                    BasePathEnum.SRC_MAIN_JAVA,
+                    basePackage.replace('.', '/') + "/" + dmgName + "/" + webLayerSlashFormat + "/"
                             + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");
 
         }

@@ -110,7 +110,7 @@ public class GenerationServiceTest {
         pConf.setPackaging("mx.infotec.dads.rsr");
         pConf.setYear("2017");
         pConf.setAuthor("KUKULKAN");
-        pConf.setWebLayerName("rest");
+        pConf.setWebLayerName("web.rest");
         pConf.setServiceLayerName("service");
         pConf.setDaoLayerName("repository");
         pConf.setDomainLayerName("domain");

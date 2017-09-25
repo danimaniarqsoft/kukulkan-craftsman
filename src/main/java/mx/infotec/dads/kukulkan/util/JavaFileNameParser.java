@@ -98,4 +98,24 @@ public class JavaFileNameParser {
         return sb.toString();
     }
 
+    /**
+     * Replace a "." by "/" web/rest to web.rest
+     * 
+     * @param layerName
+     * @return
+     */
+    public static String replaceDotBySlash(String layerName) {
+        return layerName.replace('.', '/');
+    }
+
+    /**
+     * Replace a "/" by "." web.rest to web/rest
+     * 
+     * @param layerName
+     * @return
+     */
+    public static String replaceSlashByDot(String layerName) {
+        return layerName.replace('/', '.');
+    }
+
 }

@@ -248,13 +248,4 @@ public class DataMapping {
         });
         return layerTaskList;
     }
-
-    public void mapCommonProperties(ProjectConfiguration pConf, Map<String, Object> model, DataModelElement dmElement,
-            String basePackage) {
-        model.put("package", formatToPackageStatement(basePackage, pConf.getWebLayerName()));
-        model.put("entityCamelCaseFormat", dmElement.getCamelCaseFormat());
-        model.put("name", dmElement.getName());
-        model.put("id", "Long");
-    }
-
 }

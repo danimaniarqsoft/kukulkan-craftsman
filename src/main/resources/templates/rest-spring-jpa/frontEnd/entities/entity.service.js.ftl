@@ -2,12 +2,12 @@
 (function() {
     'use strict';
     angular
-        .module('${projectName}')
+        .module('${projectName}App')
         .factory('${entityCamelCasePlural}', ${entityCamelCasePlural});
 
     ${entityCamelCasePlural}.$inject = ['$resource'<#if hasTimeProperties == true>, 'DateUtils'</#if>];
 
-    function ${entityCamelCasePlural} ($resource<#if hasTimeProperties == true>, 'DateUtils'</#if>) {
+    function ${entityCamelCasePlural} ($resource<#if hasTimeProperties == true>, DateUtils</#if>) {
         var resourceUrl = 'api/${entityCamelCasePlural}/:id';
 
         return $resource(resourceUrl, {}, {

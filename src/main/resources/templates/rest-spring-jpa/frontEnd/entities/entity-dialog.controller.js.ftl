@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('${entity}App')
+        .module('${projectName}App')
         .controller('${entity}DialogController', ${entity}DialogController);
 
     ${entity}DialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', '${entity}'];

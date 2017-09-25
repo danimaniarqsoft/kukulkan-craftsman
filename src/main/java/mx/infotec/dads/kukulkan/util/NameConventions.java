@@ -31,7 +31,7 @@ package mx.infotec.dads.kukulkan.util;
  */
 public class NameConventions {
 
-    public static final String REST_CONTROLLER = "RestController";
+    public static final String REST_CONTROLLER = "Resource";
     public static final String SERVICE = "Service";
     public static final String SERVICE_IMPLEMENTS = "ServiceImpl";
     public static final String DAO = "Repository";
