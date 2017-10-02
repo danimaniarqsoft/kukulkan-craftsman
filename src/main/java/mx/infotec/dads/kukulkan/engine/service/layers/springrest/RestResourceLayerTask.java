@@ -67,6 +67,7 @@ public class RestResourceLayerTask extends SpringRestLayerTaskVisitor {
         for (DataModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
             model.put("package", formatToPackageStatement(basePackage, webLayerDotFormat));
+            model.put("packageSimpleFormat", formatToPackageStatement(true, basePackage, webLayerDotFormat));
             model.put("importRepository", formatToImportStatement(basePackage, pConf.getDaoLayerName(),
                     dmElement.getName() + NameConventions.DAO));
             model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),

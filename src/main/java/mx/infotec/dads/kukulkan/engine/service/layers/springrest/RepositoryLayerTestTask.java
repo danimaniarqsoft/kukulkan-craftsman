@@ -43,7 +43,7 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
  *
  */
 public class RepositoryLayerTestTask extends SpringRestLayerTaskVisitor {
-    
+
     @Autowired
     private TemplateService templateService;
 
@@ -54,9 +54,10 @@ public class RepositoryLayerTestTask extends SpringRestLayerTaskVisitor {
         for (DataModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
             model.put("package", formatToPackageStatement(basePackage, pConf.getDaoLayerName()));
-            templateService.fillModel(dmElement, pConf.getId(), LayerConstants.REST_SPRING_JPA_BACK_END_URL +"/repository.ftl", model,
-                    BasePathEnum.SRC_TEST_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
-                            + pConf.getDaoLayerName() + "/" + dmElement.getName() + "Repository.java");
+            templateService.fillModel(dmElement, pConf.getId(),
+                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/repository.ftl", model, BasePathEnum.SRC_TEST_JAVA,
+                    basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDaoLayerName() + "/"
+                            + dmElement.getName() + "Repository.java");
         }
     }
 

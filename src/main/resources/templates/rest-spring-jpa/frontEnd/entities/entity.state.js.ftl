@@ -18,7 +18,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/${entityHyphenNotation}/${entityHyphenNotation}.html',
+                    templateUrl: 'app/entities/${entityHyphenNotation}/${entityHyphenNotationPlural}.html',
                     controller: '${entity}Controller',
                     controllerAs: 'vm'
                 }

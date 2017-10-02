@@ -3,11 +3,11 @@
 
     angular
         .module('${projectName}App')
-        .controller('${entityCamelCase}Controller', ${entityCamelCase}Controller);
+        .controller('${entityCamelCase?cap_first}Controller', ${entityCamelCase?cap_first}Controller);
 
-    ${entityCamelCase}Controller.$inject = ['$state', 'DataUtils', '${entityCamelCase}', '${entityCamelCase}Search', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    ${entityCamelCase?cap_first}Controller.$inject = ['$state', 'DataUtils', '${entityCamelCase?cap_first}', '${entityCamelCase?cap_first}Search', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function ${entityCamelCase}Controller($state, DataUtils, ${entityCamelCase}, ${entityCamelCase}Search, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function ${entityCamelCase?cap_first}Controller($state, DataUtils, ${entityCamelCase?cap_first}, ${entityCamelCase?cap_first}Search, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
 
@@ -30,14 +30,14 @@
 
         function loadAll () {
             if (pagingParams.search) {
-                ${entityCamelCase}Search.query({
+                ${entityCamelCase?cap_first}Search.query({
                     query: pagingParams.search,
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
                 }, onSuccess, onError);
             } else {
-                ${entityCamelCase}.query({
+                ${entityCamelCase?cap_first}.query({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()

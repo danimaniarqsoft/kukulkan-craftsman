@@ -170,19 +170,14 @@ public class DataStoreServiceImpl implements DataStoreService {
 
     @Override
     public boolean testConnection(DataStore dataStore) {
-
         Properties connectionProps = new Properties();
         connectionProps.put("user", dataStore.getUsername());
         connectionProps.put("password", dataStore.getPassword() == null ? "" : dataStore.getPassword());
         try {
             DriverManager.getConnection(dataStore.getUrl(), connectionProps);
-            throw new ApplicationException("Error Espeerado true");
-
-//            return true;
+            return true;
         } catch (SQLException e) {
             throw new ApplicationException("Error Espeerado false");
-
-//            return false;
         }
     }
 }

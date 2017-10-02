@@ -1,6 +1,4 @@
-<#assign translateKey>
-${projectName}App.${entityCamelCase}
-</#assign>
+<#assign translateKey>${projectName}App.${entityCamelCase}</#assign>
 <div>
     <h2 data-translate="${projectName}App.home.title">${entityCamelCasePlural}</h2>
     <jhi-alert></jhi-alert>

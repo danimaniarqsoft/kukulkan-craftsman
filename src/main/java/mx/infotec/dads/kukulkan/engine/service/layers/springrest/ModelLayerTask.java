@@ -48,57 +48,57 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
 @Service("modelLayerTask")
 public class ModelLayerTask extends SpringRestLayerTaskVisitor {
 
-	@Autowired
-	private TemplateService templateService;
+    @Autowired
+    private TemplateService templateService;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ModelLayerTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModelLayerTask.class);
 
-	@Override
-	public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
-			Map<String, Object> model, String dmgName) {
-		LOGGER.debug("doForEachDataModelElement method {}", dmgName);
-		String basePackage = pConf.getPackaging() + dmgName;
-		for (DataModelElement dmElement : dmElementCollection) {
-			model.put("id", dmElement.getPrimaryKey().getType());
-			model.put("tableName", dmElement.getTableName());
-			model.put("entity", dmElement.getName());
-			model.put("hasConstraints", dmElement.isHasConstraints());
-			model.put("hasInstant", dmElement.isHasInstant());
-			model.put("hasLocalDate", dmElement.isHasLocalDate());
-			model.put("hasZoneDateTime", dmElement.isHasZoneDateTime());
-			model.put("hasBigDecimal", dmElement.isHasBigDecimal());
-			importPrimaryKey(pConf, model, basePackage, dmElement);
-			model.put("package", formatToPackageStatement(basePackage, pConf.getDomainLayerName()));
-			model.put("properties", dmElement.getProperties());
-			dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
-			model.put("primaryKey", dmElement.getPrimaryKey());
-			model.put("imports", dmElement.getImports());
-			fillModel(pConf, model, dmgName, basePackage, dmElement);
-			fillPrimaryKey(pConf, model, dmgName, basePackage, dmElement);
-		}
-	}
+    @Override
+    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
+            Map<String, Object> model, String dmgName) {
+        LOGGER.debug("doForEachDataModelElement method {}", dmgName);
+        String basePackage = pConf.getPackaging() + dmgName;
+        for (DataModelElement dmElement : dmElementCollection) {
+            model.put("id", dmElement.getPrimaryKey().getType());
+            model.put("tableName", dmElement.getTableName());
+            model.put("entity", dmElement.getName());
+            model.put("hasConstraints", dmElement.isHasConstraints());
+            model.put("hasInstant", dmElement.isHasInstant());
+            model.put("hasLocalDate", dmElement.isHasLocalDate());
+            model.put("hasZoneDateTime", dmElement.isHasZoneDateTime());
+            model.put("hasBigDecimal", dmElement.isHasBigDecimal());
+            importPrimaryKey(pConf, model, basePackage, dmElement);
+            model.put("package", formatToPackageStatement(false, basePackage, pConf.getDomainLayerName()));
+            model.put("properties", dmElement.getProperties());
+            dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
+            model.put("primaryKey", dmElement.getPrimaryKey());
+            model.put("imports", dmElement.getImports());
+            fillModel(pConf, model, dmgName, basePackage, dmElement);
+            fillPrimaryKey(pConf, model, dmgName, basePackage, dmElement);
+        }
+    }
 
-	private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
-			DataModelElement dmElement) {
-		templateService.fillModel(dmElement, pConf.getId(), "common/model.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
-				basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
-						+ dmElement.getName() + ".java");
-	}
+    private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
+            DataModelElement dmElement) {
+        templateService.fillModel(dmElement, pConf.getId(), "common/model.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+                basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
+                        + dmElement.getName() + ".java");
+    }
 
-	private void fillPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-			String basePackage, DataModelElement dmElement) {
-		if (dmElement.getPrimaryKey().isComposed()) {
-			templateService.fillModel(dmElement, pConf.getId(), "common/primaryKey.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
-					basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
-							+ dmElement.getPrimaryKey().getType() + ".java");
-		}
-	}
+    private void fillPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+            String basePackage, DataModelElement dmElement) {
+        if (dmElement.getPrimaryKey().isComposed()) {
+            templateService.fillModel(dmElement, pConf.getId(), "common/primaryKey.ftl", model,
+                    BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
+                            + pConf.getDomainLayerName() + "/" + dmElement.getPrimaryKey().getType() + ".java");
+        }
+    }
 
-	private static void importPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String basePackage,
-			DataModelElement dmElement) {
-		if (dmElement.getPrimaryKey().isComposed()) {
-			model.put("importPrimaryKey", formatToImportStatement(basePackage, pConf.getDomainLayerName(),
-					dmElement.getPrimaryKey().getType()));
-		}
-	}
+    private static void importPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String basePackage,
+            DataModelElement dmElement) {
+        if (dmElement.getPrimaryKey().isComposed()) {
+            model.put("importPrimaryKey", formatToImportStatement(basePackage, pConf.getDomainLayerName(),
+                    dmElement.getPrimaryKey().getType()));
+        }
+    }
 }
