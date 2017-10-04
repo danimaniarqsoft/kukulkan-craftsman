@@ -206,7 +206,7 @@ public class JavaProperty implements Property<JavaProperty> {
 		this.columnType = columnType;
 	}
 
-	protected void setClob(boolean clob) {
+	public void setClob(boolean clob) {
 		this.clob = clob;
 	}
 

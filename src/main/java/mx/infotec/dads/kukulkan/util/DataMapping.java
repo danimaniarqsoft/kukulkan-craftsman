@@ -23,10 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.util;
 
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +37,6 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
 import mx.infotec.dads.kukulkan.engine.domain.core.PrimaryKey;
-import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
-import mx.infotec.dads.kukulkan.engine.domain.core.Property;
 import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
@@ -108,7 +103,7 @@ public class DataMapping {
     private static void processNotPrimaryProperties(DataModelElement dme, Column column) {
         String propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
         String propertyType = extractPropertyType(column);
-        Property<JavaProperty> javaProperty = JavaProperty.builder().withName(propertyName).withType(propertyType)
+        JavaProperty javaProperty = JavaProperty.builder().withName(propertyName).withType(propertyType)
                 .withColumnName(column.getName()).withColumnType(column.getNativeType())
                 .withQualifiedName(extractQualifiedType(column)).isNullable(column.isNullable()).isPrimaryKey(false)
                 .isIndexed(column.isIndexed()).isBlob(column.getType().isBinary())
@@ -119,7 +114,7 @@ public class DataMapping {
         fillModelMetaData(dme, javaProperty);
     }
 
-    private static void fillModelMetaData(DataModelElement dme, Property<JavaProperty> javaProperty) {
+    private static void fillModelMetaData(DataModelElement dme, JavaProperty javaProperty) {
         if (!javaProperty.getConstraint().isNullable()) {
             dme.setHasNotNullElements(true);
             dme.setHasConstraints(true);
@@ -139,10 +134,12 @@ public class DataMapping {
         }
         if (javaProperty.isBlob()) {
             dme.setHasBlobProperties(true);
+            javaProperty.setBlob(true);
             return;
         }
         if (javaProperty.isClob()) {
             dme.setHasClobProperties(true);
+            javaProperty.setClob(true);
             return;
         }
     }

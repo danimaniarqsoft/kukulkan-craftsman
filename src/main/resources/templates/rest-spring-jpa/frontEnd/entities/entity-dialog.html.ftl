@@ -13,10 +13,10 @@
                     ng-model="vm.${entityCamelCase}.id" readonly />
         </div>
         <#list properties as property>
-    	<#if  property.qualifiedName == "java.sql.Blob">
-    	<#elseif property.columnType?contains("TIMESTAMP")>
+    	<#if  property.blob == true>
+    	<#elseif property.zoneDateTime == true>
         	<#include "./edit/zonedatetime.ftl">
-    	<#elseif property.columnType?contains("DATE")>
+    	<#elseif property.localDate == true>
     		<#include "./edit/localdate.ftl">
         <#else> 
         	<#include "./edit/string.ftl">
