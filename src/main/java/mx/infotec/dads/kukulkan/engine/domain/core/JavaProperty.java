@@ -28,6 +28,7 @@ import java.util.Collection;
 import org.apache.metamodel.schema.Column;
 import org.apache.metamodel.schema.ColumnType;
 
+import mx.infotec.dads.kukulkan.util.DataMapping;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -39,278 +40,267 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
  */
 public class JavaProperty implements Property<JavaProperty> {
 
-	private String name;
-	private String type;
-	private String qualifiedName;
-	private String columnName;
-	private String columnType;
-	private boolean blob;
-	private boolean time;
-	private boolean clob;
-	private boolean bigDecimal;
-	private boolean localDate;
-	private boolean instant;
-	private boolean zoneDateTime;
-	private Constraint constraint;
+    private String name;
+    private String type;
+    private String qualifiedName;
+    private String columnName;
+    private String columnType;
+    private boolean blob;
+    private boolean time;
+    private boolean clob;
+    private boolean bigDecimal;
+    private boolean localDate;
+    private boolean instant;
+    private boolean zoneDateTime;
+    private boolean booleanType;
 
-	@Override
-	public boolean isBigDecimal() {
-		return bigDecimal;
-	}
+    private Constraint constraint;
 
-	public void setBigDecimal(boolean bigDecimal) {
-		this.bigDecimal = bigDecimal;
-	}
+    @Override
+    public boolean isBigDecimal() {
+        return bigDecimal;
+    }
 
-	@Override
-	public boolean isLocalDate() {
-		return localDate;
-	}
+    public void setBigDecimal(boolean bigDecimal) {
+        this.bigDecimal = bigDecimal;
+    }
 
-	@Override
-	public boolean isInstant() {
-		return instant;
-	}
+    @Override
+    public boolean isLocalDate() {
+        return localDate;
+    }
 
-	public void setInstant(boolean instant) {
-		this.instant = instant;
+    @Override
+    public boolean isInstant() {
+        return instant;
+    }
 
-	}
+    public void setInstant(boolean instant) {
+        this.instant = instant;
 
-	public void setLocalDate(boolean localDate) {
-		this.localDate = localDate;
-	}
+    }
 
-	@Override
-	public boolean isZoneDateTime() {
-		return zoneDateTime;
-	}
+    public void setLocalDate(boolean localDate) {
+        this.localDate = localDate;
+    }
 
-	public void setZoneDateTime(boolean zoneDateTime) {
-		this.zoneDateTime = zoneDateTime;
-	}
+    @Override
+    public boolean isZoneDateTime() {
+        return zoneDateTime;
+    }
 
-	private JavaProperty() {
+    public void setZoneDateTime(boolean zoneDateTime) {
+        this.zoneDateTime = zoneDateTime;
+    }
 
-	}
+    private JavaProperty() {
 
-	public static JavaPropertyBuilder builder() {
-		return new JavaPropertyBuilder();
-	}
+    }
 
-	@Override
-	public boolean isBlob() {
-		return blob;
-	}
+    public static JavaPropertyBuilder builder() {
+        return new JavaPropertyBuilder();
+    }
 
-	public void setBlob(boolean blob) {
-		this.blob = blob;
-	}
+    @Override
+    public boolean isBlob() {
+        return blob;
+    }
 
-	@Override
-	public boolean isTime() {
-		return time;
-	}
+    public void setBlob(boolean blob) {
+        this.blob = blob;
+    }
 
-	public void setTime(boolean time) {
-		this.time = time;
-	}
+    public boolean isBoolean() {
+        return booleanType;
+    }
 
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    public void setBoolean(boolean booleanType) {
+        this.booleanType = booleanType;
+    }
 
-	@Override
-	public String getType() {
-		return this.type;
-	}
+    @Override
+    public boolean isTime() {
+        return time;
+    }
 
-	@Override
-	public String getQualifiedName() {
-		return this.qualifiedName;
-	}
+    public void setTime(boolean time) {
+        this.time = time;
+    }
 
-	@Override
-	public Collection<Property> getAssociations() {
-		throw new ApplicationException("Method not implemented");
-	}
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-	@Override
-	public int compareTo(JavaProperty o) {
-		return name.compareTo(o.getName());
-	}
+    @Override
+    public String getType() {
+        return this.type;
+    }
 
-	@Override
-	public String getColumnName() {
-		return this.columnName;
-	}
+    @Override
+    public String getQualifiedName() {
+        return this.qualifiedName;
+    }
 
-	@Override
-	public String getColumnType() {
-		return this.columnType;
-	}
+    @Override
+    public Collection<Property> getAssociations() {
+        throw new ApplicationException("Method not implemented");
+    }
 
-	@Override
-	public boolean isClob() {
-		return this.clob;
-	}
+    @Override
+    public int compareTo(JavaProperty o) {
+        return name.compareTo(o.getName());
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
+    @Override
+    public String getColumnName() {
+        return this.columnName;
+    }
 
-	@Override
-	public Constraint getConstraint() {
-		return constraint;
-	}
+    @Override
+    public String getColumnType() {
+        return this.columnType;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		JavaProperty other = (JavaProperty) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean isClob() {
+        return this.clob;
+    }
 
-	protected void setName(String name) {
-		this.name = name;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
 
-	protected void setType(String type) {
-		this.type = type;
-	}
+    @Override
+    public Constraint getConstraint() {
+        return constraint;
+    }
 
-	protected void setQualifiedName(String qualifiedName) {
-		this.qualifiedName = qualifiedName;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        JavaProperty other = (JavaProperty) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
 
-	protected void setColumnName(String columnName) {
-		this.columnName = columnName;
-	}
+    protected void setName(String name) {
+        this.name = name;
+    }
 
-	protected void setColumnType(String columnType) {
-		this.columnType = columnType;
-	}
+    protected void setType(String type) {
+        this.type = type;
+    }
 
-	public void setClob(boolean clob) {
-		this.clob = clob;
-	}
+    protected void setQualifiedName(String qualifiedName) {
+        this.qualifiedName = qualifiedName;
+    }
 
-	protected void setConstraint(Constraint constraint) {
-		this.constraint = constraint;
-	}
+    protected void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
 
-	public static class JavaPropertyBuilder {
+    protected void setColumnType(String columnType) {
+        this.columnType = columnType;
+    }
 
-		private JavaProperty javaProperty;
+    public void setClob(boolean clob) {
+        this.clob = clob;
+    }
 
-		public JavaPropertyBuilder() {
-			this.javaProperty = new JavaProperty();
-			this.javaProperty.setConstraint(new Constraint());
-		}
+    protected void setConstraint(Constraint constraint) {
+        this.constraint = constraint;
+    }
 
-		public JavaPropertyBuilder withName(String propertyName) {
-			this.javaProperty.setName(propertyName);
-			return this;
-		}
+    public static class JavaPropertyBuilder {
 
-		public JavaPropertyBuilder withType(String propertyType) {
-			this.javaProperty.setType(propertyType);
-			return this;
-		}
+        private JavaProperty javaProperty;
 
-		public JavaPropertyBuilder withQualifiedName(String qualifiedName) {
-			this.javaProperty.setQualifiedName(qualifiedName);
-			return this;
-		}
+        public JavaPropertyBuilder() {
+            this.javaProperty = new JavaProperty();
+            this.javaProperty.setConstraint(new Constraint());
+        }
 
-		public JavaPropertyBuilder withColumnName(String columnName) {
-			this.javaProperty.setColumnName(columnName);
-			return this;
-		}
+        public JavaPropertyBuilder withName(String propertyName) {
+            this.javaProperty.setName(propertyName);
+            return this;
+        }
 
-		public JavaPropertyBuilder withColumnType(String columnType) {
-			this.javaProperty.setColumnType(columnType);
-			return this;
-		}
+        public JavaPropertyBuilder withType(String propertyType) {
+            this.javaProperty.setType(propertyType);
+            return this;
+        }
 
-		public JavaPropertyBuilder isNullable(boolean nullable) {
-			this.javaProperty.getConstraint().setNullable(nullable);
-			return this;
-		}
+        public JavaPropertyBuilder withQualifiedName(String qualifiedName) {
+            this.javaProperty.setQualifiedName(qualifiedName);
+            return this;
+        }
 
-		public JavaPropertyBuilder isPrimaryKey(boolean isPrimaryKey) {
-			this.javaProperty.getConstraint().setPrimaryKey(isPrimaryKey);
-			return this;
-		}
+        public JavaPropertyBuilder withColumnName(String columnName) {
+            this.javaProperty.setColumnName(columnName);
+            return this;
+        }
 
-		public JavaPropertyBuilder isIndexed(boolean indexed) {
-			this.javaProperty.getConstraint().setIndexed(indexed);
-			return this;
-		}
+        public JavaPropertyBuilder withColumnType(String columnType) {
+            this.javaProperty.setColumnType(columnType);
+            return this;
+        }
 
-		public JavaPropertyBuilder isTime(boolean time, ColumnType columnType) {
-			this.javaProperty.setTime(time);
-			if (time) {
-				if (columnType == ColumnType.TIMESTAMP) {
-					this.javaProperty.setZoneDateTime(true);
-				} else if (columnType == ColumnType.DATE) {
-					this.javaProperty.setLocalDate(true);
-				} else {
-					throw new ApplicationException("Not Time Mapping" + columnType.getName());
-				}
-			}
-			return this;
-		}
+        public JavaPropertyBuilder isNullable(boolean nullable) {
+            this.javaProperty.getConstraint().setNullable(nullable);
+            return this;
+        }
 
-		public JavaPropertyBuilder isBlob(boolean blob) {
-			this.javaProperty.setBlob(blob);
-			return this;
-		}
+        public JavaPropertyBuilder isPrimaryKey(boolean isPrimaryKey) {
+            this.javaProperty.getConstraint().setPrimaryKey(isPrimaryKey);
+            return this;
+        }
 
-		public JavaPropertyBuilder isClob(boolean clob) {
-			this.javaProperty.setClob(clob);
-			return this;
-		}
+        public JavaPropertyBuilder isIndexed(boolean indexed) {
+            this.javaProperty.getConstraint().setIndexed(indexed);
+            return this;
+        }
 
-		public JavaPropertyBuilder isBigDecimal(boolean bigDecimal) {
-			this.javaProperty.setBigDecimal(bigDecimal);
-			return this;
-		}
+        public JavaPropertyBuilder addType(ColumnType type) {
+            DataMapping.addType(javaProperty, type);
+            return this;
+        }
 
-		public JavaPropertyBuilder isLocalDate(boolean localDate) {
-			this.javaProperty.setClob(localDate);
-			return this;
-		}
+        public JavaPropertyBuilder isBigDecimal(boolean bigDecimal) {
+            this.javaProperty.setBigDecimal(bigDecimal);
+            return this;
+        }
 
-		public JavaPropertyBuilder isZoneDateTime(boolean zoneDateTime) {
-			this.javaProperty.setZoneDateTime(zoneDateTime);
-			return this;
-		}
+        public JavaPropertyBuilder isLocalDate(boolean localDate) {
+            this.javaProperty.setClob(localDate);
+            return this;
+        }
 
-		public JavaPropertyBuilder isInstance(boolean instant) {
-			this.javaProperty.setInstant(instant);
-			return this;
-		}
+        public JavaPropertyBuilder isZoneDateTime(boolean zoneDateTime) {
+            this.javaProperty.setZoneDateTime(zoneDateTime);
+            return this;
+        }
 
-		public JavaProperty build() {
-			return this.javaProperty;
-		}
+        public JavaPropertyBuilder isInstance(boolean instant) {
+            this.javaProperty.setInstant(instant);
+            return this;
+        }
 
-	}
-
+        public JavaProperty build() {
+            return this.javaProperty;
+        }
+    }
 }

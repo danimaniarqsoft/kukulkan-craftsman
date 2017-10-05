@@ -106,9 +106,7 @@ public class DataMapping {
         JavaProperty javaProperty = JavaProperty.builder().withName(propertyName).withType(propertyType)
                 .withColumnName(column.getName()).withColumnType(column.getNativeType())
                 .withQualifiedName(extractQualifiedType(column)).isNullable(column.isNullable()).isPrimaryKey(false)
-                .isIndexed(column.isIndexed()).isBlob(column.getType().isBinary())
-                .isClob(column.getType().isLargeObject()).isTime(column.getType().isTimeBased(), column.getType())
-                .build();
+                .isIndexed(column.isIndexed()).addType(column.getType()).build();
         dme.addProperty(javaProperty);
         addImports(dme.getImports(), column.getType());
         fillModelMetaData(dme, javaProperty);
@@ -221,6 +219,25 @@ public class DataMapping {
             }
         }
         return pk;
+    }
+
+    public static void addType(JavaProperty javaProperty, ColumnType type) {
+        if (type.isBoolean()) {
+            javaProperty.setBoolean(true);
+        } else if (type.isLargeObject()) {
+            javaProperty.setClob(true);
+        } else if (type.isTimeBased()) {
+            javaProperty.setTime(true);
+            if (type == ColumnType.TIMESTAMP) {
+                javaProperty.setZoneDateTime(true);
+            } else if (type == ColumnType.DATE) {
+                javaProperty.setLocalDate(true);
+            } else {
+                throw new ApplicationException("Not Time Mapping" + type.getName());
+            }
+        } else if (type.isBinary()) {
+            javaProperty.setBlob(true);
+        }
     }
 
     /**
