@@ -10,7 +10,7 @@
     function ${entity}DeleteController($uibModalInstance, entity, ${entity}) {
         var vm = this;
 
-        vm.${entity} = entity;
+        vm.${entityCamelCase} = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
 
