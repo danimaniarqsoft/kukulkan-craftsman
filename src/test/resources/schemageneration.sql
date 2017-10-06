@@ -1,10 +1,10 @@
-CREATE SEQUENCE IF NOT EXISTS usuario_id_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS seq_usuario START WITH 1 INCREMENT BY 1;
 /*==============================================================*/
 /*Table: Usuario                                                */
 /*==============================================================*/
 
 CREATE TABLE IF NOT EXISTS usuario(
-    id BIGINT DEFAULT nextval('usuario_id_seq'),
+    id BIGINT DEFAULT nextval('seq_usuario'),
     nombre VARCHAR(255) NOT NULL,
     edad INT,
     numero_credencial BIGINT,

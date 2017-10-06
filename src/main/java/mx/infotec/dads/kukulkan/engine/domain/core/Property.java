@@ -36,101 +36,114 @@ import java.util.Collection;
  */
 public interface Property<T> extends Comparable<T> {
 
-	/**
-	 * Return the name of the property
-	 * 
-	 * @return propertyName
-	 */
-	String getName();
+    /**
+     * Return the name of the property
+     * 
+     * @return propertyName
+     */
+    String getName();
 
-	/**
-	 * Return the type of the property
-	 * 
-	 * @return propertyType
-	 */
-	String getType();
+    /**
+     * Return the type of the property
+     * 
+     * @return propertyType
+     */
+    String getType();
 
-	/**
-	 * Return the name of the property
-	 * 
-	 * @return propertyName
-	 */
-	String getColumnName();
+    /**
+     * Return the name of the property
+     * 
+     * @return propertyName
+     */
+    String getColumnName();
 
-	/**
-	 * Return the columnType of the table
-	 * 
-	 * @return columnType
-	 */
-	String getColumnType();
+    /**
+     * Return the columnType of the table
+     * 
+     * @return columnType
+     */
+    String getColumnType();
 
-	/**
-	 * Return the qualified name of the type of the Property, in order to create a
-	 * import statement in the generation fase;
-	 * 
-	 * @return qualifiedName
-	 */
-	String getQualifiedName();
+    /**
+     * Return the qualified name of the type of the Property, in order to create
+     * a import statement in the generation fase;
+     * 
+     * @return qualifiedName
+     */
+    String getQualifiedName();
 
-	/**
-	 * Return true if it blob o clob element
-	 * 
-	 * @return boolean
-	 */
-	boolean isBlob();
+    /**
+     * Return true if it blob o clob element
+     * 
+     * @return boolean
+     */
+    boolean isBlob();
 
-	/**
-	 * Return true if it is Time element
-	 * 
-	 * @return boolean
-	 */
-	boolean isTime();
+    /**
+     * Return true if it is Time element
+     * 
+     * @return boolean
+     */
+    boolean isTime();
 
-	/**
-	 * Return true if it is Clob element
-	 * 
-	 * @return boolean
-	 */
-	boolean isClob();
+    /**
+     * Return true if it is Clob element
+     * 
+     * @return boolean
+     */
+    boolean isClob();
 
-	/**
-	 * Return true if it is Clob element
-	 * 
-	 * @return boolean
-	 */
-	boolean isBigDecimal();
+    /**
+     * Return true if it is Clob element
+     * 
+     * @return boolean
+     */
+    boolean isBigDecimal();
 
-	/**
-	 * Return true if it is Clob element
-	 * 
-	 * @return boolean
-	 */
-	boolean isLocalDate();
+    /**
+     * Return true if it is Clob element
+     * 
+     * @return boolean
+     */
+    boolean isNumber();
 
-	/**
-	 * Return true if it is Clob element
-	 * 
-	 * @return boolean
-	 */
-	boolean isInstant();
+    /**
+     * Return true if it is Clob element
+     * 
+     * @return boolean
+     */
+    boolean isLocalDate();
 
-	/**
-	 * Return true if it is Clob element
-	 * 
-	 * @return boolean
-	 */
-	boolean isZoneDateTime();
+    /**
+     * Return true if it is Clob element
+     * 
+     * @return boolean
+     */
+    boolean isInstant();
 
-	/**
-	 * Return associations if it exists
-	 * 
-	 * @return associations
-	 */
-	Collection<Property> getAssociations();
+    /**
+     * Return true if it is zoneDataTime element
+     * 
+     * @return boolean
+     */
+    boolean isZoneDateTime();
 
-	/**
-	 * Return the constraint applied
-	 */
-	Constraint getConstraint();
+    /**
+     * Return true if it is literal element
+     * 
+     * @return boolean
+     */
+    boolean isLiteral();
 
+    /**
+     * Return associations if it exists
+     * 
+     * @return associations
+     */
+    Collection<Property> getAssociations();
+
+    /**
+     * Return the constraint applied
+     */
+    Constraint getConstraint();
 }
