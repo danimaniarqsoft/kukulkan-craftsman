@@ -53,6 +53,8 @@ public class JavaProperty implements Property<JavaProperty> {
     private boolean instant;
     private boolean zoneDateTime;
     private boolean booleanType;
+    private boolean number;
+    private boolean literal;
 
     private Constraint constraint;
 
@@ -302,5 +304,22 @@ public class JavaProperty implements Property<JavaProperty> {
         public JavaProperty build() {
             return this.javaProperty;
         }
+    }
+
+    @Override
+    public boolean isNumber() {
+        return number;
+    }
+
+    public void setNumber(boolean number) {
+        this.number = number;
+    }
+
+    public boolean isLiteral() {
+        return literal;
+    }
+
+    public void setLiteral(boolean literal) {
+        this.literal = literal;
     }
 }
