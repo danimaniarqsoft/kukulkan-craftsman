@@ -4,23 +4,25 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-    <#list properties as property>
-        <dt><span data-translate="${projectName}App.${entityCamelCase}.${property.name}">${property.name}</span></dt>
+        <dt><span data-translate="${projectName}App.${entityCamelCase}.${primaryKey.name}">${primaryKey.name}</span></dt>
         <dd>
-    	<#if  property.qualifiedName == "java.sql.Blob">
-            <div ng-if="vm.${entityCamelCase}.${property.name}">
-                <a ng-click="vm.openFile(vm.${entityCamelCase}.${property.name}ContentType, vm.${entityCamelCase}.${property.name})" data-translate="entity.action.open">open</a>
-                {{vm.${entityCamelCase}.${property.name}ContentType}}, {{vm.byteSize(vm.${entityCamelCase}.${property.name})}}
-            </div>
-    	<#elseif property.columnType?contains("TIMESTAMP")>
-        	<span>{{vm.${entityCamelCase}.${property.name} | date:'medium'}}</span>
-    	<#elseif property.columnType?contains("DATE")>
-    		<span>{{vm.${entityCamelCase}.${property.name} | date:'mediumDate'}}</span>
-        <#else>
-        	<span>{{vm.${entityCamelCase}.${property.name}}}</span>
-    	</#if>
-        </dd>
-	</#list>
+			<span>{{vm.${entityCamelCase}.${primaryKey.name}}}</span>
+		<dd>
+		<#list properties as property>
+        	<#if property.name?ends_with("ContentType") == false>
+	        	<#if  property.blob == true>
+		    	    <#include "./read/blob.ftl">
+		    	<#elseif property.time == true>
+		    		<#if  property.zoneDateTime == true>
+		        		<#include "./read/zonedatetime.ftl">
+			    	<#elseif property.localDate == true>
+			    		<#include "./read/localdate.ftl">
+		    		</#if>
+		        <#else> 
+		        	<#include "./read/text.ftl">
+		    	</#if>
+        	</#if>
+		</#list>
     </dl>
 
     <button type="submit"

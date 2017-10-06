@@ -224,19 +224,31 @@ public class DataMapping {
     public static void addType(JavaProperty javaProperty, ColumnType type) {
         if (type.isBoolean()) {
             javaProperty.setBoolean(true);
-        } else if (type.isLargeObject()) {
-            javaProperty.setClob(true);
         } else if (type.isTimeBased()) {
-            javaProperty.setTime(true);
-            if (type == ColumnType.TIMESTAMP) {
-                javaProperty.setZoneDateTime(true);
-            } else if (type == ColumnType.DATE) {
-                javaProperty.setLocalDate(true);
-            } else {
-                throw new ApplicationException("Not Time Mapping" + type.getName());
-            }
+            setKindOfType(javaProperty, type);
         } else if (type.isBinary()) {
             javaProperty.setBlob(true);
+        } else if (type.isNumber()) {
+            javaProperty.setNumber(true);
+        } else if (type.isLiteral()) {
+            setKindOfLiteral(javaProperty, type);
+            javaProperty.setLiteral(true);
+        }
+    }
+
+    public static void setKindOfType(JavaProperty property, ColumnType type) {
+        property.setTime(true);
+        if (type == ColumnType.TIMESTAMP) {
+            property.setZoneDateTime(true);
+        } else if (type == ColumnType.DATE) {
+            property.setLocalDate(true);
+        }
+    }
+
+    public static void setKindOfLiteral(JavaProperty property, ColumnType type) {
+        property.setLiteral(true);
+        if (type == ColumnType.CLOB || type == ColumnType.NCLOB) {
+            property.setClob(true);
         }
     }
 
