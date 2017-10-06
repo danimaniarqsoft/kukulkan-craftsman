@@ -41,12 +41,13 @@
 				<#if hasTimeProperties == true>
         			<#list properties as property>
 				    	<#if property.time == true> 
-				        	<#if  property.columnType?contains("DATE")>
+				        	<#if  property.localDate == true>
 				    copy.${property.name} = DateUtils.convertLocalDateToServer(copy.${property.name});
 							</#if>
 				    	</#if>
 					</#list>
         		</#if>
+        		return angular.toJson(copy);
                 }
             },
             'save': {
@@ -56,7 +57,7 @@
 				<#if hasTimeProperties == true>
         			<#list properties as property>
 				    	<#if property.time == true> 
-				        	<#if  property.columnType?contains("DATE")>
+				        	<#if  property.localDate == true>
 				    copy.${property.name} = DateUtils.convertLocalDateToServer(copy.${property.name});
 							</#if>
 				    	</#if>

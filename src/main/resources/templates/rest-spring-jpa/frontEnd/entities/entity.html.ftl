@@ -1,6 +1,6 @@
 <#assign translateKey>${projectName}App.${entityCamelCase}</#assign>
 <div>
-    <h2 data-translate="${projectName}App.home.title">${entityCamelCasePlural}</h2>
+    <h2 data-translate="${translateKey}.home.title">${entityCamelCasePlural}</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
@@ -38,7 +38,7 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <#list properties as property>
-                    	<#if property.name != "id">
+                    	<#if property.name?ends_with("ContentType") == false>
                     <th jh-sort-by="${property.name}"><span data-translate="${translateKey}.${property.name}">${property.name}</span> <span class="glyphicon glyphicon-sort"></span></th>
                     	</#if>
                     </#list>
@@ -48,7 +48,7 @@
             <tbody ng-repeat="${entityCamelCase} in vm.${entityCamelCasePlural} track by ${entityCamelCase}.id">
                     <td><a ui-sref="${entityCamelCase}-detail({id:${entityCamelCase}.id})">{{${entityCamelCase}.id}}</a></td>
 				   <#list properties as property>
-                    	<#if property.name != "id">
+                    	<#if property.name?ends_with("ContentType") == false >
                     		<#if  property.columnType?contains("TIMESTAMP")>
 					<td>{{${entityCamelCase}.${property.name} | date:'medium'}}</td>
 							<#elseif property.columnType?contains("DATE")>
