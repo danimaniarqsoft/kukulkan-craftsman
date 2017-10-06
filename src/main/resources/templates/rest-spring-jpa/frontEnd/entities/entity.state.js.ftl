@@ -124,6 +124,7 @@
                     resolve: {
                         entity: function () {
                             return {
+                            	${primaryKey.name}: null,
                           	    <#list properties as property>
                                 ${property.name}: null<#sep>, </#sep>
                     			</#list>

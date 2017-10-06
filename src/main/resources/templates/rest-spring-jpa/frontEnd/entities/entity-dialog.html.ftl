@@ -7,20 +7,35 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.${entityCamelCase}.id">
-            <label for="id" data-translate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.${entityCamelCase}.id" readonly />
+        <div class="form-group" ng-show="vm.${entityCamelCase}.${primaryKey.name}">
+            <label for="id" data-translate="global.field.id">${primaryKey.name}</label>
+            <input type="text" class="form-control" id="id" name="${primaryKey.name}"
+                    ng-model="vm.${entityCamelCase}.${primaryKey.name}" readonly />
         </div>
         <#list properties as property>
-    	<#if  property.blob == true>
-    	<#elseif property.zoneDateTime == true>
-        	<#include "./edit/zonedatetime.ftl">
-    	<#elseif property.localDate == true>
-    		<#include "./edit/localdate.ftl">
-        <#else> 
-        	<#include "./edit/string.ftl">
-    	</#if>
+        	<#if property.name?ends_with("ContentType") == false>
+	        	<#if  property.blob == true>
+		    	    <#include "./edit/blob.ftl">
+		    	<#elseif property.time == true>
+		    		<#if  property.zoneDateTime == true>
+		        		<#include "./edit/zonedatetime.ftl">
+			    	<#elseif property.localDate == true>
+			    		<#include "./edit/localdate.ftl">
+		    		</#if>
+				<#elseif property.boolean == true>
+					<#include "./edit/boolean.ftl">
+				<#elseif property.literal == true>
+					<#if  property.clob == true>
+						<#include "./edit/textblob.ftl">
+			    	<#else>
+			    		<#include "./edit/text.ftl">
+		    		</#if>
+			    <#elseif property.number == true>
+					<#include "./edit/number.ftl">
+		        <#else> 
+		        	<#include "./edit/text.ftl">
+		    	</#if>
+        	</#if>
 		</#list>
     </div>
     <div class="modal-footer">
