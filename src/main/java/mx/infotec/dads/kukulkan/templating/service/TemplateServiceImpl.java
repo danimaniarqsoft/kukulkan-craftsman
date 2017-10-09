@@ -37,6 +37,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
@@ -69,6 +70,16 @@ public class TemplateServiceImpl implements TemplateService {
         if (templateOptional.isPresent()) {
             Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
             dme.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
+        }
+    }
+    
+    @Override
+    public void fillModel(DataModel dm, String proyectoId, String templateName, Object model,
+            BasePathEnum basePath, String filePath) {
+        Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
+        if (templateOptional.isPresent()) {
+            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
+            dm.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
         }
     }
 

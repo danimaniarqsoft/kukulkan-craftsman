@@ -123,11 +123,22 @@ public class FileUtil {
     }
 
     public static boolean saveToFile(GeneratorContext genCtx) {
+        saveDataModelElements(genCtx);
+        saveReadmeToFile(genCtx);
+        return true;
+    }
+
+    public static void saveReadmeToFile(GeneratorContext genCtx) {
+        genCtx.getDataModel().getGeneratedElements().forEach(generatedElement -> {
+            saveToFile(generatedElement);
+        });
+    }
+
+    public static void saveDataModelElements(GeneratorContext genCtx) {
         genCtx.getDataModel().getDataModelGroup()
                 .forEach(dmg -> dmg.getDataModelElements().forEach(dme -> dme.getGeneratedElements().forEach(ge -> {
                     FileUtil.saveToFile(ge);
                 })));
-        return true;
     }
 
     public static void createZip(Path path, String compressedName) throws IOException {

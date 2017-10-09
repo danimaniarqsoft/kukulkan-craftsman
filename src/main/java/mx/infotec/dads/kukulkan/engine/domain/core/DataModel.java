@@ -23,7 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.metamodel.DataContext;
 
@@ -41,6 +43,7 @@ public abstract class DataModel {
     protected DataContext dataContext;
     protected DataStore dataStore;
     protected Collection<DataModelGroup> dataModelGroup;
+    protected List<GeneratedElement> generatedElements = new ArrayList<>();
 
     public DataModel(DataStore dataStore) {
         this.dataStore = dataStore;
@@ -74,4 +77,15 @@ public abstract class DataModel {
         this.dataModelGroup = dataModelGroup;
     }
 
+    public List<GeneratedElement> getGeneratedElements() {
+        return generatedElements;
+    }
+
+    public void setGeneratedElements(List<GeneratedElement> generatedElements) {
+        this.generatedElements = generatedElements;
+    }
+
+    public void addGeneratedElement(GeneratedElement generatedElement) {
+        this.generatedElements.add(generatedElement);
+    }
 }
