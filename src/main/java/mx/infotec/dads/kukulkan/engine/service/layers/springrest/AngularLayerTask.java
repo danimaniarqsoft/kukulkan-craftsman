@@ -204,7 +204,7 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
         // pfCOnf.getId, templateName, model, dmElement.getPropertyName.
         String fileNamingConvention = camelCaseToHyphens(dmElement.getCamelCaseFormat());
         templateService.fillModel(dmElement, pConf.getId(), templateLocation + templateName, model,
-                BasePathEnum.WEN_APP_I18N,
+                BasePathEnum.WEB_APP_I18N,
                 idiomaKey + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName));
     }
 

@@ -30,16 +30,16 @@ package mx.infotec.dads.kukulkan.util;
  *
  */
 public enum BasePathEnum {
-	SRC_MAIN_JAVA("src/main/java"), SRC_TEST_JAVA("src/test/java"), WEB_APP_ENTITIES(
-			"src/main/webapp/app/entities"), WEN_APP_I18N("src/main/webapp/i18n");
+    SRC_MAIN_JAVA("src/main/java"), SRC_TEST_JAVA("src/test/java"), WEB_APP_ENTITIES(
+            "src/main/webapp/app/entities"), WEB_APP_I18N("src/main/webapp/i18n"), INFO("info");
 
-	private String path;
+    private String path;
 
-	BasePathEnum(String path) {
-		this.path = path;
-	}
+    BasePathEnum(String path) {
+        this.path = path;
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public String getPath() {
+        return path;
+    }
 }
