@@ -207,5 +207,4 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
                 BasePathEnum.WEB_APP_I18N,
                 idiomaKey + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName));
     }
-
 }

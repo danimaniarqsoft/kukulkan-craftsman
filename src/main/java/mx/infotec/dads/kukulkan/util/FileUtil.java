@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -170,5 +171,12 @@ public class FileUtil {
             zipOut.write(bytes, 0, length);
         }
         fis.close();
+    }
+
+    public static void replaceInFile(Path path, String targetText, String newText) throws IOException {
+        Charset charset = StandardCharsets.UTF_8;
+        String content = new String(Files.readAllBytes(path), charset);
+        content = content.replaceAll(targetText, newText);
+        Files.write(path, content.getBytes(charset));
     }
 }
