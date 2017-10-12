@@ -114,11 +114,6 @@ public class InflectorProcessor {
         this.uncountables.addAll(original.uncountables);
     }
 
-    @Override
-    public InflectorProcessor clone() {
-        return new InflectorProcessor(this);
-    }
-
     // ------------------------------------------------------------------------------------------------
     // Usage functions
     // ------------------------------------------------------------------------------------------------
@@ -324,7 +319,7 @@ public class InflectorProcessor {
         }
         if (lowerCaseAndUnderscoredWord.length() < 2)
             return lowerCaseAndUnderscoredWord;
-        return "" + Character.toLowerCase(lowerCaseAndUnderscoredWord.charAt(0))
+        return Character.toString(Character.toLowerCase(lowerCaseAndUnderscoredWord.charAt(0)))
                 + camelCase(lowerCaseAndUnderscoredWord, true, delimiterChars).substring(1);
     }
 
@@ -389,7 +384,7 @@ public class InflectorProcessor {
             return "";
         if (result.length() == 1)
             return result.toUpperCase();
-        return "" + Character.toUpperCase(result.charAt(0)) + result.substring(1).toLowerCase();
+        return Character.toString(Character.toUpperCase(result.charAt(0))) + result.substring(1).toLowerCase();
     }
 
     /**

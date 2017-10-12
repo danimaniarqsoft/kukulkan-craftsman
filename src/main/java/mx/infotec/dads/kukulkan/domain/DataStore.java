@@ -171,7 +171,7 @@ public class DataStore implements Serializable {
     @Override
     public String toString() {
         return "DataStore{" + "id=" + getId() + ", name='" + getName() + "'" + ", url='" + getUrl() + "'"
-                + ", driverClass='" + getDriverClass() + "'" + ", username='" + getUsername() + "'" + ", password='"
-                + getPassword() + "'" + ", tableTypes='" + getTableTypes() + "'" + "}";
+                + ", driverClass='" + getDriverClass() + "'" + ", username='" + getUsername() + "'" + ", tableTypes='"
+                + getTableTypes() + "'" + "}";
     }
 }
