@@ -89,6 +89,18 @@ public class EntitiesFactory {
         dsValuApp.setUsername("");
         return dsValuApp;
     }
+    
+    public static DataStore createAtlasDataStore(DataStoreType dst) {
+        DataStore dsValuApp = new DataStore();
+        dsValuApp.setDataStoreType(dst);
+        dsValuApp.setDriverClass("com.mysql.jdbc.Driver");
+        dsValuApp.setName("atlas");
+        dsValuApp.setPassword("");
+        dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
+        dsValuApp.setUrl("jdbc:mysql://localhost/atlas");
+        dsValuApp.setUsername("root");
+        return dsValuApp;
+    }
 
     public static DataStore createMysqlTestDataStore(DataStoreType dst) {
         DataStore dsValuApp = new DataStore();
