@@ -68,35 +68,45 @@ Para hacer los pasos anteriores con un unico comando:
 
 
 
-# Running the Atlas project
+# Ejecutar el proyecto Atlas
 
-## Execute Atlas profile for code generation
+#### Antes de comenzar:
 
-#### Cloning the master project from github:
+1. Instalar Mongo db: antes de comenzar, se debe tener una base de datos mongodd; kukulkan utiliza una base de datos mongodb para guardar archivos temporales y elementos de configuración.
+
+2. Tener una base de datos mysql con el esquema de `atlas`, `usuario` = `root` y **sin contraseña**.
+La configuración a la base de datos debe ser la siguiente:
+
+	db.driver = com.mysql.jdbc.Driver
+	db.schema = atlas
+	db.url =jdbc:mysql://localhost/atlas
+	db.usuario = root
+	db.password =       #sin contraseña
+
+#### Clonar el proyecto desde github:
 
 	git clone https://github.com/dads-software-brotherhood/kukulkan-craftsman.git
 
-after this your app directory looks must be something like this:
+en tu directorio local debes tener el proyecto descargado:
 
 	-[yourAppFolderapp]
 		-kukulkan-craftsman
 
-#### change to kukulkan-craftsman folder
+#### cambiarte al folder de kukulkan-craftman
 
 	cd kukulkan-craftsman
 
-#### execute the code generator through maven unit test:
+#### ejecutar el generador de código a partir de una prueba unitaria maven:
 
 	mvn -Dtest=AtlasGenerationTest test
 
-some error message are showed up, but do not worry, everything is ok.
+van a aparecer algunos errores pero si la conexión se generó de manera adecuada no hay problema.
 
-after this you are going to have the next folders:
+después de ejecutar el proyecto, van a tener los siguients folders en su directorio principal:
 
 	-[yourAppFolderapp]
 		-kukulkan-craftsman/   -> kukulkan project
 		-atlas/                -> atlas code generated
 
-
-Just copy the files from atlas folder to the main project and that's it!
+copiar los archivos necesarios que se encuentran en la carpeta atlas a su proyecto principal.
 
