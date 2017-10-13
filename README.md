@@ -65,3 +65,38 @@ Para hacer los pasos anteriores con un unico comando:
 
 `property.columnType?contains("TIMESTAMP")`
 `property.columnType?cap_first`
+
+
+
+# Running the Atlas project
+
+## Execute Atlas profile for code generation
+
+#### Cloning the master project from github:
+
+	git clone https://github.com/dads-software-brotherhood/kukulkan-craftsman.git
+
+after this your app directory looks must be something like this:
+
+	-[yourAppFolderapp]
+		-kukulkan-craftsman
+
+#### change to kukulkan-craftsman folder
+
+	cd kukulkan-craftsman
+
+#### execute the code generator through maven unit test:
+
+	mvn -Dtest=AtlasGenerationTest test
+
+some error message are showed up, but do not worry, everything is ok.
+
+after this you are going to have the next folders:
+
+	-[yourAppFolderapp]
+		-kukulkan-craftsman/   -> kukulkan project
+		-atlas/                -> atlas code generated
+
+
+Just copy the files from atlas folder to the main project and that's it!
+
