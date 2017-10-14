@@ -9,7 +9,7 @@ import mx.infotec.dads.kukulkan.util.GenerationType;
  */
 public class ProjectMapper {
 
-    public static ProjectConfiguration toEntity(Project project) {
+    public static ProjectConfiguration toProjectConfiguration(Project project) {
         ProjectConfiguration pConf = new ProjectConfiguration();
         pConf.setId(project.getProjectId());
         pConf.setGroupId(project.getProjectId());

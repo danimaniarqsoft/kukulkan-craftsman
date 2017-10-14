@@ -149,7 +149,35 @@ public class ProjectResource {
     public ResponseEntity<Project> getProject(@PathVariable String id) {
         log.debug("REST request to get Project : {}", id);
         Project project = projectService.findOne(id);
-        ProjectConfiguration pConf = ProjectMapper.toEntity(project);
+        log.info("Proyecto info {}", project.getDataStore().getName());
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(project));
+    }
+
+    /**
+     * DELETE  /projects/:id : delete the "id" project.
+     *
+     * @param id the id of the project to delete
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @DeleteMapping("/projects/{id}")
+    @Timed
+    public ResponseEntity<Void> deleteProject(@PathVariable String id) {
+        log.debug("REST request to delete Project : {}", id);
+        projectService.delete(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+    }
+    
+    /**
+     * GET  /projects/:id : get the "id" project.
+     *
+     * @param id the id of the project to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the project, or with status 404 (Not Found)
+     */
+    @PostMapping("/projects/generate")
+    @Timed
+    public ResponseEntity<Project> generateProject(@Valid @RequestBody Project project) throws URISyntaxException{
+        log.debug("REST request to get Project : {}", project.getId());
+        ProjectConfiguration pConf = ProjectMapper.toProjectConfiguration(project);
         DataModel dataModel = new JavaDataModelContext(project.getDataStore());
         DataStoreType dst = new DataStoreType();
         dst.setName("jdbc");
@@ -169,7 +197,6 @@ public class ProjectResource {
         try {
             FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "compressedFile");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         Path fileLocation = Paths.get(prop.getOutputdir() + "/compressedFile.zip");
@@ -178,24 +205,11 @@ public class ProjectResource {
             project.setFile(data);
             project.setFileContentType("application/zip");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        log.info("Proyecto info {}", project.getDataStore().getName());
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(project));
-    }
-
-    /**
-     * DELETE  /projects/:id : delete the "id" project.
-     *
-     * @param id the id of the project to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @DeleteMapping("/projects/{id}")
-    @Timed
-    public ResponseEntity<Void> deleteProject(@PathVariable String id) {
-        log.debug("REST request to delete Project : {}", id);
-        projectService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+        
+        return ResponseEntity.created(new URI("/api/projects/generate"))
+            .headers(HeaderUtil.generateSuccessStatus(ENTITY_NAME, "ok"))
+            .body(project);
     }
 }
