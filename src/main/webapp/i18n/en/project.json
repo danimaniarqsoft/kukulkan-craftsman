@@ -15,6 +15,13 @@
 			"detail": {
 				"title": "Proyecto"
 			},
+			"action":{
+				"generate": {
+					"label": "Generate Code",
+					"success": "Code Generation Success",
+					"failure": "Code Generation Failure"
+				}
+			},
 			"projectId": "Id del Proyecto",
 			"appName": "Nombre de la Aplicación",
 			"author": "Autor",

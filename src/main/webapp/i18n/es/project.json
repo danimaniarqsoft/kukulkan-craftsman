@@ -15,6 +15,9 @@
             "detail": {
                 "title": "Project"
             },
+			"action":{
+				"generate": "Generate Code"
+			},
             "projectId": "Project Id",
             "appName": "App Name",
             "author": "Author",
