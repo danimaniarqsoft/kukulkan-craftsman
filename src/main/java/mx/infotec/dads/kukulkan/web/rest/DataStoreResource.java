@@ -158,8 +158,77 @@ public class DataStoreResource {
             return ResponseEntity.ok().headers(HeaderUtil.createSuccessDataStoreStatus(ENTITY_NAME, "ok"))
                     .body(dataStore);
         } else {
-            return ResponseEntity.badRequest()
-                    .headers(HeaderUtil.createFailureDataStoreStatus(ENTITY_NAME, "failure"))
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureDataStoreStatus(ENTITY_NAME, "failure"))
+                    .body(dataStore);
+        }
+    }
+
+    /**
+     * POST /run-script : Execute a Script.
+     *
+     * @param dataStore
+     *            the dataStore to create
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     *         new dataStore, or with status 400 (Bad Request) if the dataStore
+     *         has already an ID
+     * @throws URISyntaxException
+     *             if the Location URI syntax is incorrect
+     */
+    @PostMapping("/data-stores/run-script")
+    @Timed
+    public ResponseEntity<DataStore> runScript(@Valid @RequestBody DataStore dataStore) throws URISyntaxException {
+        log.info("REST run-script : {}", dataStore);
+        if (dataStoreService.runScript(dataStore)) {
+            return ResponseEntity.ok().headers(HeaderUtil.createSuccessDataStoreStatus(ENTITY_NAME, "ok"))
+                    .body(dataStore);
+        } else {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureDataStoreStatus(ENTITY_NAME, "failure"))
+                    .body(dataStore);
+        }
+    }
+
+    /**
+     * POST /run-script : Execute a Script.
+     *
+     * @param dataStore
+     *            the dataStore to create
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     *         new dataStore, or with status 400 (Bad Request) if the dataStore
+     *         has already an ID
+     * @throws URISyntaxException
+     *             if the Location URI syntax is incorrect
+     */
+    @PostMapping("/data-stores/create-schema")
+    @Timed
+    public ResponseEntity<DataStore> createSchema(@Valid @RequestBody DataStore dataStore) throws URISyntaxException {
+        log.info("REST run-script : {}", dataStore);
+        if (dataStoreService.createSchema(dataStore)) {
+            return ResponseEntity.ok().headers(HeaderUtil.createSchemaSuccessStatus(ENTITY_NAME, "ok")).body(dataStore);
+        } else {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createSchemaFailureStatus(ENTITY_NAME, "failure"))
+                    .body(dataStore);
+        }
+    }
+
+    /**
+     * POST /run-script : Execute a Script.
+     *
+     * @param dataStore
+     *            the dataStore to create
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     *         new dataStore, or with status 400 (Bad Request) if the dataStore
+     *         has already an ID
+     * @throws URISyntaxException
+     *             if the Location URI syntax is incorrect
+     */
+    @PostMapping("/data-stores/drop-schema")
+    @Timed
+    public ResponseEntity<DataStore> dropSchema(@Valid @RequestBody DataStore dataStore) throws URISyntaxException {
+        log.info("REST run-script : {}", dataStore);
+        if (dataStoreService.dropSchema(dataStore)) {
+            return ResponseEntity.ok().headers(HeaderUtil.dropSchemaSuccessStatus(ENTITY_NAME, "ok")).body(dataStore);
+        } else {
+            return ResponseEntity.badRequest().headers(HeaderUtil.dropSchemaFailureStatus(ENTITY_NAME, "failure"))
                     .body(dataStore);
         }
     }

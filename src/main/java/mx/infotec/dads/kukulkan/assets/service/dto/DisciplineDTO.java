@@ -10,83 +10,85 @@ import javax.validation.constraints.NotNull;
  */
 public class DisciplineDTO implements Serializable {
 
-	private String id;
+    private static final long serialVersionUID = 1L;
 
-	@NotNull
-	private String name;
+    private String id;
 
-	@NotNull
-	private String description;
+    @NotNull
+    private String name;
 
-	@NotNull
-	private String briefDescription;
+    @NotNull
+    private String description;
 
-	private Integer order;
+    @NotNull
+    private String briefDescription;
 
-	public String getId() {
-		return id;
-	}
+    private Integer order;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getBriefDescription() {
-		return briefDescription;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setBriefDescription(String briefDescription) {
-		this.briefDescription = briefDescription;
-	}
+    public String getBriefDescription() {
+        return briefDescription;
+    }
 
-	public Integer getOrder() {
-		return order;
-	}
+    public void setBriefDescription(String briefDescription) {
+        this.briefDescription = briefDescription;
+    }
 
-	public void setOrder(Integer order) {
-		this.order = order;
-	}
+    public Integer getOrder() {
+        return order;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
 
-		DisciplineDTO disciplineDTO = (DisciplineDTO) o;
-		if (disciplineDTO.getId() == null || getId() == null) {
-			return false;
-		}
-		return Objects.equals(getId(), disciplineDTO.getId());
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(getId());
-	}
+        DisciplineDTO disciplineDTO = (DisciplineDTO) o;
+        if (disciplineDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), disciplineDTO.getId());
+    }
 
-	@Override
-	public String toString() {
-		return "DisciplineDTO{" + "id=" + getId() + ", name='" + getName() + "'" + ", description='" + getDescription()
-				+ "'" + ", briefDescription='" + getBriefDescription() + "'" + ", order='" + getOrder() + "'" + "}";
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "DisciplineDTO{" + "id=" + getId() + ", name='" + getName() + "'" + ", description='" + getDescription()
+                + "'" + ", briefDescription='" + getBriefDescription() + "'" + ", order='" + getOrder() + "'" + "}";
+    }
 }

@@ -32,6 +32,17 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label" data-translate="kukulkancraftsmanApp.dataStore.schema" for="field_schema">Schema</label>
+            <input type="text" class="form-control" name="schema" id="field_schema"
+                    ng-model="vm.dataStore.schema" required/>
+            <div ng-show="editForm.driverClass.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.driverClass.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label" data-translate="kukulkancraftsmanApp.dataStore.driverClass" for="field_driverClass">Driver Class</label>
             <input type="text" class="form-control" name="driverClass" id="field_driverClass"
                     ng-model="vm.dataStore.driverClass"

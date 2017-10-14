@@ -23,8 +23,10 @@
  */
 package mx.infotec.dads.kukulkan.service.impl;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Properties;
 
@@ -122,7 +124,7 @@ public class DataStoreServiceImpl implements DataStoreService {
         if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_JDBC)) {
             DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
             properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
-            properties.put(DATA_STORE_URL, dataStore.getUrl());
+            properties.put(DATA_STORE_URL, dataStore.getUrl() + "/" + dataStore.getSchema());
             properties.put(DATA_STORE_DRIVER_CLASS, dataStore.getDriverClass());
             properties.put(DATA_STORE_USERNAME, dataStore.getUsername());
             properties.put(DATA_STORE_PASSWORD, dataStore.getPassword());
@@ -172,11 +174,63 @@ public class DataStoreServiceImpl implements DataStoreService {
         Properties connectionProps = new Properties();
         connectionProps.put("user", dataStore.getUsername());
         connectionProps.put("password", dataStore.getPassword() == null ? "" : dataStore.getPassword());
-        try {
-            DriverManager.getConnection(dataStore.getUrl(), connectionProps);
+        try (Connection connection = DriverManager.getConnection(dataStore.getUrl() + "/" + dataStore.getSchema(),
+                connectionProps)) {
             return true;
         } catch (SQLException e) {
-            throw new ApplicationException("Error Espeerado false");
+            throw new ApplicationException("testConnection Error");
+        }
+    }
+
+    @Override
+    public boolean runScript(DataStore dataStore) {
+        log.info("dataStore.user: " + dataStore.getUsername());
+        log.info("dataStore.password: " + dataStore.getPassword());
+        log.info("dataStore.script: " + dataStore.getScript());
+        Properties connectionProps = new Properties();
+        connectionProps.put("user", dataStore.getUsername());
+        connectionProps.put("password", dataStore.getPassword() == null ? "" : dataStore.getPassword());
+        try (Connection connection = DriverManager.getConnection(dataStore.getUrl() + "/" + dataStore.getSchema(),
+                connectionProps)) {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(dataStore.getScript());
+            return true;
+        } catch (SQLException e) {
+            throw new ApplicationException("Run Script Error", e);
+        }
+    }
+
+    @Override
+    public boolean createSchema(DataStore dataStore) {
+        log.info("dataStore.user: " + dataStore.getUsername());
+        log.info("dataStore.password: " + dataStore.getPassword());
+        Properties connectionProps = new Properties();
+        connectionProps.put("user", dataStore.getUsername());
+        connectionProps.put("password", dataStore.getPassword() == null ? "" : dataStore.getPassword());
+        try (Connection connection = DriverManager.getConnection(dataStore.getUrl(), connectionProps)) {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("CREATE DATABASE " + dataStore.getSchema() + ";");
+            return true;
+        } catch (SQLException e) {
+            log.debug("createSchema", e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean dropSchema(DataStore dataStore) {
+        log.info("dataStore.user: " + dataStore.getUsername());
+        log.info("dataStore.password: " + dataStore.getPassword());
+        Properties connectionProps = new Properties();
+        connectionProps.put("user", dataStore.getUsername());
+        connectionProps.put("password", dataStore.getPassword() == null ? "" : dataStore.getPassword());
+        try (Connection connection = DriverManager.getConnection(dataStore.getUrl(), connectionProps)) {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DROP DATABASE " + dataStore.getSchema() + ";");
+            return true;
+        } catch (SQLException e) {
+            log.error("dropSchema", e);
+            return false;
         }
     }
 }

@@ -17,6 +17,23 @@
 			},
 			"action": {
 				"testConnection": "Probar Conexión",
+				"runScript": "Ejecutar Script",
+				"createSchema": {
+					"label": "Create Schema",
+					"success": "Create Schema Success",
+					"failure": {
+						"general": "Create Schema Failure",
+						"schemaExist": "Schema already Exist!"
+					}
+				},
+				"dropSchema": {
+					"label": "Borrar Base de Datos",
+					"success": "La Base de Datos se Borro Exitosamente!",
+					"failure": {
+						"general": "No fue posible Borrar la Base de Datos",
+						"schemaNotExist": "La Base de Datos no Existe"
+					}
+				},
 				"connection": {
 					"success": "Conexión Exitosa!",
 					"failure": "Error en la Conexión"
@@ -24,10 +41,12 @@
 			},
 			"name": "Name",
 			"url": "Url",
+			"schema": "Base de Datos",
 			"driverClass": "Driver Class",
 			"username": "Username",
 			"password": "Password",
-			"tableTypes": "Table Types"
+			"tableTypes": "Table Types",
+			"script": "Script"
 		}
 	}
 }

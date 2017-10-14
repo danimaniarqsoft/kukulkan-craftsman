@@ -17,6 +17,23 @@
 			},
 			"action": {
 				"testConnection": "Test Connection",
+				"runScript": "Run Script",
+				"createSchema": {
+					"label": "Create Schema",
+					"success": "Create Schema Success",
+					"failure": {
+						"general": "Create Schema Failure",
+						"schemaExist": "Schema already Exist!"
+					}
+				},
+				"dropSchema": {
+					"label": "Drop Schema",
+					"success": "Drop Schema Success",
+					"failure": {
+						"general": "Drop Schema Failure",
+						"schemaNotExist": "Schema already Exist!"
+					}
+				},
 				"connection": {
 					"success": "Test Connection Success",
 					"failure": "Test Connection Failure"
@@ -24,10 +41,12 @@
 			},
 			"name": "Name",
 			"url": "Url",
+			"schema": "Schema",
 			"driverClass": "Driver Class",
 			"username": "Username",
 			"password": "Password",
-			"tableTypes": "Table Types"
+			"tableTypes": "Table Types",
+			"script": "Script"
 		}
 	}
 }

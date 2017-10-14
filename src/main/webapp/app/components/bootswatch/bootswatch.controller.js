@@ -10,4 +10,4 @@ angular.module('kukulkancraftsmanApp').controller('BootswatchController',
 					css : ''
 				});
 			});
-		});s
+		});

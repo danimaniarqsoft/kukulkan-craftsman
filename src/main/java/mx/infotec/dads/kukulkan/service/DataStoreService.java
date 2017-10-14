@@ -104,9 +104,34 @@ public interface DataStoreService {
     void deleteAll();
 
     /**
+     * Test a Connection
      * 
      * @param dataStore
      * @return boolean
      */
     boolean testConnection(DataStore dataStore);
+
+    /**
+     * Run a Script
+     * 
+     * @param dataStore
+     * @return boolean
+     */
+    boolean runScript(DataStore dataStore);
+
+    /**
+     * Create a schema into the database;
+     * 
+     * @param dataStore
+     * @return
+     */
+    boolean createSchema(DataStore dataStore);
+
+    /**
+     * Drop schema
+     * 
+     * @param dataStore
+     * @return
+     */
+    boolean dropSchema(DataStore dataStore);
 }

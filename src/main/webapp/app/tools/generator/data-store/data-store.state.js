@@ -129,6 +129,7 @@
                                 name: null,
                                 url: null,
                                 driverClass: null,
+                                schema: null,
                                 username: null,
                                 password: null,
                                 tableTypes: null,

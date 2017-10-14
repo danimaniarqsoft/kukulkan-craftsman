@@ -5,14 +5,21 @@
         .module('kukulkancraftsmanApp')
         .controller('DataStoreDetailController', DataStoreDetailController);
 
-    DataStoreDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'DataStore', 'DataStoreConnection'];
+    DataStoreDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'DataStore', 'DataStoreConnection', 'DataStoreRunScript', 'DataStoreCreateSchema', 'DataStoreDropSchema'];
 
-    function DataStoreDetailController($scope, $rootScope, $stateParams, previousState, entity, DataStore, DataStoreConnection) {
+    function DataStoreDetailController($scope, $rootScope, $stateParams, previousState, entity, DataStore, DataStoreConnection, DataStoreRunScript, DataStoreCreateSchema, DataStoreDropSchema) {
         var vm = this;
 
         vm.dataStore = entity;
         vm.previousState = previousState.name;
-        vm.testConnection = testConnection;
+        vm.action = action;
+        vm.option = '';
+		vm.editorOptions = {
+				lineWrapping : true,
+				lineNumbers: true,
+				matchBrackets: true,
+				mode: 'text/x-sql',
+			};
 
         vm.isTestingConnection = false;
 
@@ -21,8 +28,16 @@
         });
         $scope.$on('$destroy', unsubscribe);
         
-        function testConnection(){
-        	DataStoreConnection.connect(vm.dataStore, onConnectionSuccess, onConnectionError);
+        function action(option){
+        	if(vm.option==='testConnection'){
+        		DataStoreConnection.connect(vm.dataStore, onConnectionSuccess, onConnectionError);        		
+        	}else if(vm.option==='runScript'){
+        		DataStoreRunScript.execute(vm.dataStore, onConnectionSuccess, onConnectionError);
+        	}else if(vm.option==='createSchema'){
+        		DataStoreCreateSchema.execute(vm.dataStore, onConnectionSuccess, onConnectionError);
+        	}else if(vm.option==='dropSchema'){
+        		DataStoreDropSchema.execute(vm.dataStore, onConnectionSuccess, onConnectionError);
+        	}
         }
         
         function onConnectionSuccess (result) {

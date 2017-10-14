@@ -64,7 +64,8 @@
       "main": [
         "lib/codemirror.js",
         "lib/codemirror.css",
-        "mode/clike/clike.js"
+        "mode/clike/clike.js",
+        "mode/sql/sql.js"
       ]
     }
   },
