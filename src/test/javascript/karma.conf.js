@@ -30,6 +30,7 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
             'src/main/webapp/bower_components/codemirror/lib/codemirror.js',
             'src/main/webapp/bower_components/codemirror/mode/clike/clike.js',
+            'src/main/webapp/bower_components/codemirror/mode/sql/sql.js',
             'src/main/webapp/bower_components/chart.js/dist/Chart.js',
             'src/main/webapp/bower_components/papaparse/papaparse.js',
             'src/main/webapp/bower_components/angular/angular.js',

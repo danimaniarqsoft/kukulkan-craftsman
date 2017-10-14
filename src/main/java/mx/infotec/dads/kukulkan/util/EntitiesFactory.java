@@ -55,6 +55,7 @@ public class EntitiesFactory {
         ds.setDataStoreType(new DataStoreType());
         ds.setDriverClass("");
         ds.setName("");
+        ds.setSchema("");
         ds.setPassword("");
         ds.setTableTypes(TableTypes.TABLE_VIEW);
         ds.setUsername("");
@@ -85,7 +86,8 @@ public class EntitiesFactory {
         dsValuApp.setName("h2-db-test");
         dsValuApp.setPassword("");
         dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:h2:~/test");
+        dsValuApp.setUrl("jdbc:h2:~");
+        dsValuApp.setSchema("test");
         dsValuApp.setUsername("");
         return dsValuApp;
     }
@@ -97,7 +99,8 @@ public class EntitiesFactory {
         dsValuApp.setName("atlas");
         dsValuApp.setPassword("");
         dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:mysql://localhost/atlas");
+        dsValuApp.setUrl("jdbc:mysql://localhost");
+        dsValuApp.setSchema("atlas");
         dsValuApp.setUsername("root");
         return dsValuApp;
     }
@@ -109,7 +112,8 @@ public class EntitiesFactory {
         dsValuApp.setName("test");
         dsValuApp.setPassword("");
         dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:h2:~/test");
+        dsValuApp.setUrl("jdbc:h2:~");
+        dsValuApp.setSchema("test");
         dsValuApp.setUsername("");
         return dsValuApp;
     }
