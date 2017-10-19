@@ -23,21 +23,28 @@
  */
 package mx.infotec.dads.kukulkan.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.metamodel.schema.Column;
 import org.apache.metamodel.schema.ColumnType;
 import org.apache.metamodel.schema.Table;
 
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
 import mx.infotec.dads.kukulkan.engine.domain.core.PrimaryKey;
+import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
 import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
+import mx.infotec.dads.kukulkan.grammar.kukulkanLexer;
+import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -273,5 +280,18 @@ public class DataMapping {
             }
         });
         return layerTaskList;
+    }
+
+    public static List<DataModelGroup> createSingleDataModelGroupList(KukulkanGrammarVisitor visitor,
+            List<String> tablesToProcess) throws IOException {
+        String program = "src/test/resources/grammar/test." + "3k";
+        System.out.println("Interpreting file " + program);
+        kukulkanLexer lexer = new kukulkanLexer(new ANTLRFileStream(program));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        kukulkanParser parser = new kukulkanParser(tokens);
+        kukulkanParser.DomainModelContext tree = parser.domainModel();
+        DataModel dataModel = visitor.visit(tree);
+        System.out.println("Interpretation finished");
+        return null;
     }
 }

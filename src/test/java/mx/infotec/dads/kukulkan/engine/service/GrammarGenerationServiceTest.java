@@ -130,7 +130,7 @@ public class GrammarGenerationServiceTest {
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
         List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
-                dataContext.getDbDataContext().getDefaultSchema().getTables(), tablesToProcess);
+                dataContext.getGrammarDataContext(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
