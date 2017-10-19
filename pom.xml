@@ -61,17 +61,17 @@
 
 		<sonar.issue.ignore.multicriteria>S3437,UndocumentedApi,BoldAndItalicTagsCheck</sonar.issue.ignore.multicriteria>
 
-		<!-- Rule https://sonarqube.com/coding_rules#rule_key=Web%3ABoldAndItalicTagsCheck
-			is ignored. Even if we agree that using the "i" tag is an awful practice,
+		<!-- Rule https://sonarqube.com/coding_rules#rule_key=Web%3ABoldAndItalicTagsCheck 
+			is ignored. Even if we agree that using the "i" tag is an awful practice, 
 			this is what is recommended by http://fontawesome.io/examples/ -->
 		<sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>src/main/webapp/app/**/*.*</sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>
 		<sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>Web:BoldAndItalicTagsCheck</sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>
-		<!-- Rule https://sonarqube.com/coding_rules#rule_key=squid%3AS3437 is
+		<!-- Rule https://sonarqube.com/coding_rules#rule_key=squid%3AS3437 is 
 			ignored, as a JPA-managed field cannot be transient -->
 		<sonar.issue.ignore.multicriteria.S3437.resourceKey>src/main/java/**/*</sonar.issue.ignore.multicriteria.S3437.resourceKey>
 		<sonar.issue.ignore.multicriteria.S3437.ruleKey>squid:S3437</sonar.issue.ignore.multicriteria.S3437.ruleKey>
-		<!-- Rule http://sonarqube.com/coding_rules#rule_key=squid%3AUndocumentedApi
-			is ignored, as we want to follow "clean code" guidelines and classes, methods
+		<!-- Rule http://sonarqube.com/coding_rules#rule_key=squid%3AUndocumentedApi 
+			is ignored, as we want to follow "clean code" guidelines and classes, methods 
 			and arguments names should be self-explanatory -->
 		<sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>src/main/java/**/*</sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>
 		<sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>squid:UndocumentedApi</sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>
@@ -393,12 +393,16 @@
 			<artifactId>cloning</artifactId>
 			<version>1.9.5</version>
 		</dependency>
-	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-	<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-		<version>5.1.6</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mx.infotec.dads.kukulkan</groupId>
+			<artifactId>kukulkan-grammar</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<defaultGoal>spring-boot:run</defaultGoal>
@@ -544,7 +548,7 @@
 							<destFile>${project.testresult.directory}/coverage/jacoco/jacoco.exec</destFile>
 						</configuration>
 					</execution>
-					<!-- Ensures that the code coverage report for unit tests is created
+					<!-- Ensures that the code coverage report for unit tests is created 
 						after unit tests have been run -->
 					<execution>
 						<id>post-unit-test</id>
@@ -570,7 +574,7 @@
 				<configuration>
 					<executable>true</executable>
 					<fork>true</fork>
-					<!-- Enable the line below to have remote debugging of your application
+					<!-- Enable the line below to have remote debugging of your application 
 						on port 5005 <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmArguments> -->
 				</configuration>
 			</plugin>
@@ -594,8 +598,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!-- This plugin's configuration is used to store Eclipse m2e settings
-					only. It has no influence on the Maven build itself. Remove when the m2e
+				<!-- This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. Remove when the m2e 
 					plugin can correctly bind to Maven lifecycle -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
@@ -796,10 +800,10 @@
 			</properties>
 		</profile>
 		<profile>
-			<!-- Profile for doing "continuous compilation" with the Scala Maven plugin.
-				It allows automatic compilation of Java classes as soon as they are saved.
-				To use it, run in 3 terminals: - './mvnw -Pcc scala:cc' for continous compilation
-				of your classes - './mvnw -Pcc' for hot reload of Spring boot - 'gulp' for
+			<!-- Profile for doing "continuous compilation" with the Scala Maven plugin. 
+				It allows automatic compilation of Java classes as soon as they are saved. 
+				To use it, run in 3 terminals: - './mvnw -Pcc scala:cc' for continous compilation 
+				of your classes - './mvnw -Pcc' for hot reload of Spring boot - 'gulp' for 
 				hot reload of the HTML/JavaScript assets Everything should hot reload automatically! -->
 			<id>cc</id>
 			<dependencies>
@@ -829,7 +833,7 @@
 							<executable>true</executable>
 							<fork>true</fork>
 							<addResources>true</addResources>
-							<!-- Enable the line below to have remote debugging of your application
+							<!-- Enable the line below to have remote debugging of your application 
 								on port 5005 <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmArguments> -->
 						</configuration>
 					</plugin>
@@ -916,7 +920,7 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<!-- Profile for applying IDE-specific configuration. At the moment it
+			<!-- Profile for applying IDE-specific configuration. At the moment it 
 				only configures MapStruct, which you need when working with DTOs. -->
 			<id>IDE</id>
 			<dependencies>

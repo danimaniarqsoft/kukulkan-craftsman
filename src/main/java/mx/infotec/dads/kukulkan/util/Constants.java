@@ -27,6 +27,7 @@ public class Constants {
 
     public static final String DATA_STORE_TYPE_JDBC = "jdbc";
     public static final String DATA_STORE_TYPE_CSV="csv";
+    public static final String DATA_STORE_TYPE_GRAMMAR="kukulkan-grammar";
 
     private Constants() {
 

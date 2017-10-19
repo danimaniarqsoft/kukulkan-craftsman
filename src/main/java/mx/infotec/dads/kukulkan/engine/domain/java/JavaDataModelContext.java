@@ -23,8 +23,6 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.java;
 
-import org.apache.metamodel.DataContext;
-
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 
 /**
@@ -35,9 +33,5 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
  *
  */
 public class JavaDataModelContext extends DataModel {
-
-    protected JavaDataModelContext(DataContext dataContext) {
-        super(dataContext);
-    }
 
 }

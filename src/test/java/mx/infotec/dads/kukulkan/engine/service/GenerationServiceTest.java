@@ -27,6 +27,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.metamodel.DataContext;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -122,13 +123,14 @@ public class GenerationServiceTest {
         List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
         DataStore dataStore = findAllDataStores.get(0);
         // Create DataModel
-        DataModel dataModel = new JavaDataModelContext(dataStore);
-        dataModel.setDataContext(dataStoreService.createDataContext(dataStore));
+        DataModel dataModel = new JavaDataModelContext();
+        DataContext dataContext = dataStoreService.createDataContext(dataStore);
+        
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
         List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
-                dataModel.getDataContext().getDefaultSchema().getTables(), tablesToProcess);
+                dataContext.getDefaultSchema().getTables(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);

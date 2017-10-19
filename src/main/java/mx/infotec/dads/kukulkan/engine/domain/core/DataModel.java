@@ -39,34 +39,11 @@ import mx.infotec.dads.kukulkan.domain.DataStore;
  *
  */
 public abstract class DataModel {
-
-    protected DataContext dataContext;
-    protected DataStore dataStore;
+    
     protected Collection<DataModelGroup> dataModelGroup;
     protected List<GeneratedElement> generatedElements = new ArrayList<>();
 
-    public DataModel(DataStore dataStore) {
-        this.dataStore = dataStore;
-    }
-
-    protected DataModel(DataContext dataContext) {
-        this.dataContext = dataContext;
-    }
-
-    public DataContext getDataContext() {
-        return dataContext;
-    }
-
-    public void setDataContext(DataContext dataContext) {
-        this.dataContext = dataContext;
-    }
-
-    public DataStore getDataStore() {
-        return dataStore;
-    }
-
-    public void setDataStore(DataStore dataStore) {
-        this.dataStore = dataStore;
+    public DataModel() {
     }
 
     public Collection<DataModelGroup> getDataModelGroup() {

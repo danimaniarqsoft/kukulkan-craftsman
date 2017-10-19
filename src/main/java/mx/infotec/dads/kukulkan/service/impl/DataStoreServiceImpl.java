@@ -134,6 +134,11 @@ public class DataStoreServiceImpl implements DataStoreService {
             properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
             properties.put(DATA_STORE_URL, dataStore.getUrl());
             return DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties);
+        } else if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_GRAMMAR)) {
+            DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
+            properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
+            properties.put(DATA_STORE_URL, dataStore.getUrl());
+            return DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties);
         } else {
             return null;
         }

@@ -87,16 +87,15 @@ public class KukulkanRestController {
         DataStore dataStore = dataStoreService.findById(ctx.getDataStore());
         // Create DataModel
         LOGGER.debug("Creating DataModel object");
-        DataModel dmCtx = new JavaDataModelContext(dataStore);
+        DataModel dmCtx = new JavaDataModelContext();
         // Create DataContext
         LOGGER.debug("Creating DataContext object");
         DataContext dataContext = dataStoreService.createDataContext(dataStore);
-        dmCtx.setDataContext(dataContext);
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
         List<DataModelGroup> dmgList = DataMapping
-                .createSingleDataModelGroupList(dmCtx.getDataContext().getDefaultSchema().getTables(), tablesToProcess);
+                .createSingleDataModelGroupList(dataContext.getDefaultSchema().getTables(), tablesToProcess);
         dmCtx.setDataModelGroup(dmgList);
         // Create GeneratorContext
         LOGGER.debug("Creating GeneratorContext object");

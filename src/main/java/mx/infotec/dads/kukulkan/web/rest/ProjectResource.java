@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.metamodel.DataContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,16 +179,16 @@ public class ProjectResource {
     public ResponseEntity<Project> generateProject(@Valid @RequestBody Project project) throws URISyntaxException{
         log.debug("REST request to get Project : {}", project.getId());
         ProjectConfiguration pConf = ProjectMapper.toProjectConfiguration(project);
-        DataModel dataModel = new JavaDataModelContext(project.getDataStore());
+        DataModel dataModel = new JavaDataModelContext();
         DataStoreType dst = new DataStoreType();
         dst.setName("jdbc");
         project.getDataStore().setDataStoreType(dst);
-        dataModel.setDataContext(dataStoreService.createDataContext(project.getDataStore()));
+        DataContext dataContext =dataStoreService.createDataContext(project.getDataStore());
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
         List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
-                dataModel.getDataContext().getDefaultSchema().getTables(), tablesToProcess);
+                dataContext.getDefaultSchema().getTables(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);

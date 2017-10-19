@@ -21,14 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.engine.domain.core;
+package mx.infotec.dads.kukulkan.grammar;
+
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
+import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
 
 /**
- * JavaDataModelContext
+ * Test for GeneratorService
  * 
  * @author Daniel Cortes Pichardo
  *
  */
-public class JavaDataModelContext extends DataModel {
+@RunWith(SpringRunner.class)
+public class KukulkanGrammarTest {
+
+    private static final String EXTENSION = "3k";
+
+    @Test
+    public void generationService() throws Exception {
+        String program = "src/test/resources/grammar/test." + EXTENSION;
+
+        System.out.println("Interpreting file " + program);
+
+        kukulkanLexer lexer = new kukulkanLexer(new ANTLRFileStream(program));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        kukulkanParser parser = new kukulkanParser(tokens);
+
+        kukulkanParser.DomainModelContext tree = parser.domainModel();
+
+        KukulkanGrammarVisitor visitor = new KukulkanGrammarVisitor();
+        DataModel dataModel = visitor.visit(tree);
+        System.out.println("Interpretation finished");
+    }
 
 }
