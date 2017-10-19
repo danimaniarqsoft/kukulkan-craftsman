@@ -80,42 +80,55 @@ public class EntitiesFactory {
     }
 
     public static DataStore createTestDataStore(DataStoreType dst) {
-        DataStore dsValuApp = new DataStore();
-        dsValuApp.setDataStoreType(dst);
-        dsValuApp.setDriverClass("org.h2.Driver");
-        dsValuApp.setName("h2-db-test");
-        dsValuApp.setPassword("");
-        dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:h2:~");
-        dsValuApp.setSchema("test");
-        dsValuApp.setUsername("");
-        return dsValuApp;
+        DataStore testDataStore = new DataStore();
+        testDataStore.setDataStoreType(dst);
+        testDataStore.setDriverClass("org.h2.Driver");
+        testDataStore.setName("h2-db-test");
+        testDataStore.setPassword("");
+        testDataStore.setTableTypes(TableTypes.TABLE_VIEW);
+        testDataStore.setUrl("jdbc:h2:~");
+        testDataStore.setSchema("test");
+        testDataStore.setUsername("");
+        return testDataStore;
     }
     
     public static DataStore createAtlasDataStore(DataStoreType dst) {
-        DataStore dsValuApp = new DataStore();
-        dsValuApp.setDataStoreType(dst);
-        dsValuApp.setDriverClass("com.mysql.jdbc.Driver");
-        dsValuApp.setName("atlas");
-        dsValuApp.setPassword("");
-        dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:mysql://localhost");
-        dsValuApp.setSchema("atlas");
-        dsValuApp.setUsername("root");
-        return dsValuApp;
+        DataStore atlasDataStore = new DataStore();
+        atlasDataStore.setDataStoreType(dst);
+        atlasDataStore.setDriverClass("com.mysql.jdbc.Driver");
+        atlasDataStore.setName("atlas");
+        atlasDataStore.setPassword("");
+        atlasDataStore.setTableTypes(TableTypes.TABLE_VIEW);
+        atlasDataStore.setUrl("jdbc:mysql://localhost");
+        atlasDataStore.setSchema("atlas");
+        atlasDataStore.setUsername("root");
+        return atlasDataStore;
     }
 
     public static DataStore createMysqlTestDataStore(DataStoreType dst) {
-        DataStore dsValuApp = new DataStore();
-        dsValuApp.setDataStoreType(dst);
-        dsValuApp.setDriverClass("org.h2.Driver");
-        dsValuApp.setName("test");
-        dsValuApp.setPassword("");
-        dsValuApp.setTableTypes(TableTypes.TABLE_VIEW);
-        dsValuApp.setUrl("jdbc:h2:~");
-        dsValuApp.setSchema("test");
-        dsValuApp.setUsername("");
-        return dsValuApp;
+        DataStore mysqlDataStore = new DataStore();
+        mysqlDataStore.setDataStoreType(dst);
+        mysqlDataStore.setDriverClass("org.h2.Driver");
+        mysqlDataStore.setName("test");
+        mysqlDataStore.setPassword("");
+        mysqlDataStore.setTableTypes(TableTypes.TABLE_VIEW);
+        mysqlDataStore.setUrl("jdbc:h2:~");
+        mysqlDataStore.setSchema("test");
+        mysqlDataStore.setUsername("");
+        return mysqlDataStore;
+    }
+    
+    public static DataStore createGrammarDataStore(DataStoreType dst) {
+        DataStore atlasDataStore = new DataStore();
+        atlasDataStore.setDataStoreType(dst);
+        atlasDataStore.setDriverClass("NO APLICA");
+        atlasDataStore.setName(Constants.DATA_STORE_TYPE_GRAMMAR);
+        atlasDataStore.setPassword("NO APLICA");
+        atlasDataStore.setTableTypes(TableTypes.TABLE_VIEW);
+        atlasDataStore.setUrl("jdbc:mysql://localhost");
+        atlasDataStore.setSchema("NO APLICA");
+        atlasDataStore.setUsername("NO APLICA");
+        return atlasDataStore;
     }
 
     public static DataStoreType createDefaultDataStoreType() {

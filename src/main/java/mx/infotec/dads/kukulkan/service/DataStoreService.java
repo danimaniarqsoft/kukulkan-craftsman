@@ -1,12 +1,12 @@
 package mx.infotec.dads.kukulkan.service;
 
-import mx.infotec.dads.kukulkan.domain.DataStore;
-
 import java.util.List;
 
-import org.apache.metamodel.DataContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import mx.infotec.dads.kukulkan.domain.DataStore;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContext;
 
 /**
  * Service Interface for managing DataStore.

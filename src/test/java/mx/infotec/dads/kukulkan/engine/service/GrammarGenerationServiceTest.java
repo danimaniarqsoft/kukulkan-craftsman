@@ -54,13 +54,14 @@ import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
+import mx.infotec.dads.kukulkan.util.Constants;
 import mx.infotec.dads.kukulkan.util.DataMapping;
 import mx.infotec.dads.kukulkan.util.FileUtil;
 import mx.infotec.dads.kukulkan.util.GenerationType;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 
 /**
- * Test for GeneratorService, Atlas project
+ * Test for GeneratorService
  * 
  * @author Daniel Cortes Pichardo
  *
@@ -68,7 +69,7 @@ import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = KukulkancraftsmanApp.class)
 @DirtiesContext
-public class AtlasGenerationTest {
+public class GrammarGenerationServiceTest {
 
     @Autowired
     private GenerationService generationService;
@@ -88,6 +89,7 @@ public class AtlasGenerationTest {
 
     @BeforeClass
     public static void runOnceBeforeClass() {
+        
     }
 
     @Test
@@ -103,10 +105,10 @@ public class AtlasGenerationTest {
         }
         // Create ProjectConfiguration
         ProjectConfiguration pConf = new ProjectConfiguration();
-        pConf.setId("atlas");
-        pConf.setGroupId("mx.gob.profeco");
-        pConf.setVersion("2.0.0");
-        pConf.setPackaging("mx.gob.profeco.atlas");
+        pConf.setId("kukulkantest");
+        pConf.setGroupId("mx.infotec.dads");
+        pConf.setVersion("1.0.0");
+        pConf.setPackaging("mx.infotec.dads.rsr");
         pConf.setYear("2017");
         pConf.setAuthor("KUKULKAN");
         pConf.setWebLayerName("web.rest");
@@ -116,14 +118,14 @@ public class AtlasGenerationTest {
         pConf.setGlobalGenerationType(GenerationType.SEQUENCE);
         // Create DataStore
         DataStore dsExample = new DataStore();
-        dsExample.setName("atlas");
+        dsExample.setName(Constants.DATA_STORE_TYPE_GRAMMAR);
         Example<DataStore> dataStoreFilter = Example.of(dsExample);
         List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
         DataStore dataStore = findAllDataStores.get(0);
         // Create DataModel
         DataModel dataModel = new JavaDataModelContext();
         DataContext dataContext = dataStoreService.createDataContext(dataStore);
-        // dataModel.setDataContext(dataStoreService.createDataContext(dataStore));
+        
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel

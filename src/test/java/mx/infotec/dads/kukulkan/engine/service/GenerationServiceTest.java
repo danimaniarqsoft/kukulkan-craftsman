@@ -27,7 +27,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.metamodel.DataContext;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +41,7 @@ import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.KukulkancraftsmanApp;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
@@ -130,7 +130,7 @@ public class GenerationServiceTest {
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
         List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
-                dataContext.getDefaultSchema().getTables(), tablesToProcess);
+                dataContext.getDbDataContext().getDefaultSchema().getTables(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);

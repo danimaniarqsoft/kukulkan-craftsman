@@ -12,7 +12,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.apache.metamodel.DataContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,7 @@ import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.assets.service.mapper.ProjectMapper;
 import mx.infotec.dads.kukulkan.domain.Project;
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
@@ -188,7 +188,7 @@ public class ProjectResource {
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
         List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
-                dataContext.getDefaultSchema().getTables(), tablesToProcess);
+                dataContext.getDbDataContext().getDefaultSchema().getTables(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);

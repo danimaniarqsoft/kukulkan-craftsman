@@ -13,6 +13,7 @@ import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createPhases;
 import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createStates;
 import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createTestDataStore;
 import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createAtlasDataStore;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createGrammarDataStore;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -37,6 +38,8 @@ public class CatalogSetupMigration {
         mongoTemplate.save(testDs);
         DataStore atlasDs = createAtlasDataStore(dst);
         mongoTemplate.save(atlasDs);
+        DataStore grammar = createGrammarDataStore(dst);
+        mongoTemplate.save(grammar);
         RuleType singularRuleType = createDefaultSingularRuleType();
         mongoTemplate.save(singularRuleType);
         mongoTemplate.save(createDefaultPluralRuleType());
