@@ -13,3 +13,7 @@ services:
         extends:
             file: mongodb.yml
             service: kukulkancraftsman-mongodb
+    kukulkancraftsman-mysql:
+        extends:
+            file: mysql.yml
+            service: kukulkancraftsman-mysql
