@@ -27,6 +27,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.metamodel.DataContext;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,12 +37,14 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.data.domain.Example;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import static org.assertj.core.api.Assertions.*;
 
 import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.KukulkancraftsmanApp;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
@@ -124,13 +127,19 @@ public class GenerationServiceTest {
         DataStore dataStore = findAllDataStores.get(0);
         // Create DataModel
         DataModel dataModel = new JavaDataModelContext();
-        DataContext dataContext = dataStoreService.createDataContext(dataStore);
-        
+        DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
+        DataContext dataContextApache = null;
+        if (dataContext.getDataContextType() == DataContextType.RELATIONAL_DATA_BASE) {
+            dataContextApache = (DataContext) dataContext.getDataContext();
+        } else {
+            fail("Not a proper DataContext");
+        }
+
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
-                dataContext.getDbDataContext().getDefaultSchema().getTables(), tablesToProcess);
+        List<DataModelGroup> dmgList = DataMapping
+                .createSingleDataModelGroupList(dataContextApache.getDefaultSchema().getTables(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);

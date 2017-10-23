@@ -41,7 +41,8 @@ import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.KukulkancraftsmanApp;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
@@ -50,6 +51,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.domain.core.Rule;
 import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
 import mx.infotec.dads.kukulkan.engine.factories.LayerTaskFactory;
+import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
 import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
@@ -89,7 +91,7 @@ public class GrammarGenerationServiceTest {
 
     @BeforeClass
     public static void runOnceBeforeClass() {
-        
+
     }
 
     @Test
@@ -124,13 +126,16 @@ public class GrammarGenerationServiceTest {
         DataStore dataStore = findAllDataStores.get(0);
         // Create DataModel
         DataModel dataModel = new JavaDataModelContext();
-        DataContext dataContext = dataStoreService.createDataContext(dataStore);
-        
+        DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
+        KukulkanGrammarVisitor grammar = null;
+        if (dataContext.getDataContextType() == DataContextType.KUKULKAN_GRAMMAR) {
+            grammar = (KukulkanGrammarVisitor) dataContext.getDataContext();
+        }
+
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
-                dataContext.getGrammarDataContext(), tablesToProcess);
+        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(grammar, tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);

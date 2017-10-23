@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import mx.infotec.dads.kukulkan.domain.DataStore;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 
 /**
  * Service Interface for managing DataStore.
@@ -54,7 +54,7 @@ public interface DataStoreService {
      * @param dataStore
      * @return DataContext
      */
-    public DataContext createDataContext(DataStore dataStore);
+    public DataContextContainer<?> createDataContext(DataStore dataStore);
 
     /**
      * Get a DataStore

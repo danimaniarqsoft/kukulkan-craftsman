@@ -30,6 +30,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.metamodel.DataContext;
 import org.apache.metamodel.factory.DataContextFactoryRegistryImpl;
 import org.apache.metamodel.factory.DataContextPropertiesImpl;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.domain.DataStore;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
@@ -121,7 +122,7 @@ public class DataStoreServiceImpl implements DataStoreService {
     }
 
     @Override
-    public DataContext createDataContext(DataStore dataStore) {
+    public DataContextContainer<?> createDataContext(DataStore dataStore) {
         if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_JDBC)) {
             DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
             properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
@@ -129,20 +130,20 @@ public class DataStoreServiceImpl implements DataStoreService {
             properties.put(DATA_STORE_DRIVER_CLASS, dataStore.getDriverClass());
             properties.put(DATA_STORE_USERNAME, dataStore.getUsername());
             properties.put(DATA_STORE_PASSWORD, dataStore.getPassword());
-            return new DataContext(DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties),
-                    DataContextType.RELATIONAL_DATA_BASE);
+            return new DataContextContainer<DataContext>(DataContextType.RELATIONAL_DATA_BASE,
+                    DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties));
         } else if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_CSV)) {
             DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
             properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
             properties.put(DATA_STORE_URL, dataStore.getUrl());
-            return new DataContext(DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties),
-                    DataContextType.RELATIONAL_DATA_BASE);
+            return new DataContextContainer<DataContext>(DataContextType.RELATIONAL_DATA_BASE,
+                    DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties));
         } else if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_GRAMMAR)) {
             DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
             properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
             properties.put(DATA_STORE_URL, dataStore.getUrl());
-            return new DataContext(DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties),
-                    DataContextType.RELATIONAL_DATA_BASE);
+            return new DataContextContainer<DataContext>(DataContextType.RELATIONAL_DATA_BASE,
+                    DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties));
         } else {
             return null;
         }
