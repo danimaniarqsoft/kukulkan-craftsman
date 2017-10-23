@@ -41,10 +41,12 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
 import mx.infotec.dads.kukulkan.engine.domain.core.PrimaryKey;
+import mx.infotec.dads.kukulkan.engine.grammar.GrammarUtil;
 import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
 import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
 import mx.infotec.dads.kukulkan.grammar.kukulkanLexer;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
+import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DomainModelContext;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -75,6 +77,37 @@ public class DataMapping {
         createDataModelElement(excludedTables, tables, dmeList);
         dmg.setDataModelElements(dmeList);
         return dmg;
+    }
+
+    /**
+     * Create a DataModelGroup Class
+     * 
+     * @param dataContext
+     * @return DataModelGroup
+     */
+    public static DataModelGroup createDefaultDataModelGroup(DomainModelContext dmc, KukulkanGrammarVisitor visitor) {
+        DataModelGroup dmg = new DataModelGroup();
+        dmg.setName("");
+        dmg.setDescription("Default package");
+        dmg.setBriefDescription("Default package");
+        dmg.setDataModelElements(new ArrayList<>());
+        List<DataModelElement> dmeList = new ArrayList<>();
+        createDataModelElement(dmc, visitor, dmeList);
+        dmg.setDataModelElements(dmeList);
+        return dmg;
+    }
+
+    /**
+     * createDataModelElement is used for map the KukulkanGrammar to
+     * DataModelElement.
+     * 
+     * @param dmc
+     * @param visitor
+     * @param dmeList
+     */
+    private static void createDataModelElement(DomainModelContext dmc, KukulkanGrammarVisitor visitor,
+            List<DataModelElement> dmeList) {
+        dmeList.addAll(visitor.visit(dmc));
     }
 
     private static void createDataModelElement(List<String> tablesToProcess, List<Table> tables,
@@ -286,12 +319,9 @@ public class DataMapping {
             List<String> tablesToProcess) throws IOException {
         String program = "src/test/resources/grammar/test." + "3k";
         System.out.println("Interpreting file " + program);
-        kukulkanLexer lexer = new kukulkanLexer(new ANTLRFileStream(program));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        kukulkanParser parser = new kukulkanParser(tokens);
-        kukulkanParser.DomainModelContext tree = parser.domainModel();
-        DataModel dataModel = visitor.visit(tree);
-        System.out.println("Interpretation finished");
-        return null;
+        DomainModelContext tree = GrammarUtil.getDomainModelContext(program);
+        List<DataModelGroup> dataModelGroupList = new ArrayList<>();
+        dataModelGroupList.add(createDefaultDataModelGroup(tree, visitor));
+        return dataModelGroupList;
     }
 }

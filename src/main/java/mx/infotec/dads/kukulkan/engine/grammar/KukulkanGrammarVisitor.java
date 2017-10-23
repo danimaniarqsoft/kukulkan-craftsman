@@ -1,8 +1,10 @@
 package mx.infotec.dads.kukulkan.engine.grammar;
 
+import java.util.List;
 import java.util.Optional;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.grammar.kukulkanBaseVisitor;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
 
@@ -12,10 +14,10 @@ import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
  * @author Daniel Cortes Pichardo
  *
  */
-public class KukulkanGrammarVisitor extends kukulkanBaseVisitor<DataModel> {
+public class KukulkanGrammarVisitor extends kukulkanBaseVisitor<List<DataModelElement>> {
 
     @Override
-    public DataModel visitDomainModel(kukulkanParser.DomainModelContext ctx) {
+    public List<DataModelElement> visitDomainModel(kukulkanParser.DomainModelContext ctx) {
         ctx.entities.forEach(entity -> {
             System.out.println(entity.name.getText());
             Optional.ofNullable(entity.tableName).ifPresent(tableName -> System.out.println(tableName.getText()));
