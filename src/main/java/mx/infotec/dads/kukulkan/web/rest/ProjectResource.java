@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.metamodel.DataContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.assets.service.mapper.ProjectMapper;
 import mx.infotec.dads.kukulkan.domain.Project;
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
+import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
@@ -65,16 +67,16 @@ public class ProjectResource {
     private static final String ENTITY_NAME = "project";
 
     private final ProjectService projectService;
-    
+
     @Autowired
     private DataStoreService dataStoreService;
-    
+
     @Autowired
     private GenerationService generationService;
-    
+
     @Autowired
     private KukulkanConfigurationProperties prop;
-    
+
     @Autowired
     private LayerTaskFactory layerTaskFactory;
 
@@ -83,33 +85,41 @@ public class ProjectResource {
     }
 
     /**
-     * POST  /projects : Create a new project.
+     * POST /projects : Create a new project.
      *
-     * @param project the project to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new project, or with status 400 (Bad Request) if the project has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param project
+     *            the project to create
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     *         new project, or with status 400 (Bad Request) if the project has
+     *         already an ID
+     * @throws URISyntaxException
+     *             if the Location URI syntax is incorrect
      */
     @PostMapping("/projects")
     @Timed
     public ResponseEntity<Project> createProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to save Project : {}", project);
         if (project.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new project cannot already have an ID")).body(null);
+            return ResponseEntity.badRequest().headers(
+                    HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new project cannot already have an ID"))
+                    .body(null);
         }
         Project result = projectService.save(project);
         return ResponseEntity.created(new URI("/api/projects/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
     }
 
     /**
-     * PUT  /projects : Updates an existing project.
+     * PUT /projects : Updates an existing project.
      *
-     * @param project the project to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated project,
-     * or with status 400 (Bad Request) if the project is not valid,
-     * or with status 500 (Internal Server Error) if the project couldnt be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param project
+     *            the project to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     *         project, or with status 400 (Bad Request) if the project is not
+     *         valid, or with status 500 (Internal Server Error) if the project
+     *         couldnt be updated
+     * @throws URISyntaxException
+     *             if the Location URI syntax is incorrect
      */
     @PutMapping("/projects")
     @Timed
@@ -119,16 +129,17 @@ public class ProjectResource {
             return createProject(project);
         }
         Project result = projectService.save(project);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, project.getId().toString()))
-            .body(result);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, project.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /projects : get all the projects.
+     * GET /projects : get all the projects.
      *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of projects in body
+     * @param pageable
+     *            the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of projects
+     *         in body
      */
     @GetMapping("/projects")
     @Timed
@@ -140,10 +151,12 @@ public class ProjectResource {
     }
 
     /**
-     * GET  /projects/:id : get the "id" project.
+     * GET /projects/:id : get the "id" project.
      *
-     * @param id the id of the project to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the project, or with status 404 (Not Found)
+     * @param id
+     *            the id of the project to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     *         project, or with status 404 (Not Found)
      */
     @GetMapping("/projects/{id}")
     @Timed
@@ -155,9 +168,10 @@ public class ProjectResource {
     }
 
     /**
-     * DELETE  /projects/:id : delete the "id" project.
+     * DELETE /projects/:id : delete the "id" project.
      *
-     * @param id the id of the project to delete
+     * @param id
+     *            the id of the project to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/projects/{id}")
@@ -167,28 +181,36 @@ public class ProjectResource {
         projectService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
-    
+
     /**
-     * GET  /projects/:id : get the "id" project.
+     * GET /projects/:id : get the "id" project.
      *
-     * @param id the id of the project to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the project, or with status 404 (Not Found)
+     * @param id
+     *            the id of the project to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     *         project, or with status 404 (Not Found)
      */
     @PostMapping("/projects/generate")
     @Timed
-    public ResponseEntity<Project> generateProject(@Valid @RequestBody Project project) throws URISyntaxException{
+    public ResponseEntity<Project> generateProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to get Project : {}", project.getId());
         ProjectConfiguration pConf = ProjectMapper.toProjectConfiguration(project);
         DataModel dataModel = new JavaDataModelContext();
         DataStoreType dst = new DataStoreType();
         dst.setName("jdbc");
         project.getDataStore().setDataStoreType(dst);
-        DataContext dataContext =dataStoreService.createDataContext(project.getDataStore());
+        DataContextContainer<?> dataContext = dataStoreService.createDataContext(project.getDataStore());
+
+        DataContext dataContextDb = (DataContext) dataContext.getDataContext();
+
+        if (dataContext.getDataContextType() == DataContextType.RELATIONAL_DATA_BASE) {
+            dataContextDb = (DataContext) dataContext.getDataContext();
+        }
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
-                dataContext.getDbDataContext().getDefaultSchema().getTables(), tablesToProcess);
+        List<DataModelGroup> dmgList = DataMapping
+                .createSingleDataModelGroupList(dataContextDb.getDefaultSchema().getTables(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
@@ -208,9 +230,8 @@ public class ProjectResource {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return ResponseEntity.created(new URI("/api/projects/generate"))
-            .headers(HeaderUtil.generateSuccessStatus(ENTITY_NAME, "ok"))
-            .body(project);
+                .headers(HeaderUtil.generateSuccessStatus(ENTITY_NAME, "ok")).body(project);
     }
 }
