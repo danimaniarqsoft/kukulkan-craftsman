@@ -1,6 +1,7 @@
 package mx.infotec.dads.kukulkan.config.dbmigrations;
 
 import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDefaultDataStoreType;
+import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createGrammarDataStoreType;
 import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDefaultPluralRuleType;
 import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDefaultSingularRuleType;
 import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDisciplines;
@@ -34,11 +35,13 @@ public class CatalogSetupMigration {
     public void addDataStoreType(MongoTemplate mongoTemplate) {
         DataStoreType dst = createDefaultDataStoreType();
         mongoTemplate.save(dst);
+        DataStoreType dstGrammar = createGrammarDataStoreType();
+        mongoTemplate.save(dstGrammar);
         DataStore testDs = createTestDataStore(dst);
         mongoTemplate.save(testDs);
         DataStore atlasDs = createAtlasDataStore(dst);
         mongoTemplate.save(atlasDs);
-        DataStore grammar = createGrammarDataStore(dst);
+        DataStore grammar = createGrammarDataStore(dstGrammar);
         mongoTemplate.save(grammar);
         RuleType singularRuleType = createDefaultSingularRuleType();
         mongoTemplate.save(singularRuleType);

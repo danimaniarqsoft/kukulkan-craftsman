@@ -42,6 +42,7 @@ import org.springframework.stereotype.Service;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
+import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.util.Constants;
@@ -139,11 +140,8 @@ public class DataStoreServiceImpl implements DataStoreService {
             return new DataContextContainer<DataContext>(DataContextType.RELATIONAL_DATA_BASE,
                     DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties));
         } else if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_GRAMMAR)) {
-            DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
-            properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
-            properties.put(DATA_STORE_URL, dataStore.getUrl());
-            return new DataContextContainer<DataContext>(DataContextType.RELATIONAL_DATA_BASE,
-                    DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties));
+            return new DataContextContainer<KukulkanGrammarVisitor>(DataContextType.KUKULKAN_GRAMMAR,
+                    new KukulkanGrammarVisitor());
         } else {
             return null;
         }

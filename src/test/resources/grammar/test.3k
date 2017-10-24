@@ -15,7 +15,7 @@ entity Usuario (usuarios){
     instante Instant
 }
 
-entity Persona {
+entity Rod (rods) {
     nombre String,
     edad Integer,
     numeroCredencial Long,

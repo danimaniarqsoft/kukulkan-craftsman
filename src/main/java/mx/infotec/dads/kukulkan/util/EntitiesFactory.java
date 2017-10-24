@@ -35,6 +35,7 @@ import mx.infotec.dads.kukulkan.assets.domain.State;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.TableTypes;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
+import mx.infotec.dads.kukulkan.engine.domain.core.PrimaryKey;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.domain.core.Rule;
 import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
@@ -46,8 +47,21 @@ import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
  */
 public class EntitiesFactory {
 
+    private static final String LONG_TYPE = "Long";
+    private static final String LONG_QUALIFIED_NAME = "java.lang.Long";
+    private static final String ID_DEFAULT_NAME = "id";
+
     private EntitiesFactory() {
 
+    }
+
+    public static PrimaryKey createDefaultPrimaryKey() {
+        PrimaryKey pk = PrimaryKey.createOrderedDataModel();
+        pk.setType(LONG_TYPE);
+        pk.setName(SchemaPropertiesParser.parseToPropertyName(ID_DEFAULT_NAME));
+        pk.setQualifiedLabel(LONG_QUALIFIED_NAME);
+        pk.setComposed(Boolean.FALSE);
+        return pk;
     }
 
     public static DataStore createDataStore() {
@@ -91,7 +105,7 @@ public class EntitiesFactory {
         testDataStore.setUsername("");
         return testDataStore;
     }
-    
+
     public static DataStore createAtlasDataStore(DataStoreType dst) {
         DataStore atlasDataStore = new DataStore();
         atlasDataStore.setDataStoreType(dst);
@@ -117,7 +131,7 @@ public class EntitiesFactory {
         mysqlDataStore.setUsername("");
         return mysqlDataStore;
     }
-    
+
     public static DataStore createGrammarDataStore(DataStoreType dst) {
         DataStore atlasDataStore = new DataStore();
         atlasDataStore.setDataStoreType(dst);
@@ -125,7 +139,7 @@ public class EntitiesFactory {
         atlasDataStore.setName(Constants.DATA_STORE_TYPE_GRAMMAR);
         atlasDataStore.setPassword("NO APLICA");
         atlasDataStore.setTableTypes(TableTypes.TABLE_VIEW);
-        atlasDataStore.setUrl("jdbc:mysql://localhost");
+        atlasDataStore.setUrl("NO APLICA");
         atlasDataStore.setSchema("NO APLICA");
         atlasDataStore.setUsername("NO APLICA");
         return atlasDataStore;
@@ -135,6 +149,13 @@ public class EntitiesFactory {
         DataStoreType dst = new DataStoreType();
         dst.setDescription("Data Store for JDBC connector");
         dst.setName("jdbc");
+        return dst;
+    }
+
+    public static DataStoreType createGrammarDataStoreType() {
+        DataStoreType dst = new DataStoreType();
+        dst.setDescription("Kukulan DataStore Type");
+        dst.setName(Constants.DATA_STORE_TYPE_GRAMMAR);
         return dst;
     }
 
