@@ -112,7 +112,7 @@ public class DataMapping {
 
     private static void createDataModelElement(List<String> tablesToProcess, List<Table> tables,
             List<DataModelElement> dmeList) {
-        for (Table table : tables) {
+        tables.forEach(table -> {
             if ((tablesToProcess.contains(table.getName()) || tablesToProcess.isEmpty())
                     && hasPrimaryKey(table.getPrimaryKeys())) {
                 DataModelElement dme = DataModelElement.createOrderedDataModel();
@@ -125,7 +125,8 @@ public class DataMapping {
                 extractProperties(dme, table);
                 dmeList.add(dme);
             }
-        }
+
+        });
     }
 
     public static void extractPrimaryKey(DataModelElement dme, String singularName, List<Column> columns) {

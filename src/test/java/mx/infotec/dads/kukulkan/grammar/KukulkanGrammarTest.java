@@ -56,7 +56,7 @@ public class KukulkanGrammarTest {
         kukulkanParser.DomainModelContext tree = parser.domainModel();
 
         KukulkanGrammarVisitor visitor = new KukulkanGrammarVisitor();
-        DataModel dataModel = visitor.visit(tree);
+//        DataModel dataModel = visitor.visit(tree);
         System.out.println("Interpretation finished");
     }
 
