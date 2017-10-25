@@ -31,41 +31,41 @@ package mx.infotec.dads.kukulkan.util;
  */
 public class NameConventionFormatter {
 
-	private NameConventionFormatter() {
-	}
+    private NameConventionFormatter() {
+    }
 
-	/**
-	 * Convert to angular file Naming Convention is used in the front-end data
-	 * generator. Convert in camel case into Hyphens format
-	 * 
-	 * @param from
-	 * @return String
-	 */
-	public static String camelCaseToHyphens(String from) {
-		return camelCaseTo(from, '-');
-	}
+    /**
+     * Convert to angular file Naming Convention is used in the front-end data
+     * generator. Convert in camel case into Hyphens format
+     * 
+     * @param from
+     * @return String
+     */
+    public static String camelCaseToHyphens(String from) {
+        return camelCaseTo(from, '-');
+    }
 
-	/**
-	 * Convert to angular file Naming Convention is used in the front-end data
-	 * generator. Convert in camel case into underScore format
-	 * 
-	 * @param from
-	 * @return String
-	 */
-	public static String camelCaseToUnderScore(String from) {
-		return camelCaseTo(from, '_');
-	}
-
-	private static String camelCaseTo(String from, char character) {
-		char[] wordArray = from.toCharArray();
-		StringBuilder sb = new StringBuilder();
-		for (char letter : wordArray) {
-			if (Character.isUpperCase(letter)) {
-				sb.append(character).append(Character.toLowerCase(letter));
-			} else {
-				sb.append(letter);
-			}
-		}
-		return sb.toString();
-	}
+    /**
+     * Convert to angular file Naming Convention is used in the front-end data
+     * generator. Convert in camel case into underScore format
+     * 
+     * @param from
+     * @return String
+     */
+    public static String camelCaseToUnderScore(String from) {
+        return camelCaseTo(from, '_');
+    }
+    
+    private static String camelCaseTo(String from, char character) {
+        char[] wordArray = from.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for (char letter : wordArray) {
+            if (Character.isUpperCase(letter)) {
+                sb.append(character).append(Character.toLowerCase(letter));
+            } else {
+                sb.append(letter);
+            }
+        }
+        return sb.toString();
+    }
 }

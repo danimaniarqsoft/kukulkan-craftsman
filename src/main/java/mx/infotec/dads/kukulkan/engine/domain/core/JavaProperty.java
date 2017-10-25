@@ -25,10 +25,11 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
 
 import java.util.Collection;
 
-import org.apache.metamodel.schema.Column;
 import org.apache.metamodel.schema.ColumnType;
 
-import mx.infotec.dads.kukulkan.util.DataMapping;
+import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
+import mx.infotec.dads.kukulkan.util.DataBaseMapping;
+import mx.infotec.dads.kukulkan.util.GrammarMapping;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -277,7 +278,7 @@ public class JavaProperty implements Property<JavaProperty> {
         }
 
         public JavaPropertyBuilder addType(ColumnType type) {
-            DataMapping.addType(javaProperty, type);
+            DataBaseMapping.addType(javaProperty, type);
             return this;
         }
 
@@ -303,6 +304,11 @@ public class JavaProperty implements Property<JavaProperty> {
 
         public JavaProperty build() {
             return this.javaProperty;
+        }
+
+        public JavaPropertyBuilder addType(FieldTypeContext type) {
+            GrammarMapping.addType(javaProperty, type);
+            return this;
         }
     }
 
