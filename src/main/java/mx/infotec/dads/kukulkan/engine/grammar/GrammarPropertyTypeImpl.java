@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.util;
+package mx.infotec.dads.kukulkan.engine.grammar;
 
 import org.apache.metamodel.schema.ColumnTypeImpl;
 import org.apache.metamodel.schema.SuperColumnType;

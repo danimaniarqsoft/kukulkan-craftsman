@@ -52,7 +52,7 @@ public class KukulkanGrammarVisitor extends kukulkanBaseVisitor<List<DataModelEl
             String propertyType = extractPropertyType(field.type);
             JavaProperty javaProperty = JavaProperty.builder()
                     .withName(propertyName)
-                    .withType(propertyType)
+                    .withType(GrammarMapping.getPropertyType(propertyType))
                     .withColumnName(propertyName)
                     .withColumnType(propertyType)
                     .withQualifiedName(getCannonicalName(propertyType))

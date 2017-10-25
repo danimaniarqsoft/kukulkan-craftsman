@@ -38,7 +38,7 @@ public class GrammarConstants {
     public static final String IMAGE_BLOB = "ImageBlob";
 
     /**
-     * Text Types
+     * Literal Types
      */
     public static final String TEXT_BLOB = "TextBlob";
     public static final String STRING = "String";

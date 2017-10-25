@@ -31,12 +31,11 @@ import java.util.List;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
-import mx.infotec.dads.kukulkan.engine.grammar.GrammarUtil;
-import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.BlobTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DateTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DomainModelContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
+import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
  * DataMapping utility class
@@ -45,7 +44,7 @@ import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
  *
  */
 public class GrammarMapping {
-    
+
     private GrammarMapping() {
 
     }
@@ -138,6 +137,42 @@ public class GrammarMapping {
         List<DataModelGroup> dataModelGroupList = new ArrayList<>();
         dataModelGroupList.add(createDefaultDataModelGroup(tree, visitor));
         return dataModelGroupList;
+    }
+
+    public static String getPropertyType(String type) {
+        if (GrammarConstants.ANY_BLOB.equals(type)) {
+            return "";
+        } else if (GrammarConstants.BIG_DECIMAL.equals(type)) {
+            return "";
+        } else if (GrammarConstants.BLOB.equals(type)) {
+            return "";
+        } else if (GrammarConstants.BOOLEAN.equals(type)) {
+            return "";
+        } else if (GrammarConstants.DATE.equals(type)) {
+            return "";
+        } else if (GrammarConstants.DOUBLE.equals(type)) {
+            return "";
+        } else if (GrammarConstants.FLOAT.equals(type)) {
+            return "";
+        } else if (GrammarConstants.IMAGE_BLOB.equals(type)) {
+            return "";
+        } else if (GrammarConstants.INSTANT.equals(type)) {
+            return "";
+        } else if (GrammarConstants.INTEGER.equals(type)) {
+            return "";
+        } else if (GrammarConstants.LOCAL_DATE.equals(type)) {
+            return "";
+        } else if (GrammarConstants.LONG.equals(type)) {
+            return "";
+        } else if (GrammarConstants.STRING.equals(type)) {
+            return "";
+        } else if (GrammarConstants.TEXT_BLOB.equals(type)) {
+            return "";
+        } else if (GrammarConstants.ZONED_DATETIME.equals(type)) {
+            return "";
+        } else {
+            throw new ApplicationException("Property not found");
+        }
     }
 
 }
