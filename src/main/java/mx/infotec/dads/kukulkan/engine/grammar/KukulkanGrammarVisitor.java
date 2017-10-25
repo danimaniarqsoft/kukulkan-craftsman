@@ -10,10 +10,10 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
 import mx.infotec.dads.kukulkan.grammar.kukulkanBaseVisitor;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
+import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityFieldContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.NumericTypesContext;
-import mx.infotec.dads.kukulkan.util.GrammarMapping;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 import mx.infotec.dads.kukulkan.util.SchemaPropertiesParser;
 
@@ -30,16 +30,20 @@ public class KukulkanGrammarVisitor extends kukulkanBaseVisitor<List<DataModelEl
         List<DataModelElement> dmeList = new ArrayList<>();
         ctx.entities.forEach(entity -> {
             DataModelElement dme = DataModelElement.createOrderedDataModel();
-            String singularName = InflectorProcessor.getInstance().singularize(entity.name.getText());
-            dme.setTableName(entity.name.getText().toUpperCase());
-            dme.setName(entity.name.getText());
-            dme.setCamelCaseFormat(SchemaPropertiesParser.parseToPropertyName(singularName));
-            dme.setCamelCasePluralFormat(InflectorProcessor.getInstance().pluralize(dme.getCamelCaseFormat()));
-            dme.setPrimaryKey(createDefaultPrimaryKey());
-            dmeList.add(dme);
+            processMetaData(dmeList, entity, dme);
             processProperties(dme, entity.fields);
         });
         return dmeList;
+    }
+
+    public void processMetaData(List<DataModelElement> dmeList, EntityContext entity, DataModelElement dme) {
+        String singularName = InflectorProcessor.getInstance().singularize(entity.name.getText());
+        dme.setTableName(entity.name.getText().toUpperCase());
+        dme.setName(entity.name.getText());
+        dme.setCamelCaseFormat(SchemaPropertiesParser.parseToPropertyName(singularName));
+        dme.setCamelCasePluralFormat(InflectorProcessor.getInstance().pluralize(dme.getCamelCaseFormat()));
+        dme.setPrimaryKey(createDefaultPrimaryKey());
+        dmeList.add(dme);
     }
 
     private static void processProperties(DataModelElement dme, List<EntityFieldContext> fields) {

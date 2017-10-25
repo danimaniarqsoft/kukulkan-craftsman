@@ -21,31 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.util;
+package mx.infotec.dads.kukulkan.engine.grammar;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.metamodel.schema.Column;
-import org.apache.metamodel.schema.ColumnType;
-import org.apache.metamodel.schema.Table;
-
-import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
-import mx.infotec.dads.kukulkan.engine.domain.core.PrimaryKey;
 import mx.infotec.dads.kukulkan.engine.grammar.GrammarUtil;
 import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
-import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.BlobTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DateTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DomainModelContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
-import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
  * DataMapping utility class
@@ -54,7 +45,7 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
  *
  */
 public class GrammarMapping {
-
+    
     private GrammarMapping() {
 
     }
@@ -131,6 +122,14 @@ public class GrammarMapping {
         }
     }
 
+    /**
+     * createSingleDataModelGroupList
+     * 
+     * @param visitor
+     * @param tablesToProcess
+     * @return
+     * @throws IOException
+     */
     public static List<DataModelGroup> createSingleDataModelGroupList(KukulkanGrammarVisitor visitor,
             List<String> tablesToProcess) throws IOException {
         String program = "src/test/resources/grammar/test." + "3k";

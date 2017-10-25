@@ -27,9 +27,9 @@ import java.util.Collection;
 
 import org.apache.metamodel.schema.ColumnType;
 
+import mx.infotec.dads.kukulkan.engine.grammar.GrammarMapping;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
 import mx.infotec.dads.kukulkan.util.DataBaseMapping;
-import mx.infotec.dads.kukulkan.util.GrammarMapping;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**

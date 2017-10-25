@@ -51,6 +51,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.domain.core.Rule;
 import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
 import mx.infotec.dads.kukulkan.engine.factories.LayerTaskFactory;
+import mx.infotec.dads.kukulkan.engine.grammar.GrammarMapping;
 import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
 import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
@@ -59,7 +60,6 @@ import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.util.DataStoreConstants;
 import mx.infotec.dads.kukulkan.util.FileUtil;
 import mx.infotec.dads.kukulkan.util.GenerationType;
-import mx.infotec.dads.kukulkan.util.GrammarMapping;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 
 /**

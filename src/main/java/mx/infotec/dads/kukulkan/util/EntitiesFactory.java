@@ -58,7 +58,7 @@ public class EntitiesFactory {
     public static PrimaryKey createDefaultPrimaryKey() {
         PrimaryKey pk = PrimaryKey.createOrderedDataModel();
         pk.setType(LONG_TYPE);
-        pk.setName(SchemaPropertiesParser.parseToPropertyName(ID_DEFAULT_NAME));
+        pk.setName(ID_DEFAULT_NAME);
         pk.setQualifiedLabel(LONG_QUALIFIED_NAME);
         pk.setComposed(Boolean.FALSE);
         return pk;
