@@ -50,7 +50,7 @@ import mx.infotec.dads.kukulkan.engine.factories.LayerTaskFactory;
 import mx.infotec.dads.kukulkan.engine.service.GenerationService;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.service.ProjectService;
-import mx.infotec.dads.kukulkan.util.DataMapping;
+import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 import mx.infotec.dads.kukulkan.util.FileUtil;
 import mx.infotec.dads.kukulkan.web.rest.util.HeaderUtil;
 import mx.infotec.dads.kukulkan.web.rest.util.PaginationUtil;
@@ -209,7 +209,7 @@ public class ProjectResource {
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataMapping
+        List<DataModelGroup> dmgList = DataBaseMapping
                 .createSingleDataModelGroupList(dataContextDb.getDefaultSchema().getTables(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
