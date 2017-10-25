@@ -23,13 +23,13 @@
  */
 package mx.infotec.dads.kukulkan.util;
 
-public class Constants {
+public class DataStoreConstants {
 
     public static final String DATA_STORE_TYPE_JDBC = "jdbc";
     public static final String DATA_STORE_TYPE_CSV="csv";
     public static final String DATA_STORE_TYPE_GRAMMAR="kukulkan-grammar";
 
-    private Constants() {
+    private DataStoreConstants() {
 
     }
 

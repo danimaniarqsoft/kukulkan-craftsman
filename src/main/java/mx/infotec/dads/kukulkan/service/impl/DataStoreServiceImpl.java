@@ -45,7 +45,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
-import mx.infotec.dads.kukulkan.util.Constants;
+import mx.infotec.dads.kukulkan.util.DataStoreConstants;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -124,7 +124,7 @@ public class DataStoreServiceImpl implements DataStoreService {
 
     @Override
     public DataContextContainer<?> createDataContext(DataStore dataStore) {
-        if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_JDBC)) {
+        if (dataStore.getDataStoreType().getName().equals(DataStoreConstants.DATA_STORE_TYPE_JDBC)) {
             DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
             properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
             properties.put(DATA_STORE_URL, dataStore.getUrl() + "/" + dataStore.getSchema());
@@ -133,13 +133,13 @@ public class DataStoreServiceImpl implements DataStoreService {
             properties.put(DATA_STORE_PASSWORD, dataStore.getPassword());
             return new DataContextContainer<DataContext>(DataContextType.RELATIONAL_DATA_BASE,
                     DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties));
-        } else if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_CSV)) {
+        } else if (dataStore.getDataStoreType().getName().equals(DataStoreConstants.DATA_STORE_TYPE_CSV)) {
             DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
             properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
             properties.put(DATA_STORE_URL, dataStore.getUrl());
             return new DataContextContainer<DataContext>(DataContextType.RELATIONAL_DATA_BASE,
                     DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties));
-        } else if (dataStore.getDataStoreType().getName().equals(Constants.DATA_STORE_TYPE_GRAMMAR)) {
+        } else if (dataStore.getDataStoreType().getName().equals(DataStoreConstants.DATA_STORE_TYPE_GRAMMAR)) {
             return new DataContextContainer<KukulkanGrammarVisitor>(DataContextType.KUKULKAN_GRAMMAR,
                     new KukulkanGrammarVisitor());
         } else {

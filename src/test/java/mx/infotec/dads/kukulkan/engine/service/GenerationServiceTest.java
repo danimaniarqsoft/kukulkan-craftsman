@@ -57,7 +57,7 @@ import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
-import mx.infotec.dads.kukulkan.util.DataMapping;
+import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 import mx.infotec.dads.kukulkan.util.FileUtil;
 import mx.infotec.dads.kukulkan.util.GenerationType;
 import mx.infotec.dads.kukulkan.util.H2FileDatabaseConfiguration;
@@ -138,7 +138,7 @@ public class GenerationServiceTest {
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataMapping
+        List<DataModelGroup> dmgList = DataBaseMapping
                 .createSingleDataModelGroupList(dataContextApache.getDefaultSchema().getTables(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext

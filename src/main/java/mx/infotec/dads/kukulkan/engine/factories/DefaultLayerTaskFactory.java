@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
-import mx.infotec.dads.kukulkan.util.DataMapping;
+import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -53,14 +53,14 @@ public class DefaultLayerTaskFactory implements LayerTaskFactory {
 
         case PRIMEFACES_SPRING_MYBATIS:
             Map<String, LayerTask> taskMapFSM = appContext.getBeansOfType(LayerTask.class);
-            return DataMapping.createLaterTaskList(taskMapFSM, ArchetypeType.PRIMEFACES_SPRING_MYBATIS);
+            return DataBaseMapping.createLaterTaskList(taskMapFSM, ArchetypeType.PRIMEFACES_SPRING_MYBATIS);
         case CONACYT:
             Map<String, LayerTask> taskMapCONACYT = appContext.getBeansOfType(LayerTask.class);
-            return DataMapping.createLaterTaskList(taskMapCONACYT, ArchetypeType.CONACYT);
+            return DataBaseMapping.createLaterTaskList(taskMapCONACYT, ArchetypeType.CONACYT);
         case REST_SPRING_JPA:
         case ANGULAR_SPRING:
             Map<String, LayerTask> taskMap = appContext.getBeansOfType(LayerTask.class);
-            return DataMapping.createLaterTaskList(taskMap, ArchetypeType.REST_SPRING_JPA);
+            return DataBaseMapping.createLaterTaskList(taskMap, ArchetypeType.REST_SPRING_JPA);
         default:
             throw new ApplicationException("Operation Not Supported" + archetype.toString());
         }

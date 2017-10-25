@@ -136,7 +136,7 @@ public class EntitiesFactory {
         DataStore atlasDataStore = new DataStore();
         atlasDataStore.setDataStoreType(dst);
         atlasDataStore.setDriverClass("NO APLICA");
-        atlasDataStore.setName(Constants.DATA_STORE_TYPE_GRAMMAR);
+        atlasDataStore.setName(DataStoreConstants.DATA_STORE_TYPE_GRAMMAR);
         atlasDataStore.setPassword("NO APLICA");
         atlasDataStore.setTableTypes(TableTypes.TABLE_VIEW);
         atlasDataStore.setUrl("NO APLICA");
@@ -155,7 +155,7 @@ public class EntitiesFactory {
     public static DataStoreType createGrammarDataStoreType() {
         DataStoreType dst = new DataStoreType();
         dst.setDescription("Kukulan DataStore Type");
-        dst.setName(Constants.DATA_STORE_TYPE_GRAMMAR);
+        dst.setName(DataStoreConstants.DATA_STORE_TYPE_GRAMMAR);
         return dst;
     }
 

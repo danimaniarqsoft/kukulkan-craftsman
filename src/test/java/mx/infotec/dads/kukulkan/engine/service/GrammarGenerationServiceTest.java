@@ -56,10 +56,10 @@ import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
-import mx.infotec.dads.kukulkan.util.Constants;
-import mx.infotec.dads.kukulkan.util.DataMapping;
+import mx.infotec.dads.kukulkan.util.DataStoreConstants;
 import mx.infotec.dads.kukulkan.util.FileUtil;
 import mx.infotec.dads.kukulkan.util.GenerationType;
+import mx.infotec.dads.kukulkan.util.GrammarMapping;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 
 /**
@@ -120,7 +120,7 @@ public class GrammarGenerationServiceTest {
         pConf.setGlobalGenerationType(GenerationType.SEQUENCE);
         // Create DataStore
         DataStore dsExample = new DataStore();
-        dsExample.setName(Constants.DATA_STORE_TYPE_GRAMMAR);
+        dsExample.setName(DataStoreConstants.DATA_STORE_TYPE_GRAMMAR);
         Example<DataStore> dataStoreFilter = Example.of(dsExample);
         List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
         DataStore dataStore = findAllDataStores.get(0);
@@ -136,7 +136,7 @@ public class GrammarGenerationServiceTest {
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(grammar, tablesToProcess);
+        List<DataModelGroup> dmgList = GrammarMapping.createSingleDataModelGroupList(grammar, tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);

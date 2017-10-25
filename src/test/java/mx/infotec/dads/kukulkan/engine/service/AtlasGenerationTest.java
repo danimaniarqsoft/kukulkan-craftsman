@@ -56,7 +56,7 @@ import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
-import mx.infotec.dads.kukulkan.util.DataMapping;
+import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 import mx.infotec.dads.kukulkan.util.FileUtil;
 import mx.infotec.dads.kukulkan.util.GenerationType;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
@@ -133,7 +133,7 @@ public class AtlasGenerationTest {
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataMapping.createSingleDataModelGroupList(
+        List<DataModelGroup> dmgList = DataBaseMapping.createSingleDataModelGroupList(
                 dataContextDb.getDefaultSchema().getTables(), tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext

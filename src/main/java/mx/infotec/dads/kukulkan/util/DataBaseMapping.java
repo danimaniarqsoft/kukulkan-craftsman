@@ -23,30 +23,21 @@
  */
 package mx.infotec.dads.kukulkan.util;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.antlr.v4.runtime.ANTLRFileStream;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.metamodel.schema.Column;
 import org.apache.metamodel.schema.ColumnType;
 import org.apache.metamodel.schema.Table;
 
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
 import mx.infotec.dads.kukulkan.engine.domain.core.PrimaryKey;
-import mx.infotec.dads.kukulkan.engine.grammar.GrammarUtil;
-import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
 import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
-import mx.infotec.dads.kukulkan.grammar.kukulkanLexer;
-import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
-import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DomainModelContext;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -55,9 +46,9 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
  * @author Daniel Cortes Pichardo
  *
  */
-public class DataMapping {
+public class DataBaseMapping {
 
-    private DataMapping() {
+    private DataBaseMapping() {
 
     }
 
@@ -79,37 +70,6 @@ public class DataMapping {
         return dmg;
     }
 
-    /**
-     * Create a DataModelGroup Class
-     * 
-     * @param dataContext
-     * @return DataModelGroup
-     */
-    public static DataModelGroup createDefaultDataModelGroup(DomainModelContext dmc, KukulkanGrammarVisitor visitor) {
-        DataModelGroup dmg = new DataModelGroup();
-        dmg.setName("");
-        dmg.setDescription("Default package");
-        dmg.setBriefDescription("Default package");
-        dmg.setDataModelElements(new ArrayList<>());
-        List<DataModelElement> dmeList = new ArrayList<>();
-        createDataModelElement(dmc, visitor, dmeList);
-        dmg.setDataModelElements(dmeList);
-        return dmg;
-    }
-
-    /**
-     * createDataModelElement is used for map the KukulkanGrammar to
-     * DataModelElement.
-     * 
-     * @param dmc
-     * @param visitor
-     * @param dmeList
-     */
-    private static void createDataModelElement(DomainModelContext dmc, KukulkanGrammarVisitor visitor,
-            List<DataModelElement> dmeList) {
-        dmeList.addAll(visitor.visit(dmc));
-    }
-
     private static void createDataModelElement(List<String> tablesToProcess, List<Table> tables,
             List<DataModelElement> dmeList) {
         tables.forEach(table -> {
@@ -125,7 +85,6 @@ public class DataMapping {
                 extractProperties(dme, table);
                 dmeList.add(dme);
             }
-
         });
     }
 
@@ -153,7 +112,7 @@ public class DataMapping {
         fillModelMetaData(dme, javaProperty);
     }
 
-    private static void fillModelMetaData(DataModelElement dme, JavaProperty javaProperty) {
+    public static void fillModelMetaData(DataModelElement dme, JavaProperty javaProperty) {
         if (!javaProperty.getConstraint().isNullable()) {
             dme.setHasNotNullElements(true);
             dme.setHasConstraints(true);
@@ -266,7 +225,7 @@ public class DataMapping {
         if (type.isBoolean()) {
             javaProperty.setBoolean(true);
         } else if (type.isTimeBased()) {
-            setKindOfType(javaProperty, type);
+            setKindOfDateType(javaProperty, type);
         } else if (type.isBinary()) {
             javaProperty.setBlob(true);
         } else if (type.isNumber()) {
@@ -277,7 +236,7 @@ public class DataMapping {
         }
     }
 
-    public static void setKindOfType(JavaProperty property, ColumnType type) {
+    public static void setKindOfDateType(JavaProperty property, ColumnType type) {
         property.setTime(true);
         if (type == ColumnType.TIMESTAMP) {
             property.setZoneDateTime(true);
@@ -314,15 +273,5 @@ public class DataMapping {
             }
         });
         return layerTaskList;
-    }
-
-    public static List<DataModelGroup> createSingleDataModelGroupList(KukulkanGrammarVisitor visitor,
-            List<String> tablesToProcess) throws IOException {
-        String program = "src/test/resources/grammar/test." + "3k";
-        System.out.println("Interpreting file " + program);
-        DomainModelContext tree = GrammarUtil.getDomainModelContext(program);
-        List<DataModelGroup> dataModelGroupList = new ArrayList<>();
-        dataModelGroupList.add(createDefaultDataModelGroup(tree, visitor));
-        return dataModelGroupList;
     }
 }
