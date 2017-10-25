@@ -23,21 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.grammar;
 
-import static org.apache.metamodel.schema.SuperColumnType.BINARY_TYPE;
-import static org.apache.metamodel.schema.SuperColumnType.BOOLEAN_TYPE;
-import static org.apache.metamodel.schema.SuperColumnType.LITERAL_TYPE;
-import static org.apache.metamodel.schema.SuperColumnType.NUMBER_TYPE;
-import static org.apache.metamodel.schema.SuperColumnType.TIME_TYPE;
-
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Blob;
-import java.time.LocalDate;
-import java.util.Date;
-
-import org.apache.metamodel.schema.ColumnType;
-import org.apache.metamodel.schema.ColumnTypeImpl;
-import org.apache.metamodel.util.HasName;
 
 /**
  * GrammarPropertyType
@@ -45,40 +31,28 @@ import org.apache.metamodel.util.HasName;
  * @author Daniel Cortes Pichardo
  *
  */
-public interface GrammarPropertyType extends HasName, Serializable {
+public interface GrammarPropertyType extends Serializable {
 
-    /*
-     * Literal
-     */
-    public static final ColumnType CHAR = new ColumnTypeImpl("TextBlob", LITERAL_TYPE);
-    public static final ColumnType VARCHAR = new ColumnTypeImpl("String", LITERAL_TYPE);
-    /*
-     * Numbers
-     */
-    public static final ColumnType TINYINT = new ColumnTypeImpl("Integer", NUMBER_TYPE, Integer.class);
-    public static final ColumnType SMALLINT = new ColumnTypeImpl("Long", NUMBER_TYPE, Long.class);
-    public static final ColumnType INTEGER = new ColumnTypeImpl("BigDecimal", NUMBER_TYPE, BigDecimal.class);
-    public static final ColumnType BIGINT = new ColumnTypeImpl("Float", NUMBER_TYPE, Float.class);
-    public static final ColumnType FLOAT = new ColumnTypeImpl("Double", NUMBER_TYPE, Double.class);
+    public String getGrammarName();
 
-    /*
-     * Time based
-     */
-    public static final ColumnType DATE = new ColumnTypeImpl("Date", TIME_TYPE, Date.class);
-    public static final ColumnType LOCAL_DATE = new ColumnTypeImpl("LocalDate", TIME_TYPE, LocalDate.class);
-    public static final ColumnType ZONED_DATETIME = new ColumnTypeImpl("ZonedDateTime", TIME_TYPE, LocalDate.class);
+    public String getJavaName();
 
-    /*
-     * Booleans
-     */
-    public static final ColumnType BOOLEAN = new ColumnTypeImpl("Boolean", BOOLEAN_TYPE);
+    public String getJavaQualifiedName();
 
-    /*
-     * Binary types
-     */
-    public static final ColumnType BLOB = new ColumnTypeImpl("Blob", BINARY_TYPE, Blob.class, true);
-    public static final ColumnType ANY_BLOB = new ColumnTypeImpl("AnyBlob", BINARY_TYPE, Blob.class, true);
-    public static final ColumnType IMAGE_BLOB = new ColumnTypeImpl("ImageBlob", BINARY_TYPE, Blob.class, true);
+    public Class<?> getJavaEquivalentClass();
 
+    public SuperColumnType getSuperType();
+
+    public boolean isBoolean();
+
+    public boolean isBinary();
+
+    public boolean isNumber();
+
+    public boolean isTimeBased();
+
+    public boolean isLiteral();
+
+    public boolean isLargeObject();
 
 }

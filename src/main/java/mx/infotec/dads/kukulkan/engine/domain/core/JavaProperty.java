@@ -24,10 +24,12 @@
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.apache.metamodel.schema.ColumnType;
 
 import mx.infotec.dads.kukulkan.engine.grammar.GrammarMapping;
+import mx.infotec.dads.kukulkan.engine.grammar.GrammarPropertyType;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
 import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
@@ -247,6 +249,13 @@ public class JavaProperty implements Property<JavaProperty> {
             return this;
         }
 
+        public JavaPropertyBuilder withType(Optional<GrammarPropertyType> optional) {
+            if (optional.isPresent()) {
+                this.javaProperty.setType(optional.get().getJavaName());
+            }
+            return null;
+        }
+
         public JavaPropertyBuilder withQualifiedName(String qualifiedName) {
             this.javaProperty.setQualifiedName(qualifiedName);
             return this;
@@ -310,6 +319,7 @@ public class JavaProperty implements Property<JavaProperty> {
             GrammarMapping.addType(javaProperty, type);
             return this;
         }
+
     }
 
     @Override

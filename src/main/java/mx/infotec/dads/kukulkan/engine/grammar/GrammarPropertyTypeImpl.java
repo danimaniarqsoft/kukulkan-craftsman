@@ -23,8 +23,6 @@
  */
 package mx.infotec.dads.kukulkan.engine.grammar;
 
-import org.apache.metamodel.schema.ColumnTypeImpl;
-import org.apache.metamodel.schema.SuperColumnType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,22 +36,23 @@ public class GrammarPropertyTypeImpl implements GrammarPropertyType {
 
     private static final long serialVersionUID = 1L;
 
-    public static final Logger logger = LoggerFactory.getLogger(ColumnTypeImpl.class);
+    public static final Logger logger = LoggerFactory.getLogger(GrammarPropertyTypeImpl.class);
 
     private final String _name;
+    private final String _javaName;
     private final SuperColumnType _superColumnType;
     private final Class<?> _javaType;
     private final boolean _largeObject;
 
-    public GrammarPropertyTypeImpl(String name, SuperColumnType superColumnType) {
-        this(name, superColumnType, null);
+    public GrammarPropertyTypeImpl(String name, String javaName, SuperColumnType superColumnType) {
+        this(name, javaName, superColumnType, null);
     }
 
-    public GrammarPropertyTypeImpl(String name, SuperColumnType superColumnType, Class<?> javaType) {
-        this(name, superColumnType, javaType, false);
+    public GrammarPropertyTypeImpl(String name, String javaName, SuperColumnType superColumnType, Class<?> javaType) {
+        this(name, javaName, superColumnType, javaType, false);
     }
 
-    public GrammarPropertyTypeImpl(String name, SuperColumnType superColumnType, Class<?> javaType,
+    public GrammarPropertyTypeImpl(String name, String javaName, SuperColumnType superColumnType, Class<?> javaType,
             boolean largeObject) {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
@@ -62,6 +61,7 @@ public class GrammarPropertyTypeImpl implements GrammarPropertyType {
             throw new IllegalArgumentException("SuperColumnType cannot be null");
         }
         _name = name;
+        _javaName = javaName;
         _superColumnType = superColumnType;
         if (javaType == null) {
             _javaType = superColumnType.getJavaEquivalentClass();
@@ -69,11 +69,6 @@ public class GrammarPropertyTypeImpl implements GrammarPropertyType {
             _javaType = javaType;
         }
         _largeObject = largeObject;
-    }
-
-    @Override
-    public String getName() {
-        return _name;
     }
 
     public boolean isBoolean() {
@@ -106,6 +101,21 @@ public class GrammarPropertyTypeImpl implements GrammarPropertyType {
 
     public SuperColumnType getSuperType() {
         return _superColumnType;
+    }
+
+    @Override
+    public String getGrammarName() {
+        return _name;
+    }
+
+    @Override
+    public String getJavaName() {
+        return _javaName;
+    }
+
+    @Override
+    public String getJavaQualifiedName() {
+        return _javaType.getCanonicalName();
     }
 
 }

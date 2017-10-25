@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
@@ -35,7 +36,6 @@ import mx.infotec.dads.kukulkan.grammar.kukulkanParser.BlobTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DateTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DomainModelContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
-import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
  * DataMapping utility class
@@ -139,40 +139,7 @@ public class GrammarMapping {
         return dataModelGroupList;
     }
 
-    public static String getPropertyType(String type) {
-        if (GrammarConstants.ANY_BLOB.equals(type)) {
-            return "";
-        } else if (GrammarConstants.BIG_DECIMAL.equals(type)) {
-            return "";
-        } else if (GrammarConstants.BLOB.equals(type)) {
-            return "";
-        } else if (GrammarConstants.BOOLEAN.equals(type)) {
-            return "";
-        } else if (GrammarConstants.DATE.equals(type)) {
-            return "";
-        } else if (GrammarConstants.DOUBLE.equals(type)) {
-            return "";
-        } else if (GrammarConstants.FLOAT.equals(type)) {
-            return "";
-        } else if (GrammarConstants.IMAGE_BLOB.equals(type)) {
-            return "";
-        } else if (GrammarConstants.INSTANT.equals(type)) {
-            return "";
-        } else if (GrammarConstants.INTEGER.equals(type)) {
-            return "";
-        } else if (GrammarConstants.LOCAL_DATE.equals(type)) {
-            return "";
-        } else if (GrammarConstants.LONG.equals(type)) {
-            return "";
-        } else if (GrammarConstants.STRING.equals(type)) {
-            return "";
-        } else if (GrammarConstants.TEXT_BLOB.equals(type)) {
-            return "";
-        } else if (GrammarConstants.ZONED_DATETIME.equals(type)) {
-            return "";
-        } else {
-            throw new ApplicationException("Property not found");
-        }
+    public static Optional<GrammarPropertyType> getPropertyType(String type) {
+        return Optional.of(GrammarPropertyMapping.getPropertyType(type));
     }
-
 }

@@ -49,13 +49,13 @@ public class KukulkanGrammarVisitor extends kukulkanBaseVisitor<List<DataModelEl
     private static void processProperties(DataModelElement dme, List<EntityFieldContext> fields) {
         fields.forEach(field -> {
             String propertyName = SchemaPropertiesParser.parseToPropertyName(field.id.getText());
-            String propertyType = extractPropertyType(field.type);
+            GrammarPropertyType grammarPropertyType = GrammarPropertyMapping.getPropertyType(field.type);
             JavaProperty javaProperty = JavaProperty.builder()
                     .withName(propertyName)
-                    .withType(GrammarMapping.getPropertyType(propertyType))
+                    .withType(grammarPropertyType.getJavaName())
                     .withColumnName(propertyName)
-                    .withColumnType(propertyType)
-                    .withQualifiedName(getCannonicalName(propertyType))
+                    .withColumnType(grammarPropertyType.getGrammarName())
+                    .withQualifiedName(grammarPropertyType.getJavaQualifiedName())
                     .isNullable(true)
                     .isPrimaryKey(false)
                     .isIndexed(false)
@@ -66,30 +66,5 @@ public class KukulkanGrammarVisitor extends kukulkanBaseVisitor<List<DataModelEl
             fillModelMetaData(dme, javaProperty);
         });
 
-    }
-
-    private static String getCannonicalName(String propertyType) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    private static String extractPropertyType(FieldTypeContext type) {
-        if (type.stringFieldType() != null) {
-            return type.stringFieldType().name.getText();
-        } else if (type.numericFieldType() != null) {
-            return getNumericType(type.numericFieldType().numericTypes());
-        } else if (type.booleanFieldType() != null) {
-            return type.booleanFieldType().name.getText();
-        } else if (type.dateFieldType() != null) {
-            return type.dateFieldType().type.getText();
-        } else if (type.blobFieldType() != null) {
-            return type.blobFieldType().name.getText();
-        } else {
-        }
-        return null;
-    }
-
-    private static String getNumericType(NumericTypesContext numericTypes) {
-        return null;
     }
 }
