@@ -32,13 +32,13 @@ import java.util.Collection;
  * @author Daniel Cortes Pichardo
  *
  */
-public class DataModelGroup {
+public class DomainModelGroup {
 
     protected String name;
     protected String briefDescription;
     protected String description;
 
-    protected Collection<DataModelElement> dataModelElements;
+    protected Collection<DomainModelElement> domainModelElements;
 
     public String getName() {
         return name;
@@ -64,12 +64,12 @@ public class DataModelGroup {
         this.description = description;
     }
 
-    public Collection<DataModelElement> getDataModelElements() {
-        return dataModelElements;
+    public Collection<DomainModelElement> getDomainModelElements() {
+        return domainModelElements;
     }
 
-    public void setDataModelElements(Collection<DataModelElement> dataModelElements) {
-        this.dataModelElements = dataModelElements;
+    public void setDomainModelElements(Collection<DomainModelElement> dataModelElements) {
+        this.domainModelElements = dataModelElements;
     }
 
 }

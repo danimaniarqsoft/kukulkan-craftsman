@@ -29,8 +29,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.BlobTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DateTypesContext;
@@ -56,15 +56,15 @@ public class GrammarMapping {
      * @param dataContext
      * @return DataModelGroup
      */
-    public static DataModelGroup createDefaultDataModelGroup(DomainModelContext dmc, KukulkanSemanticAnalyzer visitor) {
-        DataModelGroup dmg = new DataModelGroup();
+    public static DomainModelGroup createDefaultDataModelGroup(DomainModelContext dmc, KukulkanSemanticAnalyzer visitor) {
+        DomainModelGroup dmg = new DomainModelGroup();
         dmg.setName("");
         dmg.setDescription("Default package");
         dmg.setBriefDescription("Default package");
-        dmg.setDataModelElements(new ArrayList<>());
-        List<DataModelElement> dmeList = new ArrayList<>();
+        dmg.setDomainModelElements(new ArrayList<>());
+        List<DomainModelElement> dmeList = new ArrayList<>();
         createDataModelElement(dmc, visitor, dmeList);
-        dmg.setDataModelElements(dmeList);
+        dmg.setDomainModelElements(dmeList);
         return dmg;
     }
 
@@ -77,7 +77,7 @@ public class GrammarMapping {
      * @param dmeList
      */
     private static void createDataModelElement(DomainModelContext dmc, KukulkanSemanticAnalyzer visitor,
-            List<DataModelElement> dmeList) {
+            List<DomainModelElement> dmeList) {
         dmeList.addAll(visitor.visit(dmc));
     }
 
@@ -141,12 +141,12 @@ public class GrammarMapping {
      * @return
      * @throws IOException
      */
-    public static List<DataModelGroup> createSingleDataModelGroupList(KukulkanSemanticAnalyzer visitor,
+    public static List<DomainModelGroup> createSingleDataModelGroupList(KukulkanSemanticAnalyzer visitor,
             List<String> tablesToProcess) throws IOException {
         String program = "src/test/resources/grammar/test." + "3k";
         System.out.println("Interpreting file " + program);
         DomainModelContext tree = GrammarUtil.getDomainModelContext(program);
-        List<DataModelGroup> dataModelGroupList = new ArrayList<>();
+        List<DomainModelGroup> dataModelGroupList = new ArrayList<>();
         dataModelGroupList.add(createDefaultDataModelGroup(tree, visitor));
         return dataModelGroupList;
     }

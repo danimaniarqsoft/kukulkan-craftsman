@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
@@ -55,11 +55,11 @@ public class DaoLayerTask extends ConacytLayerTaskVisitor {
     private static final Logger LOGGER = LoggerFactory.getLogger(DaoLayerTask.class);
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
+    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> model, String dmgName) {
         LOGGER.debug("doForEachDataModelElement");
         String basePackage = pConf.getPackaging() + dmgName;
-        for (DataModelElement dmElement : dmElementCollection) {
+        for (DomainModelElement dmElement : dmElementCollection) {
             model.put("package", formatToPackageStatement(basePackage, pConf.getConacytDaoLayerName()));
             model.put("packageImpl", formatToPackageStatement(basePackage, pConf.getConacytDaoLayerName(), "impl"));
             model.put("name", dmElement.getName());

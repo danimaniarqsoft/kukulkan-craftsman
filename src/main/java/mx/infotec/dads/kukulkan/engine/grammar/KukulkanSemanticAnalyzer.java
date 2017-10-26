@@ -5,7 +5,7 @@ import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDefaultPrimary
 import java.util.ArrayList;
 import java.util.List;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
 import mx.infotec.dads.kukulkan.grammar.kukulkanBaseVisitor;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
@@ -21,20 +21,20 @@ import mx.infotec.dads.kukulkan.util.SchemaPropertiesParser;
  * @author Daniel Cortes Pichardo
  *
  */
-public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DataModelElement>> {
+public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DomainModelElement>> {
 
     @Override
-    public List<DataModelElement> visitDomainModel(kukulkanParser.DomainModelContext ctx) {
-        List<DataModelElement> dmeList = new ArrayList<>();
+    public List<DomainModelElement> visitDomainModel(kukulkanParser.DomainModelContext ctx) {
+        List<DomainModelElement> dmeList = new ArrayList<>();
         ctx.entities.forEach(entity -> {
-            DataModelElement dme = DataModelElement.createOrderedDataModel();
+            DomainModelElement dme = DomainModelElement.createOrderedDataModel();
             processMetaData(dmeList, entity, dme);
             processProperties(dme, entity.fields);
         });
         return dmeList;
     }
 
-    public void processMetaData(List<DataModelElement> dmeList, EntityContext entity, DataModelElement dme) {
+    public void processMetaData(List<DomainModelElement> dmeList, EntityContext entity, DomainModelElement dme) {
         String singularName = InflectorProcessor.getInstance().singularize(entity.name.getText());
         dme.setTableName(entity.name.getText().toUpperCase());
         dme.setName(entity.name.getText());
@@ -44,7 +44,7 @@ public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DataModel
         dmeList.add(dme);
     }
 
-    private static void processProperties(DataModelElement dme, List<EntityFieldContext> fields) {
+    private static void processProperties(DomainModelElement dme, List<EntityFieldContext> fields) {
         fields.forEach(field -> {
             String propertyName = field.id.getText();
             GrammarPropertyType grammarPropertyType = GrammarPropertyMapping.getPropertyType(field.type);

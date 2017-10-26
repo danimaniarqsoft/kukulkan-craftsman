@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
@@ -54,11 +54,11 @@ public class ModelLayerTask extends ConacytLayerTaskVisitor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ModelLayerTask.class);
 
 	@Override
-	public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
+	public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
 			Map<String, Object> model, String dmgName) {
 		LOGGER.debug("doForEachDataModelElement method {}", dmgName);
 		String basePackage = pConf.getPackaging() + dmgName;
-		for (DataModelElement dmElement : dmElementCollection) {
+		for (DomainModelElement dmElement : dmElementCollection) {
 			model.put("id", dmElement.getPrimaryKey().getType());
 			model.put("tableName", dmElement.getTableName());
 			model.put("className", dmElement.getName());
@@ -78,14 +78,14 @@ public class ModelLayerTask extends ConacytLayerTaskVisitor {
 	}
 
 	private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
-			DataModelElement dmElement) {
+			DomainModelElement dmElement) {
 		templateService.fillModel(dmElement, pConf.getId(), "common/model.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
 				basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
 						+ dmElement.getName() + ".java");
 	}
 
 	private void fillPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-			String basePackage, DataModelElement dmElement) {
+			String basePackage, DomainModelElement dmElement) {
 		if (dmElement.getPrimaryKey().isComposed()) {
 			templateService.fillModel(dmElement, pConf.getId(), "common/primaryKey.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
 					basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
@@ -94,7 +94,7 @@ public class ModelLayerTask extends ConacytLayerTaskVisitor {
 	}
 
 	private static void importPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String basePackage,
-			DataModelElement dmElement) {
+			DomainModelElement dmElement) {
 		if (dmElement.getPrimaryKey().isComposed()) {
 			model.put("importPrimaryKey", formatToImportStatement(basePackage, pConf.getDomainLayerName(),
 					dmElement.getPrimaryKey().getType()));

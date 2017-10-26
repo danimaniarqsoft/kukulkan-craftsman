@@ -43,8 +43,8 @@ import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaDataModelContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
@@ -126,7 +126,7 @@ public class GrammarGenerationServiceTest {
         DataStore dataStore = findAllDataStores.get(0);
         System.out.println(dataStore.getDataStoreType().getName());
         // Create DataModel
-        DataModel dataModel = new JavaDataModelContext();
+        DomainModel dataModel = new JavaDataModelContext();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
         KukulkanSemanticAnalyzer semanticAnalyzer = null;
         if (dataContext.getDataContextType() == DataContextType.KUKULKAN_GRAMMAR) {
@@ -136,8 +136,8 @@ public class GrammarGenerationServiceTest {
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = GrammarMapping.createSingleDataModelGroupList(semanticAnalyzer, tablesToProcess);
-        dataModel.setDataModelGroup(dmgList);
+        List<DomainModelGroup> dmgList = GrammarMapping.createSingleDataModelGroupList(semanticAnalyzer, tablesToProcess);
+        dataModel.setDomainModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
         // Process Activities

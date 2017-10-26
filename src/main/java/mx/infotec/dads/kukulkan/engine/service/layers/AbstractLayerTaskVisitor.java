@@ -29,8 +29,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 
@@ -45,7 +45,7 @@ public abstract class AbstractLayerTaskVisitor implements LayerTask {
     @Override
     public void doTask(GeneratorContext context) {
         Map<String, Object> model = createGeneralDescription(context);
-        doForEachDataModelGroup(context.getProjectConfiguration(), context.getDataModel().getDataModelGroup(), model);
+        doForEachDataModelGroup(context.getProjectConfiguration(), context.getDataModel().getDomainModelGroup(), model);
     }
 
     private Map<String, Object> createGeneralDescription(GeneratorContext context) {
@@ -55,18 +55,18 @@ public abstract class AbstractLayerTaskVisitor implements LayerTask {
         return model;
     }
 
-    public void doForEachDataModelGroup(ProjectConfiguration pConf, Collection<DataModelGroup> dmGroup,
+    public void doForEachDataModelGroup(ProjectConfiguration pConf, Collection<DomainModelGroup> dmGroup,
             Map<String, Object> model) {
-        for (DataModelGroup dataModelGroup : dmGroup) {
-            doForEachDataModelElement(pConf, dataModelGroup.getDataModelElements(), model, dataModelGroup.getName());
+        for (DomainModelGroup dataModelGroup : dmGroup) {
+            doForEachDataModelElement(pConf, dataModelGroup.getDomainModelElements(), model, dataModelGroup.getName());
         }
     }
 
     public abstract void doForEachDataModelElement(ProjectConfiguration pConf,
-            Collection<DataModelElement> dmElementCollection, Map<String, Object> model, String dmgName);
+            Collection<DomainModelElement> dmElementCollection, Map<String, Object> model, String dmgName);
 
     public void addCommonDataModelElements(ProjectConfiguration pConf, Map<String, Object> model, String basePackage,
-            DataModelElement dmElement) {
+            DomainModelElement dmElement) {
         model.put("importModel", formatToImportStatement(basePackage, pConf.getDomainLayerName(), dmElement.getName()));
         model.put("entityCamelCase", dmElement.getCamelCaseFormat());
         model.put("entity", dmElement.getName());

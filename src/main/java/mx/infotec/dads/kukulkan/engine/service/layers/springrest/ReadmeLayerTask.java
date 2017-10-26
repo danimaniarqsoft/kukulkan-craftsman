@@ -32,8 +32,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
@@ -56,17 +56,17 @@ public class ReadmeLayerTask extends SpringRestLayerTaskVisitor {
     @Override
     public void doTask(GeneratorContext context) {
         Map<String, Object> model = new HashMap<>();
-        model.put("dataModelGroup", context.getDataModel().getDataModelGroup());
+        model.put("dataModelGroup", context.getDataModel().getDomainModelGroup());
         LOGGER.info("Creating new data........");
         fillReadme(context.getProjectConfiguration(), model, context.getDataModel());
     }
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
+    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> model, String dmgName) {
     }
 
-    private void fillReadme(ProjectConfiguration pConf, Map<String, Object> model, DataModel dataModel) {
+    private void fillReadme(ProjectConfiguration pConf, Map<String, Object> model, DomainModel dataModel) {
         templateService.fillModel(dataModel, pConf.getId(), "common/readme.ftl", model, BasePathEnum.INFO,
                 "/README.txt");
     }

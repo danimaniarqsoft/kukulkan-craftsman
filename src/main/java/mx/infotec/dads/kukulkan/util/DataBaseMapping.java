@@ -33,8 +33,8 @@ import org.apache.metamodel.schema.ColumnType;
 import org.apache.metamodel.schema.Table;
 
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
 import mx.infotec.dads.kukulkan.engine.domain.core.PrimaryKey;
 import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
@@ -58,24 +58,24 @@ public class DataBaseMapping {
      * @param dataContext
      * @return DataModelGroup
      */
-    public static DataModelGroup createDefaultDataModelGroup(List<Table> tables, List<String> excludedTables) {
-        DataModelGroup dmg = new DataModelGroup();
+    public static DomainModelGroup createDefaultDataModelGroup(List<Table> tables, List<String> excludedTables) {
+        DomainModelGroup dmg = new DomainModelGroup();
         dmg.setName("");
         dmg.setDescription("Default package");
         dmg.setBriefDescription("Default package");
-        dmg.setDataModelElements(new ArrayList<>());
-        List<DataModelElement> dmeList = new ArrayList<>();
+        dmg.setDomainModelElements(new ArrayList<>());
+        List<DomainModelElement> dmeList = new ArrayList<>();
         createDataModelElement(excludedTables, tables, dmeList);
-        dmg.setDataModelElements(dmeList);
+        dmg.setDomainModelElements(dmeList);
         return dmg;
     }
 
     private static void createDataModelElement(List<String> tablesToProcess, List<Table> tables,
-            List<DataModelElement> dmeList) {
+            List<DomainModelElement> dmeList) {
         tables.forEach(table -> {
             if ((tablesToProcess.contains(table.getName()) || tablesToProcess.isEmpty())
                     && hasPrimaryKey(table.getPrimaryKeys())) {
-                DataModelElement dme = DataModelElement.createOrderedDataModel();
+                DomainModelElement dme = DomainModelElement.createOrderedDataModel();
                 String singularName = InflectorProcessor.getInstance().singularize(table.getName());
                 dme.setTableName(table.getName());
                 dme.setName(SchemaPropertiesParser.parseToClassName(singularName));
@@ -88,19 +88,19 @@ public class DataBaseMapping {
         });
     }
 
-    public static void extractPrimaryKey(DataModelElement dme, String singularName, List<Column> columns) {
+    public static void extractPrimaryKey(DomainModelElement dme, String singularName, List<Column> columns) {
         dme.setPrimaryKey(mapPrimaryKeyElements(singularName, columns));
         if (!dme.getPrimaryKey().isComposed()) {
             dme.getImports().add(dme.getPrimaryKey().getQualifiedLabel());
         }
     }
 
-    public static void extractProperties(DataModelElement dme, Table table) {
+    public static void extractProperties(DomainModelElement dme, Table table) {
         table.getColumns().stream().filter(column -> !column.isPrimaryKey())
                 .forEach(column -> processNotPrimaryProperties(dme, column));
     }
 
-    private static void processNotPrimaryProperties(DataModelElement dme, Column column) {
+    private static void processNotPrimaryProperties(DomainModelElement dme, Column column) {
         String propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
         String propertyType = extractPropertyType(column);
         JavaProperty javaProperty = JavaProperty.builder()
@@ -119,7 +119,7 @@ public class DataBaseMapping {
         fillModelMetaData(dme, javaProperty);
     }
 
-    public static void fillModelMetaData(DataModelElement dme, JavaProperty javaProperty) {
+    public static void fillModelMetaData(DomainModelElement dme, JavaProperty javaProperty) {
         if (!javaProperty.getConstraint().isNullable()) {
             dme.setHasNotNullElements(true);
             dme.setHasConstraints(true);
@@ -268,8 +268,8 @@ public class DataBaseMapping {
      * @param dataContext
      * @return
      */
-    public static List<DataModelGroup> createSingleDataModelGroupList(List<Table> tables, List<String> excludedTables) {
-        List<DataModelGroup> dataModelGroupList = new ArrayList<>();
+    public static List<DomainModelGroup> createSingleDataModelGroupList(List<Table> tables, List<String> excludedTables) {
+        List<DomainModelGroup> dataModelGroupList = new ArrayList<>();
         dataModelGroupList.add(createDefaultDataModelGroup(tables, excludedTables));
         return dataModelGroupList;
     }

@@ -27,10 +27,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.metamodel.DataContext;
-
-import mx.infotec.dads.kukulkan.domain.DataStore;
-
 /**
  * The DataModelContext class is an abstraction of the DataModel of the
  * application and it is agnostic technology model.
@@ -38,20 +34,20 @@ import mx.infotec.dads.kukulkan.domain.DataStore;
  * @author Daniel Cortes Pichardo
  *
  */
-public abstract class DataModel {
-    
-    protected Collection<DataModelGroup> dataModelGroup;
+public abstract class DomainModel {
+
+    protected Collection<DomainModelGroup> domainModelGroup;
     protected List<GeneratedElement> generatedElements = new ArrayList<>();
 
-    public DataModel() {
+    public DomainModel() {
     }
 
-    public Collection<DataModelGroup> getDataModelGroup() {
-        return dataModelGroup;
+    public Collection<DomainModelGroup> getDomainModelGroup() {
+        return domainModelGroup;
     }
 
-    public void setDataModelGroup(Collection<DataModelGroup> dataModelGroup) {
-        this.dataModelGroup = dataModelGroup;
+    public void setDomainModelGroup(Collection<DomainModelGroup> dataModelGroup) {
+        this.domainModelGroup = dataModelGroup;
     }
 
     public List<GeneratedElement> getGeneratedElements() {

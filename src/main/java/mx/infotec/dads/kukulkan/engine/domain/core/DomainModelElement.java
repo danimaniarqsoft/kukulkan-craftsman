@@ -34,7 +34,7 @@ import java.util.TreeSet;
  * @author Daniel Cortes Pichardo
  *
  */
-public class DataModelElement {
+public class DomainModelElement {
 
     /**
      * id of the dataModelElement, it is the primary key
@@ -145,7 +145,7 @@ public class DataModelElement {
         this.hasZoneDateTime = hasZoneDateTime;
     }
 
-    private DataModelElement() {
+    private DomainModelElement() {
 
     }
 
@@ -209,8 +209,8 @@ public class DataModelElement {
         properties.add(propertyHolder);
     }
 
-    public static DataModelElement createOrderedDataModel() {
-        DataModelElement dme = new DataModelElement();
+    public static DomainModelElement createOrderedDataModel() {
+        DomainModelElement dme = new DomainModelElement();
         dme.setImports(new TreeSet<>());
         dme.setProperties(new TreeSet<>());
         return dme;

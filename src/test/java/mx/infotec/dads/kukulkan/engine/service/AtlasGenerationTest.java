@@ -44,8 +44,8 @@ import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaDataModelContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
@@ -123,7 +123,7 @@ public class AtlasGenerationTest {
         List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
         DataStore dataStore = findAllDataStores.get(0);
         // Create DataModel
-        DataModel dataModel = new JavaDataModelContext();
+        DomainModel dataModel = new JavaDataModelContext();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
         DataContext dataContextDb = null;
         if(dataContext.getDataContextType()==DataContextType.RELATIONAL_DATA_BASE){
@@ -133,9 +133,9 @@ public class AtlasGenerationTest {
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataBaseMapping.createSingleDataModelGroupList(
+        List<DomainModelGroup> dmgList = DataBaseMapping.createSingleDataModelGroupList(
                 dataContextDb.getDefaultSchema().getTables(), tablesToProcess);
-        dataModel.setDataModelGroup(dmgList);
+        dataModel.setDomainModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
         // Process Activities

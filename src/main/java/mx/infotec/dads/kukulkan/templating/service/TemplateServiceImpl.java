@@ -37,8 +37,8 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.FileUtil;
@@ -64,7 +64,7 @@ public class TemplateServiceImpl implements TemplateService {
     private KukulkanConfigurationProperties prop;
 
     @Override
-    public void fillModel(DataModelElement dme, String proyectoId, String templateName, Object model,
+    public void fillModel(DomainModelElement dme, String proyectoId, String templateName, Object model,
             BasePathEnum basePath, String filePath) {
         Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
         if (templateOptional.isPresent()) {
@@ -74,7 +74,7 @@ public class TemplateServiceImpl implements TemplateService {
     }
     
     @Override
-    public void fillModel(DataModel dm, String proyectoId, String templateName, Object model,
+    public void fillModel(DomainModel dm, String proyectoId, String templateName, Object model,
             BasePathEnum basePath, String filePath) {
         Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
         if (templateOptional.isPresent()) {

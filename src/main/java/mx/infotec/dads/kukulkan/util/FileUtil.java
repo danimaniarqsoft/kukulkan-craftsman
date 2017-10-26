@@ -137,8 +137,8 @@ public class FileUtil {
     }
 
     public static void saveDataModelElements(GeneratorContext genCtx) {
-        genCtx.getDataModel().getDataModelGroup()
-                .forEach(dmg -> dmg.getDataModelElements().forEach(dme -> dme.getGeneratedElements().forEach(ge -> {
+        genCtx.getDataModel().getDomainModelGroup()
+                .forEach(dmg -> dmg.getDomainModelElements().forEach(dme -> dme.getGeneratedElements().forEach(ge -> {
                     FileUtil.saveToFile(ge);
                 })));
     }

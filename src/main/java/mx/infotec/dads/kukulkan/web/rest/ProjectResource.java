@@ -40,8 +40,8 @@ import mx.infotec.dads.kukulkan.domain.Project;
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModel;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelGroup;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaDataModelContext;
@@ -195,7 +195,7 @@ public class ProjectResource {
     public ResponseEntity<Project> generateProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to get Project : {}", project.getId());
         ProjectConfiguration pConf = ProjectMapper.toProjectConfiguration(project);
-        DataModel dataModel = new JavaDataModelContext();
+        DomainModel dataModel = new JavaDataModelContext();
         DataStoreType dst = new DataStoreType();
         dst.setName("jdbc");
         project.getDataStore().setDataStoreType(dst);
@@ -209,9 +209,9 @@ public class ProjectResource {
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = DataBaseMapping
+        List<DomainModelGroup> dmgList = DataBaseMapping
                 .createSingleDataModelGroupList(dataContextDb.getDefaultSchema().getTables(), tablesToProcess);
-        dataModel.setDataModelGroup(dmgList);
+        dataModel.setDomainModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
         // Process Activities

@@ -29,6 +29,6 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
  * @author Daniel Cortes Pichardo
  *
  */
-public class JavaDataModelContext extends DataModel {
+public class JavaDataModelContext extends DomainModel {
 
 }
