@@ -103,10 +103,17 @@ public class DataBaseMapping {
     private static void processNotPrimaryProperties(DataModelElement dme, Column column) {
         String propertyName = SchemaPropertiesParser.parseToPropertyName(column.getName());
         String propertyType = extractPropertyType(column);
-        JavaProperty javaProperty = JavaProperty.builder().withName(propertyName).withType(propertyType)
-                .withColumnName(column.getName()).withColumnType(column.getNativeType())
-                .withQualifiedName(extractQualifiedType(column)).isNullable(column.isNullable()).isPrimaryKey(false)
-                .isIndexed(column.isIndexed()).addType(column.getType()).build();
+        JavaProperty javaProperty = JavaProperty.builder()
+                .withName(propertyName)
+                .withType(propertyType)
+                .withColumnName(column.getName())
+                .withColumnType(column.getNativeType())
+                .withQualifiedName(extractQualifiedType(column))
+                .isNullable(column.isNullable())
+                .isPrimaryKey(false)
+                .isIndexed(column.isIndexed())
+                .addType(column.getType())
+                .build();
         dme.addProperty(javaProperty);
         addImports(dme.getImports(), column.getType());
         fillModelMetaData(dme, javaProperty);

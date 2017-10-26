@@ -291,6 +291,11 @@ public class JavaProperty implements Property<JavaProperty> {
             return this;
         }
 
+        public JavaPropertyBuilder addType(FieldTypeContext type) {
+            GrammarMapping.addType(javaProperty, type);
+            return this;
+        }
+        
         public JavaPropertyBuilder isBigDecimal(boolean bigDecimal) {
             this.javaProperty.setBigDecimal(bigDecimal);
             return this;
@@ -315,10 +320,6 @@ public class JavaProperty implements Property<JavaProperty> {
             return this.javaProperty;
         }
 
-        public JavaPropertyBuilder addType(FieldTypeContext type) {
-            GrammarMapping.addType(javaProperty, type);
-            return this;
-        }
 
     }
 

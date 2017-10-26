@@ -1,6 +1,5 @@
 package mx.infotec.dads.kukulkan.engine.grammar;
 
-import static mx.infotec.dads.kukulkan.util.DataBaseMapping.fillModelMetaData;
 import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDefaultPrimaryKey;
 
 import java.util.ArrayList;
@@ -12,8 +11,6 @@ import mx.infotec.dads.kukulkan.grammar.kukulkanBaseVisitor;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityFieldContext;
-import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
-import mx.infotec.dads.kukulkan.grammar.kukulkanParser.NumericTypesContext;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 import mx.infotec.dads.kukulkan.util.SchemaPropertiesParser;
 
@@ -23,7 +20,7 @@ import mx.infotec.dads.kukulkan.util.SchemaPropertiesParser;
  * @author Daniel Cortes Pichardo
  *
  */
-public class KukulkanGrammarVisitor extends kukulkanBaseVisitor<List<DataModelElement>> {
+public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DataModelElement>> {
 
     @Override
     public List<DataModelElement> visitDomainModel(kukulkanParser.DomainModelContext ctx) {
@@ -63,8 +60,14 @@ public class KukulkanGrammarVisitor extends kukulkanBaseVisitor<List<DataModelEl
                     .build();
             dme.addProperty(javaProperty);
             GrammarMapping.addImports(dme.getImports(), javaProperty);
-            fillModelMetaData(dme, javaProperty);
+//            fillModelMetaData(dme, javaProperty);
+            fillModelMetaData(dme,javaProperty);
         });
+
+    }
+
+    private static void fillModelMetaData(DataModelElement dme, JavaProperty javaProperty) {
+        // TODO Auto-generated method stub
 
     }
 }

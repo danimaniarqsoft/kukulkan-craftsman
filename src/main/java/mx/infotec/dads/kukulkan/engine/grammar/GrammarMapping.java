@@ -55,7 +55,7 @@ public class GrammarMapping {
      * @param dataContext
      * @return DataModelGroup
      */
-    public static DataModelGroup createDefaultDataModelGroup(DomainModelContext dmc, KukulkanGrammarVisitor visitor) {
+    public static DataModelGroup createDefaultDataModelGroup(DomainModelContext dmc, KukulkanSemanticAnalyzer visitor) {
         DataModelGroup dmg = new DataModelGroup();
         dmg.setName("");
         dmg.setDescription("Default package");
@@ -75,7 +75,7 @@ public class GrammarMapping {
      * @param visitor
      * @param dmeList
      */
-    private static void createDataModelElement(DomainModelContext dmc, KukulkanGrammarVisitor visitor,
+    private static void createDataModelElement(DomainModelContext dmc, KukulkanSemanticAnalyzer visitor,
             List<DataModelElement> dmeList) {
         dmeList.addAll(visitor.visit(dmc));
     }
@@ -118,6 +118,8 @@ public class GrammarMapping {
             property.setZoneDateTime(true);
         } else if (type.DATE() != null || type.LOCAL_DATE() != null) {
             property.setLocalDate(true);
+        }else if (type.INSTANT() != null) {
+            property.setInstant(true);
         }
     }
 
@@ -129,7 +131,7 @@ public class GrammarMapping {
      * @return
      * @throws IOException
      */
-    public static List<DataModelGroup> createSingleDataModelGroupList(KukulkanGrammarVisitor visitor,
+    public static List<DataModelGroup> createSingleDataModelGroupList(KukulkanSemanticAnalyzer visitor,
             List<String> tablesToProcess) throws IOException {
         String program = "src/test/resources/grammar/test." + "3k";
         System.out.println("Interpreting file " + program);

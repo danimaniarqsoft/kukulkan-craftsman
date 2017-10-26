@@ -52,7 +52,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.Rule;
 import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
 import mx.infotec.dads.kukulkan.engine.factories.LayerTaskFactory;
 import mx.infotec.dads.kukulkan.engine.grammar.GrammarMapping;
-import mx.infotec.dads.kukulkan.engine.grammar.KukulkanGrammarVisitor;
+import mx.infotec.dads.kukulkan.engine.grammar.KukulkanSemanticAnalyzer;
 import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
@@ -128,9 +128,9 @@ public class GrammarGenerationServiceTest {
         // Create DataModel
         DataModel dataModel = new JavaDataModelContext();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
-        KukulkanGrammarVisitor grammar = null;
+        KukulkanSemanticAnalyzer grammar = null;
         if (dataContext.getDataContextType() == DataContextType.KUKULKAN_GRAMMAR) {
-            grammar = (KukulkanGrammarVisitor) dataContext.getDataContext();
+            grammar = (KukulkanSemanticAnalyzer) dataContext.getDataContext();
         }
 
         // Tables to process
