@@ -4,7 +4,7 @@ en la ruta: src/main/webapp/app/layouts/navbar/navbar.html
 agregar lo siguiente:
 
 <#list dataModelGroup as dmg>
-	<#list dmg.dataModelElements as dme>
+	<#list dmg.domainModelElements as dme>
 <li ui-sref-active="active" has-any-authority="ROLE_ADMIN,ROLE_LOCAL">
 	<a ui-sref="${dme.camelCaseFormat}" ng-click="vm.collapseNavbar()">
 		<span class="glyphicon glyphicon-book"></span>&nbsp;
@@ -25,7 +25,7 @@ los siguiente:
 "entities": {
 	"main": "Entities",
 <#list dataModelGroup as dmg>
-	<#list dmg.dataModelElements as dme>
+	<#list dmg.domainModelElements as dme>
 	"${dme.camelCaseFormat}": "${dme.name}",
 	</#list>    
 </#list>
