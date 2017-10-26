@@ -125,6 +125,8 @@ public class DataBaseMapping {
                 dme.setHasLocalDate(true);
             } else if (javaProperty.isZoneDateTime()) {
                 dme.setHasZoneDateTime(true);
+            } else if (javaProperty.isInstant()) {
+                dme.setHasInstant(true);
             } else {
                 throw new ApplicationException("Not java Time Equivalent: " + javaProperty.getColumnName());
             }
