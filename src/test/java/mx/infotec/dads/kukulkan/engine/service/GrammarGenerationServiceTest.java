@@ -128,15 +128,15 @@ public class GrammarGenerationServiceTest {
         // Create DataModel
         DataModel dataModel = new JavaDataModelContext();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
-        KukulkanSemanticAnalyzer grammar = null;
+        KukulkanSemanticAnalyzer semanticAnalyzer = null;
         if (dataContext.getDataContextType() == DataContextType.KUKULKAN_GRAMMAR) {
-            grammar = (KukulkanSemanticAnalyzer) dataContext.getDataContext();
+            semanticAnalyzer = (KukulkanSemanticAnalyzer) dataContext.getDataContext();
         }
 
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DataModelGroup> dmgList = GrammarMapping.createSingleDataModelGroupList(grammar, tablesToProcess);
+        List<DataModelGroup> dmgList = GrammarMapping.createSingleDataModelGroupList(semanticAnalyzer, tablesToProcess);
         dataModel.setDataModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);

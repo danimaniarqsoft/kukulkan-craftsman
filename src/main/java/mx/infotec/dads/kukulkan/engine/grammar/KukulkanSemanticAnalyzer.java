@@ -11,6 +11,7 @@ import mx.infotec.dads.kukulkan.grammar.kukulkanBaseVisitor;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityFieldContext;
+import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 import mx.infotec.dads.kukulkan.util.SchemaPropertiesParser;
 
@@ -45,7 +46,7 @@ public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DataModel
 
     private static void processProperties(DataModelElement dme, List<EntityFieldContext> fields) {
         fields.forEach(field -> {
-            String propertyName = SchemaPropertiesParser.parseToPropertyName(field.id.getText());
+            String propertyName = field.id.getText();
             GrammarPropertyType grammarPropertyType = GrammarPropertyMapping.getPropertyType(field.type);
             JavaProperty javaProperty = JavaProperty.builder()
                     .withName(propertyName)
@@ -60,14 +61,9 @@ public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DataModel
                     .build();
             dme.addProperty(javaProperty);
             GrammarMapping.addImports(dme.getImports(), javaProperty);
-//            fillModelMetaData(dme, javaProperty);
-            fillModelMetaData(dme,javaProperty);
+            DataBaseMapping.fillModelMetaData(dme,javaProperty);
         });
 
     }
 
-    private static void fillModelMetaData(DataModelElement dme, JavaProperty javaProperty) {
-        // TODO Auto-generated method stub
-
-    }
 }

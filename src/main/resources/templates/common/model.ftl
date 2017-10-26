@@ -32,18 +32,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 </#if>
 import java.io.Serializable;
-<#if hasBigDecimal == true>
-import java.math.BigDecimal;
-</#if>
-<#if hasInstant == true>
-import java.time.Instant;
-</#if>
-<#if hasLocalDate == true>
-import java.time.LocalDate;
-</#if>
-<#if hasZoneDateTime == true>
-import java.time.ZonedDateTime;
-</#if>
+
 /**
  * The ${entity}
  * 

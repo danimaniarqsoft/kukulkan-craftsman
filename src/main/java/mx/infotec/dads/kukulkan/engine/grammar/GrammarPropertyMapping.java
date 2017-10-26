@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.sql.Blob;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
@@ -33,37 +34,37 @@ public class GrammarPropertyMapping {
         /*
          * Literal
          */
-        map.put("TextBlob", new GrammarPropertyTypeImpl("TextBlob", "String", LITERAL_TYPE));
-        map.put("String", new GrammarPropertyTypeImpl("String", "String", LITERAL_TYPE));
+        map.put("TextBlob", new GrammarPropertyTypeImpl("TextBlob", LITERAL_TYPE));
+        map.put("String", new GrammarPropertyTypeImpl("String", LITERAL_TYPE, String.class, true));
 
         /*
          * Numbers
          */
-        map.put("Integer", new GrammarPropertyTypeImpl("Integer", "Integer", NUMBER_TYPE, Integer.class));
-        map.put("Long", new GrammarPropertyTypeImpl("Long", "Long", NUMBER_TYPE, Long.class));
-        map.put("BigDecimal", new GrammarPropertyTypeImpl("BigDecimal", "BigDecimal", NUMBER_TYPE, BigDecimal.class));
-        map.put("Float", new GrammarPropertyTypeImpl("Float", "Float", NUMBER_TYPE, Float.class));
-        map.put("Double", new GrammarPropertyTypeImpl("Double", "Double", NUMBER_TYPE, Double.class));
+        map.put("Integer", new GrammarPropertyTypeImpl("Integer", NUMBER_TYPE, Integer.class));
+        map.put("Long", new GrammarPropertyTypeImpl("Long", NUMBER_TYPE, Long.class));
+        map.put("BigDecimal", new GrammarPropertyTypeImpl("BigDecimal", NUMBER_TYPE, BigDecimal.class));
+        map.put("Float", new GrammarPropertyTypeImpl("Float", NUMBER_TYPE, Float.class));
+        map.put("Double", new GrammarPropertyTypeImpl("Double", NUMBER_TYPE, Double.class));
 
         /*
          * Time based
          */
-        map.put("Date", new GrammarPropertyTypeImpl("Date", "Date", TIME_TYPE, Date.class));
-        map.put("LocalDate", new GrammarPropertyTypeImpl("LocalDate", "LocalDate", TIME_TYPE, LocalDate.class));
-        map.put("ZonedDateTime", new GrammarPropertyTypeImpl("ZonedDateTime", "LocalDate", TIME_TYPE, LocalDate.class));
-        map.put("Instant", new GrammarPropertyTypeImpl("Instant", "Instant", TIME_TYPE, Instant.class));
+        map.put("Date", new GrammarPropertyTypeImpl("Date", TIME_TYPE, Date.class));
+        map.put("LocalDate", new GrammarPropertyTypeImpl("LocalDate", TIME_TYPE, LocalDate.class));
+        map.put("ZonedDateTime", new GrammarPropertyTypeImpl("ZonedDateTime", TIME_TYPE, ZonedDateTime.class));
+        map.put("Instant", new GrammarPropertyTypeImpl("Instant", TIME_TYPE, Instant.class));
 
         /*
          * Booleans
          */
-        map.put("Boolean", new GrammarPropertyTypeImpl("Boolean", "", BOOLEAN_TYPE));
+        map.put("Boolean", new GrammarPropertyTypeImpl("Boolean", BOOLEAN_TYPE));
 
         /*
          * Blobs
          */
-        map.put("Blob", new GrammarPropertyTypeImpl("Blob", "", BINARY_TYPE, Blob.class, true));
-        map.put("AnyBlob", new GrammarPropertyTypeImpl("Blob", "", BINARY_TYPE, Blob.class, true));
-        map.put("ImageBlob", new GrammarPropertyTypeImpl("Blob", "", BINARY_TYPE, Blob.class, true));
+        map.put("Blob", new GrammarPropertyTypeImpl("Blob", BINARY_TYPE, byte[].class, true));
+        map.put("AnyBlob", new GrammarPropertyTypeImpl("Blob", BINARY_TYPE, byte[].class, true));
+        map.put("ImageBlob", new GrammarPropertyTypeImpl("Blob", BINARY_TYPE, byte[].class, true));
 
     }
 

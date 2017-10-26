@@ -36,6 +36,7 @@ import mx.infotec.dads.kukulkan.grammar.kukulkanParser.BlobTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DateTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DomainModelContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
+import mx.infotec.dads.kukulkan.grammar.kukulkanParser.NumericTypesContext;
 
 /**
  * DataMapping utility class
@@ -81,11 +82,12 @@ public class GrammarMapping {
     }
 
     public static boolean addImports(Collection<String> imports, JavaProperty property) {
-        if (property.isBigDecimal() || property.isLocalDate() || property.isZoneDateTime() || property.isInstant()) {
+        if (property.isBlob() || property.isLiteral() || property.isBoolean() || property.isClob()
+                || (property.isNumber() && !property.isBigDecimal())) {
+            return false;
+        } else {
             imports.add(property.getQualifiedName());
             return true;
-        } else {
-            return false;
         }
     }
 
@@ -99,9 +101,17 @@ public class GrammarMapping {
             javaProperty.setBlob(true);
         } else if (type.numericFieldType() != null) {
             javaProperty.setNumber(true);
+            setKindOfNumeric(javaProperty, type.numericFieldType().numericTypes());
         } else if (type.stringFieldType() != null) {
             javaProperty.setLiteral(true);
         }
+    }
+
+    private static void setKindOfNumeric(JavaProperty javaProperty, NumericTypesContext type) {
+        if (type.BIG_DECIMAL() != null) {
+            javaProperty.setBigDecimal(true);
+        }
+
     }
 
     private static void setKindOfBlobType(JavaProperty property, BlobTypesContext ctx) {
@@ -118,7 +128,7 @@ public class GrammarMapping {
             property.setZoneDateTime(true);
         } else if (type.DATE() != null || type.LOCAL_DATE() != null) {
             property.setLocalDate(true);
-        }else if (type.INSTANT() != null) {
+        } else if (type.INSTANT() != null) {
             property.setInstant(true);
         }
     }

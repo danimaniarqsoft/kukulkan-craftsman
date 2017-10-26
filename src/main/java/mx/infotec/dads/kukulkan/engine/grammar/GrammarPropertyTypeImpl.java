@@ -39,32 +39,27 @@ public class GrammarPropertyTypeImpl implements GrammarPropertyType {
     public static final Logger logger = LoggerFactory.getLogger(GrammarPropertyTypeImpl.class);
 
     private final String _name;
-    private final String _javaName;
     private final SuperColumnType _superColumnType;
     private final Class<?> _javaType;
     private final boolean _largeObject;
 
-    public GrammarPropertyTypeImpl(String name, String javaName, SuperColumnType superColumnType) {
-        this(name, javaName, superColumnType, null);
+    public GrammarPropertyTypeImpl(String name, SuperColumnType superColumnType) {
+        this(name, superColumnType, null);
     }
 
-    public GrammarPropertyTypeImpl(String name, String javaName, SuperColumnType superColumnType, Class<?> javaType) {
-        this(name, javaName, superColumnType, javaType, false);
+    public GrammarPropertyTypeImpl(String name, SuperColumnType superColumnType, Class<?> javaType) {
+        this(name, superColumnType, javaType, false);
     }
 
-    public GrammarPropertyTypeImpl(String name, String javaName, SuperColumnType superColumnType, Class<?> javaType,
+    public GrammarPropertyTypeImpl(String name, SuperColumnType superColumnType, Class<?> javaType,
             boolean largeObject) {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
-        }
-        if (javaName == null) {
-            throw new IllegalArgumentException("JavaName cannot be null");
         }
         if (superColumnType == null) {
             throw new IllegalArgumentException("SuperColumnType cannot be null");
         }
         _name = name;
-        _javaName = javaName;
         _superColumnType = superColumnType;
         if (javaType == null) {
             _javaType = superColumnType.getJavaEquivalentClass();
@@ -113,12 +108,11 @@ public class GrammarPropertyTypeImpl implements GrammarPropertyType {
 
     @Override
     public String getJavaName() {
-        return _javaName;
+        return _javaType.getSimpleName();
     }
 
     @Override
     public String getJavaQualifiedName() {
         return _javaType.getCanonicalName();
     }
-
 }
