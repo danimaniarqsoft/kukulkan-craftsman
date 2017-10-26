@@ -63,7 +63,5 @@ public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DataModel
             GrammarMapping.addImports(dme.getImports(), javaProperty);
             DataBaseMapping.fillModelMetaData(dme,javaProperty);
         });
-
     }
-
 }

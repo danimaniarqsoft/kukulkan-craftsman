@@ -57,7 +57,7 @@ public class GrammarPropertyMapping {
         /*
          * Booleans
          */
-        map.put("Boolean", new GrammarPropertyTypeImpl("Boolean", BOOLEAN_TYPE));
+        map.put("Boolean", new GrammarPropertyTypeImpl("Boolean", BOOLEAN_TYPE, boolean.class));
 
         /*
          * Blobs
