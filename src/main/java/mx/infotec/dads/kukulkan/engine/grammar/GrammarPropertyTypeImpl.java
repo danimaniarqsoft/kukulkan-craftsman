@@ -57,6 +57,9 @@ public class GrammarPropertyTypeImpl implements GrammarPropertyType {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
         }
+        if (javaName == null) {
+            throw new IllegalArgumentException("JavaName cannot be null");
+        }
         if (superColumnType == null) {
             throw new IllegalArgumentException("SuperColumnType cannot be null");
         }

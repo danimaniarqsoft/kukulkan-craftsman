@@ -4,14 +4,18 @@ import static mx.infotec.dads.kukulkan.engine.grammar.SuperColumnType.BOOLEAN_TY
 import static mx.infotec.dads.kukulkan.engine.grammar.SuperColumnType.LITERAL_TYPE;
 import static mx.infotec.dads.kukulkan.engine.grammar.SuperColumnType.NUMBER_TYPE;
 import static mx.infotec.dads.kukulkan.engine.grammar.SuperColumnType.TIME_TYPE;
+import static mx.infotec.dads.kukulkan.engine.grammar.SuperColumnType.BINARY_TYPE;
 
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Optional;
 
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.NumericTypesContext;
+import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
  * GrammarPropertyMapping
@@ -50,6 +54,14 @@ public class GrammarPropertyMapping {
          * Booleans
          */
         map.put("Boolean", new GrammarPropertyTypeImpl("Boolean", "", BOOLEAN_TYPE));
+        
+        /*
+         * Blobs
+         */
+//        map.put("Blob", "",BINARY_TYPE, Blob.class, true);
+//        map.put("AnyBlob", "",BINARY_TYPE, Blob.class, true);
+//        map.put("ImageBlob", "",BINARY_TYPE, Blob.class, true);
+        
     }
 
     private GrammarPropertyMapping() {
@@ -60,7 +72,13 @@ public class GrammarPropertyMapping {
     }
 
     public static GrammarPropertyType getPropertyType(FieldTypeContext type) {
-        return map.get(extractPropertyType(type));
+        System.out.println(type.getText());
+        Optional<GrammarPropertyType> optional = Optional.of(map.get(extractPropertyType(type)));
+        if(optional.isPresent()){
+            return optional.get();
+        }else{
+            throw new ApplicationException("Property Not Found"+type.getText());
+        }
     }
 
     public static String extractPropertyType(FieldTypeContext type) {
@@ -75,11 +93,13 @@ public class GrammarPropertyMapping {
         } else if (type.blobFieldType() != null) {
             return type.blobFieldType().name.getText();
         } else {
+            throw new ApplicationException("Property not found "+type.getText());
         }
-        return null;
     }
 
     public static String getNumericType(NumericTypesContext numericTypes) {
-        return null;
+        return "Integer";
     }
+    
+    
 }
