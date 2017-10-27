@@ -125,6 +125,7 @@ public class GrammarGenerationServiceTest {
         List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
         DataStore dataStore = findAllDataStores.get(0);
         System.out.println(dataStore.getDataStoreType().getName());
+        
         // Create DataModel
         DomainModel dataModel = new JavaDomainModel();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);

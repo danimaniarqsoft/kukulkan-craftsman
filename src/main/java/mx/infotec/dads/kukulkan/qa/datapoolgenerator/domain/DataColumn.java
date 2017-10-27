@@ -8,53 +8,53 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * A generic DataColumn, useful for several formats
+ * 
  * @author Roberto Villarejo Martínez
  *
  */
-@JsonPropertyOrder({"header", "type", "data"})
+@JsonPropertyOrder({ "header", "type", "data" })
 public class DataColumn {
-	
-	@JsonProperty(value="header")
-	private String header;
-	
-	private List<String> data = new ArrayList<>();
-	
-	@JsonProperty(value="type")
-	private DataType type;
-	
-	public DataColumn() {
-		
-	}
-	
-	public DataColumn(String header, DataType dataType, List<String> data) {
-		this.header = header;
-		this.type = dataType;
-		this.data = data;
-	}
 
-	public String getHeader() {
-		return header;
-	}
+    @JsonProperty(value = "header")
+    private String header;
 
-	public void setHeader(String header) {
-		this.header = header;
-	}
+    private List<String> data = new ArrayList<>();
 
-	public List<String> getData() {
-		return data;
-	}
+    @JsonProperty(value = "type")
+    private DataType type;
 
-	public void setData(List<String> data) {
-		this.data = data;
-	}
+    public DataColumn() {
 
-	public DataType getType() {
-		return type;
-	}
+    }
 
-	public void setType(DataType dataType) {
-		this.type = dataType;
-	}
+    public DataColumn(String header, DataType dataType, List<String> data) {
+        this.header = header;
+        this.type = dataType;
+        this.data = data;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public List<String> getData() {
+        return data;
+    }
+
+    public void setData(List<String> data) {
+        this.data = data;
+    }
+
+    public DataType getType() {
+        return type;
+    }
+
+    public void setType(DataType dataType) {
+        this.type = dataType;
+    }
 
 }
- 

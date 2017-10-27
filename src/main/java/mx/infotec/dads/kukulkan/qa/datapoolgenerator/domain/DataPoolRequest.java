@@ -5,49 +5,50 @@ import java.util.List;
 
 /**
  * A DataPoolRequest useful for generate a DataPool
+ * 
  * @author Roberto Villarejo Martínez
  *
  */
 public class DataPoolRequest {
-	
-	private int rowsNumber;
-	
-	private List<DataColumn> addDataTypes  = new ArrayList<>();
-	
-	private List<DataColumn> repeatDataTypes  = new ArrayList<>();
-	
-	private int repeatTimes;
 
-	public int getRowsNumber() {
-		return rowsNumber;
-	}
+    private int rowsNumber;
 
-	public void setRowsNumber(int rowsNumber) {
-		this.rowsNumber = rowsNumber;
-	}
+    private List<DataColumn> addDataTypes = new ArrayList<>();
 
-	public List<DataColumn> getAddDataTypes() {
-		return addDataTypes;
-	}
+    private List<DataColumn> repeatDataTypes = new ArrayList<>();
 
-	public void setAddDataTypes(List<DataColumn> addDataTypes) {
-		this.addDataTypes = addDataTypes;
-	}
+    private int repeatTimes;
 
-	public List<DataColumn> getRepeatDataTypes() {
-		return repeatDataTypes;
-	}
+    public int getRowsNumber() {
+        return rowsNumber;
+    }
 
-	public void setRepeatDataTypes(List<DataColumn> repeatDataTypes) {
-		this.repeatDataTypes = repeatDataTypes;
-	}
+    public void setRowsNumber(int rowsNumber) {
+        this.rowsNumber = rowsNumber;
+    }
 
-	public int getRepeatTimes() {
-		return repeatTimes;
-	}
+    public List<DataColumn> getAddDataTypes() {
+        return addDataTypes;
+    }
 
-	public void setRepeatTimes(int repeatTimes) {
-		this.repeatTimes = repeatTimes;
-	}	
+    public void setAddDataTypes(List<DataColumn> addDataTypes) {
+        this.addDataTypes = addDataTypes;
+    }
+
+    public List<DataColumn> getRepeatDataTypes() {
+        return repeatDataTypes;
+    }
+
+    public void setRepeatDataTypes(List<DataColumn> repeatDataTypes) {
+        this.repeatDataTypes = repeatDataTypes;
+    }
+
+    public int getRepeatTimes() {
+        return repeatTimes;
+    }
+
+    public void setRepeatTimes(int repeatTimes) {
+        this.repeatTimes = repeatTimes;
+    }
 
 }

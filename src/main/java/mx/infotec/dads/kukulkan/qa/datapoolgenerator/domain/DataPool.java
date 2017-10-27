@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A DataPool. 
+ * A DataPool.
+ * 
  * @author Roberto Villarejo Martínez
  */
 @Document(collection = "data_pool")
@@ -24,14 +25,14 @@ public class DataPool implements Serializable {
 
     @Field("name")
     private String name;
-    
+
     @JsonProperty("sourceData")
     private List<DataColumn> sourceData = new ArrayList<>();
-    
-    @JsonProperty(value="data")
+
+    @JsonProperty(value = "data")
     private List<DataColumn> data = new ArrayList<>();
-    
-    @JsonProperty(value="request")
+
+    @JsonProperty(value = "request")
     private DataPoolRequest request;
 
     public String getId() {
@@ -56,30 +57,30 @@ public class DataPool implements Serializable {
     }
 
     public List<DataColumn> getData() {
-		return data;
-	}
+        return data;
+    }
 
-	public void setData(List<DataColumn> columns) {
-		this.data = columns;
-	}
+    public void setData(List<DataColumn> columns) {
+        this.data = columns;
+    }
 
-	public DataPoolRequest getRequest() {
-		return request;
-	}
+    public DataPoolRequest getRequest() {
+        return request;
+    }
 
-	public void setRequest(DataPoolRequest request) {
-		this.request = request;
-	}
+    public void setRequest(DataPoolRequest request) {
+        this.request = request;
+    }
 
-	public List<DataColumn> getSourceData() {
-		return sourceData;
-	}
+    public List<DataColumn> getSourceData() {
+        return sourceData;
+    }
 
-	public void setSourceData(List<DataColumn> sourceData) {
-		this.sourceData = sourceData;
-	}
+    public void setSourceData(List<DataColumn> sourceData) {
+        this.sourceData = sourceData;
+    }
 
-	@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -101,9 +102,6 @@ public class DataPool implements Serializable {
 
     @Override
     public String toString() {
-        return "DataPool{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            "}";
+        return "DataPool{" + "id=" + getId() + ", name='" + getName() + "'" + "}";
     }
 }
