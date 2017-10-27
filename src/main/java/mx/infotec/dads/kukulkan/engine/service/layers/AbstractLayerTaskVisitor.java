@@ -45,7 +45,7 @@ public abstract class AbstractLayerTaskVisitor implements LayerTask {
     @Override
     public void doTask(GeneratorContext context) {
         Map<String, Object> model = createGeneralDescription(context);
-        doForEachDataModelGroup(context.getProjectConfiguration(), context.getDataModel().getDomainModelGroup(), model);
+        doForEachDataModelGroup(context.getProjectConfiguration(), context.getDomainModel().getDomainModelGroup(), model);
     }
 
     private Map<String, Object> createGeneralDescription(GeneratorContext context) {

@@ -23,50 +23,12 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
-import java.io.Serializable;
-
 /**
- * MandatoryProperty
+ * JavaDataModelContext
  * 
  * @author Daniel Cortes Pichardo
- * 
+ *
  */
-public class MandatoryProperty implements Comparable<MandatoryProperty>, Serializable {
+public class JavaDomainModel extends DomainModel {
 
-    private static final long serialVersionUID = 1L;
-    /**
-     * The type of the property
-     */
-    private String type;
-
-    /**
-     * The type of the property
-     */
-    private String name;
-
-    public MandatoryProperty(String type, String name) {
-        this.type = type;
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public int compareTo(MandatoryProperty mandatoryProperty) {
-        return name.compareTo(mandatoryProperty.getName());
-    }
 }

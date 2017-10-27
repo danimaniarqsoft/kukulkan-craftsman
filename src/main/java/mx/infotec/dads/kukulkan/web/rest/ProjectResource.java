@@ -44,7 +44,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
-import mx.infotec.dads.kukulkan.engine.domain.core.JavaDataModelContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.JavaDomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.factories.LayerTaskFactory;
 import mx.infotec.dads.kukulkan.engine.service.GenerationService;
@@ -195,7 +195,7 @@ public class ProjectResource {
     public ResponseEntity<Project> generateProject(@Valid @RequestBody Project project) throws URISyntaxException {
         log.debug("REST request to get Project : {}", project.getId());
         ProjectConfiguration pConf = ProjectMapper.toProjectConfiguration(project);
-        DomainModel dataModel = new JavaDataModelContext();
+        DomainModel dataModel = new JavaDomainModel();
         DataStoreType dst = new DataStoreType();
         dst.setName("jdbc");
         project.getDataStore().setDataStoreType(dst);

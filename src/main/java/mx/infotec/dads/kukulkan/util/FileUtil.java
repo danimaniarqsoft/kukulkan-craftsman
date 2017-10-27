@@ -131,13 +131,13 @@ public class FileUtil {
     }
 
     public static void saveReadmeToFile(GeneratorContext genCtx) {
-        genCtx.getDataModel().getGeneratedElements().forEach(generatedElement -> {
+        genCtx.getDomainModel().getGeneratedElements().forEach(generatedElement -> {
             saveToFile(generatedElement);
         });
     }
 
     public static void saveDataModelElements(GeneratorContext genCtx) {
-        genCtx.getDataModel().getDomainModelGroup()
+        genCtx.getDomainModel().getDomainModelGroup()
                 .forEach(dmg -> dmg.getDomainModelElements().forEach(dme -> dme.getGeneratedElements().forEach(ge -> {
                     FileUtil.saveToFile(ge);
                 })));

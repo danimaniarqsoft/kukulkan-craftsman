@@ -48,7 +48,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
-import mx.infotec.dads.kukulkan.engine.domain.core.JavaDataModelContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.JavaDomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.domain.core.Rule;
 import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
@@ -126,7 +126,7 @@ public class GenerationServiceTest {
         List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
         DataStore dataStore = findAllDataStores.get(0);
         // Create DataModel
-        DomainModel dataModel = new JavaDataModelContext();
+        DomainModel dataModel = new JavaDomainModel();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
         DataContext dataContextApache = null;
         if (dataContext.getDataContextType() == DataContextType.RELATIONAL_DATA_BASE) {

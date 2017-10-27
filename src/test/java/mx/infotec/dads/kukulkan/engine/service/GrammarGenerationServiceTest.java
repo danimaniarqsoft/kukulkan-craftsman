@@ -46,7 +46,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
-import mx.infotec.dads.kukulkan.engine.domain.core.JavaDataModelContext;
+import mx.infotec.dads.kukulkan.engine.domain.core.JavaDomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.domain.core.Rule;
 import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
@@ -126,7 +126,7 @@ public class GrammarGenerationServiceTest {
         DataStore dataStore = findAllDataStores.get(0);
         System.out.println(dataStore.getDataStoreType().getName());
         // Create DataModel
-        DomainModel dataModel = new JavaDataModelContext();
+        DomainModel dataModel = new JavaDomainModel();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
         KukulkanSemanticAnalyzer semanticAnalyzer = null;
         if (dataContext.getDataContextType() == DataContextType.KUKULKAN_GRAMMAR) {

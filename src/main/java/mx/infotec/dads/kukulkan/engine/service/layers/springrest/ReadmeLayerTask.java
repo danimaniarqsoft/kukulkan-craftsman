@@ -56,9 +56,9 @@ public class ReadmeLayerTask extends SpringRestLayerTaskVisitor {
     @Override
     public void doTask(GeneratorContext context) {
         Map<String, Object> model = new HashMap<>();
-        model.put("dataModelGroup", context.getDataModel().getDomainModelGroup());
+        model.put("dataModelGroup", context.getDomainModel().getDomainModelGroup());
         LOGGER.info("Creating new data........");
-        fillReadme(context.getProjectConfiguration(), model, context.getDataModel());
+        fillReadme(context.getProjectConfiguration(), model, context.getDomainModel());
     }
 
     @Override
