@@ -27,13 +27,11 @@ import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -87,7 +85,7 @@ public class FileUtil {
     }
 
     public static boolean createParentsFileIfNotExist(Path path) {
-        if (!Files.exists(path.getParent(), new LinkOption[] { LinkOption.NOFOLLOW_LINKS })) {
+        if (!path.toFile().exists()) {
             return createDirectories(path.getParent());
         } else {
             return false;
@@ -131,16 +129,12 @@ public class FileUtil {
     }
 
     public static void saveReadmeToFile(GeneratorContext genCtx) {
-        genCtx.getDomainModel().getGeneratedElements().forEach(generatedElement -> {
-            saveToFile(generatedElement);
-        });
+        genCtx.getDomainModel().getGeneratedElements().forEach(FileUtil::saveToFile);
     }
 
     public static void saveDataModelElements(GeneratorContext genCtx) {
-        genCtx.getDomainModel().getDomainModelGroup()
-                .forEach(dmg -> dmg.getDomainModelElements().forEach(dme -> dme.getGeneratedElements().forEach(ge -> {
-                    FileUtil.saveToFile(ge);
-                })));
+        genCtx.getDomainModel().getDomainModelGroup().forEach(dmg -> dmg.getDomainModelElements()
+                .forEach(dme -> dme.getGeneratedElements().forEach(FileUtil::saveToFile)));
     }
 
     public static void createZip(Path path, String compressedName) throws IOException {
