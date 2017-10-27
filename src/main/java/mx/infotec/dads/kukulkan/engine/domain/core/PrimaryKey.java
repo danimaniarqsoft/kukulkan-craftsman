@@ -26,7 +26,7 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
 import java.util.Collection;
 import java.util.TreeSet;
 
-import mx.infotec.dads.kukulkan.util.PrimaryKeyType;
+import mx.infotec.dads.kukulkan.util.PKGenerationStrategy;
 
 /**
  * PrimaryKey container for PrimaryKey descriptio.
@@ -43,7 +43,7 @@ public class PrimaryKey {
     private String qualifiedLabel;
     private Collection<Property> properties;
     private boolean isComposed;
-    private PrimaryKeyType generationType;
+    private PKGenerationStrategy generationType;
 
     public boolean addProperty(Property propertyHolder) {
         return properties.add(propertyHolder);
@@ -81,11 +81,11 @@ public class PrimaryKey {
         this.qualifiedLabel = qualifiedLabel;
     }
 
-    public PrimaryKeyType getGenerationType() {
+    public PKGenerationStrategy getGenerationType() {
         return generationType;
     }
 
-    public void setGenerationType(PrimaryKeyType generationType) {
+    public void setGenerationType(PKGenerationStrategy generationType) {
         this.generationType = generationType;
     }
 

@@ -59,7 +59,7 @@ import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.util.DataStoreConstants;
 import mx.infotec.dads.kukulkan.util.FileUtil;
-import mx.infotec.dads.kukulkan.util.PrimaryKeyType;
+import mx.infotec.dads.kukulkan.util.PKGenerationStrategy;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 
 /**
@@ -117,7 +117,7 @@ public class GrammarGenerationServiceTest {
         pConf.setServiceLayerName("service");
         pConf.setDaoLayerName("repository");
         pConf.setDomainLayerName("domain");
-        pConf.setGlobalGenerationType(PrimaryKeyType.SEQUENCE);
+        pConf.setGlobalGenerationType(PKGenerationStrategy.SEQUENCE);
         // Create DataStore
         DataStore dsExample = new DataStore();
         dsExample.setName(DataStoreConstants.DATA_STORE_TYPE_GRAMMAR);
