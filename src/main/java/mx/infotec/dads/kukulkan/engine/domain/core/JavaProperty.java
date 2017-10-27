@@ -148,6 +148,7 @@ public class JavaProperty implements Property<JavaProperty> {
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     public Collection<Property> getAssociations() {
         throw new ApplicationException("Method not implemented");
     }

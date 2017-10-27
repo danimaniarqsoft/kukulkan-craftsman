@@ -11,6 +11,10 @@ import mx.infotec.dads.kukulkan.assets.service.dto.LevelOfImplementationDTO;
  * LevelOfImplementationDTO.
  */
 public class LevelOfImplementationMapper {
+    
+    private LevelOfImplementationMapper(){
+        
+    }
 
     public static LevelOfImplementation fromId(String id) {
         if (id == null) {

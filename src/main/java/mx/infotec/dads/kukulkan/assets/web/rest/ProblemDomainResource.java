@@ -65,7 +65,7 @@ public class ProblemDomainResource {
         }
         ProblemDomainDTO result = problemDomainService.save(problemDomainDTO);
         return ResponseEntity.created(new URI("/api/problem-domains/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -87,7 +87,7 @@ public class ProblemDomainResource {
         }
         ProblemDomainDTO result = problemDomainService.save(problemDomainDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, problemDomainDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, problemDomainDTO.getId()))
             .body(result);
     }
 
@@ -131,6 +131,6 @@ public class ProblemDomainResource {
     public ResponseEntity<Void> deleteProblemDomain(@PathVariable String id) {
         log.debug("REST request to delete ProblemDomain : {}", id);
         problemDomainService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 }

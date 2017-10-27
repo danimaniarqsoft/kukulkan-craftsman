@@ -65,7 +65,7 @@ public class DisciplineResource {
         }
         DisciplineDTO result = disciplineService.save(disciplineDTO);
         return ResponseEntity.created(new URI("/api/disciplines/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -87,7 +87,7 @@ public class DisciplineResource {
         }
         DisciplineDTO result = disciplineService.save(disciplineDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, disciplineDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, disciplineDTO.getId()))
             .body(result);
     }
 
@@ -131,6 +131,6 @@ public class DisciplineResource {
     public ResponseEntity<Void> deleteDiscipline(@PathVariable String id) {
         log.debug("REST request to delete Discipline : {}", id);
         disciplineService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 }

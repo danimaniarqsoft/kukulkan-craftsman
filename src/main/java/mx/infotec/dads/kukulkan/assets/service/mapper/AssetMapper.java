@@ -18,6 +18,10 @@ import mx.infotec.dads.kukulkan.assets.service.dto.AssetDTO;
  * Mapper for the entity Asset and its DTO AssetDTO.
  */
 public class AssetMapper {
+    
+    private AssetMapper(){
+        
+    }
 
     public static Asset toEntity(AssetDTO dto) {
         Asset to = new Asset();

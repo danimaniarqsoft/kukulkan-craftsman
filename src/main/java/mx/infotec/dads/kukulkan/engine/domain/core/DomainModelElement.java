@@ -80,6 +80,7 @@ public class DomainModelElement {
     /**
      * The columns mapped into the PropertyHolder class
      */
+    @SuppressWarnings("rawtypes")
     protected Collection<Property> properties;
 
     /**
@@ -157,10 +158,12 @@ public class DomainModelElement {
         this.name = name;
     }
 
+    @SuppressWarnings("rawtypes")
     public Collection<Property> getProperties() {
         return properties;
     }
 
+    @SuppressWarnings("rawtypes")
     public void setProperties(Collection<Property> properties) {
         this.properties = properties;
     }
@@ -205,7 +208,7 @@ public class DomainModelElement {
         this.primaryKey = primaryKey;
     }
 
-    public void addProperty(Property propertyHolder) {
+    public void addProperty(@SuppressWarnings("rawtypes") Property propertyHolder) {
         properties.add(propertyHolder);
     }
 

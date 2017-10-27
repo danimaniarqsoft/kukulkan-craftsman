@@ -65,7 +65,7 @@ public class AssetResource {
         }
         AssetDTO result = assetService.save(assetDTO);
         return ResponseEntity.created(new URI("/api/assets/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -87,7 +87,7 @@ public class AssetResource {
         }
         AssetDTO result = assetService.save(assetDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, assetDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, assetDTO.getId()))
             .body(result);
     }
 
@@ -131,6 +131,6 @@ public class AssetResource {
     public ResponseEntity<Void> deleteAsset(@PathVariable String id) {
         log.debug("REST request to delete Asset : {}", id);
         assetService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 }

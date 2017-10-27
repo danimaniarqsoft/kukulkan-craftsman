@@ -220,7 +220,7 @@ public class ProjectResource {
         try {
             FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "compressedFile");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("generateProject: ", e);
         }
         Path fileLocation = Paths.get(prop.getOutputdir() + "/compressedFile.zip");
         try {
@@ -228,10 +228,10 @@ public class ProjectResource {
             project.setFile(data);
             project.setFileContentType("application/zip");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("generateProject: ", e);
         }
 
-        return ResponseEntity.created(new URI("/api/projects/generate"))
+        return ResponseEntity.created(new URI("/api/projects/generate/" + project.getAppName()))
                 .headers(HeaderUtil.generateSuccessStatus(ENTITY_NAME, "ok")).body(project);
     }
 }

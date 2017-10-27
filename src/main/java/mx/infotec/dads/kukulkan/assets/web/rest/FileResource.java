@@ -60,7 +60,7 @@ public class FileResource {
         }
         FileDTO result = fileService.save(fileDTO);
         return ResponseEntity.created(new URI("/api/files/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -82,7 +82,7 @@ public class FileResource {
         }
         FileDTO result = fileService.save(fileDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, fileDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, fileDTO.getId()))
             .body(result);
     }
 
@@ -128,6 +128,6 @@ public class FileResource {
     public ResponseEntity<Void> deleteFile(@PathVariable String id) {
         log.debug("REST request to delete File : {}", id);
         fileService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 }

@@ -65,7 +65,7 @@ public class PhaseResource {
         }
         PhaseDTO result = phaseService.save(phaseDTO);
         return ResponseEntity.created(new URI("/api/phases/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -87,7 +87,7 @@ public class PhaseResource {
         }
         PhaseDTO result = phaseService.save(phaseDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, phaseDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, phaseDTO.getId()))
             .body(result);
     }
 
@@ -131,6 +131,6 @@ public class PhaseResource {
     public ResponseEntity<Void> deletePhase(@PathVariable String id) {
         log.debug("REST request to delete Phase : {}", id);
         phaseService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 }

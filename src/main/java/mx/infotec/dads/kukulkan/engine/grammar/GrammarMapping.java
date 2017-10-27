@@ -56,7 +56,8 @@ public class GrammarMapping {
      * @param dataContext
      * @return DataModelGroup
      */
-    public static DomainModelGroup createDefaultDataModelGroup(DomainModelContext dmc, KukulkanSemanticAnalyzer visitor) {
+    public static DomainModelGroup createDefaultDataModelGroup(DomainModelContext dmc,
+            KukulkanSemanticAnalyzer visitor) {
         DomainModelGroup dmg = new DomainModelGroup();
         dmg.setName("");
         dmg.setDescription("Default package");
@@ -141,10 +142,8 @@ public class GrammarMapping {
      * @return
      * @throws IOException
      */
-    public static List<DomainModelGroup> createSingleDataModelGroupList(KukulkanSemanticAnalyzer visitor,
-            List<String> tablesToProcess) throws IOException {
+    public static List<DomainModelGroup> createSingleDataModelGroupList(KukulkanSemanticAnalyzer visitor) {
         String program = "src/test/resources/grammar/test." + "3k";
-        System.out.println("Interpreting file " + program);
         DomainModelContext tree = GrammarUtil.getDomainModelContext(program);
         List<DomainModelGroup> dataModelGroupList = new ArrayList<>();
         dataModelGroupList.add(createDefaultDataModelGroup(tree, visitor));

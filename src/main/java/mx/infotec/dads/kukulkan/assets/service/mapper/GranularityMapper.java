@@ -11,6 +11,9 @@ import mx.infotec.dads.kukulkan.assets.service.dto.GranularityDTO;
  */
 public class GranularityMapper {
 
+    private GranularityMapper(){    
+    }
+    
     public static Granularity fromId(String id) {
         if (id == null) {
             return null;

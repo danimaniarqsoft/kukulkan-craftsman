@@ -27,7 +27,6 @@ import static mx.infotec.dads.kukulkan.util.NameConventionFormatter.camelCaseToH
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
-import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.TemplateFormatter;
@@ -57,26 +55,26 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
     private static final Logger LOGGER = LoggerFactory.getLogger(AngularLayerTask.class);
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
-            Map<String, Object> model, String dmgName) {
+    public void doForEachDataModelElement(ProjectConfiguration pConf,
+            Collection<DomainModelElement> dmElementCollection, Map<String, Object> model, String dmgName) {
         String basePackage = pConf.getPackaging() + dmgName;
         LOGGER.info("AngularLayerTask {}", basePackage);
         for (DomainModelElement dmElement : dmElementCollection) {
             fillModel(pConf, model, dmElement);
             dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
-            fillEntityControllerJs(pConf, model, dmgName, basePackage, dmElement);
-            fillEntityDeleteDialogControllerJs(pConf, model, dmgName, basePackage, dmElement);
-            fillEntityDeleteDialogHtml(pConf, model, dmgName, basePackage, dmElement);
-            fillEntityDetailControllerJs(pConf, model, dmgName, basePackage, dmElement);
-            fillEntityDetailHtml(pConf, model, dmgName, basePackage, dmElement);
-            fillEntityDialogControllerJs(pConf, model, dmgName, basePackage, dmElement);
-            fillEntityDialogHtml(pConf, model, dmgName, basePackage, dmElement);
-            fillEntityHtml(pConf, model, dmgName, basePackage, dmElement);
-            fillEntitySearchServiceJs(pConf, model, dmgName, basePackage, dmElement);
-            fillEntityServiceJs(pConf, model, dmgName, basePackage, dmElement);
-            fillEntityStateJs(pConf, model, dmgName, basePackage, dmElement);
-            fillIdiomaEsJs(pConf, model, dmgName, basePackage, dmElement);
-            fillIdiomaEnJs(pConf, model, dmgName, basePackage, dmElement);
+            fillEntityControllerJs(pConf, model, dmElement);
+            fillEntityDeleteDialogControllerJs(pConf, model, dmElement);
+            fillEntityDeleteDialogHtml(pConf, model, dmElement);
+            fillEntityDetailControllerJs(pConf, model, dmElement);
+            fillEntityDetailHtml(pConf, model, dmElement);
+            fillEntityDialogControllerJs(pConf, model, dmElement);
+            fillEntityDialogHtml(pConf, model, dmElement);
+            fillEntityHtml(pConf, model, dmElement);
+            fillEntitySearchServiceJs(pConf, model, dmElement);
+            fillEntityServiceJs(pConf, model, dmElement);
+            fillEntityStateJs(pConf, model, dmElement);
+            fillIdiomaEsJs(pConf, model, dmElement);
+            fillIdiomaEnJs(pConf, model, dmElement);
         }
     }
 
@@ -94,100 +92,97 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
         model.put("hasBlobProperties", dmElement.isHasBlobProperties());
     }
 
-    private void fillEntityControllerJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_CONTROLLER_JS);
+    private void fillEntityControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntityControllerJs {}", LayerConstants.ENTITY_CONTROLLER_JS);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_CONTROLLER_JS, false);
 
     }
 
-    private void fillIdiomaEsJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.IDIOMA_JS);
+    private void fillIdiomaEsJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement) {
+        LOGGER.info("fillIdiomaEsJs {}", LayerConstants.IDIOMA_JS);
         saveInternationalizationTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_I18N_LOCATION_ES,
                 LayerConstants.IDIOMA_JS, "es");
     }
 
-    private void fillIdiomaEnJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.IDIOMA_JS);
+    private void fillIdiomaEnJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement) {
+        LOGGER.info("fillIdiomaEnJs {}", LayerConstants.IDIOMA_JS);
         saveInternationalizationTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_I18N_LOCATION_EN,
                 LayerConstants.IDIOMA_JS, "en");
     }
 
-    private void fillEntityStateJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_STATE_JS);
+    private void fillEntityStateJs(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntityStateJs {}", LayerConstants.ENTITY_STATE_JS);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_STATE_JS, false);
     }
 
-    private void fillEntityServiceJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_SERVICE_JS);
+    private void fillEntityServiceJs(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntityServiceJs {}", LayerConstants.ENTITY_SERVICE_JS);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_SERVICE_JS, false);
     }
 
-    private void fillEntitySearchServiceJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_SEARCH_SERVICE_JS);
+    private void fillEntitySearchServiceJs(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntitySearchServiceJs {}", LayerConstants.ENTITY_SEARCH_SERVICE_JS);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_SEARCH_SERVICE_JS, false);
     }
 
-    private void fillEntityHtml(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_HTML);
+    private void fillEntityHtml(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement) {
+        LOGGER.info("fillEntityHtml {}", LayerConstants.ENTITY_HTML);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_HTML, true);
     }
 
-    private void fillEntityDialogHtml(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DETAIL_HTML);
+    private void fillEntityDialogHtml(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntityDialogHtml {}", LayerConstants.ENTITY_DETAIL_HTML);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_DIALOG_HTML, false);
     }
 
-    private void fillEntityDialogControllerJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DIALOG_CONTROLLER_JS);
+    private void fillEntityDialogControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntityDialogControllerJs {}", LayerConstants.ENTITY_DIALOG_CONTROLLER_JS);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_DIALOG_CONTROLLER_JS, false);
     }
 
-    private void fillEntityDetailControllerJs(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DETAIL_CONTROLLER_JS);
+    private void fillEntityDetailControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntityDetailControllerJs {}", LayerConstants.ENTITY_DETAIL_CONTROLLER_JS);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_DETAIL_CONTROLLER_JS, false);
     }
 
-    private void fillEntityDetailHtml(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DETAIL_HTML);
+    private void fillEntityDetailHtml(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntityDetailHtml {}", LayerConstants.ENTITY_DETAIL_HTML);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_DETAIL_HTML, false);
     }
 
-    private void fillEntityDeleteDialogHtml(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DELETE_DIALOG_HTML);
+    private void fillEntityDeleteDialogHtml(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntityDeleteDialogHtml {}", LayerConstants.ENTITY_DELETE_DIALOG_HTML);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_DELETE_DIALOG_HTML, false);
     }
 
     private void fillEntityDeleteDialogControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
-            String dmgName, String basePackage, DomainModelElement dmElement) {
-        LOGGER.info("AngularLayerTask filling {}", LayerConstants.ENTITY_DELETE_DIALOG_CONTROLLER_JS);
+            DomainModelElement dmElement) {
+        LOGGER.info("fillEntityDeleteDialogControllerJs {}", LayerConstants.ENTITY_DELETE_DIALOG_CONTROLLER_JS);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
                 LayerConstants.ENTITY_DELETE_DIALOG_CONTROLLER_JS, false);
     }
 
-    private void saveFrontEndTemplate(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement,
-            String templateLocation, String templateName, boolean isPlural) {
+    private void saveFrontEndTemplate(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement, String templateLocation, String templateName, boolean isPlural) {
         // pfCOnf.getId, templateName, model, dmElement.getPropertyName.
         String fileNamingConvention = camelCaseToHyphens(dmElement.getCamelCaseFormat());
         String entityName = fileNamingConvention;

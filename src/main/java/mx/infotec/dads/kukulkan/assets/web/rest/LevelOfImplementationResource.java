@@ -65,7 +65,7 @@ public class LevelOfImplementationResource {
         }
         LevelOfImplementationDTO result = levelOfImplementationService.save(levelOfImplementationDTO);
         return ResponseEntity.created(new URI("/api/level-of-implementations/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -87,7 +87,7 @@ public class LevelOfImplementationResource {
         }
         LevelOfImplementationDTO result = levelOfImplementationService.save(levelOfImplementationDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, levelOfImplementationDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, levelOfImplementationDTO.getId()))
             .body(result);
     }
 
@@ -131,6 +131,6 @@ public class LevelOfImplementationResource {
     public ResponseEntity<Void> deleteLevelOfImplementation(@PathVariable String id) {
         log.debug("REST request to delete LevelOfImplementation : {}", id);
         levelOfImplementationService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 }

@@ -41,10 +41,12 @@ public class PrimaryKey {
     private String name;
     private String type;
     private String qualifiedLabel;
+    @SuppressWarnings("rawtypes")
     private Collection<Property> properties;
     private boolean isComposed;
     private PKGenerationStrategy generationType;
 
+    @SuppressWarnings("rawtypes")
     public boolean addProperty(Property propertyHolder) {
         return properties.add(propertyHolder);
     }
@@ -89,10 +91,12 @@ public class PrimaryKey {
         this.generationType = generationType;
     }
 
+    @SuppressWarnings("rawtypes")
     public Collection<Property> getProperties() {
         return properties;
     }
 
+    @SuppressWarnings("rawtypes")
     public void setProperties(Collection<Property> properties) {
         this.properties = properties;
     }

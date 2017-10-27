@@ -11,6 +11,9 @@ import mx.infotec.dads.kukulkan.assets.service.dto.ProblemDomainDTO;
  */
 public class ProblemDomainMapper {
 
+    private ProblemDomainMapper() {
+    }
+
     public static ProblemDomain fromId(String id) {
         if (id == null) {
             return null;

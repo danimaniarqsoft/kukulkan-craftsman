@@ -9,6 +9,10 @@ import mx.infotec.dads.kukulkan.util.PKGenerationStrategy;
  */
 public class ProjectMapper {
 
+    private ProjectMapper(){
+        
+    }
+    
     public static ProjectConfiguration toProjectConfiguration(Project project) {
         ProjectConfiguration pConf = new ProjectConfiguration();
         pConf.setId(project.getProjectId());
@@ -24,4 +28,5 @@ public class ProjectMapper {
         pConf.setGlobalGenerationType(PKGenerationStrategy.SEQUENCE);
         return pConf;
     }
+    
 }

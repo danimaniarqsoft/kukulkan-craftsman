@@ -65,7 +65,7 @@ public class StateResource {
         }
         StateDTO result = stateService.save(stateDTO);
         return ResponseEntity.created(new URI("/api/states/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -87,7 +87,7 @@ public class StateResource {
         }
         StateDTO result = stateService.save(stateDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, stateDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, stateDTO.getId()))
             .body(result);
     }
 
@@ -131,6 +131,6 @@ public class StateResource {
     public ResponseEntity<Void> deleteState(@PathVariable String id) {
         log.debug("REST request to delete State : {}", id);
         stateService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 }

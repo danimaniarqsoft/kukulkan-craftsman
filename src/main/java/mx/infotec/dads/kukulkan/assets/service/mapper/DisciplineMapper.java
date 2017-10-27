@@ -11,6 +11,9 @@ import mx.infotec.dads.kukulkan.assets.service.dto.DisciplineDTO;
  */
 public class DisciplineMapper {
 
+    private DisciplineMapper() {
+    }
+    
     public static Discipline fromId(String id) {
         if (id == null) {
             return null;

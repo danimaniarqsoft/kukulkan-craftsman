@@ -7,7 +7,6 @@ import static mx.infotec.dads.kukulkan.engine.grammar.SuperColumnType.NUMBER_TYP
 import static mx.infotec.dads.kukulkan.engine.grammar.SuperColumnType.TIME_TYPE;
 
 import java.math.BigDecimal;
-import java.sql.Blob;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -76,7 +75,6 @@ public class GrammarPropertyMapping {
     }
 
     public static GrammarPropertyType getPropertyType(FieldTypeContext type) {
-        System.out.println(type.getText());
         Optional<GrammarPropertyType> optional = Optional.of(map.get(extractPropertyType(type)));
         if (optional.isPresent()) {
             return optional.get();

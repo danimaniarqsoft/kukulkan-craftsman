@@ -65,7 +65,7 @@ public class GranularityResource {
         }
         GranularityDTO result = granularityService.save(granularityDTO);
         return ResponseEntity.created(new URI("/api/granularities/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -87,7 +87,7 @@ public class GranularityResource {
         }
         GranularityDTO result = granularityService.save(granularityDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, granularityDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, granularityDTO.getId()))
             .body(result);
     }
 
@@ -131,6 +131,6 @@ public class GranularityResource {
     public ResponseEntity<Void> deleteGranularity(@PathVariable String id) {
         log.debug("REST request to delete Granularity : {}", id);
         granularityService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 }

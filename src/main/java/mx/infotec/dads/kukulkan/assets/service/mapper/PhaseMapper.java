@@ -3,7 +3,6 @@ package mx.infotec.dads.kukulkan.assets.service.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import mx.infotec.dads.kukulkan.assets.domain.Discipline;
 import mx.infotec.dads.kukulkan.assets.domain.Phase;
 import mx.infotec.dads.kukulkan.assets.service.dto.PhaseDTO;
 
@@ -12,6 +11,10 @@ import mx.infotec.dads.kukulkan.assets.service.dto.PhaseDTO;
  */
 public class PhaseMapper {
 
+    private PhaseMapper(){
+        
+    }
+    
     public static Phase fromId(String id) {
         if (id == null) {
             return null;

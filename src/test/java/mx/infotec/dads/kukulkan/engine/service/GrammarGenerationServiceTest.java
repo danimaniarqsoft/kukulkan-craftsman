@@ -136,7 +136,7 @@ public class GrammarGenerationServiceTest {
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DomainModelGroup> dmgList = GrammarMapping.createSingleDataModelGroupList(semanticAnalyzer, tablesToProcess);
+        List<DomainModelGroup> dmgList = GrammarMapping.createSingleDataModelGroupList(semanticAnalyzer);
         dataModel.setDomainModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);

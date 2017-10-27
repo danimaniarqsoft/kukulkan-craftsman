@@ -19,10 +19,10 @@ public enum SuperColumnType {
 
     OTHER_TYPE(Object.class);
 
-    private Class<?> _javaEquivalentClass;
+    private Class<?> javaEquivalentClass;
 
     private SuperColumnType(Class<?> javaEquivalentClass) {
-        _javaEquivalentClass = javaEquivalentClass;
+        this.javaEquivalentClass = javaEquivalentClass;
     }
 
     /**
@@ -30,6 +30,6 @@ public enum SuperColumnType {
      *         this column super type
      */
     public Class<?> getJavaEquivalentClass() {
-        return _javaEquivalentClass;
+        return javaEquivalentClass;
     }
 }
