@@ -140,6 +140,7 @@ public interface Property<T> extends Comparable<T> {
      * 
      * @return associations
      */
+    @SuppressWarnings("rawtypes")
     Collection<Property> getAssociations();
 
     /**
