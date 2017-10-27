@@ -2,7 +2,7 @@ package mx.infotec.dads.kukulkan.assets.service.mapper;
 
 import mx.infotec.dads.kukulkan.domain.Project;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
-import mx.infotec.dads.kukulkan.util.GenerationType;
+import mx.infotec.dads.kukulkan.util.PrimaryKeyType;
 
 /**
  * Mapper for the entity Asset and its DTO AssetDTO.
@@ -21,7 +21,7 @@ public class ProjectMapper {
         pConf.setServiceLayerName(project.getServiceLayerName());
         pConf.setDaoLayerName(project.getDaoLayerName());
         pConf.setDomainLayerName(project.getDomainLayerName());
-        pConf.setGlobalGenerationType(GenerationType.SEQUENCE);
+        pConf.setGlobalGenerationType(PrimaryKeyType.SEQUENCE);
         return pConf;
     }
 }

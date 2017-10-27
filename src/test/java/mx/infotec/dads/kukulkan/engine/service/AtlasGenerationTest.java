@@ -58,7 +58,7 @@ import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 import mx.infotec.dads.kukulkan.util.FileUtil;
-import mx.infotec.dads.kukulkan.util.GenerationType;
+import mx.infotec.dads.kukulkan.util.PrimaryKeyType;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 
 /**
@@ -115,7 +115,7 @@ public class AtlasGenerationTest {
         pConf.setServiceLayerName("service");
         pConf.setDaoLayerName("repository");
         pConf.setDomainLayerName("domain");
-        pConf.setGlobalGenerationType(GenerationType.SEQUENCE);
+        pConf.setGlobalGenerationType(PrimaryKeyType.SEQUENCE);
         // Create DataStore
         DataStore dsExample = new DataStore();
         dsExample.setName("atlas");

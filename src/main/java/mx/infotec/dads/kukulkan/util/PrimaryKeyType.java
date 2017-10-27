@@ -30,7 +30,7 @@ package mx.infotec.dads.kukulkan.util;
  * @author Daniel Cortes Pichardo
  * 
  */
-public enum GenerationType {
+public enum PrimaryKeyType {
     /**
      * Indicates that the persistence provider must assign primary keys for the
      * entity using an underlying database table to ensure uniqueness.

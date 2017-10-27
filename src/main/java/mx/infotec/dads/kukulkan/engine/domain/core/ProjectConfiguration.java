@@ -25,7 +25,7 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
 
 import java.io.Serializable;
 
-import mx.infotec.dads.kukulkan.util.GenerationType;
+import mx.infotec.dads.kukulkan.util.PrimaryKeyType;
 
 /**
  * ProrjectConfiguration Class
@@ -53,7 +53,7 @@ public class ProjectConfiguration implements Serializable {
     private String conacytDaoLayerName;
 
     // Global Generation Types Strategy
-    private GenerationType globalGenerationType;
+    private PrimaryKeyType globalGenerationType;
 
     public String getId() {
         return id;
@@ -135,11 +135,11 @@ public class ProjectConfiguration implements Serializable {
         this.domainLayerName = domainLayerName;
     }
 
-    public GenerationType getGlobalGenerationType() {
+    public PrimaryKeyType getGlobalGenerationType() {
         return globalGenerationType;
     }
 
-    public void setGlobalGenerationType(GenerationType globalGenerationType) {
+    public void setGlobalGenerationType(PrimaryKeyType globalGenerationType) {
         this.globalGenerationType = globalGenerationType;
     }
 
