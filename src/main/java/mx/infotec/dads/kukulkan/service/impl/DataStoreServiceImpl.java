@@ -35,10 +35,12 @@ import org.apache.metamodel.factory.DataContextFactoryRegistryImpl;
 import org.apache.metamodel.factory.DataContextPropertiesImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
@@ -58,6 +60,9 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 public class DataStoreServiceImpl implements DataStoreService {
 
     private final Logger log = LoggerFactory.getLogger(DataStoreServiceImpl.class);
+
+    @Autowired
+    private KukulkanConfigurationProperties prop;
 
     private static final String DATA_STORE_TYPE = "type";
     private static final String DATA_STORE_URL = "url";

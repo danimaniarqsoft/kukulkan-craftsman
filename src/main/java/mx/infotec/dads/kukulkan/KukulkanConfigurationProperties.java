@@ -37,6 +37,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties
 @ConfigurationProperties("kukulkan")
 public class KukulkanConfigurationProperties {
+    private final Data data = new Data();
+
     private String outputdir;
 
     public String getOutputdir() {
@@ -45,5 +47,30 @@ public class KukulkanConfigurationProperties {
 
     public void setOutputdir(String outputdir) {
         this.outputdir = outputdir;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public static class Data {
+
+        private final Mysql mysql = new Mysql();
+
+        public static class Mysql {
+            private String uri;
+
+            public String getUri() {
+                return uri;
+            }
+
+            public void setUri(String uri) {
+                this.uri = uri;
+            }
+        }
+
+        public Mysql getMysql() {
+            return mysql;
+        }
     }
 }

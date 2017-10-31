@@ -121,6 +121,9 @@ application:
 
 kukulkan:
   outputdir: /tmp/
+  data:
+    mysql:
+      uri: jdbc:mysql://kukulkancraftsman-mysql:3306  
 logging:
   level:
     root: info
