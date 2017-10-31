@@ -29,7 +29,7 @@ public class GrammarUtil {
 
     public static kukulkanParser.DomainModelContext getDomainModelContext(String file) {
         try {
-            LOGGER.debug("Interpreting file " + file);
+            LOGGER.debug("Interpreting file {}", file);
             kukulkanLexer lexer;
             lexer = new kukulkanLexer(new ANTLRFileStream(file));
             return getDomainModelContext(lexer);
