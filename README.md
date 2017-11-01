@@ -68,19 +68,19 @@ Para hacer los pasos anteriores con un unico comando:
 
 #### Update docker image
 
-In a terminal, set the environment variable **DOCKER_ID_USER** as your username in Docker Cloud.
+1. In a terminal, set the environment variable **DOCKER_ID_USER** as your username in Docker Cloud.
 
 	export DOCKER_ID_USER="danimaniarqsoft"
 
-Log in to Docker Cloud using the docker login command.
+2. Log in to Docker Cloud using the docker login command.
 
 	docker login
 
-Tag your image using docker tag.
+3. Tag your image using docker tag.
 
 	docker tag kukulkan $DOCKER_ID_USER/kukulkan
 
-Push your image to Docker Hub using docker push (making the same replacements as in the previous step).
+4. Push your image to Docker Hub using docker push (making the same replacements as in the previous step).
 
 	docker push $DOCKER_ID_USER/kukulkan
 
