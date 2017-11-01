@@ -1,6 +1,7 @@
 package mx.infotec.dads.kukulkan.engine.grammar;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -8,7 +9,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import gherkin.deps.net.iharder.Base64.InputStream;
 import mx.infotec.dads.kukulkan.grammar.kukulkanLexer;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
