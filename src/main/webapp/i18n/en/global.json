@@ -24,6 +24,7 @@
 				"dslModelerTitle": "DSL - Kukulkan",
 				"generatorTitle":"App Generator",
 				"generator": "Generator",
+				"grammar": "Grammar Generator",
 				"dataStore": "Data Store",
 				"dataPoolTitle":"Data Pool Generation",
 				"dataPool": "Data Pool"
