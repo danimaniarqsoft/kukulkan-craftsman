@@ -70,19 +70,19 @@ Para hacer los pasos anteriores con un unico comando:
 
 1. In a terminal, set the environment variable **DOCKER_ID_USER** as your username in Docker Cloud.
 
-	export DOCKER_ID_USER="danimaniarqsoft"
+	    export DOCKER_ID_USER="danimaniarqsoft"
 
 2. Log in to Docker Cloud using the docker login command.
 
-	docker login
+	    docker login
 
 3. Tag your image using docker tag.
 
-	docker tag kukulkan $DOCKER_ID_USER/kukulkan
+	    docker tag kukulkan $DOCKER_ID_USER/kukulkan
 
 4. Push your image to Docker Hub using docker push (making the same replacements as in the previous step).
 
-	docker push $DOCKER_ID_USER/kukulkan
+	    docker push $DOCKER_ID_USER/kukulkan
 
 Check that the image you just pushed appears in Docker Cloud.
 
