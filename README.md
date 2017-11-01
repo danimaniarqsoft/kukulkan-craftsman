@@ -66,47 +66,24 @@ Para hacer los pasos anteriores con un unico comando:
 `property.columnType?contains("TIMESTAMP")`
 `property.columnType?cap_first`
 
+#### Update docker image
 
+In a terminal, set the environment variable **DOCKER_ID_USER** as your username in Docker Cloud.
 
-# Ejecutar el proyecto Atlas
+	export DOCKER_ID_USER="danimaniarqsoft"
 
-#### Antes de comenzar:
+Log in to Docker Cloud using the docker login command.
 
-1. Instalar Mongo db: antes de comenzar, se debe tener una base de datos mongodd; kukulkan utiliza una base de datos mongodb para guardar archivos temporales y elementos de configuración.
+	docker login
 
-2. Tener una base de datos mysql con el esquema de `atlas`, `usuario` = `root` y **sin contraseña**.
-La configuración a la base de datos debe ser la siguiente:
+Tag your image using docker tag.
 
-	db.driver = com.mysql.jdbc.Driver
-	db.schema = atlas
-	db.url =jdbc:mysql://localhost/atlas
-	db.usuario = root
-	db.password =       #sin contraseña
+	docker tag kukulkan $DOCKER_ID_USER/kukulkan
 
-#### Clonar el proyecto desde github:
+Push your image to Docker Hub using docker push (making the same replacements as in the previous step).
 
-	git clone https://github.com/dads-software-brotherhood/kukulkan-craftsman.git
+	docker push $DOCKER_ID_USER/kukulkan
 
-en tu directorio local debes tener el proyecto descargado:
+Check that the image you just pushed appears in Docker Cloud.
 
-	-[yourAppFolderapp]
-		-kukulkan-craftsman
-
-#### cambiarte al folder de kukulkan-craftman
-
-	cd kukulkan-craftsman
-
-#### ejecutar el generador de código a partir de una prueba unitaria maven:
-
-	mvn -Dtest=AtlasGenerationTest test
-
-van a aparecer algunos errores pero si la conexión se generó de manera adecuada no hay problema.
-
-después de ejecutar el proyecto, van a tener los siguients folders en su directorio principal:
-
-	-[yourAppFolderapp]
-		-kukulkan-craftsman/   -> kukulkan project
-		-atlas/                -> atlas code generated
-
-copiar los archivos necesarios que se encuentran en la carpeta atlas a su proyecto principal.
-
+Go to Docker Cloud and navigate to the Repositories tab and confirm that your image appears in this list.
