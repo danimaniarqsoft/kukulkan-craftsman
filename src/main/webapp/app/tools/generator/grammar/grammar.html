@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="well">
 
-		<h2 data-translate="settings.title"
+		<h2 data-translate="grammar.title"
 			translate-values="{username: '{{vm.settingsAccount.login}}'}">
 			User settings for [<b>{{vm.settingsAccount.login}}</b>]
 		</h2>
@@ -18,39 +18,39 @@
 
 			<div class="form-group">
 				<label class="control-label" for="firstName"
-					data-translate="settings.form.firstname">First Name</label> <input
+					data-translate="grammar.form.firstname">First Name</label> <input
 					type="text" class="form-control" id="firstName" name="firstName"
-					placeholder="{{'settings.form.firstname.placeholder' | translate}}"
+					placeholder="{{'grammar.form.firstname.placeholder' | translate}}"
 					ng-model="vm.settingsAccount.firstName" ng-minlength=1
 					ng-maxlength=50 required maxlength="50">
 				<div ng-show="form.firstName.$dirty && form.firstName.$invalid">
 					<p class="help-block" ng-show="form.firstName.$error.required"
-						data-translate="settings.messages.validate.firstname.required">
+						data-translate="grammar.messages.validate.firstname.required">
 						Your first name is required.</p>
 					<p class="help-block" ng-show="form.firstName.$error.minlength"
-						data-translate="settings.messages.validate.firstname.minlength">
+						data-translate="grammar.messages.validate.firstname.minlength">
 						Your first name is required to be at least 1 character.</p>
 					<p class="help-block" ng-show="form.firstName.$error.maxlength"
-						data-translate="settings.messages.validate.firstname.maxlength">
+						data-translate="grammar.messages.validate.firstname.maxlength">
 						Your first name cannot be longer than 50 characters.</p>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label" for="lastName"
-					data-translate="settings.form.lastname">Last Name</label> <input
+					data-translate="grammar.form.lastname">Last Name</label> <input
 					type="text" class="form-control" id="lastName" name="lastName"
-					placeholder="{{'settings.form.lastname.placeholder' | translate}}"
+					placeholder="{{'grammar.form.lastname.placeholder' | translate}}"
 					ng-model="vm.settingsAccount.lastName" ng-minlength=1
 					ng-maxlength=50 required maxlength="50">
 				<div ng-show="form.lastName.$dirty && form.lastName.$invalid">
 					<p class="help-block" ng-show="form.lastName.$error.required"
-						data-translate="settings.messages.validate.lastname.required">
+						data-translate="grammar.messages.validate.lastname.required">
 						Your last name is required.</p>
 					<p class="help-block" ng-show="form.lastName.$error.minlength"
-						data-translate="settings.messages.validate.lastname.minlength">
+						data-translate="grammar.messages.validate.lastname.minlength">
 						Your last name is required to be at least 1 character.</p>
 					<p class="help-block" ng-show="form.lastName.$error.maxlength"
-						data-translate="settings.messages.validate.lastname.maxlength">
+						data-translate="grammar.messages.validate.lastname.maxlength">
 						Your last name cannot be longer than 50 characters.</p>
 				</div>
 			</div>
@@ -77,15 +77,11 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="langKey" data-translate="settings.form.language">Language</label>
-				<select id="langKey" name="langKey" class="form-control"
-					ng-model="vm.settingsAccount.langKey"
-					ng-controller="JhiLanguageController as languageVm"
-					ng-options="code as (code | findLanguageFromKey) for code in languageVm.languages"></select>
+				<label for="codemirror" data-translate="grammar.form.language">Language</label>
+	            <ui-codemirror id="codemirror" ui-codemirror-opts="vm.editorOptions" ng-model="vm.code"></ui-codemirror>
 			</div>
-
 			<button type="submit" ng-disabled="form.$invalid"
-				class="btn btn-primary" data-translate="settings.form.button">Save</button>
+				class="btn btn-primary" data-translate="grammar.form.button">Save</button>
 		</form>
 
 	</div>

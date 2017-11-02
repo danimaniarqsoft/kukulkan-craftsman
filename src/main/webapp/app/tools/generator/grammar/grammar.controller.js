@@ -14,6 +14,13 @@
         vm.save = save;
         vm.settingsAccount = null;
         vm.success = null;
+        vm.code ='public class Entity{}';
+		vm.editorOptions = {
+				lineWrapping : true,
+				lineNumbers: true,
+				matchBrackets: true,
+				mode: 'text/x-java',
+			};
 
         /**
          * Store the "settings account" in a separate variable, and not in the shared "account" variable.

@@ -13,7 +13,7 @@
             url: '/grammar',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'global.menu.account.settings'
+                pageTitle: 'global.menu.tools.grammar'
             },
             views: {
                 'content@': {
