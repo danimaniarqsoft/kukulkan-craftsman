@@ -60,6 +60,7 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
     public void doTask(GeneratorContext context) {
         Map<String, Object> model = createGeneralDescription(context);
         model.put("dataModelGroup", context.getDomainModel().getDomainModelGroup());
+        model.put("projectName", context.getProjectConfiguration().getId());
         fillNavBar(context.getProjectConfiguration(), model, context.getDomainModel());
         fillIdiomaGlobalEsJs(context.getProjectConfiguration(), model, context.getDomainModel());
         fillIdiomaGlobalEnJs(context.getProjectConfiguration(), model, context.getDomainModel());
@@ -73,7 +74,7 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
         String basePackage = pConf.getPackaging() + dmgName;
         LOGGER.info("AngularLayerTask {}", basePackage);
         for (DomainModelElement dmElement : dmElementCollection) {
-            fillModel(pConf, model, dmElement);
+            fillModel(model, dmElement);
             dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
             fillEntityControllerJs(pConf, model, dmElement);
             fillEntityDeleteDialogControllerJs(pConf, model, dmElement);
@@ -97,22 +98,21 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
     }
 
     private void fillIdiomaGlobalEnJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
-        templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/en/global.js.ftl", model,
-                BasePathEnum.WEB_APP_I18N, "/en/global.js");
+        templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/i18n/en/global.json.ftl", model,
+                BasePathEnum.WEB_APP_I18N, "/en/global.json");
     }
 
     private void fillIdiomaGlobalEsJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
-        templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/es/global.js.ftl", model,
-                BasePathEnum.WEB_APP_NAV_BAR, "/es/global.js");
+        templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/i18n/es/global.json.ftl", model,
+                BasePathEnum.WEB_APP_I18N, "/es/global.json");
     }
 
-    private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement) {
+    private void fillModel(Map<String, Object> model, DomainModelElement dmElement) {
         model.put("entityCamelCase", dmElement.getCamelCaseFormat());
         model.put("entity", dmElement.getName());
         model.put("id", dmElement.getPrimaryKey().getType());
         model.put("properties", dmElement.getProperties());
         model.put("primaryKey", dmElement.getPrimaryKey());
-        model.put("projectName", pConf.getId());
         model.put("entityHyphenNotation", camelCaseToHyphens(dmElement.getCamelCaseFormat()));
         model.put("entityHyphenNotationPlural", camelCaseToHyphens(dmElement.getCamelCasePluralFormat()));
         model.put("entityCamelCasePlural", dmElement.getCamelCasePluralFormat());

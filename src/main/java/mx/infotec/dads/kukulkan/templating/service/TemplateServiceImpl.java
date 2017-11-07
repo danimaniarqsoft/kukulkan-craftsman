@@ -72,14 +72,16 @@ public class TemplateServiceImpl implements TemplateService {
             dme.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
         }
     }
-    
+
     @Override
-    public void fillModel(DomainModel dm, String proyectoId, String templateName, Object model,
-            BasePathEnum basePath, String filePath) {
+    public void fillModel(DomainModel dm, String proyectoId, String templateName, Object model, BasePathEnum basePath,
+            String filePath) {
         Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
         if (templateOptional.isPresent()) {
             Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
             dm.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
+        } else {
+            LOGGER.warn("Template not found for {}", templateName);
         }
     }
 
