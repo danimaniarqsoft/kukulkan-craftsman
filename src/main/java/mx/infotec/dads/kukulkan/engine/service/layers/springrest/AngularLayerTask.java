@@ -33,7 +33,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.TemplateFormatter;
@@ -53,6 +55,17 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
     private TemplateService templateService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AngularLayerTask.class);
+
+    @Override
+    public void doTask(GeneratorContext context) {
+        Map<String, Object> model = createGeneralDescription(context);
+        model.put("dataModelGroup", context.getDomainModel().getDomainModelGroup());
+        fillNavBar(context.getProjectConfiguration(), model, context.getDomainModel());
+        fillIdiomaGlobalEsJs(context.getProjectConfiguration(), model, context.getDomainModel());
+        fillIdiomaGlobalEnJs(context.getProjectConfiguration(), model, context.getDomainModel());
+        doForEachDataModelGroup(context.getProjectConfiguration(), context.getDomainModel().getDomainModelGroup(),
+                model);
+    }
 
     @Override
     public void doForEachDataModelElement(ProjectConfiguration pConf,
@@ -76,6 +89,21 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
             fillIdiomaEsJs(pConf, model, dmElement);
             fillIdiomaEnJs(pConf, model, dmElement);
         }
+    }
+
+    private void fillNavBar(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
+        templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/navbar.html.ftl", model,
+                BasePathEnum.WEB_APP_NAV_BAR, "/navbar.html");
+    }
+
+    private void fillIdiomaGlobalEnJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
+        templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/en/global.js.ftl", model,
+                BasePathEnum.WEB_APP_I18N, "/en/global.js");
+    }
+
+    private void fillIdiomaGlobalEsJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
+        templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/es/global.js.ftl", model,
+                BasePathEnum.WEB_APP_NAV_BAR, "/es/global.js");
     }
 
     private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement) {

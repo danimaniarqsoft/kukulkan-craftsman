@@ -48,7 +48,7 @@ public abstract class AbstractLayerTaskVisitor implements LayerTask {
         doForEachDataModelGroup(context.getProjectConfiguration(), context.getDomainModel().getDomainModelGroup(), model);
     }
 
-    private Map<String, Object> createGeneralDescription(GeneratorContext context) {
+    protected Map<String, Object> createGeneralDescription(GeneratorContext context) {
         Map<String, Object> model = new HashMap<>();
         model.put("year", context.getProjectConfiguration().getYear());
         model.put("author", context.getProjectConfiguration().getAuthor());
