@@ -80,7 +80,13 @@ public class ModelLayerTask extends SpringRestLayerTaskVisitor {
 
     private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
             DomainModelElement dmElement) {
-        templateService.fillModel(dmElement, pConf.getId(), "common/model.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+        String template = null;
+        if(pConf.isMongoDb()){
+            template = "common/model.ftl";
+        }else{
+            template = "common/model-mongo.ftl";
+        }
+        templateService.fillModel(dmElement, pConf.getId(), template, model, BasePathEnum.SRC_MAIN_JAVA,
                 basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
                         + dmElement.getName() + ".java");
     }

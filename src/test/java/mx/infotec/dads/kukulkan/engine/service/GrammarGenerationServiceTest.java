@@ -107,16 +107,17 @@ public class GrammarGenerationServiceTest {
         }
         // Create ProjectConfiguration
         ProjectConfiguration pConf = new ProjectConfiguration();
-        pConf.setId("kukulkantest");
-        pConf.setGroupId("mx.infotec.dads");
+        pConf.setId("kukulkanmongo");
+        pConf.setGroupId("mx.infotec.dads.mongo");
         pConf.setVersion("1.0.0");
-        pConf.setPackaging("mx.infotec.dads.rsr");
+        pConf.setPackaging("mx.infotec.dads.mongo");
         pConf.setYear("2017");
         pConf.setAuthor("KUKULKAN");
         pConf.setWebLayerName("web.rest");
         pConf.setServiceLayerName("service");
         pConf.setDaoLayerName("repository");
         pConf.setDomainLayerName("domain");
+        pConf.setMongoDb(true);
         pConf.setGlobalGenerationType(PKGenerationStrategy.SEQUENCE);
         // Create DataStore
         DataStore dsExample = new DataStore();

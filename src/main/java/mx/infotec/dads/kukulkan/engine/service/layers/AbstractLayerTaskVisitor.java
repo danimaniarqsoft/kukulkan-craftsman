@@ -52,6 +52,7 @@ public abstract class AbstractLayerTaskVisitor implements LayerTask {
         Map<String, Object> model = new HashMap<>();
         model.put("year", context.getProjectConfiguration().getYear());
         model.put("author", context.getProjectConfiguration().getAuthor());
+        model.put("isMongoDB", context.getProjectConfiguration().isMongoDb());
         return model;
     }
 

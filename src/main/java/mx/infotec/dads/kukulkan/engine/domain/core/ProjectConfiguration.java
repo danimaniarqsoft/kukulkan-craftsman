@@ -43,7 +43,6 @@ public class ProjectConfiguration implements Serializable {
     private String author;
     private String year;
     private String appName;
-
     private String webLayerName;
     private String serviceLayerName;
     private String daoLayerName;
@@ -51,6 +50,8 @@ public class ProjectConfiguration implements Serializable {
     private String dtoLayerName;
     private String exceptionLayerName;
     private String conacytDaoLayerName;
+
+    private boolean mongoDb;
 
     // Global Generation Types Strategy
     private PKGenerationStrategy globalGenerationType;
@@ -173,6 +174,14 @@ public class ProjectConfiguration implements Serializable {
 
     public void setConacytDaoLayerName(String conacytDaoLayerName) {
         this.conacytDaoLayerName = conacytDaoLayerName;
+    }
+
+    public boolean isMongoDb() {
+        return mongoDb;
+    }
+
+    public void setMongoDb(boolean mongoDb) {
+        this.mongoDb = mongoDb;
     }
 
 }

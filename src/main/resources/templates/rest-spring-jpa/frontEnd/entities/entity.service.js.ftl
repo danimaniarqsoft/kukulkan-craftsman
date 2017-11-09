@@ -67,7 +67,7 @@
                 }
             }
             <#else>
-            'update': { method:'PUT' }<% } %>
+            'update': { method:'PUT' }
             </#if>
         });
     }
