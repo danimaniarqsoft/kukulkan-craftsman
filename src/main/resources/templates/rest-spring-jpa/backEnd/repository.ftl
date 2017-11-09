@@ -23,8 +23,13 @@
  * SOFTWARE.
  */
 ${package}
-
+<#if isMongoDB == true>
+import org.springframework.data.mongodb.repository.MongoRepository;
+<#else>
 import org.springframework.data.jpa.repository.JpaRepository;
+</#if>
+
+
 ${importModel}
 <#if importPrimaryKey??>
 ${importPrimaryKey}
@@ -36,6 +41,10 @@ ${importPrimaryKey}
  * @author ${author}
  * @kukulkanGenerated ${aDateTime?iso_utc}
  */
+<#if isMongoDB == true>
+public interface ${entity}Repository extends MongoRepository<${entity}, String> {
+<#else>
 public interface ${entity}Repository extends JpaRepository<${entity}, ${id}> {
+</#if>
 
 }

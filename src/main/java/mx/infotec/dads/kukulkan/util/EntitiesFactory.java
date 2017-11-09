@@ -47,8 +47,8 @@ import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
  */
 public class EntitiesFactory {
 
-    private static final String LONG_TYPE = "Long";
-    private static final String LONG_QUALIFIED_NAME = "java.lang.Long";
+    private static final String STRING_TYPE = "String";
+    private static final String STRING_QUALIFIED_NAME = "java.lang.String";
     private static final String ID_DEFAULT_NAME = "id";
 
     private EntitiesFactory() {
@@ -57,9 +57,9 @@ public class EntitiesFactory {
 
     public static PrimaryKey createDefaultPrimaryKey() {
         PrimaryKey pk = PrimaryKey.createOrderedDataModel();
-        pk.setType(LONG_TYPE);
+        pk.setType(STRING_TYPE);
         pk.setName(ID_DEFAULT_NAME);
-        pk.setQualifiedLabel(LONG_QUALIFIED_NAME);
+        pk.setQualifiedLabel(STRING_QUALIFIED_NAME);
         pk.setComposed(Boolean.FALSE);
         return pk;
     }

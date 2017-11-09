@@ -54,8 +54,8 @@ public class ModelLayerTask extends SpringRestLayerTaskVisitor {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModelLayerTask.class);
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
-            Map<String, Object> model, String dmgName) {
+    public void doForEachDataModelElement(ProjectConfiguration pConf,
+            Collection<DomainModelElement> dmElementCollection, Map<String, Object> model, String dmgName) {
         LOGGER.debug("doForEachDataModelElement method {}", dmgName);
         String basePackage = pConf.getPackaging() + dmgName;
         for (DomainModelElement dmElement : dmElementCollection) {
@@ -81,10 +81,10 @@ public class ModelLayerTask extends SpringRestLayerTaskVisitor {
     private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
             DomainModelElement dmElement) {
         String template = null;
-        if(pConf.isMongoDb()){
-            template = "common/model.ftl";
-        }else{
+        if (pConf.isMongoDb()) {
             template = "common/model-mongo.ftl";
+        } else {
+            template = "common/model.ftl";
         }
         templateService.fillModel(dmElement, pConf.getId(), template, model, BasePathEnum.SRC_MAIN_JAVA,
                 basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"

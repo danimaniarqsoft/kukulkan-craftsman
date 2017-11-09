@@ -24,7 +24,10 @@
  */
 ${package}
 
-import java.io.Serializable;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -59,8 +62,8 @@ public class ${entity} implements Serializable {
      */
     <#if property.constraint.nullable==false>
     @NotNull
-    </#if> 
-	@Field("${property.columnName}")
+    </#if>
+    @Field("${property.columnName}")
     private ${property.type} ${property.name};
 	</#list>
 	
