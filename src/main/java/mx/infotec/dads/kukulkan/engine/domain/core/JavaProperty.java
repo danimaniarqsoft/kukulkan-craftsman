@@ -58,6 +58,7 @@ public class JavaProperty implements Property<JavaProperty> {
     private boolean booleanType;
     private boolean number;
     private boolean literal;
+    private boolean largeObject;
 
     private Constraint constraint;
 
@@ -297,6 +298,11 @@ public class JavaProperty implements Property<JavaProperty> {
             return this;
         }
         
+        public JavaPropertyBuilder isLiteral(boolean literal) {
+            javaProperty.setLiteral(literal);
+            return this;
+        }
+        
         public JavaPropertyBuilder isBigDecimal(boolean bigDecimal) {
             this.javaProperty.setBigDecimal(bigDecimal);
             return this;
@@ -314,6 +320,11 @@ public class JavaProperty implements Property<JavaProperty> {
 
         public JavaPropertyBuilder isInstance(boolean instant) {
             this.javaProperty.setInstant(instant);
+            return this;
+        }
+        
+        public JavaPropertyBuilder isLargeObject(boolean largeObject) {
+            this.javaProperty.setLargeObject(largeObject);
             return this;
         }
 
@@ -339,5 +350,14 @@ public class JavaProperty implements Property<JavaProperty> {
 
     public void setLiteral(boolean literal) {
         this.literal = literal;
+    }
+
+    @Override
+    public boolean isLargeObject() {
+        return largeObject;
+    }
+
+    public void setLargeObject(boolean largeObject) {
+        this.largeObject = largeObject;
     }
 }

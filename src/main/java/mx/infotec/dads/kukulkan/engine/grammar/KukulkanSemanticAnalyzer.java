@@ -27,7 +27,7 @@ public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DomainMod
     public List<DomainModelElement> visitDomainModel(kukulkanParser.DomainModelContext ctx) {
         List<DomainModelElement> dmeList = new ArrayList<>();
         ctx.entities.forEach(entity -> {
-            DomainModelElement dme = DomainModelElement.createOrderedDataModel();
+            DomainModelElement dme = DomainModelElement.createDataModel();
             processMetaData(dmeList, entity, dme);
             processProperties(dme, entity.fields);
         });
@@ -47,21 +47,51 @@ public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DomainMod
     private static void processProperties(DomainModelElement dme, List<EntityFieldContext> fields) {
         fields.forEach(field -> {
             String propertyName = field.id.getText();
-            GrammarPropertyType grammarPropertyType = GrammarPropertyMapping.getPropertyType(field.type);
-            JavaProperty javaProperty = JavaProperty.builder()
-                    .withName(propertyName)
-                    .withType(grammarPropertyType.getJavaName())
-                    .withColumnName(propertyName)
-                    .withColumnType(grammarPropertyType.getGrammarName())
-                    .withQualifiedName(grammarPropertyType.getJavaQualifiedName())
-                    .isNullable(true)
-                    .isPrimaryKey(false)
-                    .isIndexed(false)
-                    .addType(field.type)
-                    .build();
+            GrammarPropertyType propertyType = GrammarPropertyMapping.getPropertyType(field.type);
+            JavaProperty javaProperty = createJavaProperty(field, propertyName, propertyType);
             dme.addProperty(javaProperty);
+            addContentType(dme, propertyName, propertyType);
             GrammarMapping.addImports(dme.getImports(), javaProperty);
             DataBaseMapping.fillModelMetaData(dme,javaProperty);
         });
+    }
+
+    public static void addContentType(DomainModelElement dme, String propertyName, GrammarPropertyType propertyType) {
+        if(propertyType.isBinary()){
+            dme.addProperty(createContentTypeProperty(propertyName));
+        }
+    }
+
+    public static JavaProperty createJavaProperty(EntityFieldContext field, String propertyName,
+            GrammarPropertyType propertyType) {
+        return JavaProperty.builder()
+                .withName(propertyName)
+                .withType(propertyType.getJavaName())
+                .withColumnName(propertyName)
+                .withColumnType(propertyType.getGrammarName())
+                .withQualifiedName(propertyType.getJavaQualifiedName())
+                .isNullable(true)
+                .isPrimaryKey(false)
+                .isIndexed(false)
+                // add if it is zoneDateTime or dateTime or Instant or other.
+                .isZoneDateTime(zoneDateTime)
+                .isLargeObject(propertyType.isLargeObject())
+                .addType(field.type)
+                .build();
+    }
+    
+    public static JavaProperty createContentTypeProperty(String propertyName){
+        return JavaProperty.builder()
+                .withName(propertyName+"ContentType")
+                .withType("String")
+                .withColumnName(propertyName+"ContentType")
+                .withColumnType("TextBlob")
+                .withQualifiedName("java.lang.String")
+                .isNullable(true)
+                .isPrimaryKey(false)
+                .isIndexed(false)
+                .isLargeObject(false)
+                .isLiteral(true)
+                .build();
     }
 }

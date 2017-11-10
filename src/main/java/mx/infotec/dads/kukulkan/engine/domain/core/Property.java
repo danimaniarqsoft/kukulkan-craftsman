@@ -147,4 +147,11 @@ public interface Property<T> extends Comparable<T> {
      * Return the constraint applied
      */
     Constraint getConstraint();
+
+    /**
+     * Return true if Large Object is present
+     * 
+     * @return true if Large Object
+     */
+    boolean isLargeObject();
 }
