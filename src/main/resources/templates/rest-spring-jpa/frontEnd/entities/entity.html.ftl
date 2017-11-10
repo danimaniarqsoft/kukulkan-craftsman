@@ -54,10 +54,14 @@
 							<#elseif property.columnType?contains("DATE")>
 					<td>{{${entityCamelCase}.${property.name} | date:'mediumDate'}}</td>
 					        <#elseif property.blob == true>
+					        <#if property.clob == true>
+					<td>{{${entityCamelCase}.${property.name}}}</td>        
+					        <#else>
 					<td>
 						<a ng-if="${entityCamelCase}.${property.name}" ng-click="vm.openFile(${entityCamelCase}.${property.name}ContentType, ${entityCamelCase}.${property.name})" data-translate="entity.action.open">open</a>
                         <span ng-if="${entityCamelCase}.${property.name}">{{${entityCamelCase}.${property.name}ContentType}}, {{vm.byteSize(${entityCamelCase}.${property.name})}}</span> 
 					</td>     
+					        </#if>
                     		<#else>
 					<td>{{${entityCamelCase}.${property.name}}}</td>
 							</#if>

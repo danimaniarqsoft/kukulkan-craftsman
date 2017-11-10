@@ -111,9 +111,7 @@ public class DataBaseMapping {
                 .withQualifiedName(extractQualifiedType(column))
                 .isNullable(column.isNullable())
                 .isPrimaryKey(false)
-                .isIndexed(column.isIndexed())
-                .addType(column.getType())
-                .build();
+                .isIndexed(column.isIndexed()).addType(column.getType()).build();
         dme.addProperty(javaProperty);
         addImports(dme.getImports(), column.getType());
         fillModelMetaData(dme, javaProperty);
@@ -125,30 +123,36 @@ public class DataBaseMapping {
             dme.setHasConstraints(true);
         }
         if (javaProperty.isTime()) {
-            dme.setHasTimeProperties(true);
-            if (javaProperty.isZoneDateTime()) {
-                dme.setHasZoneDateTime(true);
-            } else if (javaProperty.isLocalDate()) {
-                dme.setHasLocalDate(true);
-            } else if (javaProperty.isZoneDateTime()) {
-                dme.setHasZoneDateTime(true);
-            } else if (javaProperty.isInstant()) {
-                dme.setHasInstant(true);
-            } else {
-                throw new ApplicationException("Not java Time Equivalent: " + javaProperty.getColumnName());
-            }
+            checkIfTime(dme, javaProperty);
             return;
-        }
-        if (javaProperty.isBlob()) {
-            dme.setHasBlobProperties(true);
-            javaProperty.setBlob(true);
+        } else if (javaProperty.isBlob()) {
+            checkIfBlob(dme, javaProperty);
             return;
-        }
-        if (javaProperty.isClob()) {
+        } else if (javaProperty.isClob()) {
             dme.setHasClobProperties(true);
             javaProperty.setClob(true);
             return;
         }
+    }
+
+    public static void checkIfBlob(DomainModelElement dme, JavaProperty javaProperty) {
+        dme.setHasBlobProperties(true);
+        javaProperty.setBlob(true);
+        return;
+    }
+
+    public static void checkIfTime(DomainModelElement dme, JavaProperty javaProperty) {
+        dme.setHasTimeProperties(true);
+        if (javaProperty.isZoneDateTime()) {
+            dme.setHasZoneDateTime(true);
+        } else if (javaProperty.isLocalDate()) {
+            dme.setHasLocalDate(true);
+        } else if (javaProperty.isInstant()) {
+            dme.setHasInstant(true);
+        } else {
+            throw new ApplicationException("Not java Time Equivalent: " + javaProperty.getColumnName());
+        }
+        return;
     }
 
     private static boolean addImports(Collection<String> imports, ColumnType columnType) {
@@ -268,7 +272,8 @@ public class DataBaseMapping {
      * @param dataContext
      * @return
      */
-    public static List<DomainModelGroup> createSingleDataModelGroupList(List<Table> tables, List<String> excludedTables) {
+    public static List<DomainModelGroup> createSingleDataModelGroupList(List<Table> tables,
+            List<String> excludedTables) {
         List<DomainModelGroup> dataModelGroupList = new ArrayList<>();
         dataModelGroupList.add(createDefaultDataModelGroup(tables, excludedTables));
         return dataModelGroupList;

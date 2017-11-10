@@ -15,7 +15,11 @@
         <#list properties as property>
         	<#if property.name?ends_with("ContentType") == false>
 	        	<#if  property.blob == true>
-		    	    <#include "./edit/blob.ftl">
+		    	    <#if  property.clob == true>
+						<#include "./edit/textblob.ftl">
+			    	<#else>
+		    	        <#include "./edit/blob.ftl">
+		    		</#if>
 		    	<#elseif property.time == true>
 		    		<#if  property.zoneDateTime == true>
 		        		<#include "./edit/zonedatetime.ftl">
@@ -25,11 +29,7 @@
 				<#elseif property.boolean == true>
 					<#include "./edit/boolean.ftl">
 				<#elseif property.literal == true>
-					<#if  property.clob == true>
-						<#include "./edit/textblob.ftl">
-			    	<#else>
 			    		<#include "./edit/text.ftl">
-		    		</#if>
 			    <#elseif property.number == true>
 					<#include "./edit/number.ftl">
 		        <#else> 

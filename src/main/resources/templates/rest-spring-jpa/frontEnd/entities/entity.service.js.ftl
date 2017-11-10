@@ -67,7 +67,22 @@
                 }
             }
             <#else>
-            'update': { method:'PUT' }
+            'update': {
+                method: 'PUT',
+                transformRequest: function (data) {
+                    var copy = angular.copy(data);
+				<#if hasTimeProperties == true>
+        			<#list properties as property>
+				    	<#if property.time == true> 
+				        	<#if  property.localDate == true>
+				    copy.${property.name} = DateUtils.convertLocalDateToServer(copy.${property.name});
+							</#if>
+				    	</#if>
+					</#list>
+        		</#if>
+                    return angular.toJson(copy);
+                }
+            }
             </#if>
         });
     }

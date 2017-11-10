@@ -218,6 +218,13 @@ public class DomainModelElement {
         dme.setProperties(new TreeSet<>());
         return dme;
     }
+    
+    public static DomainModelElement createDataModel() {
+        DomainModelElement dme = new DomainModelElement();
+        dme.setImports(new TreeSet<>());
+        dme.setProperties(new ArrayList<>());
+        return dme;
+    }
 
     public String getQualifiedName() {
         return qualifiedName;

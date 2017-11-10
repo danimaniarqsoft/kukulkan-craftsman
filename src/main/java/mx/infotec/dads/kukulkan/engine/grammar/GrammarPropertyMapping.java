@@ -33,8 +33,8 @@ public class GrammarPropertyMapping {
         /*
          * Literal
          */
-        map.put("TextBlob", new GrammarPropertyTypeImpl("TextBlob", LITERAL_TYPE));
-        map.put("String", new GrammarPropertyTypeImpl("String", LITERAL_TYPE, String.class, true));
+        map.put("String", new GrammarPropertyTypeImpl("String", LITERAL_TYPE));
+        map.put("TextBlob", new GrammarPropertyTypeImpl("TextBlob", LITERAL_TYPE, String.class, true));
 
         /*
          * Numbers
@@ -62,8 +62,8 @@ public class GrammarPropertyMapping {
          * Blobs
          */
         map.put("Blob", new GrammarPropertyTypeImpl("Blob", BINARY_TYPE, byte[].class, true));
-        map.put("AnyBlob", new GrammarPropertyTypeImpl("Blob", BINARY_TYPE, byte[].class, true));
-        map.put("ImageBlob", new GrammarPropertyTypeImpl("Blob", BINARY_TYPE, byte[].class, true));
+        map.put("AnyBlob", new GrammarPropertyTypeImpl("AnyBlob", BINARY_TYPE, byte[].class, true));
+        map.put("ImageBlob", new GrammarPropertyTypeImpl("ImageBlob", BINARY_TYPE, byte[].class, true));
 
     }
 

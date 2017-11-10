@@ -11,7 +11,11 @@
 		<#list properties as property>
         	<#if property.name?ends_with("ContentType") == false>
 	        	<#if  property.blob == true>
+	        		<#if property.clob == true>
+	        		<#include "./read/textblob.ftl">
+		    	    <#else>
 		    	    <#include "./read/blob.ftl">
+	        		</#if>
 		    	<#elseif property.time == true>
 		    		<#if  property.zoneDateTime == true>
 		        		<#include "./read/zonedatetime.ftl">
