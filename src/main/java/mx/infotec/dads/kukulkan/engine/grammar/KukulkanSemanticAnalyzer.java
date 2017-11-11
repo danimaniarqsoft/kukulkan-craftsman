@@ -2,6 +2,9 @@ package mx.infotec.dads.kukulkan.engine.grammar;
 
 import static mx.infotec.dads.kukulkan.util.EntitiesFactory.createDefaultPrimaryKey;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,8 +76,10 @@ public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DomainMod
                 .isNullable(true)
                 .isPrimaryKey(false)
                 .isIndexed(false)
+                .isLocalDate(propertyType.getJavaEquivalentClass().equals(LocalDate.class))
+                .isZoneDateTime(propertyType.getJavaEquivalentClass().equals(ZonedDateTime.class))
+                .isInstance(propertyType.getJavaEquivalentClass().equals(Instant.class))
                 // add if it is zoneDateTime or dateTime or Instant or other.
-                .isZoneDateTime(zoneDateTime)
                 .isLargeObject(propertyType.isLargeObject())
                 .addType(field.type)
                 .build();
