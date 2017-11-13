@@ -76,10 +76,10 @@ public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DomainMod
                 .isNullable(true)
                 .isPrimaryKey(false)
                 .isIndexed(false)
+                // add if it is zoneDateTime or dateTime or Instant or other.
                 .isLocalDate(propertyType.getJavaEquivalentClass().equals(LocalDate.class))
                 .isZoneDateTime(propertyType.getJavaEquivalentClass().equals(ZonedDateTime.class))
                 .isInstance(propertyType.getJavaEquivalentClass().equals(Instant.class))
-                // add if it is zoneDateTime or dateTime or Instant or other.
                 .isLargeObject(propertyType.isLargeObject())
                 .addType(field.type)
                 .build();

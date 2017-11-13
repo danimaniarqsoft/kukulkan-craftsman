@@ -38,9 +38,9 @@ public class GrammarPropertyTypeImpl implements GrammarPropertyType {
 
     public static final Logger logger = LoggerFactory.getLogger(GrammarPropertyTypeImpl.class);
 
-    private final String _name;
-    private final SuperColumnType _superColumnType;
-    private final Class<?> _javaType;
+    private final String name;
+    private final SuperColumnType superColumnType;
+    private final Class<?> javaType;
     private final boolean _largeObject;
 
     public GrammarPropertyTypeImpl(String name, SuperColumnType superColumnType) {
@@ -59,60 +59,60 @@ public class GrammarPropertyTypeImpl implements GrammarPropertyType {
         if (superColumnType == null) {
             throw new IllegalArgumentException("SuperColumnType cannot be null");
         }
-        _name = name;
-        _superColumnType = superColumnType;
+        this.name = name;
+        this.superColumnType = superColumnType;
         if (javaType == null) {
-            _javaType = superColumnType.getJavaEquivalentClass();
+            this.javaType = superColumnType.getJavaEquivalentClass();
         } else {
-            _javaType = javaType;
+            this.javaType = javaType;
         }
-        _largeObject = largeObject;
+        this._largeObject = largeObject;
     }
 
     public boolean isBoolean() {
-        return _superColumnType == SuperColumnType.BOOLEAN_TYPE;
+        return this.superColumnType == SuperColumnType.BOOLEAN_TYPE;
     }
 
     public boolean isBinary() {
-        return _superColumnType == SuperColumnType.BINARY_TYPE;
+        return this.superColumnType == SuperColumnType.BINARY_TYPE;
     }
 
     public boolean isNumber() {
-        return _superColumnType == SuperColumnType.NUMBER_TYPE;
+        return this.superColumnType == SuperColumnType.NUMBER_TYPE;
     }
 
     public boolean isTimeBased() {
-        return _superColumnType == SuperColumnType.TIME_TYPE;
+        return this.superColumnType == SuperColumnType.TIME_TYPE;
     }
 
     public boolean isLiteral() {
-        return _superColumnType == SuperColumnType.LITERAL_TYPE;
+        return this.superColumnType == SuperColumnType.LITERAL_TYPE;
     }
 
     public boolean isLargeObject() {
-        return _largeObject;
+        return this._largeObject;
     }
 
     public Class<?> getJavaEquivalentClass() {
-        return _javaType;
+        return this.javaType;
     }
 
     public SuperColumnType getSuperType() {
-        return _superColumnType;
+        return this.superColumnType;
     }
 
     @Override
     public String getGrammarName() {
-        return _name;
+        return this.name;
     }
 
     @Override
     public String getJavaName() {
-        return _javaType.getSimpleName();
+        return this.javaType.getSimpleName();
     }
 
     @Override
     public String getJavaQualifiedName() {
-        return _javaType.getCanonicalName();
+        return this.javaType.getCanonicalName();
     }
 }
