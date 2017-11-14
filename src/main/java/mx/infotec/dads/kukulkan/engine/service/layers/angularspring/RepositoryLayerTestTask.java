@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
+package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
 import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addCommonDataModelElements;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
@@ -29,10 +29,7 @@ import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageSt
 import java.util.Collection;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
@@ -40,34 +37,29 @@ import mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
-import mx.infotec.dads.kukulkan.util.NameConventions;
 
 /**
- * Repository Layer Task
+ * Repository Layer Test Task
  * 
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("repositoryRestLayerTask")
-public class RepositoryLayerTask extends AbstractSpringRestLayerTask {
+public class RepositoryLayerTestTask extends AbstractAngularSpringLayerTask {
 
     @Autowired
     private TemplateService templateService;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryLayerTask.class);
 
     @Override
     public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> model, String dmgName) {
         String basePackage = pConf.getPackaging() + dmgName;
-        LOGGER.debug("Base package {}", basePackage);
         for (DomainModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
             model.put("package", formatToPackageStatement(basePackage, pConf.getDaoLayerName()));
             templateService.fillModel(dmElement, pConf.getId(),
-                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/repository.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/repository.ftl", model, BasePathEnum.SRC_TEST_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDaoLayerName() + "/"
-                            + dmElement.getName() + NameConventions.DAO + ".java");
+                            + dmElement.getName() + "Repository.java");
         }
     }
 

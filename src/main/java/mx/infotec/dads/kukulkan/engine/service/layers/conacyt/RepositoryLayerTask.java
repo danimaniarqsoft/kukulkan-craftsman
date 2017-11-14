@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.conacyt;
 
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addCommonDataModelElements;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
 import java.util.Collection;
@@ -35,6 +36,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.NameConventions;
@@ -46,7 +48,7 @@ import mx.infotec.dads.kukulkan.util.NameConventions;
  *
  */
 @Service("conacytRepositoryLayerTask")
-public class RepositoryLayerTask extends ConacytLayerTaskVisitor {
+public class RepositoryLayerTask extends AbstractConacytLayerTask {
 
     @Autowired
     private TemplateService templateService;

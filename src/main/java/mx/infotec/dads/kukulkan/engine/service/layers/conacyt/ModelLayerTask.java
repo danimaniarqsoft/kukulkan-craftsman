@@ -46,7 +46,7 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
  *
  */
 @Service("conacytModelLayerTask")
-public class ModelLayerTask extends ConacytLayerTaskVisitor {
+public class ModelLayerTask extends AbstractConacytLayerTask {
 
 	@Autowired
 	private TemplateService templateService;

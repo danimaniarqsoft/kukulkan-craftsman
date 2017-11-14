@@ -45,8 +45,8 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("modelLayerTask")
-public class ModelLayerTask extends SpringRestLayerTaskVisitor {
+@Service("modelRestLayerTask")
+public class ModelLayerTask extends AbstractSpringRestLayerTask {
 
     @Autowired
     private TemplateService templateService;
