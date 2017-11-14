@@ -117,7 +117,7 @@ jhipster:
 # ===================================================================
 
 kukulkan:
-  outputdir: /tmp/
+  outputdir: /home/daniel/git/
   data:
     mysql:
       uri: jdbc:mysql://kukulkancraftsman-mysql:3306  

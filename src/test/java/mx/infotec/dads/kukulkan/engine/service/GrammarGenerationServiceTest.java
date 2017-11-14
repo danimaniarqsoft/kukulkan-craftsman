@@ -23,7 +23,6 @@
  */
 package mx.infotec.dads.kukulkan.engine.service;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,8 +58,8 @@ import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.util.DataStoreConstants;
 import mx.infotec.dads.kukulkan.util.FileUtil;
-import mx.infotec.dads.kukulkan.util.PKGenerationStrategy;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
+import mx.infotec.dads.kukulkan.util.PKGenerationStrategy;
 
 /**
  * Test for GeneratorService
@@ -126,7 +125,7 @@ public class GrammarGenerationServiceTest {
         List<DataStore> findAllDataStores = dataStoreRepository.findAll(dataStoreFilter);
         DataStore dataStore = findAllDataStores.get(0);
         System.out.println(dataStore.getDataStoreType().getName());
-        
+
         // Create DataModel
         DomainModel dataModel = new JavaDomainModel();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
@@ -145,6 +144,7 @@ public class GrammarGenerationServiceTest {
         // Process Activities
         generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
         FileUtil.saveToFile(genCtx);
-        FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "compressedFile");
+        // FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" +
+        // pConf.getId()), "compressedFile");
     }
 }
