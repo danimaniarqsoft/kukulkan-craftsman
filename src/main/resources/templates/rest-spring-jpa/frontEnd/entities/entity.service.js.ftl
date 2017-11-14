@@ -1,4 +1,3 @@
-<#assign hasLocalDate = false>
 (function() {
     'use strict';
     angular
@@ -20,10 +19,9 @@
                         <#if hasTimeProperties == true>
         			    	<#list properties as property>
 				        		<#if property.time == true> 
-				        			<#if  property.columnType?contains("TIMESTAMP")>
+				        			<#if  property.zoneDateTime == true>
 				        data.${property.name} = DateUtils.convertDateTimeFromServer(data.${property.name});
-							    	<#elseif property.columnType?contains("DATE")>
-							    	<#assign hasLocalDate = true>
+							    	<#elseif property.localDate>
 						data.${property.name} = DateUtils.convertLocalDateFromServer(data.${property.name});
 							    	</#if>
 				            	</#if>
@@ -67,22 +65,7 @@
                 }
             }
             <#else>
-            'update': {
-                method: 'PUT',
-                transformRequest: function (data) {
-                    var copy = angular.copy(data);
-				<#if hasTimeProperties == true>
-        			<#list properties as property>
-				    	<#if property.time == true> 
-				        	<#if  property.localDate == true>
-				    copy.${property.name} = DateUtils.convertLocalDateToServer(copy.${property.name});
-							</#if>
-				    	</#if>
-					</#list>
-        		</#if>
-                    return angular.toJson(copy);
-                }
-            }
+            'update': { method:'PUT' }
             </#if>
         });
     }

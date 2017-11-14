@@ -117,6 +117,7 @@ public class AngularLayerTask extends SpringRestLayerTaskVisitor {
         model.put("entityHyphenNotationPlural", camelCaseToHyphens(dmElement.getCamelCasePluralFormat()));
         model.put("entityCamelCasePlural", dmElement.getCamelCasePluralFormat());
         model.put("hasTimeProperties", dmElement.isHasTimeProperties());
+        model.put("hasLocalDate", dmElement.isHasLocalDate());
         model.put("hasBlobProperties", dmElement.isHasBlobProperties());
     }
 

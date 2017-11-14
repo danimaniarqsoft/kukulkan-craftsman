@@ -126,7 +126,7 @@ public class JavaProperty implements Property<JavaProperty> {
 
     @Override
     public boolean isTime() {
-        return time;
+        return isLocalDate() || isZoneDateTime() || isInstant();
     }
 
     public void setTime(boolean time) {
@@ -297,19 +297,19 @@ public class JavaProperty implements Property<JavaProperty> {
             GrammarMapping.addType(javaProperty, type);
             return this;
         }
-        
+
         public JavaPropertyBuilder isLiteral(boolean literal) {
             javaProperty.setLiteral(literal);
             return this;
         }
-        
+
         public JavaPropertyBuilder isBigDecimal(boolean bigDecimal) {
             this.javaProperty.setBigDecimal(bigDecimal);
             return this;
         }
 
         public JavaPropertyBuilder isLocalDate(boolean localDate) {
-            this.javaProperty.setClob(localDate);
+            this.javaProperty.setLocalDate(localDate);
             return this;
         }
 
@@ -322,7 +322,7 @@ public class JavaProperty implements Property<JavaProperty> {
             this.javaProperty.setInstant(instant);
             return this;
         }
-        
+
         public JavaPropertyBuilder isLargeObject(boolean largeObject) {
             this.javaProperty.setLargeObject(largeObject);
             return this;
@@ -331,7 +331,6 @@ public class JavaProperty implements Property<JavaProperty> {
         public JavaProperty build() {
             return this.javaProperty;
         }
-
 
     }
 
