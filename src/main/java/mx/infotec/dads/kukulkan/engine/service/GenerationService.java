@@ -41,5 +41,5 @@ public interface GenerationService {
      * 
      * @param generatorContext
      */
-    void process(GeneratorContext generatorContext, List<LayerTask> layerTasks);
+    void process(GeneratorContext context, List<LayerTask> layerTasks);
 }
