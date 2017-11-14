@@ -23,10 +23,10 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers;
 
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToImportStatement;
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addAuthoringData;
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addCommonDataModelElements;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
@@ -40,41 +40,48 @@ import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
  * @author Daniel Cortes Pichardo
  *
  */
-public abstract class AbstractLayerTaskVisitor implements LayerTask {
+public abstract class TemplateLayerTask implements LayerTask {
 
     @Override
     public void doTask(GeneratorContext context) {
-        Map<String, Object> model = createGeneralDescription(context);
-        doForEachDataModelGroup(context.getProjectConfiguration(), context.getDomainModel().getDomainModelGroup(), model);
+        Map<String, Object> propertiesMap = addAuthoringData(context);
+        doBeforeProcessDataModelGroup(context, propertiesMap);
+        doForEachDataModelGroupTemplate(context.getProjectConfiguration(),
+                context.getDomainModel().getDomainModelGroup(), propertiesMap);
     }
 
-    protected Map<String, Object> createGeneralDescription(GeneratorContext context) {
-        Map<String, Object> model = new HashMap<>();
-        model.put("year", context.getProjectConfiguration().getYear());
-        model.put("author", context.getProjectConfiguration().getAuthor());
-        model.put("isMongoDB", context.getProjectConfiguration().isMongoDb());
-        return model;
-    }
-
-    public void doForEachDataModelGroup(ProjectConfiguration pConf, Collection<DomainModelGroup> dmGroup,
-            Map<String, Object> model) {
+    public void doForEachDataModelGroupTemplate(ProjectConfiguration pConf, Collection<DomainModelGroup> dmGroup,
+            final Map<String, Object> propertiesMap) {
         for (DomainModelGroup dataModelGroup : dmGroup) {
-            doForEachDataModelElement(pConf, dataModelGroup.getDomainModelElements(), model, dataModelGroup.getName());
+            doForEachDataModelElement(pConf, dataModelGroup.getDomainModelElements(), propertiesMap,
+                    dataModelGroup.getName());
         }
     }
 
-    public abstract void doForEachDataModelElement(ProjectConfiguration pConf,
-            Collection<DomainModelElement> dmElementCollection, Map<String, Object> model, String dmgName);
-
-    public void addCommonDataModelElements(ProjectConfiguration pConf, Map<String, Object> model, String basePackage,
-            DomainModelElement dmElement) {
-        model.put("importModel", formatToImportStatement(basePackage, pConf.getDomainLayerName(), dmElement.getName()));
-        model.put("entityCamelCase", dmElement.getCamelCaseFormat());
-        model.put("entity", dmElement.getName());
-        model.put("id", dmElement.getPrimaryKey().getType());
-        if (dmElement.getPrimaryKey().isComposed()) {
-            model.put("importPrimaryKey", formatToImportStatement(basePackage, pConf.getDomainLayerName(),
-                    dmElement.getPrimaryKey().getType()));
+    public void doForEachDataModelElement(ProjectConfiguration pConf,
+            Collection<DomainModelElement> dmElementCollection, final Map<String, Object> propertiesMap,
+            String dmgName) {
+        String basePackage = pConf.getPackaging() + dmgName;
+        for (DomainModelElement dmElement : dmElementCollection) {
+            addCommonDataModelElements(pConf, propertiesMap, basePackage, dmElement);
+            visitDomainModelElement(pConf, dmElementCollection, propertiesMap, dmgName, dmElement, basePackage);
         }
     }
+
+    public abstract void visitDomainModelElement(ProjectConfiguration pConf,
+            Collection<DomainModelElement> dmElementCollection, Map<String, Object> propertiesMap, String dmgName,
+            DomainModelElement dmElement, String basePackage);
+
+    /**
+     * doBeforeProcessDataModelGroup, It is used for add new functionality
+     * before process each DataModelGroup. General information could be added
+     * here
+     * 
+     * @param context
+     * @param propertiesMap
+     */
+    public void doBeforeProcessDataModelGroup(GeneratorContext context, final Map<String, Object> propertiesMap) {
+
+    }
+
 }

@@ -21,8 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
+package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addCommonDataModelElements;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToImportStatement;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
@@ -40,51 +41,43 @@ import mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
-import mx.infotec.dads.kukulkan.util.InflectorProcessor;
-
-import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addCommonDataModelElements;
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.*;
 import mx.infotec.dads.kukulkan.util.NameConventions;
 
 /**
- * Service Layer Task
+ * Repository Layer Task
  * 
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("restRestResourceLayerTask")
-public class RestResourceLayerTask extends AbstractSpringRestLayerTask {
+@Service("serviceLayerTask")
+public class ServiceLayerTask extends AbstractAngularSpringLayerTask {
 
     @Autowired
     private TemplateService templateService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestResourceLayerTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceLayerTask.class);
 
     @Override
     public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> model, String dmgName) {
+        LOGGER.debug("doForEachDataModelElement");
         String basePackage = pConf.getPackaging() + dmgName;
-        LOGGER.debug("Base package {}", basePackage);
-        String webLayerDotFormat = replaceSlashByDot(pConf.getWebLayerName());
-        String webLayerSlashFormat = replaceDotBySlash(pConf.getWebLayerName());
         for (DomainModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
-            model.put("package", formatToPackageStatement(basePackage, webLayerDotFormat));
-            model.put("packageSimpleFormat", formatToPackageStatement(true, basePackage, webLayerDotFormat));
+            model.put("package", formatToPackageStatement(basePackage, pConf.getServiceLayerName()));
+            model.put("packageImpl", formatToPackageStatement(basePackage, pConf.getServiceLayerName(), "impl"));
             model.put("importRepository", formatToImportStatement(basePackage, pConf.getDaoLayerName(),
                     dmElement.getName() + NameConventions.DAO));
             model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
                     dmElement.getName() + NameConventions.SERVICE));
-            model.put("entityCamelCasePlural",
-                    InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
-            model.put("urlName", dmElement.getCamelCaseFormat());
-            model.put("primaryKey", dmElement.getPrimaryKey());
             templateService.fillModel(dmElement, pConf.getId(),
-                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl", model,
-                    BasePathEnum.SRC_MAIN_JAVA,
-                    basePackage.replace('.', '/') + "/" + dmgName + "/" + webLayerSlashFormat + "/"
-                            + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");
-
+                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+                    basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/"
+                            + dmElement.getName() + NameConventions.SERVICE + ".java");
+            templateService.fillModel(dmElement, pConf.getId(),
+                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/serviceImpl.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+                    basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/impl/"
+                            + dmElement.getName() + NameConventions.SERVICE_IMPLEMENTS + ".java");
         }
     }
 

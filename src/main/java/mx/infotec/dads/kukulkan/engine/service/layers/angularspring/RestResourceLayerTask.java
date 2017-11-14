@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
+package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToImportStatement;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
@@ -52,8 +52,8 @@ import mx.infotec.dads.kukulkan.util.NameConventions;
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("restRestResourceLayerTask")
-public class RestResourceLayerTask extends AbstractSpringRestLayerTask {
+@Service("restResourceLayerTask")
+public class RestResourceLayerTask extends AbstractAngularSpringLayerTask {
 
     @Autowired
     private TemplateService templateService;
