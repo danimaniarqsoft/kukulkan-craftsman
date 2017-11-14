@@ -21,14 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.engine.service.layers;
+package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
+
+import javax.annotation.PostConstruct;
+
+import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
+import mx.infotec.dads.kukulkan.engine.service.layers.TemplateLayerTask;
 
 /**
- * Abstract Template ControllerLayerTask
+ * ConacytLayerTaskVisitor, abstract Class
  * 
  * @author Daniel Cortes Pichardo
- *
+ * 
  */
-public interface AbstractTemplateLayerTask extends LayerTask {
+public abstract class AbstractAngularSpringLayerTask extends TemplateLayerTask {
+    protected ArchetypeType archetype;
 
+    @PostConstruct
+    public void initIt() {
+        this.archetype = ArchetypeType.ANGULAR_SPRING;
+    }
+
+    @Override
+    public ArchetypeType getArchetype() {
+        return archetype;
+    }
 }

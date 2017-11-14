@@ -26,7 +26,7 @@ package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
 import javax.annotation.PostConstruct;
 
 import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
-import mx.infotec.dads.kukulkan.engine.service.layers.AbstractLayerTaskVisitor;
+import mx.infotec.dads.kukulkan.engine.service.layers.TemplateLayerTask;
 
 /**
  * ConacytLayerTaskVisitor, abstract Class
@@ -34,7 +34,7 @@ import mx.infotec.dads.kukulkan.engine.service.layers.AbstractLayerTaskVisitor;
  * @author Daniel Cortes Pichardo
  * 
  */
-public abstract class SpringRestLayerTaskVisitor extends AbstractLayerTaskVisitor {
+public abstract class AbstractSpringRestLayerTask extends TemplateLayerTask {
     protected ArchetypeType archetype;
 
     @PostConstruct
