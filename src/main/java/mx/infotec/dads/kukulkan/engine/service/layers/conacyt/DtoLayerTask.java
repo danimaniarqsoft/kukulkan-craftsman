@@ -46,7 +46,7 @@ import mx.infotec.dads.kukulkan.util.NameConventions;
  *
  */
 @Service("conacytDtoLayerTask")
-public class DtoLayerTask extends ConacytLayerTaskVisitor {
+public class DtoLayerTask extends AbstractConacytLayerTask {
 
     @Autowired
     private TemplateService templateService;

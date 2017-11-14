@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
+package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
 import static mx.infotec.dads.kukulkan.util.NameConventionFormatter.camelCaseToHyphens;
 
@@ -48,8 +48,8 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("angularRestLayerTask")
-public class AngularLayerTask extends AbstractSpringRestLayerTask {
+@Service("angularLayerTask")
+public class AngularLayerTask extends AbstractAngularSpringLayerTask {
 
     @Autowired
     private TemplateService templateService;
@@ -64,27 +64,22 @@ public class AngularLayerTask extends AbstractSpringRestLayerTask {
     }
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf,
-            Collection<DomainModelElement> dmElementCollection, Map<String, Object> model, String dmgName) {
-        String basePackage = pConf.getPackaging() + dmgName;
-        LOGGER.info("AngularLayerTask {}", basePackage);
-        for (DomainModelElement dmElement : dmElementCollection) {
-            fillModel(model, dmElement);
-            dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
-            fillEntityControllerJs(pConf, model, dmElement);
-            fillEntityDeleteDialogControllerJs(pConf, model, dmElement);
-            fillEntityDeleteDialogHtml(pConf, model, dmElement);
-            fillEntityDetailControllerJs(pConf, model, dmElement);
-            fillEntityDetailHtml(pConf, model, dmElement);
-            fillEntityDialogControllerJs(pConf, model, dmElement);
-            fillEntityDialogHtml(pConf, model, dmElement);
-            fillEntityHtml(pConf, model, dmElement);
-            fillEntitySearchServiceJs(pConf, model, dmElement);
-            fillEntityServiceJs(pConf, model, dmElement);
-            fillEntityStateJs(pConf, model, dmElement);
-            fillIdiomaEsJs(pConf, model, dmElement);
-            fillIdiomaEnJs(pConf, model, dmElement);
-        }
+    public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+            Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
+        dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
+        fillEntityControllerJs(pConf, propertiesMap, dmElement);
+        fillEntityDeleteDialogControllerJs(pConf, propertiesMap, dmElement);
+        fillEntityDeleteDialogHtml(pConf, propertiesMap, dmElement);
+        fillEntityDetailControllerJs(pConf, propertiesMap, dmElement);
+        fillEntityDetailHtml(pConf, propertiesMap, dmElement);
+        fillEntityDialogControllerJs(pConf, propertiesMap, dmElement);
+        fillEntityDialogHtml(pConf, propertiesMap, dmElement);
+        fillEntityHtml(pConf, propertiesMap, dmElement);
+        fillEntitySearchServiceJs(pConf, propertiesMap, dmElement);
+        fillEntityServiceJs(pConf, propertiesMap, dmElement);
+        fillEntityStateJs(pConf, propertiesMap, dmElement);
+        fillIdiomaEsJs(pConf, propertiesMap, dmElement);
+        fillIdiomaEnJs(pConf, propertiesMap, dmElement);
     }
 
     private void fillNavBar(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
@@ -100,20 +95,6 @@ public class AngularLayerTask extends AbstractSpringRestLayerTask {
     private void fillIdiomaGlobalEsJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/i18n/es/global.json.ftl", model,
                 BasePathEnum.WEB_APP_I18N, "/es/global.json");
-    }
-
-    private void fillModel(Map<String, Object> model, DomainModelElement dmElement) {
-        model.put("entityCamelCase", dmElement.getCamelCaseFormat());
-        model.put("entity", dmElement.getName());
-        model.put("id", dmElement.getPrimaryKey().getType());
-        model.put("properties", dmElement.getProperties());
-        model.put("primaryKey", dmElement.getPrimaryKey());
-        model.put("entityHyphenNotation", camelCaseToHyphens(dmElement.getCamelCaseFormat()));
-        model.put("entityHyphenNotationPlural", camelCaseToHyphens(dmElement.getCamelCasePluralFormat()));
-        model.put("entityCamelCasePlural", dmElement.getCamelCasePluralFormat());
-        model.put("hasTimeProperties", dmElement.isHasTimeProperties());
-        model.put("hasLocalDate", dmElement.isHasLocalDate());
-        model.put("hasBlobProperties", dmElement.isHasBlobProperties());
     }
 
     private void fillEntityControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
