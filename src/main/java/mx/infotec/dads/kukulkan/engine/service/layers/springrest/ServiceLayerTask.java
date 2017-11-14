@@ -81,4 +81,11 @@ public class ServiceLayerTask extends AbstractSpringRestLayerTask {
         }
     }
 
+    @Override
+    public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+            Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

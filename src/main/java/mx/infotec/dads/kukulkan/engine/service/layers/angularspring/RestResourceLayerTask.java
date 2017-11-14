@@ -61,31 +61,24 @@ public class RestResourceLayerTask extends AbstractAngularSpringLayerTask {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestResourceLayerTask.class);
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
-            Map<String, Object> model, String dmgName) {
-        String basePackage = pConf.getPackaging() + dmgName;
-        LOGGER.debug("Base package {}", basePackage);
+    public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+            Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
         String webLayerDotFormat = replaceSlashByDot(pConf.getWebLayerName());
         String webLayerSlashFormat = replaceDotBySlash(pConf.getWebLayerName());
-        for (DomainModelElement dmElement : dmElementCollection) {
-            addCommonDataModelElements(pConf, model, basePackage, dmElement);
-            model.put("package", formatToPackageStatement(basePackage, webLayerDotFormat));
-            model.put("packageSimpleFormat", formatToPackageStatement(true, basePackage, webLayerDotFormat));
-            model.put("importRepository", formatToImportStatement(basePackage, pConf.getDaoLayerName(),
-                    dmElement.getName() + NameConventions.DAO));
-            model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
-                    dmElement.getName() + NameConventions.SERVICE));
-            model.put("entityCamelCasePlural",
-                    InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
-            model.put("urlName", dmElement.getCamelCaseFormat());
-            model.put("primaryKey", dmElement.getPrimaryKey());
-            templateService.fillModel(dmElement, pConf.getId(),
-                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl", model,
-                    BasePathEnum.SRC_MAIN_JAVA,
-                    basePackage.replace('.', '/') + "/" + dmgName + "/" + webLayerSlashFormat + "/"
-                            + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");
-
-        }
+        propertiesMap.put("package", formatToPackageStatement(basePackage, webLayerDotFormat));
+        propertiesMap.put("packageSimpleFormat", formatToPackageStatement(true, basePackage, webLayerDotFormat));
+        propertiesMap.put("importRepository", formatToImportStatement(basePackage, pConf.getDaoLayerName(),
+                dmElement.getName() + NameConventions.DAO));
+        propertiesMap.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
+                dmElement.getName() + NameConventions.SERVICE));
+        propertiesMap.put("entityCamelCasePlural",
+                InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
+        propertiesMap.put("urlName", dmElement.getCamelCaseFormat());
+        propertiesMap.put("primaryKey", dmElement.getPrimaryKey());
+        templateService.fillModel(dmElement, pConf.getId(),
+                LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl", propertiesMap,
+                BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/" + webLayerSlashFormat
+                        + "/" + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");
     }
 
 }

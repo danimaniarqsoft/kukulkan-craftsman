@@ -188,7 +188,6 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
 
     private void saveFrontEndTemplate(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement, String templateLocation, String templateName, boolean isPlural) {
-        // pfCOnf.getId, templateName, model, dmElement.getPropertyName.
         String fileNamingConvention = camelCaseToHyphens(dmElement.getCamelCaseFormat());
         String entityName = fileNamingConvention;
         if (isPlural) {
@@ -201,7 +200,6 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
 
     private void saveInternationalizationTemplate(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement, String templateLocation, String templateName, String idiomaKey) {
-        // pfCOnf.getId, templateName, model, dmElement.getPropertyName.
         String fileNamingConvention = camelCaseToHyphens(dmElement.getCamelCaseFormat());
         templateService.fillModel(dmElement, pConf.getId(), templateLocation + templateName, model,
                 BasePathEnum.WEB_APP_I18N,

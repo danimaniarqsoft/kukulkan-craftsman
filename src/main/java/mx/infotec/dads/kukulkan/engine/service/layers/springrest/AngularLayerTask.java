@@ -226,4 +226,11 @@ public class AngularLayerTask extends AbstractSpringRestLayerTask {
                 BasePathEnum.WEB_APP_I18N,
                 idiomaKey + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName));
     }
+
+    @Override
+    public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+            Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
+        // TODO Auto-generated method stub
+        
+    }
 }
