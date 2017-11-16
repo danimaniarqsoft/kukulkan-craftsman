@@ -23,8 +23,11 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToImportStatement;
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_SIMPLE_FORMAT_PROPERTY;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
+import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.replaceDotBySlash;
+import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.replaceSlashByDot;
 
 import java.util.Collection;
 import java.util.Map;
@@ -36,14 +39,9 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
-import mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
-import mx.infotec.dads.kukulkan.util.InflectorProcessor;
-
-import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addCommonDataModelElements;
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.*;
 import mx.infotec.dads.kukulkan.util.NameConventions;
 
 /**
@@ -63,18 +61,12 @@ public class RestResourceLayerTask extends AbstractAngularSpringLayerTask {
     @Override
     public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
+        LOGGER.debug("visitDomainModelElement {} ", basePackage);
         String webLayerDotFormat = replaceSlashByDot(pConf.getWebLayerName());
         String webLayerSlashFormat = replaceDotBySlash(pConf.getWebLayerName());
-        propertiesMap.put("package", formatToPackageStatement(basePackage, webLayerDotFormat));
-        propertiesMap.put("packageSimpleFormat", formatToPackageStatement(true, basePackage, webLayerDotFormat));
-        propertiesMap.put("importRepository", formatToImportStatement(basePackage, pConf.getDaoLayerName(),
-                dmElement.getName() + NameConventions.DAO));
-        propertiesMap.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
-                dmElement.getName() + NameConventions.SERVICE));
-        propertiesMap.put("entityCamelCasePlural",
-                InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
-        propertiesMap.put("urlName", dmElement.getCamelCaseFormat());
-        propertiesMap.put("primaryKey", dmElement.getPrimaryKey());
+        propertiesMap.put(PACKAGE_PROPERTY, formatToPackageStatement(basePackage, webLayerDotFormat));
+        propertiesMap.put(PACKAGE_SIMPLE_FORMAT_PROPERTY,
+                formatToPackageStatement(true, basePackage, webLayerDotFormat));
         templateService.fillModel(dmElement, pConf.getId(),
                 LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl", propertiesMap,
                 BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/" + webLayerSlashFormat
