@@ -23,10 +23,10 @@
  */
 package mx.infotec.dads.kukulkan.templating.service;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
+import java.io.StringWriter;
+import java.nio.file.Path;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,12 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
+import mx.infotec.dads.kukulkan.util.FileUtil;
+import mx.infotec.dads.kukulkan.util.TemplateUtil;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -59,25 +64,43 @@ public class TemplateServiceImpl implements TemplateService {
     private KukulkanConfigurationProperties prop;
 
     @Override
-    public String fillModel(String proyectoId, String templateName, Object model, BasePathEnum path, String filePath) {
-        Template template;
-        try {
-            template = fmConfiguration.getTemplate(templateName);
-            File file = new File(prop.getOutputdir() + proyectoId + "/" + path.getPath() + "/" + filePath);
-            LOGGER.info("Generating in: {}", file.getAbsolutePath());
-            if (!file.exists()) {
-                File parent = file.getParentFile();
-                if (!parent.exists() && !parent.mkdirs()) {
-                    throw new IllegalStateException("Couldn't create dir: " + parent);
-                }
-                file.createNewFile();
-            }
-            Writer fileWriter = new FileWriter(file);
-            template.process(model, fileWriter);
+    public void fillModel(DomainModelElement dme, String proyectoId, String templateName, Object model,
+            BasePathEnum basePath, String filePath) {
+        Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
+        if (templateOptional.isPresent()) {
+            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
+            dme.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
+        }
+    }
+
+    @Override
+    public void fillModel(DomainModel dm, String proyectoId, String templateName, Object model, BasePathEnum basePath,
+            String filePath) {
+        Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
+        if (templateOptional.isPresent()) {
+            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
+            dm.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
+        } else {
+            LOGGER.warn("Template not found for {}", templateName);
+        }
+    }
+
+    public static GeneratedElement processTemplate(Object model, Template template, Path path) {
+        try (StringWriter stringWriter = new StringWriter()) {
+            LOGGER.info("Generating to: {}", path.normalize().toFile());
+            template.process(model, stringWriter);
+            return new GeneratedElement(path, stringWriter.toString());
         } catch (IOException | TemplateException e) {
             throw new ApplicationException("Fill Model Error", e);
         }
-        return null;
     }
 
+    @Override
+    public void fillModel(String proyectoId, String templateName, Object model, BasePathEnum basePath,
+            String filePath) {
+        TemplateUtil.get(fmConfiguration, templateName).ifPresent(template -> {
+            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
+            processTemplate(model, template, path);
+        });
+    }
 }

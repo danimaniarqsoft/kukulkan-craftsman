@@ -25,7 +25,7 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
 
 import java.io.Serializable;
 
-import mx.infotec.dads.kukulkan.util.GenerationType;
+import mx.infotec.dads.kukulkan.util.PKGenerationStrategy;
 
 /**
  * ProrjectConfiguration Class
@@ -43,7 +43,6 @@ public class ProjectConfiguration implements Serializable {
     private String author;
     private String year;
     private String appName;
-
     private String webLayerName;
     private String serviceLayerName;
     private String daoLayerName;
@@ -52,8 +51,10 @@ public class ProjectConfiguration implements Serializable {
     private String exceptionLayerName;
     private String conacytDaoLayerName;
 
+    private boolean mongoDb;
+
     // Global Generation Types Strategy
-    private GenerationType globalGenerationType;
+    private PKGenerationStrategy globalGenerationType;
 
     public String getId() {
         return id;
@@ -135,11 +136,11 @@ public class ProjectConfiguration implements Serializable {
         this.domainLayerName = domainLayerName;
     }
 
-    public GenerationType getGlobalGenerationType() {
+    public PKGenerationStrategy getGlobalGenerationType() {
         return globalGenerationType;
     }
 
-    public void setGlobalGenerationType(GenerationType globalGenerationType) {
+    public void setGlobalGenerationType(PKGenerationStrategy globalGenerationType) {
         this.globalGenerationType = globalGenerationType;
     }
 
@@ -173,6 +174,14 @@ public class ProjectConfiguration implements Serializable {
 
     public void setConacytDaoLayerName(String conacytDaoLayerName) {
         this.conacytDaoLayerName = conacytDaoLayerName;
+    }
+
+    public boolean isMongoDb() {
+        return mongoDb;
+    }
+
+    public void setMongoDb(boolean mongoDb) {
+        this.mongoDb = mongoDb;
     }
 
 }

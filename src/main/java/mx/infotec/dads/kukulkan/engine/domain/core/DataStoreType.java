@@ -23,6 +23,8 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 
 /**
@@ -32,7 +34,10 @@ import org.springframework.data.annotation.Id;
  *
  */
 
-public class DataStoreType extends AbstractDescription {
+public class DataStoreType extends AbstractDescription implements Serializable {
+
+    private static final long serialVersionUID = 6702727854037559008L;
+
     @Id
     private String id;
 

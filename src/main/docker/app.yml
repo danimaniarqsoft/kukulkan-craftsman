@@ -1,15 +1,21 @@
 version: '2'
 services:
-    kukulkancraftsman-app:
-        image: kukulkancraftsman
+    kukulkan-app:
+        image: kukulkan
+        depends_on: 
+            - kukulkan-mongodb
+            - kukulkan-mysql
         environment:
             - SPRING_PROFILES_ACTIVE=prod,swagger
-            - SPRING_DATA_MONGODB_URI=mongodb://kukulkancraftsman-mongodb:27017
-            - SPRING_DATA_MONGODB_DATABASE=kukulkancraftsman
-            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_MONGODB_URI=mongodb://kukulkan-mongodb:27017
+            - KUKULKAN_DATA_MYSQL_URI=jdbc:mysql://kukulkan-mysql:3306
         ports:
             - 8080:8080
-    kukulkancraftsman-mongodb:
+    kukulkan-mongodb:
         extends:
             file: mongodb.yml
-            service: kukulkancraftsman-mongodb
+            service: kukulkan-mongodb
+    kukulkan-mysql:
+        extends:
+            file: mysql.yml
+            service: kukulkan-mysql

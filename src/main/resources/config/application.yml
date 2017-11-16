@@ -107,7 +107,6 @@ jhipster:
         redirect-after-sign-in: "/#/social-auth"
     ribbon:
         display-on-active-profiles: dev
-
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
@@ -117,10 +116,11 @@ jhipster:
 # https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
-application:
-
 kukulkan:
   outputdir: /home/daniel/git/
+  data:
+    mysql:
+      uri: jdbc:mysql://kukulkancraftsman-mysql:3306  
 logging:
   level:
     root: info

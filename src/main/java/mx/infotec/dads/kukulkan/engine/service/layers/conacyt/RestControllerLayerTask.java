@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.conacyt;
 
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addCommonDataModelElements;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToImportStatement;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
@@ -34,8 +35,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
@@ -48,7 +50,7 @@ import mx.infotec.dads.kukulkan.util.NameConventions;
  *
  */
 @Service("conacytRestControllerLayerTask")
-public class RestControllerLayerTask extends ConacytLayerTaskVisitor {
+public class RestControllerLayerTask extends AbstractConacytLayerTask {
 
     @Autowired
     private TemplateService templateService;
@@ -56,25 +58,32 @@ public class RestControllerLayerTask extends ConacytLayerTaskVisitor {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestControllerLayerTask.class);
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
+    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> model, String dmgName) {
         String basePackage = pConf.getPackaging() + dmgName;
         LOGGER.debug("Base package {}", basePackage);
-        for (DataModelElement dmElement : dmElementCollection) {
+        for (DomainModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
             model.put("package", formatToPackageStatement(basePackage, pConf.getWebLayerName()));
             model.put("importRepository", formatToImportStatement(basePackage, pConf.getDaoLayerName(),
                     dmElement.getName() + NameConventions.DAO));
             model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
                     dmElement.getName() + NameConventions.SERVICE));
-            model.put("propertyNamePlural", InflectorProcessor.getInstance().pluralize(dmElement.getPropertyName()));
-            model.put("urlName", dmElement.getPropertyName());
+            model.put("entityCamelCasePlural", InflectorProcessor.getInstance().pluralize(dmElement.getCamelCaseFormat()));
+            model.put("urlName", dmElement.getCamelCaseFormat());
             model.put("primaryKey", dmElement.getPrimaryKey());
-            templateService.fillModel(pConf.getId(), "conacyt/restController.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(dmElement, pConf.getId(), "conacyt/restController.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getWebLayerName() + "/"
                             + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");
 
         }
+    }
+
+    @Override
+    public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+            Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

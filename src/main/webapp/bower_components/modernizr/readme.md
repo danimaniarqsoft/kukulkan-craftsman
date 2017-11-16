@@ -94,7 +94,7 @@ A `build` method is exposed for generating custom Modernizr builds. Example:
 
 ```javascript
 var modernizr = require("modernizr");
-
+	
 modernizr.build({}, function (result) {
   console.log(result); // the build
 });
@@ -103,6 +103,16 @@ modernizr.build({}, function (result) {
 The first parameter takes a JSON object of options and feature-detects to include. See [`lib/config-all.json`](lib/config-all.json) for all available options.
 
 The second parameter is a function invoked on task completion.
+
+##
+
+Running sonartest
+
+mvn sonar:sonar \ 
+-Dsonar.organization=infotec  \
+-Dsonar.host.url=https://sonarcloud.io \
+-Dsonar.login=da16b591b188248ad6aab99ccde5edd1fbbc669b
+
 
 ## License
 

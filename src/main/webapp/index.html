@@ -7,10 +7,12 @@
     <meta name="description" content="">
     <meta name="google" value="notranslate">
     <meta name="viewport" content="width=device-width">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
     <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.css">
@@ -27,15 +29,17 @@
     <![endif]-->
     <page-ribbon></page-ribbon>
     <div ui-view="navbar" ng-cloak></div>
-    <div class="container">
-        <div class="well" ui-view="content">
-            <!-- Angular views -->
-        </div>
-
-        <div class="footer" ng-cloak>
-            <p data-translate="footer">This is your footer</p>
-        </div>
+    
+    <div ui-view="content">
+        <!-- Angular views -->
     </div>
+
+    <div class="footer" ng-cloak>
+        <p data-translate="footer">
+        
+        </p>
+    </div>
+  
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
     <script>
@@ -54,6 +58,11 @@
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/arrive/src/arrive.js"></script>
     <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/codemirror/lib/codemirror.js"></script>
+    <script src="bower_components/codemirror/mode/clike/clike.js"></script>
+    <script src="bower_components/codemirror/mode/sql/sql.js"></script>
+    <script src="bower_components/chart.js/dist/Chart.js"></script>
+    <script src="bower_components/papaparse/papaparse.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -74,12 +83,44 @@
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
     <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
     <script src="bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
+    <script src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="bower_components/angular-papa-promise/dist/angular-papa-promise.js"></script>
+    <script src="bower_components/ng-csv/build/ng-csv.min.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
-
     <!-- build:js app/app.js  -->
     <!-- inject:js -->
     <script src="app/app.module.js"></script>
+    <script src="app/tools/tools.state.js"></script>
+    <script src="app/tools/generator/project/project-dialog.controller.js"></script>
+    <script src="app/tools/generator/project/project-detail.controller.js"></script>
+    <script src="app/tools/generator/project/project-delete-dialog.controller.js"></script>
+    <script src="app/tools/generator/project/project.state.js"></script>
+    <script src="app/tools/generator/project/project.service.js"></script>
+    <script src="app/tools/generator/project/project.generator.service.js"></script>
+    <script src="app/tools/generator/project/project.controller.js"></script>
+    <script src="app/tools/generator/grammar/grammar.state.js"></script>
+    <script src="app/tools/generator/grammar/grammar.controller.js"></script>
+    <script src="app/tools/generator/generator.state.js"></script>
+    <script src="app/tools/generator/data-store/data-store-dialog.controller.js"></script>
+    <script src="app/tools/generator/data-store/data-store-detail.controller.js"></script>
+    <script src="app/tools/generator/data-store/data-store-delete-dialog.controller.js"></script>
+    <script src="app/tools/generator/data-store/data-store.state.js"></script>
+    <script src="app/tools/generator/data-store/data-store.service.js"></script>
+    <script src="app/tools/generator/data-store/data-store.runscript.service.js"></script>
+    <script src="app/tools/generator/data-store/data-store.dropschema.service.js"></script>
+    <script src="app/tools/generator/data-store/data-store.createschema.service.js"></script>
+    <script src="app/tools/generator/data-store/data-store.controller.js"></script>
+    <script src="app/tools/generator/data-store/data-store.connection.service.js"></script>
+    <script src="app/tools/generator/data-pool/data-pool-dialog.controller.js"></script>
+    <script src="app/tools/generator/data-pool/data-pool-detail.controller.js"></script>
+    <script src="app/tools/generator/data-pool/data-pool-delete-dialog.controller.js"></script>
+    <script src="app/tools/generator/data-pool/data-pool.state.js"></script>
+    <script src="app/tools/generator/data-pool/data-pool.service.js"></script>
+    <script src="app/tools/generator/data-pool/data-pool.controller.js"></script>
+    <script src="app/team/team.state.js"></script>
+    <script src="app/team/team.controller.js"></script>
     <script src="app/services/user/user.service.js"></script>
     <script src="app/services/profiles/profile.service.js"></script>
     <script src="app/services/profiles/page-ribbon.directive.js"></script>
@@ -94,24 +135,74 @@
     <script src="app/services/auth/auth.jwt.service.js"></script>
     <script src="app/services/auth/activate.service.js"></script>
     <script src="app/services/auth/account.service.js"></script>
+    <script src="app/reports/reports.state.js"></script>
+    <script src="app/reports/report-indicator/report-indicator-dialog.controller.js"></script>
+    <script src="app/reports/report-indicator/report-indicator-detail.controller.js"></script>
+    <script src="app/reports/report-indicator/report-indicator-delete-dialog.controller.js"></script>
+    <script src="app/reports/report-indicator/report-indicator.state.js"></script>
+    <script src="app/reports/report-indicator/report-indicator.service.js"></script>
+    <script src="app/reports/report-indicator/report-indicator.controller.js"></script>
+    <script src="app/reports/report-element/report-element-dialog.controller.js"></script>
+    <script src="app/reports/report-element/report-element-detail.controller.js"></script>
+    <script src="app/reports/report-element/report-element-delete-dialog.controller.js"></script>
+    <script src="app/reports/report-element/report-element.state.js"></script>
+    <script src="app/reports/report-element/report-element.service.js"></script>
+    <script src="app/reports/report-element/report-element.controller.js"></script>
+    <script src="app/reports/report/report-dialog.controller.js"></script>
+    <script src="app/reports/report/report-detail.controller.js"></script>
+    <script src="app/reports/report/report-delete-dialog.controller.js"></script>
+    <script src="app/reports/report/report.state.js"></script>
+    <script src="app/reports/report/report.service.js"></script>
+    <script src="app/reports/report/report.controller.js"></script>
     <script src="app/layouts/navbar/navbar.controller.js"></script>
     <script src="app/layouts/navbar/active-menu.directive.js"></script>
     <script src="app/layouts/error/error.state.js"></script>
     <script src="app/home/home.state.js"></script>
     <script src="app/home/home.controller.js"></script>
-    <script src="app/entities/project/project-dialog.controller.js"></script>
-    <script src="app/entities/project/project-detail.controller.js"></script>
-    <script src="app/entities/project/project-delete-dialog.controller.js"></script>
-    <script src="app/entities/project/project.state.js"></script>
-    <script src="app/entities/project/project.service.js"></script>
-    <script src="app/entities/project/project.controller.js"></script>
+    <script src="app/entities/state/state-dialog.controller.js"></script>
+    <script src="app/entities/state/state-detail.controller.js"></script>
+    <script src="app/entities/state/state-delete-dialog.controller.js"></script>
+    <script src="app/entities/state/state.state.js"></script>
+    <script src="app/entities/state/state.service.js"></script>
+    <script src="app/entities/state/state.controller.js"></script>
+    <script src="app/entities/problem-domain/problem-domain-dialog.controller.js"></script>
+    <script src="app/entities/problem-domain/problem-domain-detail.controller.js"></script>
+    <script src="app/entities/problem-domain/problem-domain-delete-dialog.controller.js"></script>
+    <script src="app/entities/problem-domain/problem-domain.state.js"></script>
+    <script src="app/entities/problem-domain/problem-domain.service.js"></script>
+    <script src="app/entities/problem-domain/problem-domain.controller.js"></script>
+    <script src="app/entities/presentation/presentation.state.js"></script>
+    <script src="app/entities/phase/phase-dialog.controller.js"></script>
+    <script src="app/entities/phase/phase-detail.controller.js"></script>
+    <script src="app/entities/phase/phase-delete-dialog.controller.js"></script>
+    <script src="app/entities/phase/phase.state.js"></script>
+    <script src="app/entities/phase/phase.service.js"></script>
+    <script src="app/entities/phase/phase.controller.js"></script>
+    <script src="app/entities/level-of-implementation/level-of-implementation-dialog.controller.js"></script>
+    <script src="app/entities/level-of-implementation/level-of-implementation-detail.controller.js"></script>
+    <script src="app/entities/level-of-implementation/level-of-implementation-delete-dialog.controller.js"></script>
+    <script src="app/entities/level-of-implementation/level-of-implementation.state.js"></script>
+    <script src="app/entities/level-of-implementation/level-of-implementation.service.js"></script>
+    <script src="app/entities/level-of-implementation/level-of-implementation.controller.js"></script>
+    <script src="app/entities/granularity/granularity-dialog.controller.js"></script>
+    <script src="app/entities/granularity/granularity-detail.controller.js"></script>
+    <script src="app/entities/granularity/granularity-delete-dialog.controller.js"></script>
+    <script src="app/entities/granularity/granularity.state.js"></script>
+    <script src="app/entities/granularity/granularity.service.js"></script>
+    <script src="app/entities/granularity/granularity.controller.js"></script>
+    <script src="app/entities/file/file-dialog.controller.js"></script>
+    <script src="app/entities/file/file-detail.controller.js"></script>
+    <script src="app/entities/file/file-delete-dialog.controller.js"></script>
+    <script src="app/entities/file/file.state.js"></script>
+    <script src="app/entities/file/file.service.js"></script>
+    <script src="app/entities/file/file.controller.js"></script>
     <script src="app/entities/entity.state.js"></script>
-    <script src="app/entities/data-store/data-store-dialog.controller.js"></script>
-    <script src="app/entities/data-store/data-store-detail.controller.js"></script>
-    <script src="app/entities/data-store/data-store-delete-dialog.controller.js"></script>
-    <script src="app/entities/data-store/data-store.state.js"></script>
-    <script src="app/entities/data-store/data-store.service.js"></script>
-    <script src="app/entities/data-store/data-store.controller.js"></script>
+    <script src="app/entities/discipline/discipline-dialog.controller.js"></script>
+    <script src="app/entities/discipline/discipline-detail.controller.js"></script>
+    <script src="app/entities/discipline/discipline-delete-dialog.controller.js"></script>
+    <script src="app/entities/discipline/discipline.state.js"></script>
+    <script src="app/entities/discipline/discipline.service.js"></script>
+    <script src="app/entities/discipline/discipline.controller.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>
@@ -133,6 +224,9 @@
     <script src="app/components/form/pagination.constants.js"></script>
     <script src="app/components/form/minbytes.directive.js"></script>
     <script src="app/components/form/maxbytes.directive.js"></script>
+    <script src="app/components/bootswatch/bootswatch.service.js"></script>
+    <script src="app/components/bootswatch/bootswatch.directive.js"></script>
+    <script src="app/components/bootswatch/bootswatch.controller.js"></script>
     <script src="app/components/alert/alert-error.directive.js"></script>
     <script src="app/components/alert/alert.service.js"></script>
     <script src="app/components/alert/alert.directive.js"></script>
@@ -151,6 +245,13 @@
     <script src="app/blocks/config/compile.config.js"></script>
     <script src="app/blocks/config/bootstrap-material.config.js"></script>
     <script src="app/blocks/config/alert.config.js"></script>
+    <script src="app/asset-management/asset-management.state.js"></script>
+    <script src="app/asset-management/asset/asset-dialog.controller.js"></script>
+    <script src="app/asset-management/asset/asset-detail.controller.js"></script>
+    <script src="app/asset-management/asset/asset-delete-dialog.controller.js"></script>
+    <script src="app/asset-management/asset/asset.state.js"></script>
+    <script src="app/asset-management/asset/asset.service.js"></script>
+    <script src="app/asset-management/asset/asset.controller.js"></script>
     <script src="app/app.state.js"></script>
     <script src="app/app.constants.js"></script>
     <script src="app/admin/user-management/user-management-dialog.controller.js"></script>

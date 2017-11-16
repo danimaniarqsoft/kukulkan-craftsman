@@ -1,16 +1,15 @@
 package mx.infotec.dads.kukulkan.config.dbmigrations;
 
-import mx.infotec.dads.kukulkan.domain.Authority;
-import mx.infotec.dads.kukulkan.domain.User;
-import mx.infotec.dads.kukulkan.security.AuthoritiesConstants;
+import java.time.ZonedDateTime;
+
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.github.mongobee.changeset.ChangeLog;
 import com.github.mongobee.changeset.ChangeSet;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
-import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.Collections;
+import mx.infotec.dads.kukulkan.domain.Authority;
+import mx.infotec.dads.kukulkan.domain.User;
+import mx.infotec.dads.kukulkan.security.AuthoritiesConstants;
 
 /**
  * Creates the initial database setup
@@ -91,6 +90,20 @@ public class InitialSetupMigration {
         userUser.setCreatedDate(ZonedDateTime.now());
         userUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(userUser);
+
+        User estrella = new User();
+        estrella.setId("estrella");
+        estrella.setLogin("estrella");
+        estrella.setPassword("$2a$04$avZ5hz1AnCIlBTz6rvLf6.L4v6CH/s9Az8Mr5BSwf2A6asygq2QW2");
+        estrella.setFirstName("Estrella");
+        estrella.setLastName("Rodriguez");
+        estrella.setEmail("estrella.rodriguez@infotec.mx");
+        estrella.setActivated(true);
+        estrella.setLangKey("es");
+        estrella.setCreatedBy(systemUser.getLogin());
+        estrella.setCreatedDate(ZonedDateTime.now());
+        estrella.getAuthorities().add(userAuthority);
+        mongoTemplate.save(estrella);
     }
 
 }

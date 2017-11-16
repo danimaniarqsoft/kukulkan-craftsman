@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
@@ -46,60 +46,65 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
  *
  */
 @Service("conacytModelLayerTask")
-public class ModelLayerTask extends ConacytLayerTaskVisitor {
+public class ModelLayerTask extends AbstractConacytLayerTask {
 
-    @Autowired
-    private TemplateService templateService;
+	@Autowired
+	private TemplateService templateService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ModelLayerTask.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ModelLayerTask.class);
+
+	@Override
+	public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+			Map<String, Object> model, String dmgName) {
+		LOGGER.debug("doForEachDataModelElement method {}", dmgName);
+		String basePackage = pConf.getPackaging() + dmgName;
+		for (DomainModelElement dmElement : dmElementCollection) {
+			model.put("id", dmElement.getPrimaryKey().getType());
+			model.put("tableName", dmElement.getTableName());
+			model.put("className", dmElement.getName());
+			importPrimaryKey(pConf, model, basePackage, dmElement);
+			model.put("package", formatToPackageStatement(basePackage, pConf.getDomainLayerName()));
+			model.put("properties", dmElement.getProperties());
+			dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
+			model.put("primaryKey", dmElement.getPrimaryKey());
+			dmElement.getImports().add("javax.persistence.*");
+			dmElement.getImports().add("java.io.Serializable");
+			model.put("imports", dmElement.getImports());
+			model.put("hasNotNullElements", dmElement.isHasNotNullElements());
+			fillModel(pConf, model, dmgName, basePackage, dmElement);
+			fillPrimaryKey(pConf, model, dmgName, basePackage, dmElement);
+		}
+	}
+
+	private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
+			DomainModelElement dmElement) {
+		templateService.fillModel(dmElement, pConf.getId(), "common/model.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+				basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
+						+ dmElement.getName() + ".java");
+	}
+
+	private void fillPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
+			String basePackage, DomainModelElement dmElement) {
+		if (dmElement.getPrimaryKey().isComposed()) {
+			templateService.fillModel(dmElement, pConf.getId(), "common/primaryKey.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+					basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
+							+ dmElement.getPrimaryKey().getType() + ".java");
+		}
+	}
+
+	private static void importPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String basePackage,
+			DomainModelElement dmElement) {
+		if (dmElement.getPrimaryKey().isComposed()) {
+			model.put("importPrimaryKey", formatToImportStatement(basePackage, pConf.getDomainLayerName(),
+					dmElement.getPrimaryKey().getType()));
+		}
+	}
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
-            Map<String, Object> model, String dmgName) {
-        LOGGER.debug("doForEachDataModelElement method {}", dmgName);
-        String basePackage = pConf.getPackaging() + dmgName;
-        for (DataModelElement dmElement : dmElementCollection) {
-            model.put("id", dmElement.getPrimaryKey().getType());
-            model.put("tableName", dmElement.getTableName());
-            model.put("className", dmElement.getName());
-            importPrimaryKey(pConf, model, basePackage, dmElement);
-            model.put("package", formatToPackageStatement(basePackage, pConf.getDomainLayerName()));
-            model.put("properties", dmElement.getProperties());
-            dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
-            model.put("primaryKey", dmElement.getPrimaryKey());
-            dmElement.getImports().add("javax.persistence.*");
-            dmElement.getImports().add("java.io.Serializable");
-            model.put("mandatoryProperties", dmElement.getMandatoryProperties());
-            //dmElement.getImports().add("java.util.Objects");
-            model.put("imports", dmElement.getImports());
-            model.put("hasNotNullElements", dmElement.isHasNotNullElements());
-            fillModel(pConf, model, dmgName, basePackage, dmElement);
-            fillPrimaryKey(pConf, model, dmgName, basePackage, dmElement);
-        }
-    }
-
-    private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
-            DataModelElement dmElement) {
-        templateService.fillModel(pConf.getId(), "common/model.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
-                basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
-                        + dmElement.getName() + ".java");
-    }
-
-    private void fillPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
-            String basePackage, DataModelElement dmElement) {
-        if (dmElement.getPrimaryKey().isComposed()) {
-            templateService.fillModel(pConf.getId(), "common/primaryKey.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
-                    basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
-                            + dmElement.getPrimaryKey().getType() + ".java");
-        }
-    }
-
-    private static void importPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String basePackage,
-            DataModelElement dmElement) {
-        if (dmElement.getPrimaryKey().isComposed()) {
-            model.put("importPrimaryKey", formatToImportStatement(basePackage, pConf.getDomainLayerName(),
-                    dmElement.getPrimaryKey().getType()));
-        }
+    public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+            Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

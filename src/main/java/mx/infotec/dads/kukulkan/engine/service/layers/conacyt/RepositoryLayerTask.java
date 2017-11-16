@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.conacyt;
 
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addCommonDataModelElements;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
 import java.util.Collection;
@@ -33,8 +34,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.NameConventions;
@@ -46,7 +48,7 @@ import mx.infotec.dads.kukulkan.util.NameConventions;
  *
  */
 @Service("conacytRepositoryLayerTask")
-public class RepositoryLayerTask extends ConacytLayerTaskVisitor {
+public class RepositoryLayerTask extends AbstractConacytLayerTask {
 
     @Autowired
     private TemplateService templateService;
@@ -54,17 +56,24 @@ public class RepositoryLayerTask extends ConacytLayerTaskVisitor {
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryLayerTask.class);
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
+    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> model, String dmgName) {
         String basePackage = pConf.getPackaging() + dmgName;
         LOGGER.debug("Base package {}", basePackage);
-        for (DataModelElement dmElement : dmElementCollection) {
+        for (DomainModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
             model.put("package", formatToPackageStatement(basePackage, pConf.getDaoLayerName()));
-            templateService.fillModel(pConf.getId(), "conacyt/repository.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(dmElement, pConf.getId(), "conacyt/repository.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDaoLayerName() + "/"
                             + dmElement.getName() + NameConventions.DAO + ".java");
         }
+    }
+
+    @Override
+    public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+            Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

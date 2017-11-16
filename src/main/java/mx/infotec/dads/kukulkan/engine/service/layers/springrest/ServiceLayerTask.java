@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
 
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.addCommonDataModelElements;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToImportStatement;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
@@ -34,8 +35,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DataModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils;
+import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.NameConventions;
@@ -46,8 +49,8 @@ import mx.infotec.dads.kukulkan.util.NameConventions;
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("serviceLayerTask")
-public class ServiceLayerTask extends SpringRestLayerTaskVisitor {
+@Service("serviceRestLayerTask")
+public class ServiceLayerTask extends AbstractSpringRestLayerTask {
 
     @Autowired
     private TemplateService templateService;
@@ -55,11 +58,11 @@ public class ServiceLayerTask extends SpringRestLayerTaskVisitor {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceLayerTask.class);
 
     @Override
-    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DataModelElement> dmElementCollection,
+    public void doForEachDataModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> model, String dmgName) {
         LOGGER.debug("doForEachDataModelElement");
         String basePackage = pConf.getPackaging() + dmgName;
-        for (DataModelElement dmElement : dmElementCollection) {
+        for (DomainModelElement dmElement : dmElementCollection) {
             addCommonDataModelElements(pConf, model, basePackage, dmElement);
             model.put("package", formatToPackageStatement(basePackage, pConf.getServiceLayerName()));
             model.put("packageImpl", formatToPackageStatement(basePackage, pConf.getServiceLayerName(), "impl"));
@@ -67,14 +70,22 @@ public class ServiceLayerTask extends SpringRestLayerTaskVisitor {
                     dmElement.getName() + NameConventions.DAO));
             model.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
                     dmElement.getName() + NameConventions.SERVICE));
-            templateService.fillModel(pConf.getId(), "rest-spring-jpa/service.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(dmElement, pConf.getId(),
+                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/"
                             + dmElement.getName() + NameConventions.SERVICE + ".java");
-            templateService.fillModel(pConf.getId(), "rest-spring-jpa/serviceImpl.ftl", model,
-                    BasePathEnum.SRC_MAIN_JAVA,
+            templateService.fillModel(dmElement, pConf.getId(),
+                    LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/serviceImpl.ftl", model, BasePathEnum.SRC_MAIN_JAVA,
                     basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/impl/"
                             + dmElement.getName() + NameConventions.SERVICE_IMPLEMENTS + ".java");
         }
+    }
+
+    @Override
+    public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+            Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

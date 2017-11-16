@@ -1,41 +1,140 @@
 <div ng-cloak>
-    <div class="row">
-        <div class="col-md-4">
-            <span class="hipster img-responsive img-rounded"></span>
-        </div>
-        <div class="col-md-8">
-            <h1 data-translate="home.title">Welcome, Java Hipster!</h1>
-            <p class="lead" data-translate="home.subtitle">This is your homepage</p>
+	<section class="bg-black text-center bg-section">
+		<div class="container">
+			<h1>KUKULKAN <br>Software<br> Architect Tools</h1>
+			<h2 data-translate="home.infographic.kukulkanDescription">Herramientas para Desarrollo de Software</h2>
+		</div>
+	</section>
 
-            <div ng-switch="vm.isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true" data-translate="home.logged.message" translate-values="{username: '{{vm.account.login}}'}">
-                    You are logged in as user "{{vm.account.login}}".
-                </div>
+	<section class="bg-green text-center bg-section">
+		<div class="container">
+			<h2 data-translate="home.infographic.kukulkanWhatIs">¿Qué es kukulkan?</h2>
+			<p data-translate="home.infographic.kukulkanWhatIsResponse">kukulkan es una herramienta pensada para los prácticantes de ingeniería de Software, que desean encontrar todo lo que requieren en un único lugar; generadores de código, generación de datos, información de prácticas, etc.</p>
+		</div>
+	</section>
 
-                <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.authenticated" translate-compile>
-                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-                </div>
+	<section class="bg-white bg-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7 col-md-push-5">
+					<h2 class="title-h2"><span>1</span></h2>
+					<h2 class="title-h2" data-translate="home.infographic.kukulkanCodeGeneration"> Generación de Código</h2>
+					<div class="clearfix"></div>
+					<p data-translate="home.infographic.kukulkanCodeGenerationDescription">kukulkan tiene un motor genérico para la generación de código, basado en plantillas, a través de las cuales es posible generar arquetipos de proyectos para diferentes tecnologías, habilitando la capacidad de rautilización de código, lineamientos organizacionales, administración de conocimiento y diseño de nuevas arquitecturas de software.</p>
 
-                <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.register" translate-compile>
-                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
-                </div>
-            </div>
+				</div>
+				<div class="col-md-5 col-md-pull-7 text-center">
+					<img src="content/images/gcodigo.png" alt="Generación de Código" />
+				</div>
+			</div>
+		</div>
+	</section>
 
-            <p data-translate="home.question">
-                If you have any question on JHipster:
-            </p>
+	<section class="bg-white bg-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7">
+					<h2 class="title-h2"><span>2</span></h2>
+					<h2 class="title-h2" data-translate="home.infographic.kukulkanComponent"> Administración de Componentes</h2>
+					<div class="clearfix"></div>
+					<p data-translate="home.infographic.kukulkanComponentDescription">Kukulkan es un administrador de Activos de Arquitectura catalogados y versionados listos para ser utilizados en diversos proyectos. A través de kukulkan es posible gestionar el conocimiento y realización maximizando tiempos y costos en análisis, diseño, implementación y pruebas en los diferentes proyectos de software.</p>
 
-            <ul>
-                <li><a href="https://github.com/danimaniarqsoft/kukulkan-craftsman" target="_blank" data-translate="home.link.homepage">Kukulkan homepage</a></li>
-                <li><a href="https://github.com/danimaniarqsoft/kukulkan-craftsman" target="_blank" data-translate="home.link.stackoverflow">Kukulkan on Stack Overflow</a></li>
-                <li><a href="https://github.com/danimaniarqsoft/kukulkan-craftsman/issues?state=open" target="_blank" data-translate="home.link.bugtracker">Kukulkan bug tracker</a></li>
-                <li><a href="https://github.com/danimaniarqsoft/kukulkan-craftsman" target="_blank" data-translate="home.link.chat">Kukulkan public chat room</a></li>
-                <li><a href="https://twitter.com/kukulkan" target="_blank"  data-translate="home.link.follow">follow @kukulkan on Twitter</a></li>
-            </ul>
+				</div>
+				<div class="col-md-5 text-center">
+					<img src="content/images/acomponentes.png" alt="Administración de Componentes" />
+				</div>
+			</div>
 
-            <p>
-             <span data-translate="home.like">If you like Kukulkan, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank" data-translate="home.github">Github</a>!
-            </p>
-        </div>
-    </div>
+		</div>
+	</section>
+
+	<section class="bg-black text-center bg-section">
+		<div class="container">
+			<h2 class="title-h2"><span>3</span></h2>
+			<h2 class="title-h2" data-translate="home.infographic.kukulkanOtherServices"> Otros Servicios</h2>
+			<div class="clearfix"></div>
+			<div class="row otros-servicios">
+				<div class="col-md-4">
+					<img src="content/images/buscadoComponentes.png" alt="Buscador de Componentes" />
+					<p data-translate="home.infographic.kukulkanOtherServicesSearch">Buscador de Componentes</p>
+				</div>
+				<div class="col-md-4">
+					<img src="content/images/generadorAplicaciones.png" alt="Generador de Aplicaciones" />
+					<p data-translate="home.infographic.kukulkanOtherServicesAppGeneration">Generador de Aplicaciones</p>
+				</div>
+				<div class="col-md-4">
+					<img src="content/images/conectividadNube.png" alt="Conectividad con la Nube" />
+					<p data-translate="home.infographic.kukulkanOtherServicesCloud">Conectividad con la Nube</p>
+				</div>
+			</div>
+			<div class="row otros-servicios">
+				<div class="col-md-6">
+					<img src="content/images/arquetiposSoftware.png" alt="Arquetipos de Software" />
+					<p data-translate="home.infographic.kukulkanOtherServicesArchetypes">Arquetipos de Software</p>
+				</div>
+				<div class="col-md-6">
+					<img src="content/images/generacionDatos.png" alt="Generación de Datos" />
+					<p data-translate="home.infographic.kukulkanOtherServicesDataGenerated">Generación de Datos</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="bg-green bg-section">
+		<div class="container">
+			<div class="text-center">
+				<h2 class="title-h2"><span>4</span></h2>
+				<h2 class="title-h2" data-translate="home.infographic.kukulkanComparation"> Kukulkan vs Otros</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-5">
+					<div class="text-center">
+						<img src="content/images/codigoAbierto.png" alt="Generación de Datos"  />
+					</div>
+					<hr>
+					<p data-translate="home.infographic.kukulkanComparationOne">Código abierto</p>
+					<p data-translate="home.infographic.kukulkanComparationTwo">Se puede adaptar para varias tecnologías.</p>
+					<p data-translate="home.infographic.kukulkanComparationThree">Lineamientos de acuerdo a lo que el cliente solicita.</p>
+					<p data-translate="home.infographic.kukulkanComparationFour">Fácil de extender</p>
+					<hr>
+				</div>
+				<div class="col-md-2">
+					<div class="text-center">
+						<img src="content/images/vs.png" alt="Generación de Datos" class="img-responsive"/>
+					</div>
+
+				</div>
+				<div class="col-md-5">
+					<div class="text-center">
+						<img src="content/images/codigoPaga.png" alt="Generación de Datos"  />
+					</div>
+					<hr>
+					<p data-translate="home.infographic.kukulkanComparationOthersOne">Son de propietario</p>
+					<p data-translate="home.infographic.kukulkanComparationOthersTwo">Solo para tecnologìas específicas.</p>
+					<p data-translate="home.infographic.kukulkanComparationOthersThree">Lineamientos específicos.</p>
+					<p data-translate="home.infographic.kukulkanComparationOthersFour">Difícil de extender</p>
+					<hr>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="bg-white bg-section text-center">
+		<div class="container">
+			<h2 class="title-h2"><span>5</span></h2>
+			<h2 class="title-h2" data-translate="home.infographic.kukulkanCloudSupport"> Soporte en la Nube</h2>
+			<div class="clearfix"></div>
+			<img src="content/images/soporteNube.png" alt="Generación de Datos" />
+			<p data-translate="home.infographic.kukulkanCloudSupportDescription">No se necesita instalar nada todo se accede a través de un navegador web con conexión a red.</p>
+
+		</div>
+	</section>
+
+	<section class="bg-black text-center bg-section">
+		<div class="container">
+			<img src="content/images/gitHub.png" alt="Generación de Datos" />
+			<p><a href="https://github.com/dads-software-brotherhood/kukulkan-craftsman" target="_blank">github.com/dads-software-brotherhood/kukulkan-craftsman</a></p>
+		</div>
+	</section>
 </div>

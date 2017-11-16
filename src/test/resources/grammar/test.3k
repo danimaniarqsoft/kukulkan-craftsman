@@ -1,0 +1,16 @@
+entity Usuario (usuarios){
+    nombre String required,
+    edad Integer,
+    numeroCredencial Long,
+    sueldo BigDecimal,
+    impuesto Float,
+    impuestoDetalle Double,
+    activo Boolean,
+    fechaLocalDate LocalDate,
+    fechaZoneDateTime ZonedDateTime,
+    imagen Blob,
+    imagenAnyBlob AnyBlob,
+    imagenBlob ImageBlob,
+    desc TextBlob,
+    instante Instant
+}

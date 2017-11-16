@@ -64,31 +64,43 @@ public class JavaFileNameParser {
      * @return
      */
     public static String formatToImportStatement(String... words) {
-        return formatHeaderElementStatement("import", words);
+        return formatHeaderElementStatement("import", false, words);
     }
 
     /**
-     * Create a package statement based on a String[] Arrays of words
+     * Create a package statement based on a String[] Arrays of words. If simple
+     * name is true, then the function return a package statement like "package
+     * mx.dads.infotec.app;" else it returns just "mx.dads.infote.app"
      * 
      * @param words
-     * @return
+     * @return a formated word
+     */
+    public static String formatToPackageStatement(boolean isSimpleName, String... words) {
+        return formatHeaderElementStatement("package", isSimpleName, words);
+    }
+    
+    /**
+     * Create a package statement based on a String[] Arrays of words. If simple
+     * name is true, then the function return a package statement like "package
+     * mx.dads.infotec.app;" else it returns just "mx.dads.infote.app"
+     * 
+     * @param words
+     * @return a formated word
      */
     public static String formatToPackageStatement(String... words) {
-        return formatHeaderElementStatement("package", words);
+        return formatHeaderElementStatement("package", false, words);
     }
 
     /**
-     * Create a package statement based on a String[] Arrays of words
      * 
      * @param words
-     * @return
+     * @return String formatter
      */
-    public static String formatHeaderElementStatement(String name, String... words) {
+    public static String formatToPackageName(String... words) {
         if (words == null || words.length == 0) {
             return "";
         }
         StringBuilder sb = new StringBuilder();
-        sb.append(name).append(" ").append(words[0].trim());
         for (int i = 1; i < words.length; i++) {
             if (!words[i].trim().isEmpty()) {
                 sb.append(".").append(words[i].trim());
@@ -96,6 +108,53 @@ public class JavaFileNameParser {
         }
         sb.append(";");
         return sb.toString();
+    }
+
+    /**
+     * Create a package statement based on a String[] Arrays of words
+     * 
+     * @param words
+     * @return
+     */
+    public static String formatHeaderElementStatement(String name, boolean isSimpleName, String... words) {
+        if (words == null || words.length == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        if (isSimpleName) {
+            sb.append(words[0].trim());
+        } else {
+            sb.append(name).append(" ").append(words[0].trim());
+        }
+        for (int i = 1; i < words.length; i++) {
+            if (!words[i].trim().isEmpty()) {
+                sb.append(".").append(words[i].trim());
+            }
+        }
+        if (!isSimpleName) {
+            sb.append(";");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Replace a "." by "/" web/rest to web.rest
+     * 
+     * @param layerName
+     * @return
+     */
+    public static String replaceDotBySlash(String layerName) {
+        return layerName.replace('.', '/');
+    }
+
+    /**
+     * Replace a "/" by "." web.rest to web/rest
+     * 
+     * @param layerName
+     * @return
+     */
+    public static String replaceSlashByDot(String layerName) {
+        return layerName.replace('/', '.');
     }
 
 }

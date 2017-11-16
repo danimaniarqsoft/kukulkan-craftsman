@@ -30,7 +30,6 @@ public class CustomHsqldbQueryRewriter extends HsqldbQueryRewriter {
 
     public CustomHsqldbQueryRewriter(JdbcDataContext dataContext) {
         super(dataContext);
-        System.out.println("Hellow World");
     }
 
 }

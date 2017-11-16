@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -25,153 +24,176 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DataStoreType;
 @Document(collection = "dataStores")
 public class DataStore implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	@DBRef
-	private DataStoreType dataStoreType;
+    @DBRef
+    private DataStoreType dataStoreType;
 
-	@Field("name")
-	private String name;
+    @Field("name")
+    private String name;
 
-//	@Pattern(regexp = "(?i)^(?:(?:https?|ftp)://)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[/?#]\\S*)?$")
-	@Field("url")
-	private String url;
+    // @Pattern(regexp =
+    // "(?i)^(?:(?:https?|ftp)://)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[/?#]\\S*)?$")
+    @Field("url")
+    private String url;
+    
+    @Field("schema")
+    private String schema;
 
-	@NotNull
-//	@Pattern(regexp = ".*\"[[a-z]*\\.]+[A-Z][a-z]*\".*")
-	@Field("driver_class")
-	private String driverClass;
+    @NotNull
+    // @Pattern(regexp = ".*\"[[a-z]*\\.]+[A-Z][a-z]*\".*")
+    @Field("driver_class")
+    private String driverClass;
 
-	@Field("username")
-	private String username;
+    @Field("username")
+    private String username;
 
-	@Field("password")
-	private String password;
+    @Field("password")
+    private String password;
 
-	@Field("table_types")
-	private TableTypes tableTypes;
+    @Field("table_types")
+    private TableTypes tableTypes;
 
-	public String getId() {
-		return id;
-	}
+    @Field("script")
+    private String script;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public DataStore name(String name) {
-		this.name = name;
-		return this;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public DataStore name(String name) {
+        this.name = name;
+        return this;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public DataStore url(String url) {
-		this.url = url;
-		return this;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public DataStore url(String url) {
+        this.url = url;
+        return this;
+    }
 
-	public String getDriverClass() {
-		return driverClass;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public DataStore driverClass(String driverClass) {
-		this.driverClass = driverClass;
-		return this;
-	}
+    public String getDriverClass() {
+        return driverClass;
+    }
 
-	public void setDriverClass(String driverClass) {
-		this.driverClass = driverClass;
-	}
+    public DataStore driverClass(String driverClass) {
+        this.driverClass = driverClass;
+        return this;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setDriverClass(String driverClass) {
+        this.driverClass = driverClass;
+    }
 
-	public DataStore username(String username) {
-		this.username = username;
-		return this;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public DataStore username(String username) {
+        this.username = username;
+        return this;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public DataStore password(String password) {
-		this.password = password;
-		return this;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public DataStore password(String password) {
+        this.password = password;
+        return this;
+    }
 
-	public TableTypes getTableTypes() {
-		return tableTypes;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public DataStore tableTypes(TableTypes tableTypes) {
-		this.tableTypes = tableTypes;
-		return this;
-	}
+    public TableTypes getTableTypes() {
+        return tableTypes;
+    }
 
-	public void setTableTypes(TableTypes tableTypes) {
-		this.tableTypes = tableTypes;
-	}
+    public DataStore tableTypes(TableTypes tableTypes) {
+        this.tableTypes = tableTypes;
+        return this;
+    }
 
-	public DataStoreType getDataStoreType() {
-		return dataStoreType;
-	}
+    public void setTableTypes(TableTypes tableTypes) {
+        this.tableTypes = tableTypes;
+    }
 
-	public void setDataStoreType(DataStoreType dataStoreType) {
-		this.dataStoreType = dataStoreType;
-	}
+    public DataStoreType getDataStoreType() {
+        return dataStoreType;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		DataStore dataStore = (DataStore) o;
-		if (dataStore.getId() == null || getId() == null) {
-			return false;
-		}
-		return Objects.equals(getId(), dataStore.getId());
-	}
+    public void setDataStoreType(DataStoreType dataStoreType) {
+        this.dataStoreType = dataStoreType;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(getId());
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DataStore dataStore = (DataStore) o;
+        if (dataStore.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), dataStore.getId());
+    }
 
-	@Override
-	public String toString() {
-		return "DataStore{" + "id=" + getId() + ", name='" + getName() + "'" + ", url='" + getUrl() + "'"
-				+ ", driverClass='" + getDriverClass() + "'" + ", username='" + getUsername() + "'" + ", password='"
-				+ getPassword() + "'" + ", tableTypes='" + getTableTypes() + "'" + "}";
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "DataStore{" + "id=" + getId() + ", name='" + getName() + "'" + ", url='" + getUrl() + "'"
+                + ", driverClass='" + getDriverClass() + "'" + ", username='" + getUsername() + "'" + ", tableTypes='"
+                + getTableTypes() + "'" + "}";
+    }
+
+    public String getScript() {
+        return script;
+    }
+
+    public void setScript(String script) {
+        this.script = script;
+    }
+
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
 }

@@ -11,10 +11,15 @@
             'ngAria',
             'ngCacheBuster',
             'ngFileUpload',
+            'ngSanitize',
             'ui.bootstrap',
             'ui.bootstrap.datetimepicker',
             'ui.router',
             'infinite-scroll',
+            'chart.js',
+            'ui.codemirror',
+            'ngCsv',
+            'papa-promise',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar'
         ])

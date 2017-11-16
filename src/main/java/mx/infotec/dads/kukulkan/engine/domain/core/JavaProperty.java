@@ -24,7 +24,14 @@
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
 import java.util.Collection;
+import java.util.Optional;
 
+import org.apache.metamodel.schema.ColumnType;
+
+import mx.infotec.dads.kukulkan.engine.grammar.GrammarMapping;
+import mx.infotec.dads.kukulkan.engine.grammar.GrammarPropertyType;
+import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
+import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
@@ -34,16 +41,63 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
  * @author Daniel Cortes Pichardo
  *
  */
-public class JavaProperty implements PropertyHolder<JavaProperty> {
+public class JavaProperty implements Property<JavaProperty> {
 
-    private String propertyName;
-    private String propertyType;
+    private String name;
+    private String type;
     private String qualifiedName;
     private String columnName;
     private String columnType;
-    private boolean indexed;
-    private boolean nullable;
-    private boolean primaryKey;
+    private boolean blob;
+    private boolean time;
+    private boolean clob;
+    private boolean bigDecimal;
+    private boolean localDate;
+    private boolean instant;
+    private boolean zoneDateTime;
+    private boolean booleanType;
+    private boolean number;
+    private boolean literal;
+    private boolean largeObject;
+
+    private Constraint constraint;
+
+    @Override
+    public boolean isBigDecimal() {
+        return bigDecimal;
+    }
+
+    public void setBigDecimal(boolean bigDecimal) {
+        this.bigDecimal = bigDecimal;
+    }
+
+    @Override
+    public boolean isLocalDate() {
+        return localDate;
+    }
+
+    @Override
+    public boolean isInstant() {
+        return instant;
+    }
+
+    public void setInstant(boolean instant) {
+        this.instant = instant;
+
+    }
+
+    public void setLocalDate(boolean localDate) {
+        this.localDate = localDate;
+    }
+
+    @Override
+    public boolean isZoneDateTime() {
+        return zoneDateTime;
+    }
+
+    public void setZoneDateTime(boolean zoneDateTime) {
+        this.zoneDateTime = zoneDateTime;
+    }
 
     private JavaProperty() {
 
@@ -54,13 +108,39 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
     }
 
     @Override
-    public String getPropertyName() {
-        return this.propertyName;
+    public boolean isBlob() {
+        return blob;
+    }
+
+    public void setBlob(boolean blob) {
+        this.blob = blob;
+    }
+
+    public boolean isBoolean() {
+        return booleanType;
+    }
+
+    public void setBoolean(boolean booleanType) {
+        this.booleanType = booleanType;
     }
 
     @Override
-    public String getPropertyType() {
-        return this.propertyType;
+    public boolean isTime() {
+        return isLocalDate() || isZoneDateTime() || isInstant();
+    }
+
+    public void setTime(boolean time) {
+        this.time = time;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getType() {
+        return this.type;
     }
 
     @Override
@@ -69,18 +149,14 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
     }
 
     @Override
-    public Collection<PropertyHolder> getAssociations() {
+    @SuppressWarnings("rawtypes")
+    public Collection<Property> getAssociations() {
         throw new ApplicationException("Method not implemented");
     }
 
     @Override
-    public boolean isPrimaryKey() {
-        return this.primaryKey;
-    }
-
-    @Override
     public int compareTo(JavaProperty o) {
-        return propertyName.compareTo(o.getPropertyName());
+        return name.compareTo(o.getName());
     }
 
     @Override
@@ -94,25 +170,21 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
     }
 
     @Override
-    public boolean isNullable() {
-        return nullable;
-    }
-
-    public void setIndexed(boolean indexed) {
-        this.indexed = indexed;
-    }
-
-    @Override
-    public boolean isIndexed() {
-        return this.indexed;
+    public boolean isClob() {
+        return this.clob;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((propertyName == null) ? 0 : propertyName.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
+    }
+
+    @Override
+    public Constraint getConstraint() {
+        return constraint;
     }
 
     @Override
@@ -124,20 +196,20 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
         if (getClass() != obj.getClass())
             return false;
         JavaProperty other = (JavaProperty) obj;
-        if (propertyName == null) {
-            if (other.propertyName != null)
+        if (name == null) {
+            if (other.name != null)
                 return false;
-        } else if (!propertyName.equals(other.propertyName))
+        } else if (!name.equals(other.name))
             return false;
         return true;
     }
 
-    protected void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
+    protected void setName(String name) {
+        this.name = name;
     }
 
-    protected void setPropertyType(String propertyType) {
-        this.propertyType = propertyType;
+    protected void setType(String type) {
+        this.type = type;
     }
 
     protected void setQualifiedName(String qualifiedName) {
@@ -152,26 +224,38 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
         this.columnType = columnType;
     }
 
-    protected void setNullable(boolean nullable) {
-        this.nullable = nullable;
+    public void setClob(boolean clob) {
+        this.clob = clob;
     }
 
-    protected void setPrimaryKey(boolean primaryKey) {
-        this.primaryKey = primaryKey;
+    protected void setConstraint(Constraint constraint) {
+        this.constraint = constraint;
     }
 
     public static class JavaPropertyBuilder {
 
-        private JavaProperty javaProperty = new JavaProperty();
+        private JavaProperty javaProperty;
 
-        public JavaPropertyBuilder withPropertyName(String propertyName) {
-            this.javaProperty.setPropertyName(propertyName);
+        public JavaPropertyBuilder() {
+            this.javaProperty = new JavaProperty();
+            this.javaProperty.setConstraint(new Constraint());
+        }
+
+        public JavaPropertyBuilder withName(String propertyName) {
+            this.javaProperty.setName(propertyName);
             return this;
         }
 
-        public JavaPropertyBuilder withPropertyType(String propertyType) {
-            this.javaProperty.setPropertyType(propertyType);
+        public JavaPropertyBuilder withType(String propertyType) {
+            this.javaProperty.setType(propertyType);
             return this;
+        }
+
+        public JavaPropertyBuilder withType(Optional<GrammarPropertyType> optional) {
+            if (optional.isPresent()) {
+                this.javaProperty.setType(optional.get().getJavaName());
+            }
+            return null;
         }
 
         public JavaPropertyBuilder withQualifiedName(String qualifiedName) {
@@ -190,17 +274,57 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
         }
 
         public JavaPropertyBuilder isNullable(boolean nullable) {
-            this.javaProperty.setNullable(nullable);
+            this.javaProperty.getConstraint().setNullable(nullable);
             return this;
         }
 
         public JavaPropertyBuilder isPrimaryKey(boolean isPrimaryKey) {
-            this.javaProperty.setPrimaryKey(isPrimaryKey);
+            this.javaProperty.getConstraint().setPrimaryKey(isPrimaryKey);
             return this;
         }
 
         public JavaPropertyBuilder isIndexed(boolean indexed) {
-            this.javaProperty.setIndexed(indexed);
+            this.javaProperty.getConstraint().setIndexed(indexed);
+            return this;
+        }
+
+        public JavaPropertyBuilder addType(ColumnType type) {
+            DataBaseMapping.addType(javaProperty, type);
+            return this;
+        }
+
+        public JavaPropertyBuilder addType(FieldTypeContext type) {
+            GrammarMapping.addType(javaProperty, type);
+            return this;
+        }
+
+        public JavaPropertyBuilder isLiteral(boolean literal) {
+            javaProperty.setLiteral(literal);
+            return this;
+        }
+
+        public JavaPropertyBuilder isBigDecimal(boolean bigDecimal) {
+            this.javaProperty.setBigDecimal(bigDecimal);
+            return this;
+        }
+
+        public JavaPropertyBuilder isLocalDate(boolean localDate) {
+            this.javaProperty.setLocalDate(localDate);
+            return this;
+        }
+
+        public JavaPropertyBuilder isZoneDateTime(boolean zoneDateTime) {
+            this.javaProperty.setZoneDateTime(zoneDateTime);
+            return this;
+        }
+
+        public JavaPropertyBuilder isInstance(boolean instant) {
+            this.javaProperty.setInstant(instant);
+            return this;
+        }
+
+        public JavaPropertyBuilder isLargeObject(boolean largeObject) {
+            this.javaProperty.setLargeObject(largeObject);
             return this;
         }
 
@@ -210,4 +334,29 @@ public class JavaProperty implements PropertyHolder<JavaProperty> {
 
     }
 
+    @Override
+    public boolean isNumber() {
+        return number;
+    }
+
+    public void setNumber(boolean number) {
+        this.number = number;
+    }
+
+    public boolean isLiteral() {
+        return literal;
+    }
+
+    public void setLiteral(boolean literal) {
+        this.literal = literal;
+    }
+
+    @Override
+    public boolean isLargeObject() {
+        return largeObject;
+    }
+
+    public void setLargeObject(boolean largeObject) {
+        this.largeObject = largeObject;
+    }
 }

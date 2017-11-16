@@ -25,7 +25,7 @@ package mx.infotec.dads.kukulkan.engine.factories;
 
 import java.util.List;
 
-import mx.infotec.dads.kukulkan.domain.enumeration.Archetype;
+import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.service.layers.LayerTask;
 
 /**
@@ -43,5 +43,5 @@ public interface LayerTaskFactory {
      * @param restSpringJpa
      * @return
      */
-    List<LayerTask> getLayerTaskSet(Archetype restSpringJpa);
+    List<LayerTask> getLayerTaskSet(ArchetypeType archetypeType);
 }

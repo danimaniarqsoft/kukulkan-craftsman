@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "briefDescription",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "reportType",
+            "fieldType": "ReportType",
+            "fieldValues": "OPERATIONAL,INFRAESTRUCTURE"
+        }
+    ],
+    "changelogDate": "20170804215615",
+    "entityTableName": "report",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl"
+}
