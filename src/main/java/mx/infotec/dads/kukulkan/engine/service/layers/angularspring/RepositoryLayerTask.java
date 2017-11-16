@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
 import java.util.Collection;
@@ -58,7 +59,7 @@ public class RepositoryLayerTask extends AbstractAngularSpringLayerTask {
     public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
         LOGGER.debug("repositoryLayerTask for dommain");
-        propertiesMap.put("package", formatToPackageStatement(basePackage, pConf.getDaoLayerName()));
+        propertiesMap.put(PACKAGE_PROPERTY, formatToPackageStatement(basePackage, pConf.getDaoLayerName()));
         templateService.fillModel(dmElement, pConf.getId(),
                 LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/repository.ftl", propertiesMap,
                 BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"

@@ -66,7 +66,6 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
     @Override
     public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
-        dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
         fillEntityControllerJs(pConf, propertiesMap, dmElement);
         fillEntityDeleteDialogControllerJs(pConf, propertiesMap, dmElement);
         fillEntityDeleteDialogHtml(pConf, propertiesMap, dmElement);
