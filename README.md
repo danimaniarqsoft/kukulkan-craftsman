@@ -52,17 +52,17 @@ Para hacer los pasos anteriores con un unico comando:
 
 #### Entity-Properties
 
-`property.name`: the name of the property in camelCase format
-`property.qualifiedName`: the qualifiedName in java world
-`property.columnType`: the type of the property in the datamodel representation
-`property.blob`: true if the property is blob, false otherwise
-`property.time`: true if the property is time, false otherwise
-`property.clob`: true if the property is clob, false otherwise
-`property.bigDecimal`: true if the property is bigDecimal, false otherwise
-`property.localDate`: true if the property is localDate, false otherwise
-`property.instant`: true if the property is instant, false otherwise
-`property.zoneDateTime`: true if the property is zoneDateTime, false otherwise
- 
+`property.name`: the name of the property in camelCase format 
+`property.qualifiedName`: the qualifiedName in java world 
+`property.columnType`: the type of the property in the datamodel representation 
+`property.blob`: true if the property is blob, false otherwise 
+`property.time`: true if the property is time, false otherwise 
+`property.clob`: true if the property is clob, false otherwise 
+`property.bigDecimal`: true if the property is bigDecimal, false otherwise 
+`property.localDate`: true if the property is localDate, false otherwise 
+`property.instant`: true if the property is instant, false otherwise 
+`property.zoneDateTime`: true if the property is zoneDateTime, false otherwise 
+
 
 ### template quick reference
 
