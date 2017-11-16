@@ -36,9 +36,11 @@ Para hacer los pasos anteriores con un unico comando:
 ## Template key-params
 
 #### Project
+
 `projectName` : the name of the project
 
 #### Entity
+
 `entity`: Name of the entity
 `entityHyphenNotation`: hyphen notation of the entity
 `entityHyphenNotationPlural`: hyphen notation in plural format of the entity
@@ -49,6 +51,7 @@ Para hacer los pasos anteriores con un unico comando:
 `hasLocalDate`: true if the entity has LocalDate properties, false otherwise
 
 #### Entity-Properties
+
 `property.name`: the name of the property in camelCase format
 `property.qualifiedName`: the qualifiedName in java world
 `property.columnType`: the type of the property in the datamodel representation
