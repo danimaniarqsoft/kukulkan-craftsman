@@ -23,7 +23,8 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToImportStatement;
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_IMPL_PROPERTY;
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
 import java.util.Collection;
@@ -58,20 +59,28 @@ public class ServiceLayerTask extends AbstractAngularSpringLayerTask {
     @Override
     public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
-        propertiesMap.put("package", formatToPackageStatement(basePackage, pConf.getServiceLayerName()));
-        propertiesMap.put("packageImpl", formatToPackageStatement(basePackage, pConf.getServiceLayerName(), "impl"));
-        propertiesMap.put("importRepository", formatToImportStatement(basePackage, pConf.getDaoLayerName(),
-                dmElement.getName() + NameConventions.DAO));
-        propertiesMap.put("importService", formatToImportStatement(basePackage, pConf.getServiceLayerName(),
-                dmElement.getName() + NameConventions.SERVICE));
-        templateService.fillModel(dmElement, pConf.getId(),
-                LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl", propertiesMap, BasePathEnum.SRC_MAIN_JAVA,
-                basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/"
-                        + dmElement.getName() + NameConventions.SERVICE + ".java");
+        LOGGER.debug("visitDomainModelElement: {} ", basePackage);
+        propertiesMap.put(PACKAGE_PROPERTY, formatToPackageStatement(basePackage, pConf.getServiceLayerName()));
+        propertiesMap.put(PACKAGE_IMPL_PROPERTY,
+                formatToPackageStatement(basePackage, pConf.getServiceLayerName(), "impl"));
+        fillServiceModel(pConf, propertiesMap, dmgName, dmElement, basePackage);
+        fillServiceImplModel(pConf, propertiesMap, dmgName, dmElement, basePackage);
+    }
+
+    public void fillServiceImplModel(ProjectConfiguration pConf, Map<String, Object> propertiesMap, String dmgName,
+            DomainModelElement dmElement, String basePackage) {
         templateService.fillModel(dmElement, pConf.getId(),
                 LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/serviceImpl.ftl", propertiesMap,
                 BasePathEnum.SRC_MAIN_JAVA,
                 basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/impl/"
                         + dmElement.getName() + NameConventions.SERVICE_IMPLEMENTS + ".java");
+    }
+
+    public void fillServiceModel(ProjectConfiguration pConf, Map<String, Object> propertiesMap, String dmgName,
+            DomainModelElement dmElement, String basePackage) {
+        templateService.fillModel(dmElement, pConf.getId(),
+                LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl", propertiesMap, BasePathEnum.SRC_MAIN_JAVA,
+                basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/"
+                        + dmElement.getName() + NameConventions.SERVICE + ".java");
     }
 }

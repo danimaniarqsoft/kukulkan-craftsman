@@ -42,31 +42,48 @@ Para hacer los pasos anteriores con un unico comando:
 #### Entity
 
 `entity`: Name of the entity
+
 `entityHyphenNotation`: hyphen notation of the entity
+
 `entityHyphenNotationPlural`: hyphen notation in plural format of the entity
+
 `entityCamelCase`: entity in camel-case notation
+
 `entityCamelCasePlural`: entity in camel-case plural format
+
 `hasBlobProperties`: true if the entity has blob properties, false otherwise
+
 `hasTimeProperties`: true if the entity has time properties, false otherwise
+
 `hasLocalDate`: true if the entity has LocalDate properties, false otherwise
 
 #### Entity-Properties
 
-`property.name`: the name of the property in camelCase format
-`property.qualifiedName`: the qualifiedName in java world
-`property.columnType`: the type of the property in the datamodel representation
-`property.blob`: true if the property is blob, false otherwise
-`property.time`: true if the property is time, false otherwise
-`property.clob`: true if the property is clob, false otherwise
-`property.bigDecimal`: true if the property is bigDecimal, false otherwise
-`property.localDate`: true if the property is localDate, false otherwise
-`property.instant`: true if the property is instant, false otherwise
-`property.zoneDateTime`: true if the property is zoneDateTime, false otherwise
- 
+`property.name`: the name of the property in camelCase format 
+
+`property.qualifiedName`: the qualifiedName in java world 
+
+`property.columnType`: the type of the property in the datamodel representation 
+
+`property.blob`: true if the property is blob, false otherwise 
+
+`property.time`: true if the property is time, false otherwise 
+
+`property.clob`: true if the property is clob, false otherwise 
+
+`property.bigDecimal`: true if the property is bigDecimal, false otherwise 
+
+`property.localDate`: true if the property is localDate, false otherwise 
+
+`property.instant`: true if the property is instant, false otherwise 
+
+`property.zoneDateTime`: true if the property is zoneDateTime, false otherwise 
+
 
 ### template quick reference
 
 `property.columnType?contains("TIMESTAMP")`
+
 `property.columnType?cap_first`
 
 #### Update docker image

@@ -23,7 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToImportStatement;
+import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
 import java.util.Collection;
@@ -54,25 +54,12 @@ public class ModelLayerTask extends AbstractAngularSpringLayerTask {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModelLayerTask.class);
 
     @Override
-    public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
+    public void visitDomainModelElement(ProjectConfiguration confg, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
         LOGGER.debug("visitDomainModelElement for {}", basePackage);
-        propertiesMap.put("id", dmElement.getPrimaryKey().getType());
-        propertiesMap.put("tableName", dmElement.getTableName());
-        propertiesMap.put("entity", dmElement.getName());
-        propertiesMap.put("hasConstraints", dmElement.isHasConstraints());
-        propertiesMap.put("hasInstant", dmElement.isHasInstant());
-        propertiesMap.put("hasLocalDate", dmElement.isHasLocalDate());
-        propertiesMap.put("hasZoneDateTime", dmElement.isHasZoneDateTime());
-        propertiesMap.put("hasBigDecimal", dmElement.isHasBigDecimal());
-        importPrimaryKey(pConf, propertiesMap, basePackage, dmElement);
-        propertiesMap.put("package", formatToPackageStatement(false, basePackage, pConf.getDomainLayerName()));
-        propertiesMap.put("properties", dmElement.getProperties());
-        dmElement.getPrimaryKey().setGenerationType(pConf.getGlobalGenerationType());
-        propertiesMap.put("primaryKey", dmElement.getPrimaryKey());
-        propertiesMap.put("imports", dmElement.getImports());
-        fillModel(pConf, propertiesMap, dmgName, basePackage, dmElement);
-        fillPrimaryKey(pConf, propertiesMap, dmgName, basePackage, dmElement);
+        propertiesMap.put(PACKAGE_PROPERTY, formatToPackageStatement(false, basePackage, confg.getDomainLayerName()));
+        fillModel(confg, propertiesMap, dmgName, basePackage, dmElement);
+        fillPrimaryKey(confg, propertiesMap, dmgName, basePackage, dmElement);
     }
 
     private void fillModel(ProjectConfiguration pConf, Map<String, Object> model, String dmgName, String basePackage,
@@ -94,14 +81,6 @@ public class ModelLayerTask extends AbstractAngularSpringLayerTask {
             templateService.fillModel(dmElement, pConf.getId(), "common/primaryKey.ftl", model,
                     BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
                             + pConf.getDomainLayerName() + "/" + dmElement.getPrimaryKey().getType() + ".java");
-        }
-    }
-
-    private static void importPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String basePackage,
-            DomainModelElement dmElement) {
-        if (dmElement.getPrimaryKey().isComposed()) {
-            model.put("importPrimaryKey", formatToImportStatement(basePackage, pConf.getDomainLayerName(),
-                    dmElement.getPrimaryKey().getType()));
         }
     }
 }
