@@ -42,12 +42,19 @@ Para hacer los pasos anteriores con un unico comando:
 #### Entity
 
 `entity`: Name of the entity
+
 `entityHyphenNotation`: hyphen notation of the entity
+
 `entityHyphenNotationPlural`: hyphen notation in plural format of the entity
+
 `entityCamelCase`: entity in camel-case notation
+
 `entityCamelCasePlural`: entity in camel-case plural format
+
 `hasBlobProperties`: true if the entity has blob properties, false otherwise
+
 `hasTimeProperties`: true if the entity has time properties, false otherwise
+
 `hasLocalDate`: true if the entity has LocalDate properties, false otherwise
 
 #### Entity-Properties
