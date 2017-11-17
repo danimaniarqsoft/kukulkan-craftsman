@@ -9,6 +9,7 @@ services:
             - SPRING_PROFILES_ACTIVE=prod,swagger
             - SPRING_DATA_MONGODB_URI=mongodb://kukulkan-mongodb:27017
             - KUKULKAN_DATA_MYSQL_URI=jdbc:mysql://kukulkan-mysql:3306
+            - KUKULKAN_MODELER_URI=http://kukulkan-modeler
         ports:
             - 8080:8080
     kukulkan-mongodb:
@@ -19,3 +20,7 @@ services:
         extends:
             file: mysql.yml
             service: kukulkan-mysql
+    kukulkan-modeler:
+        extends:
+            file: modeler.yml
+            service: kukulkan-modeler
