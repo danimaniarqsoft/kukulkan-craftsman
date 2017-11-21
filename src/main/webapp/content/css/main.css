@@ -413,4 +413,6 @@ Fix error field display
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
+
+.ace_editor { height: 200px; }
 /* jhipster-needle-css-add-main JHipster will add new css style */

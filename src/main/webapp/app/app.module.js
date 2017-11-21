@@ -18,6 +18,7 @@
             'infinite-scroll',
             'chart.js',
             'ui.codemirror',
+            'ui.ace',
             'ngCsv',
             'papa-promise',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
