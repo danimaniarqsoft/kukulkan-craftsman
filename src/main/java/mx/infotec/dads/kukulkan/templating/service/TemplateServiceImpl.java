@@ -23,6 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.templating.service;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Path;
@@ -40,6 +43,7 @@ import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
+import mx.infotec.dads.kukulkan.engine.domain.editor.Editor;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 import mx.infotec.dads.kukulkan.util.FileUtil;
 import mx.infotec.dads.kukulkan.util.TemplateUtil;
@@ -66,30 +70,36 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public void fillModel(DomainModelElement dme, String proyectoId, String templateName, Object model,
             BasePathEnum basePath, String filePath) {
+       fillModel(proyectoId, templateName, model, basePath, filePath, createDefaultAceEditor(JAVA));
+    }
+    
+    @Override
+    public void fillModel(DomainModelElement dme, String proyectoId, String templateName, Object model,
+            BasePathEnum basePath, String filePath, Editor editor) {
         Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
         if (templateOptional.isPresent()) {
             Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
-            dme.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
+            dme.addGeneratedElement(processTemplate(model, templateOptional.get(), path, editor));
         }
     }
 
     @Override
     public void fillModel(DomainModel dm, String proyectoId, String templateName, Object model, BasePathEnum basePath,
-            String filePath) {
+            String filePath, Editor editor) {
         Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
         if (templateOptional.isPresent()) {
             Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
-            dm.addGeneratedElement(processTemplate(model, templateOptional.get(), path));
+            dm.addGeneratedElement(processTemplate(model, templateOptional.get(), path, editor));
         } else {
             LOGGER.warn("Template not found for {}", templateName);
         }
     }
 
-    public static GeneratedElement processTemplate(Object model, Template template, Path path) {
+    public static GeneratedElement processTemplate(Object model, Template template, Path path, Editor editor) {
         try (StringWriter stringWriter = new StringWriter()) {
             LOGGER.info("Generating to: {}", path.normalize().toFile());
             template.process(model, stringWriter);
-            return new GeneratedElement(path, stringWriter.toString());
+            return new GeneratedElement(path, stringWriter.toString(), editor);
         } catch (IOException | TemplateException e) {
             throw new ApplicationException("Fill Model Error", e);
         }
@@ -97,10 +107,10 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public void fillModel(String proyectoId, String templateName, Object model, BasePathEnum basePath,
-            String filePath) {
+            String filePath, Editor editor) {
         TemplateUtil.get(fmConfiguration, templateName).ifPresent(template -> {
             Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
-            processTemplate(model, template, path);
+            processTemplate(model, template, path, editor);
         });
     }
 }

@@ -85,8 +85,12 @@
         "src-min-noconflict/mode-typescript.js",
         "src-min-noconflict/mode-mysql.js",
         "src-min-noconflict/mode-java.js",
-        "src-min-noconflict/theme-idle_fingers.js",
         "src-min-noconflict/mode-sql.js",
+        "src-min-noconflict/mode-csharp.js",
+		"src-min-noconflict/mode-css.js",
+		"src-min-noconflict/mode-ftl.js",
+		"src-min-noconflict/mode-html.js",
+        "src-min-noconflict/theme-idle_fingers.js",
         "src-min-noconflict/worker-json.js"
       ]
     }

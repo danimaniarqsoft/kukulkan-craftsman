@@ -23,6 +23,8 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
 import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
 import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_SIMPLE_FORMAT_PROPERTY;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
@@ -39,6 +41,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
@@ -70,7 +73,8 @@ public class RestResourceLayerTask extends AbstractAngularSpringLayerTask {
         templateService.fillModel(dmElement, pConf.getId(),
                 LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/restResource.ftl", propertiesMap,
                 BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/" + webLayerSlashFormat
-                        + "/" + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java");
+                        + "/" + dmElement.getName() + NameConventions.REST_CONTROLLER + ".java",
+                createDefaultAceEditor(JAVA));
     }
 
 }

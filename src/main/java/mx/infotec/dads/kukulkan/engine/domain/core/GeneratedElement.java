@@ -2,6 +2,8 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
 
 import java.nio.file.Path;
 
+import mx.infotec.dads.kukulkan.engine.domain.editor.Editor;
+
 /**
  * KukulkanProject represent a generated project
  * 
@@ -16,15 +18,22 @@ public class GeneratedElement {
 
     /**
      * The content of the generated Element, it is filled from the freemarker
-     * Template,
+     * Template
      */
     private String content;
 
-    public GeneratedElement(){}
-    
-    public GeneratedElement(Path path, String content) {
+    /**
+     * Properties related to the Editor
+     */
+    private Editor editor;
+
+    public GeneratedElement() {
+    }
+
+    public GeneratedElement(Path path, String content, Editor editor) {
         this.path = path;
         this.content = content;
+        this.editor = editor;
     }
 
     public String getContent() {
@@ -41,5 +50,13 @@ public class GeneratedElement {
 
     public void setPath(Path path) {
         this.path = path;
+    }
+
+    public Editor getEditor() {
+        return editor;
+    }
+
+    public void setEditor(Editor editor) {
+        this.editor = editor;
     }
 }

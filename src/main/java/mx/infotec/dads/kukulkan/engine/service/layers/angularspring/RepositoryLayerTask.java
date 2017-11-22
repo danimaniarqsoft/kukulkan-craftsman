@@ -23,6 +23,8 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
 import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
@@ -63,6 +65,7 @@ public class RepositoryLayerTask extends AbstractAngularSpringLayerTask {
         templateService.fillModel(dmElement, pConf.getId(),
                 LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/repository.ftl", propertiesMap,
                 BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
-                        + pConf.getDaoLayerName() + "/" + dmElement.getName() + NameConventions.DAO + ".java");
+                        + pConf.getDaoLayerName() + "/" + dmElement.getName() + NameConventions.DAO + ".java",
+                createDefaultAceEditor(JAVA));
     }
 }

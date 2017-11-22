@@ -23,6 +23,10 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.HTML;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVASCRIPT;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JSON;
 import static mx.infotec.dads.kukulkan.util.NameConventionFormatter.camelCaseToHyphens;
 
 import java.util.Collection;
@@ -37,6 +41,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.TemplateFormatter;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
@@ -83,17 +88,17 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
 
     private void fillNavBar(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/navbar.html.ftl", model,
-                BasePathEnum.WEB_APP_NAV_BAR, "/navbar.html");
+                BasePathEnum.WEB_APP_NAV_BAR, "/navbar.html", createDefaultAceEditor(HTML));
     }
 
     private void fillIdiomaGlobalEnJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/i18n/en/global.json.ftl", model,
-                BasePathEnum.WEB_APP_I18N, "/en/global.json");
+                BasePathEnum.WEB_APP_I18N, "/en/global.json", createDefaultAceEditor(JSON));
     }
 
     private void fillIdiomaGlobalEsJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/i18n/es/global.json.ftl", model,
-                BasePathEnum.WEB_APP_I18N, "/es/global.json");
+                BasePathEnum.WEB_APP_I18N, "/es/global.json", createDefaultAceEditor(LanguageType.JSON));
     }
 
     private void fillEntityControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
@@ -140,14 +145,14 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
     private void fillEntityHtml(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement) {
         LOGGER.info("fillEntityHtml {}", LayerConstants.ENTITY_HTML);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_HTML, true);
+                LayerConstants.ENTITY_HTML, true, HTML);
     }
 
     private void fillEntityDialogHtml(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
         LOGGER.info("fillEntityDialogHtml {}", LayerConstants.ENTITY_DETAIL_HTML);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_DIALOG_HTML, false);
+                LayerConstants.ENTITY_DIALOG_HTML, false, HTML);
     }
 
     private void fillEntityDialogControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
@@ -168,14 +173,14 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
             DomainModelElement dmElement) {
         LOGGER.info("fillEntityDetailHtml {}", LayerConstants.ENTITY_DETAIL_HTML);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_DETAIL_HTML, false);
+                LayerConstants.ENTITY_DETAIL_HTML, false, HTML);
     }
 
     private void fillEntityDeleteDialogHtml(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
         LOGGER.info("fillEntityDeleteDialogHtml {}", LayerConstants.ENTITY_DELETE_DIALOG_HTML);
         saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_DELETE_DIALOG_HTML, false);
+                LayerConstants.ENTITY_DELETE_DIALOG_HTML, false, HTML);
     }
 
     private void fillEntityDeleteDialogControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
@@ -187,6 +192,12 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
 
     private void saveFrontEndTemplate(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement, String templateLocation, String templateName, boolean isPlural) {
+        saveFrontEndTemplate(pConf, model, dmElement, templateLocation, templateName, isPlural, JAVASCRIPT);
+    }
+
+    private void saveFrontEndTemplate(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModelElement dmElement, String templateLocation, String templateName, boolean isPlural,
+            LanguageType languageType) {
         String fileNamingConvention = camelCaseToHyphens(dmElement.getCamelCaseFormat());
         String entityName = fileNamingConvention;
         if (isPlural) {
@@ -194,7 +205,8 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
         }
         templateService.fillModel(dmElement, pConf.getId(), templateLocation + templateName, model,
                 BasePathEnum.WEB_APP_ENTITIES,
-                fileNamingConvention + "/" + entityName + TemplateFormatter.formatNameTemplate(templateName));
+                fileNamingConvention + "/" + entityName + TemplateFormatter.formatNameTemplate(templateName),
+                createDefaultAceEditor(languageType));
     }
 
     private void saveInternationalizationTemplate(ProjectConfiguration pConf, Map<String, Object> model,
@@ -202,6 +214,7 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
         String fileNamingConvention = camelCaseToHyphens(dmElement.getCamelCaseFormat());
         templateService.fillModel(dmElement, pConf.getId(), templateLocation + templateName, model,
                 BasePathEnum.WEB_APP_I18N,
-                idiomaKey + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName));
+                idiomaKey + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName),
+                createDefaultAceEditor(JSON));
     }
 }

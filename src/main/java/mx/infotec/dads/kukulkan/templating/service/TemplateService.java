@@ -25,6 +25,7 @@ package mx.infotec.dads.kukulkan.templating.service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
+import mx.infotec.dads.kukulkan.engine.domain.editor.Editor;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 
 /**
@@ -36,10 +37,14 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
 public interface TemplateService {
 
     void fillModel(DomainModelElement dme, String projectId, String templateName, Object model, BasePathEnum path,
-            String filePath);
+            String filePath, Editor editor);
 
-    void fillModel(String projectId, String templateName, Object model, BasePathEnum path, String filePath);
+    void fillModel(String projectId, String templateName, Object model, BasePathEnum path, String filePath,
+            Editor editor);
 
     void fillModel(DomainModel dme, String proyectoId, String templateName, Object model, BasePathEnum basePath,
+            String filePath, Editor editor);
+
+    void fillModel(DomainModelElement dme, String proyectoId, String templateName, Object model, BasePathEnum basePath,
             String filePath);
 }

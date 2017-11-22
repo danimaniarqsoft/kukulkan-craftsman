@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
 import static mx.infotec.dads.kukulkan.util.NameConventionFormatter.camelCaseToHyphens;
 
 import java.util.Collection;
@@ -37,6 +38,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.TemplateFormatter;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
@@ -89,17 +91,17 @@ public class AngularLayerTask extends AbstractSpringRestLayerTask {
 
     private void fillNavBar(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/navbar.html.ftl", model,
-                BasePathEnum.WEB_APP_NAV_BAR, "/navbar.html");
+                BasePathEnum.WEB_APP_NAV_BAR, "/navbar.html", createDefaultAceEditor(LanguageType.HTML));
     }
 
     private void fillIdiomaGlobalEnJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/i18n/en/global.json.ftl", model,
-                BasePathEnum.WEB_APP_I18N, "/en/global.json");
+                BasePathEnum.WEB_APP_I18N, "/en/global.json", createDefaultAceEditor(LanguageType.JSON));
     }
 
     private void fillIdiomaGlobalEsJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/i18n/es/global.json.ftl", model,
-                BasePathEnum.WEB_APP_I18N, "/es/global.json");
+                BasePathEnum.WEB_APP_I18N, "/es/global.json", createDefaultAceEditor(LanguageType.JSON));
     }
 
     private void fillModel(Map<String, Object> model, DomainModelElement dmElement) {
@@ -230,7 +232,6 @@ public class AngularLayerTask extends AbstractSpringRestLayerTask {
     @Override
     public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
-        // TODO Auto-generated method stub
-        
+
     }
 }

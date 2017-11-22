@@ -23,6 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JSON;
 import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
@@ -36,6 +39,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 
@@ -70,9 +74,10 @@ public class ModelLayerTask extends AbstractAngularSpringLayerTask {
         } else {
             template = "common/model.ftl";
         }
-        templateService.fillModel(dmElement, pConf.getId(), template, model, BasePathEnum.SRC_MAIN_JAVA,
-                basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getDomainLayerName() + "/"
-                        + dmElement.getName() + ".java");
+        templateService.fillModel(dmElement, pConf.getId(), template, model,
+                BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
+                        + pConf.getDomainLayerName() + "/" + dmElement.getName() + ".java",
+                createDefaultAceEditor(JAVA));
     }
 
     private void fillPrimaryKey(ProjectConfiguration pConf, Map<String, Object> model, String dmgName,
@@ -80,7 +85,8 @@ public class ModelLayerTask extends AbstractAngularSpringLayerTask {
         if (dmElement.getPrimaryKey().isComposed()) {
             templateService.fillModel(dmElement, pConf.getId(), "common/primaryKey.ftl", model,
                     BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
-                            + pConf.getDomainLayerName() + "/" + dmElement.getPrimaryKey().getType() + ".java");
+                            + pConf.getDomainLayerName() + "/" + dmElement.getPrimaryKey().getType() + ".java",
+                    createDefaultAceEditor(JAVA));
         }
     }
 }

@@ -23,6 +23,8 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
 import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_IMPL_PROPERTY;
 import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
@@ -73,14 +75,16 @@ public class ServiceLayerTask extends AbstractAngularSpringLayerTask {
                 LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/serviceImpl.ftl", propertiesMap,
                 BasePathEnum.SRC_MAIN_JAVA,
                 basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/impl/"
-                        + dmElement.getName() + NameConventions.SERVICE_IMPLEMENTS + ".java");
+                        + dmElement.getName() + NameConventions.SERVICE_IMPLEMENTS + ".java",
+                createDefaultAceEditor(JAVA));
     }
 
     public void fillServiceModel(ProjectConfiguration pConf, Map<String, Object> propertiesMap, String dmgName,
             DomainModelElement dmElement, String basePackage) {
         templateService.fillModel(dmElement, pConf.getId(),
-                LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl", propertiesMap, BasePathEnum.SRC_MAIN_JAVA,
-                basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/"
-                        + dmElement.getName() + NameConventions.SERVICE + ".java");
+                LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl", propertiesMap,
+                BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
+                        + pConf.getServiceLayerName() + "/" + dmElement.getName() + NameConventions.SERVICE + ".java",
+                createDefaultAceEditor(JAVA));
     }
 }
