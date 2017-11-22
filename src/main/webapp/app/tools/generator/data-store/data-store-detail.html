@@ -40,14 +40,12 @@
 	        <div ui-ace="{  
 	        				useWrapMode : true,
 							showGutter: true,
-							mode: 'java',
+							mode: 'json',
 							theme:'twilight',
 							firstLineNumber: 1,
         					onLoad: vm.aceLoaded
       					}" ng-model="vm.dataStore.script">
-      		</div>
-      		
-			<ui-codemirror ui-codemirror-opts="vm.editorOptions" ng-model="vm.dataStore.script"></ui-codemirror>
+      		</div>      		
 		</div>
         <button type="submit"
                 ui-sref="{{ vm.previousState }}"
