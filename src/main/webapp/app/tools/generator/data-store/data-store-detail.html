@@ -37,6 +37,16 @@
 	        <button type="submit" class="btn btn-danger" ng-click="vm.option='dropSchema'"">
 	            <span class="glyphicon glyphicon-minus-sign"></span>&nbsp;<span data-translate="kukulkancraftsmanApp.dataStore.action.dropSchema.label">Create Schema</span>
 	        </button>  
+	        <div ui-ace="{  
+	        				useWrapMode : true,
+							showGutter: true,
+							mode: 'java',
+							theme:'twilight',
+							firstLineNumber: 1,
+        					onLoad: vm.aceLoaded
+      					}" ng-model="vm.dataStore.script">
+      		</div>
+      		
 			<ui-codemirror ui-codemirror-opts="vm.editorOptions" ng-model="vm.dataStore.script"></ui-codemirror>
 		</div>
         <button type="submit"

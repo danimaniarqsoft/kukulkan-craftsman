@@ -20,6 +20,10 @@
 				matchBrackets: true,
 				mode: 'text/x-sql',
 			};
+		vm.aceLoaded  = function (_editor) {
+			// Options
+		    _editor.setReadOnly(false);
+		};
 
         vm.isTestingConnection = false;
 
