@@ -157,7 +157,8 @@ public class GrammarResource {
         // .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME,
         // result.getId().toString())).body(result);
         GeneratedDto dto = new GeneratedDto();
-        dto.setGeneratedElements(genCtx.getDomainModel().getGeneratedElements());
+        dto.setMainElements(genCtx.getDomainModel().getGeneratedElements());
+        dto.setElements(genCtx.getDomainModel().getDomainModelGroup());
         return ResponseEntity.created(new URI("/api/grammar/" + 1))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "")).body(dto);
     }

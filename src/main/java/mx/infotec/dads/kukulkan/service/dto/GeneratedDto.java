@@ -15,14 +15,23 @@ public class GeneratedDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private List<GeneratedElement> generatedElements;
+    private List<GeneratedElement> mainElements;
+    private List<GeneratedElement> elements;
 
-    public List<GeneratedElement> getGeneratedElements() {
-        return generatedElements;
+    public List<GeneratedElement> getMainElements() {
+        return mainElements;
     }
 
-    public void setGeneratedElements(List<GeneratedElement> generatedElements) {
-        this.generatedElements = generatedElements;
+    public void setMainElements(List<GeneratedElement> mainElements) {
+        this.mainElements = mainElements;
+    }
+
+    public List<GeneratedElement> getElements() {
+        return elements;
+    }
+
+    public void setElements(List<GeneratedElement> elements) {
+        this.elements = elements;
     }
 
 }
