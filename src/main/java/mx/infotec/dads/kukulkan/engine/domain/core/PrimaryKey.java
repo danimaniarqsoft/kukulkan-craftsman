@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.TreeSet;
 
@@ -36,7 +37,9 @@ import mx.infotec.dads.kukulkan.util.PKGenerationStrategy;
  * @version 1.0.0
  */
 
-public class PrimaryKey {
+public class PrimaryKey implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private String name;
     private String type;

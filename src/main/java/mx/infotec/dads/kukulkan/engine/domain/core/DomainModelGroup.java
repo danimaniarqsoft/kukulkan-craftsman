@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -32,7 +33,9 @@ import java.util.Collection;
  * @author Daniel Cortes Pichardo
  *
  */
-public class DomainModelGroup {
+public class DomainModelGroup implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     protected String name;
     protected String briefDescription;

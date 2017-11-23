@@ -1,5 +1,6 @@
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
 import java.nio.file.Path;
 
 import mx.infotec.dads.kukulkan.engine.domain.editor.Editor;
@@ -10,7 +11,10 @@ import mx.infotec.dads.kukulkan.engine.domain.editor.Editor;
  * @author Daniel Cortes Pichardo
  *
  */
-public class GeneratedElement {
+public class GeneratedElement implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * The Path where the content must be generated
      */

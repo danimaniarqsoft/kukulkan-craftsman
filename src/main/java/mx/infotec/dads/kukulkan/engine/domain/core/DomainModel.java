@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,8 +35,10 @@ import java.util.List;
  * @author Daniel Cortes Pichardo
  *
  */
-public abstract class DomainModel {
-
+public abstract class DomainModel implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
+    
     protected Collection<DomainModelGroup> domainModelGroup;
     protected List<GeneratedElement> generatedElements = new ArrayList<>();
 

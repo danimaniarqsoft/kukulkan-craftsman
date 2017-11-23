@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +35,9 @@ import java.util.TreeSet;
  * @author Daniel Cortes Pichardo
  *
  */
-public class DomainModelElement {
+public class DomainModelElement implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * id of the dataModelElement, it is the primary key

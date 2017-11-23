@@ -1,5 +1,7 @@
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
+
 /**
  * Constraint Class, This class represent a Constraint applied to a column in a
  * table
@@ -7,7 +9,9 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
  * @author Daniel Cortes Pichardo
  *
  */
-public class Constraint {
+public class Constraint implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Is column nullable
