@@ -1,6 +1,6 @@
 {
     "grammar": {
-        "title": "Generar Proyecto a partir de una Grammatica [<b>{{username}}</b>]",
+        "title": "Ingrese su código aquí [<b>Code</b>]",
         "general": "Elementos Generales [<b>General</b>]",
         "element": "Elementos Por Entidades [<b>Entidades</b>]",
         "form": {

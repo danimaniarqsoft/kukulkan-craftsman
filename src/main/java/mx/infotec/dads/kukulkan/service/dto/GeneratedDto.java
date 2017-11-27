@@ -1,6 +1,7 @@
 package mx.infotec.dads.kukulkan.service.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratedElement;
@@ -15,8 +16,10 @@ public class GeneratedDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private List<EntityDto> entities = new ArrayList<>();
+    
     private List<GeneratedElement> mainElements;
-    private List<GeneratedElement> elements;
+    
 
     public List<GeneratedElement> getMainElements() {
         return mainElements;
@@ -26,12 +29,11 @@ public class GeneratedDto implements Serializable {
         this.mainElements = mainElements;
     }
 
-    public List<GeneratedElement> getElements() {
-        return elements;
+    public List<EntityDto> getEntities() {
+        return entities;
     }
 
-    public void setElements(List<GeneratedElement> elements) {
-        this.elements = elements;
+    public void setEntities(List<EntityDto> entities) {
+        this.entities = entities;
     }
-
 }

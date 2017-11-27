@@ -20,7 +20,7 @@
 				<div ui-ace="vm.editorOptions" ng-model="vm.code"></div>
 			</div>
 			<button type="submit" ng-disabled="form.$invalid"
-				class="btn btn-primary" data-translate="grammar.form.button">Save</button>
+				class="btn btn-danger" data-translate="grammar.form.button">Save</button>
 		</form>
 		
 		<h2 data-translate="grammar.general" >
@@ -40,16 +40,19 @@
 		<h2 data-translate="grammar.element" >
 		</h2>
 		
-		<div ng-repeat="element in vm.generatedDto.elements track by $index" class="form-group" >
-			<label>{{element.simplePath}}</label>
-			<div ui-ace="{
-			  useWrapMode : true,
-			  showGutter: {{element.editor.showGutter}},
-			  theme:'{{element.editor.theme}}',
-			  mode: '{{element.editor.language}}',
-			  firstLineNumber: {{element.editor.firstLineNumber}},
-			  readOnly: {{element.editor.readOnly}}
-			}" ng-model="element.content"></div>
+		<div ng-repeat="entity in vm.generatedDto.entities track by $index" class="form-group" >
+				<h2><b>{{entity.entityName}}</b></h2>
+				<div ng-repeat="element in entity.elements track by $index" class="form-group" >
+				<label>{{element.simplePath}}</label>
+				<div ui-ace="{
+				  useWrapMode : true,
+				  showGutter: {{element.editor.showGutter}},
+				  theme:'{{element.editor.theme}}',
+				  mode: '{{element.editor.language}}',
+				  firstLineNumber: {{element.editor.firstLineNumber}},
+				  readOnly: {{element.editor.readOnly}}
+				}" ng-model="element.content"></div>
+				</div>
 		</div>	
 	</div>
 </div>

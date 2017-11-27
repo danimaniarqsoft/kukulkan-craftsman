@@ -1,6 +1,7 @@
 package mx.infotec.dads.kukulkan.web.rest;
 
 import static mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType.ANGULAR_SPRING;
+import static mx.infotec.dads.kukulkan.engine.domain.core.DataContextType.KUKULKAN_GRAMMAR;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -43,6 +44,7 @@ import mx.infotec.dads.kukulkan.engine.service.GenerationService;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.service.ProjectService;
+import mx.infotec.dads.kukulkan.service.dto.EntityDto;
 import mx.infotec.dads.kukulkan.service.dto.GeneratedDto;
 import mx.infotec.dads.kukulkan.util.DataStoreConstants;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
@@ -134,7 +136,7 @@ public class GrammarResource {
         DomainModel dataModel = new JavaDomainModel();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
         KukulkanSemanticAnalyzer semanticAnalyzer = null;
-        if (dataContext.getDataContextType() == DataContextType.KUKULKAN_GRAMMAR) {
+        if (dataContext.getDataContextType() == KUKULKAN_GRAMMAR) {
             semanticAnalyzer = (KukulkanSemanticAnalyzer) dataContext.getDataContext();
         }
 
@@ -163,7 +165,13 @@ public class GrammarResource {
         DomainModelGroup domainModelGroup = genCtx.getDomainModel().getDomainModelGroup().get(0);
         List<DomainModelElement> domainModelElements = (List<DomainModelElement>) domainModelGroup
                 .getDomainModelElements();
-        dto.setElements(domainModelElements.get(0).getGeneratedElements());
+        domainModelElements.forEach(element -> {
+            EntityDto entity = new EntityDto();
+            entity.setEntityName(element.getName());
+            entity.setElements(element.getGeneratedElements());
+            dto.getEntities().add(entity);
+        });
+        
         return ResponseEntity.created(new URI("/api/grammar/" + 1))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "")).body(dto);
     }
