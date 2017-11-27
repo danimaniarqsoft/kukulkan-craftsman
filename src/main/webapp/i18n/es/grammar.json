@@ -1,13 +1,16 @@
 {
     "grammar": {
         "title": "Generar Proyecto a partir de una Grammatica [<b>{{username}}</b>]",
+        "general": "Elementos Generales [<b>General</b>]",
+        "element": "Elementos Por Entidades [<b>Entidades</b>]",
         "form": {
             "firstname": "First Name",
             "firstname.placeholder": "Your first name",
             "lastname": "Last Name",
             "lastname.placeholder": "Your last name",
             "language": "Language",
-            "button": "Save"
+            "button": "Generar Código",
+            "grammar":"Gramática para Kukulkan"
         },
         "messages": {
             "error": {

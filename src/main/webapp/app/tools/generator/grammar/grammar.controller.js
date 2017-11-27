@@ -42,7 +42,7 @@
     		};
 
     	var unsubscribe = $rootScope.$on('kukulkancraftsmanApp:grammarUpdate', function(event, result) {
-    			vm.dataStore = result;
+    			vm.generatedDto = result;
           	});
     	
         $scope.$on('$destroy', unsubscribe);

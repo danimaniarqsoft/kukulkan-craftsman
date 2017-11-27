@@ -149,6 +149,21 @@ public class GrammarMapping {
         dataModelGroupList.add(createDefaultDataModelGroup(tree, visitor));
         return dataModelGroupList;
     }
+    
+    /**
+     * createSingleDataModelGroupList
+     * 
+     * @param visitor
+     * @param tablesToProcess
+     * @return
+     * @throws IOException
+     */
+    public static List<DomainModelGroup> createSingleDataModelGroupList(KukulkanSemanticAnalyzer visitor, String textFile) {
+        DomainModelContext tree = GrammarUtil.getDomainModelContext(textFile, true);
+        List<DomainModelGroup> dataModelGroupList = new ArrayList<>();
+        dataModelGroupList.add(createDefaultDataModelGroup(tree, visitor));
+        return dataModelGroupList;
+    }
 
     public static Optional<GrammarPropertyType> getPropertyType(String type) {
         return Optional.of(GrammarPropertyMapping.getPropertyType(type));

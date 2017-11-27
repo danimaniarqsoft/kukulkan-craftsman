@@ -17,6 +17,7 @@ public class EditorFactory {
                 .fistLineNumber(1)
                 .isReadOnly(true)
                 .showGutter(true)
+                .withTheme("twilight")
                 .withLanguage(languageType.language())
                 .build();
     }

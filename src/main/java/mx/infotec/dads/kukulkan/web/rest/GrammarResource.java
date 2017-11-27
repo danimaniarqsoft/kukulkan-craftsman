@@ -1,5 +1,7 @@
 package mx.infotec.dads.kukulkan.web.rest;
 
+import static mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType.ANGULAR_SPRING;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -97,7 +99,6 @@ public class GrammarResource {
     @Timed
     public ResponseEntity<GeneratedDto> generateCode(@Valid @RequestBody String code) throws URISyntaxException {
         log.debug("REST request to save Project : {}", code);
-        System.out.println(code);
         Rule rule = new Rule();
         RuleType ruleType = ruleTypeRepository.findAll().get(0);
         ruleType.setName("singular");
@@ -140,12 +141,12 @@ public class GrammarResource {
         // Tables to process
         List<String> tablesToProcess = new ArrayList<>();
         // Mapping DataContext into DataModel
-        List<DomainModelGroup> dmgList = GrammarMapping.createSingleDataModelGroupList(semanticAnalyzer);
+        List<DomainModelGroup> dmgList = GrammarMapping.createSingleDataModelGroupList(semanticAnalyzer, code);
         dataModel.setDomainModelGroup(dmgList);
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
         // Process Activities
-        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
+        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ANGULAR_SPRING));
         // if (project.getId() != null) {
         // return ResponseEntity.badRequest().headers(
         // HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new project
@@ -160,11 +161,9 @@ public class GrammarResource {
         GeneratedDto dto = new GeneratedDto();
         dto.setMainElements(genCtx.getDomainModel().getGeneratedElements());
         DomainModelGroup domainModelGroup = genCtx.getDomainModel().getDomainModelGroup().get(0);
-        List<DomainModelElement> domainModelElements = (List<DomainModelElement>)domainModelGroup.getDomainModelElements();
+        List<DomainModelElement> domainModelElements = (List<DomainModelElement>) domainModelGroup
+                .getDomainModelElements();
         dto.setElements(domainModelElements.get(0).getGeneratedElements());
-        domainModelElements.get(0).getGeneratedElements().forEach(element-> {
-            System.out.println(element.getContent());
-        });
         return ResponseEntity.created(new URI("/api/grammar/" + 1))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "")).body(dto);
     }

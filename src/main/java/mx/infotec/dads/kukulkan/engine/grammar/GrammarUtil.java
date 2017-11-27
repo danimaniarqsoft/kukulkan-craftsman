@@ -37,6 +37,21 @@ public class GrammarUtil {
             throw new ApplicationException("getDomainModelContext Error: ", e);
         }
     }
+    
+    public static kukulkanParser.DomainModelContext getDomainModelContext(String file, boolean isText) {
+        if(isText){
+            try {
+                LOGGER.debug("Interpreting file {}", file);
+                kukulkanLexer lexer;
+                lexer = new kukulkanLexer(new ANTLRInputStream(file));
+                return getDomainModelContext(lexer);
+            } catch (Exception e) {
+                throw new ApplicationException("getDomainModelContext Error: ", e);
+            }            
+        }else{
+            return getDomainModelContext(file);
+        }
+    }
 
     public static kukulkanParser.DomainModelContext getDomainModelContext(kukulkanLexer lexer) {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
