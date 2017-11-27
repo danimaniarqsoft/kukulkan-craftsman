@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -34,7 +35,7 @@ import java.util.Collection;
  * @param <T>
  *
  */
-public interface Property<T> extends Comparable<T> {
+public interface Property<T> extends Comparable<T>, Serializable{
 
     /**
      * Return the name of the property

@@ -70,7 +70,7 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public void fillModel(DomainModelElement dme, String proyectoId, String templateName, Object model,
             BasePathEnum basePath, String filePath) {
-       fillModel(proyectoId, templateName, model, basePath, filePath, createDefaultAceEditor(JAVA));
+       fillModel(dme, proyectoId, templateName, model, basePath, filePath, createDefaultAceEditor(JAVA));
     }
     
     @Override
