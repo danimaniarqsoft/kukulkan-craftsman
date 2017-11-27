@@ -112,6 +112,7 @@ public class FileUtil {
 
     public static boolean saveToFile(GeneratedElement ge) {
         createDirectories(ge.getPath());
+        LOGGER.info("saveFile" + ge.getPath().toString());
         try (final BufferedWriter out = Files.newBufferedWriter(ge.getPath(), StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
             out.write(ge.getContent());

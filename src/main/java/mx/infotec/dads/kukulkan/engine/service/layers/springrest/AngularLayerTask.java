@@ -24,6 +24,8 @@
 package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
 
 import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.HTML;
+import static mx.infotec.dads.kukulkan.util.BasePathEnum.WEB_INDEX;
 import static mx.infotec.dads.kukulkan.util.NameConventionFormatter.camelCaseToHyphens;
 
 import java.util.Collection;
@@ -63,6 +65,7 @@ public class AngularLayerTask extends AbstractSpringRestLayerTask {
         fillNavBar(context.getProjectConfiguration(), model, context.getDomainModel());
         fillIdiomaGlobalEsJs(context.getProjectConfiguration(), model, context.getDomainModel());
         fillIdiomaGlobalEnJs(context.getProjectConfiguration(), model, context.getDomainModel());
+        fillIndex(context.getProjectConfiguration(), model, context.getDomainModel());
     }
 
     @Override
@@ -233,5 +236,12 @@ public class AngularLayerTask extends AbstractSpringRestLayerTask {
     public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
 
+    }
+    
+    private void fillIndex(ProjectConfiguration pConf, Map<String, Object> model,
+            DomainModel domainModel) {
+        System.out.println("creeatin index********************");
+        templateService.fillModel(domainModel, pConf.getId(), "common/index.html.ftl", model,
+                WEB_INDEX, "/index.html", createDefaultAceEditor(HTML));
     }
 }

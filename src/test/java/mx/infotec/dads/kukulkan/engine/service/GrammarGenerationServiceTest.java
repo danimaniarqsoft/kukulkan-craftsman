@@ -23,6 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.engine.service;
 
+import static mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType.ANGULAR_SPRING;
+
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,9 +145,9 @@ public class GrammarGenerationServiceTest {
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
         // Process Activities
-        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
+        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ANGULAR_SPRING));
         FileUtil.saveToFile(genCtx);
-        // FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" +
-        // pConf.getId()), "compressedFile");
+//        System.out.println(Paths.get(prop.getOutputdir() + "/" + pConf.getId()));
+        FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "physicalArchitecture");
     }
 }
