@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -43,6 +44,8 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
  */
 public class JavaProperty implements Property<JavaProperty> {
 
+    private static final long serialVersionUID = 1L;
+    
     private String name;
     private String type;
     private String qualifiedName;
@@ -151,7 +154,7 @@ public class JavaProperty implements Property<JavaProperty> {
     @Override
     @SuppressWarnings("rawtypes")
     public Collection<Property> getAssociations() {
-        throw new ApplicationException("Method not implemented");
+        return new ArrayList<>();
     }
 
     @Override

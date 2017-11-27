@@ -25,6 +25,7 @@ import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
+import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaDomainModel;
@@ -158,7 +159,12 @@ public class GrammarResource {
         // result.getId().toString())).body(result);
         GeneratedDto dto = new GeneratedDto();
         dto.setMainElements(genCtx.getDomainModel().getGeneratedElements());
-        dto.setElements(genCtx.getDomainModel().getDomainModelGroup());
+        DomainModelGroup domainModelGroup = genCtx.getDomainModel().getDomainModelGroup().get(0);
+        List<DomainModelElement> domainModelElements = (List<DomainModelElement>)domainModelGroup.getDomainModelElements();
+        dto.setElements(domainModelElements.get(0).getGeneratedElements());
+        domainModelElements.get(0).getGeneratedElements().forEach(element-> {
+            System.out.println(element.getContent());
+        });
         return ResponseEntity.created(new URI("/api/grammar/" + 1))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "")).body(dto);
     }

@@ -52,7 +52,7 @@ public class DomainModelElement implements Serializable{
     /**
      * imports statements of the elements
      */
-    protected Collection<String> imports;
+    private Collection<String> imports;
 
     /**
      * Name of the dataModel, usually it is the name of the Schema formatted for
@@ -84,12 +84,12 @@ public class DomainModelElement implements Serializable{
      * The columns mapped into the PropertyHolder class
      */
     @SuppressWarnings("rawtypes")
-    protected Collection<Property> properties;
+    private Collection<Property> properties;
 
     /**
      * The generated elements
      */
-    protected List<GeneratedElement> generatedElements = new ArrayList<>();
+    private List<GeneratedElement> generatedElements = new ArrayList<>();
 
     protected boolean hasNotNullElements;
 

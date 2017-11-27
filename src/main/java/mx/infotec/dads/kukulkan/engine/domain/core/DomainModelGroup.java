@@ -41,7 +41,7 @@ public class DomainModelGroup implements Serializable{
     protected String briefDescription;
     protected String description;
 
-    protected Collection<DomainModelElement> domainModelElements;
+    private Collection<DomainModelElement> domainModelElements;
 
     public String getName() {
         return name;

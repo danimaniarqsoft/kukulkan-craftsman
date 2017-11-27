@@ -27,6 +27,24 @@ import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.create
 import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.HTML;
 import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVASCRIPT;
 import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JSON;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_CONTROLLER_JS;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_DELETE_DIALOG_CONTROLLER_JS;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_DELETE_DIALOG_HTML;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_DETAIL_CONTROLLER_JS;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_DETAIL_HTML;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_DIALOG_CONTROLLER_JS;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_DIALOG_HTML;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_HTML;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_SEARCH_SERVICE_JS;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_SERVICE_JS;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.ENTITY_STATE_JS;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.FRONT_END_ENTITIES_LOCATION;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.FRONT_END_I18N_LOCATION_EN;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.FRONT_END_I18N_LOCATION_ES;
+import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.IDIOMA_JS;
+import static mx.infotec.dads.kukulkan.util.BasePathEnum.WEB_APP_ENTITIES;
+import static mx.infotec.dads.kukulkan.util.BasePathEnum.WEB_APP_I18N;
+import static mx.infotec.dads.kukulkan.util.BasePathEnum.WEB_APP_NAV_BAR;
 import static mx.infotec.dads.kukulkan.util.NameConventionFormatter.camelCaseToHyphens;
 
 import java.util.Collection;
@@ -88,106 +106,106 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
 
     private void fillNavBar(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/navbar.html.ftl", model,
-                BasePathEnum.WEB_APP_NAV_BAR, "/navbar.html", createDefaultAceEditor(HTML));
+                WEB_APP_NAV_BAR, "/navbar.html", createDefaultAceEditor(HTML));
     }
 
     private void fillIdiomaGlobalEnJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/i18n/en/global.json.ftl", model,
-                BasePathEnum.WEB_APP_I18N, "/en/global.json", createDefaultAceEditor(JSON));
+                WEB_APP_I18N, "/en/global.json", createDefaultAceEditor(JSON));
     }
 
     private void fillIdiomaGlobalEsJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModel domainModel) {
         templateService.fillModel(domainModel, pConf.getId(), "rest-spring-jpa/frontEnd/i18n/es/global.json.ftl", model,
-                BasePathEnum.WEB_APP_I18N, "/es/global.json", createDefaultAceEditor(LanguageType.JSON));
+                WEB_APP_I18N, "/es/global.json", createDefaultAceEditor(JSON));
     }
 
     private void fillEntityControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
-        LOGGER.info("fillEntityControllerJs {}", LayerConstants.ENTITY_CONTROLLER_JS);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_CONTROLLER_JS, false);
+        LOGGER.info("fillEntityControllerJs {}", ENTITY_CONTROLLER_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_CONTROLLER_JS, false);
 
     }
 
     private void fillIdiomaEsJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement) {
-        LOGGER.info("fillIdiomaEsJs {}", LayerConstants.IDIOMA_JS);
-        saveInternationalizationTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_I18N_LOCATION_ES,
-                LayerConstants.IDIOMA_JS, "es");
+        LOGGER.info("fillIdiomaEsJs {}", IDIOMA_JS);
+        saveInternationalizationTemplate(pConf, model, dmElement, FRONT_END_I18N_LOCATION_ES,
+                IDIOMA_JS, "es");
     }
 
     private void fillIdiomaEnJs(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement) {
-        LOGGER.info("fillIdiomaEnJs {}", LayerConstants.IDIOMA_JS);
-        saveInternationalizationTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_I18N_LOCATION_EN,
-                LayerConstants.IDIOMA_JS, "en");
+        LOGGER.info("fillIdiomaEnJs {}", IDIOMA_JS);
+        saveInternationalizationTemplate(pConf, model, dmElement, FRONT_END_I18N_LOCATION_EN,
+                IDIOMA_JS, "en");
     }
 
     private void fillEntityStateJs(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
-        LOGGER.info("fillEntityStateJs {}", LayerConstants.ENTITY_STATE_JS);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_STATE_JS, false);
+        LOGGER.info("fillEntityStateJs {}", ENTITY_STATE_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_STATE_JS, false);
     }
 
     private void fillEntityServiceJs(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
-        LOGGER.info("fillEntityServiceJs {}", LayerConstants.ENTITY_SERVICE_JS);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_SERVICE_JS, false);
+        LOGGER.info("fillEntityServiceJs {}", ENTITY_SERVICE_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_SERVICE_JS, false);
     }
 
     private void fillEntitySearchServiceJs(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
-        LOGGER.info("fillEntitySearchServiceJs {}", LayerConstants.ENTITY_SEARCH_SERVICE_JS);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_SEARCH_SERVICE_JS, false);
+        LOGGER.info("fillEntitySearchServiceJs {}", ENTITY_SEARCH_SERVICE_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_SEARCH_SERVICE_JS, false);
     }
 
     private void fillEntityHtml(ProjectConfiguration pConf, Map<String, Object> model, DomainModelElement dmElement) {
-        LOGGER.info("fillEntityHtml {}", LayerConstants.ENTITY_HTML);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_HTML, true, HTML);
+        LOGGER.info("fillEntityHtml {}", ENTITY_HTML);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_HTML, true, HTML);
     }
 
     private void fillEntityDialogHtml(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
-        LOGGER.info("fillEntityDialogHtml {}", LayerConstants.ENTITY_DETAIL_HTML);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_DIALOG_HTML, false, HTML);
+        LOGGER.info("fillEntityDialogHtml {}", ENTITY_DETAIL_HTML);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_DIALOG_HTML, false, HTML);
     }
 
     private void fillEntityDialogControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
-        LOGGER.info("fillEntityDialogControllerJs {}", LayerConstants.ENTITY_DIALOG_CONTROLLER_JS);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_DIALOG_CONTROLLER_JS, false);
+        LOGGER.info("fillEntityDialogControllerJs {}", ENTITY_DIALOG_CONTROLLER_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_DIALOG_CONTROLLER_JS, false);
     }
 
     private void fillEntityDetailControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
-        LOGGER.info("fillEntityDetailControllerJs {}", LayerConstants.ENTITY_DETAIL_CONTROLLER_JS);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_DETAIL_CONTROLLER_JS, false);
+        LOGGER.info("fillEntityDetailControllerJs {}", ENTITY_DETAIL_CONTROLLER_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_DETAIL_CONTROLLER_JS, false);
     }
 
     private void fillEntityDetailHtml(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
         LOGGER.info("fillEntityDetailHtml {}", LayerConstants.ENTITY_DETAIL_HTML);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_DETAIL_HTML, false, HTML);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_DETAIL_HTML, false, HTML);
     }
 
     private void fillEntityDeleteDialogHtml(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
-        LOGGER.info("fillEntityDeleteDialogHtml {}", LayerConstants.ENTITY_DELETE_DIALOG_HTML);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_DELETE_DIALOG_HTML, false, HTML);
+        LOGGER.info("fillEntityDeleteDialogHtml {}", ENTITY_DELETE_DIALOG_HTML);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_DELETE_DIALOG_HTML, false, HTML);
     }
 
     private void fillEntityDeleteDialogControllerJs(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModelElement dmElement) {
-        LOGGER.info("fillEntityDeleteDialogControllerJs {}", LayerConstants.ENTITY_DELETE_DIALOG_CONTROLLER_JS);
-        saveFrontEndTemplate(pConf, model, dmElement, LayerConstants.FRONT_END_ENTITIES_LOCATION,
-                LayerConstants.ENTITY_DELETE_DIALOG_CONTROLLER_JS, false);
+        LOGGER.info("fillEntityDeleteDialogControllerJs {}", ENTITY_DELETE_DIALOG_CONTROLLER_JS);
+        saveFrontEndTemplate(pConf, model, dmElement, FRONT_END_ENTITIES_LOCATION,
+                ENTITY_DELETE_DIALOG_CONTROLLER_JS, false);
     }
 
     private void saveFrontEndTemplate(ProjectConfiguration pConf, Map<String, Object> model,
@@ -204,7 +222,7 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
             entityName = camelCaseToHyphens(dmElement.getCamelCasePluralFormat());
         }
         templateService.fillModel(dmElement, pConf.getId(), templateLocation + templateName, model,
-                BasePathEnum.WEB_APP_ENTITIES,
+                WEB_APP_ENTITIES,
                 fileNamingConvention + "/" + entityName + TemplateFormatter.formatNameTemplate(templateName),
                 createDefaultAceEditor(languageType));
     }
@@ -213,7 +231,7 @@ public class AngularLayerTask extends AbstractAngularSpringLayerTask {
             DomainModelElement dmElement, String templateLocation, String templateName, String idiomaKey) {
         String fileNamingConvention = camelCaseToHyphens(dmElement.getCamelCaseFormat());
         templateService.fillModel(dmElement, pConf.getId(), templateLocation + templateName, model,
-                BasePathEnum.WEB_APP_I18N,
+                WEB_APP_I18N,
                 idiomaKey + "/" + fileNamingConvention + TemplateFormatter.formatNameTemplate(templateName),
                 createDefaultAceEditor(JSON));
     }
