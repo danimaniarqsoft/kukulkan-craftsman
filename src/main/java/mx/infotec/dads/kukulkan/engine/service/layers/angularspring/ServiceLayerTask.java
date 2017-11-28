@@ -23,26 +23,18 @@
  */
 package mx.infotec.dads.kukulkan.engine.service.layers.angularspring;
 
-import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
-import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
-import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_IMPL_PROPERTY;
-import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
-import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
-
 import java.util.Collection;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
-import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
-import mx.infotec.dads.kukulkan.templating.service.TemplateService;
-import mx.infotec.dads.kukulkan.util.BasePathEnum;
-import mx.infotec.dads.kukulkan.util.NameConventions;
+import mx.infotec.dads.kukulkan.engine.service.layers.service.BusinessLayerService;
 
 /**
  * Repository Layer Task
@@ -52,39 +44,17 @@ import mx.infotec.dads.kukulkan.util.NameConventions;
  */
 @Service("serviceLayerTask")
 public class ServiceLayerTask extends AbstractAngularSpringLayerTask {
-
+    
     @Autowired
-    private TemplateService templateService;
+    @Qualifier("spring-service")
+    private BusinessLayerService service;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceLayerTask.class);
 
     @Override
     public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
-        LOGGER.debug("visitDomainModelElement: {} ", basePackage);
-        propertiesMap.put(PACKAGE_PROPERTY, formatToPackageStatement(basePackage, pConf.getServiceLayerName()));
-        propertiesMap.put(PACKAGE_IMPL_PROPERTY,
-                formatToPackageStatement(basePackage, pConf.getServiceLayerName(), "impl"));
-        fillServiceModel(pConf, propertiesMap, dmgName, dmElement, basePackage);
-        fillServiceImplModel(pConf, propertiesMap, dmgName, dmElement, basePackage);
-    }
-
-    public void fillServiceImplModel(ProjectConfiguration pConf, Map<String, Object> propertiesMap, String dmgName,
-            DomainModelElement dmElement, String basePackage) {
-        templateService.fillModel(dmElement, pConf.getId(),
-                LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/serviceImpl.ftl", propertiesMap,
-                BasePathEnum.SRC_MAIN_JAVA,
-                basePackage.replace('.', '/') + "/" + dmgName + "/" + pConf.getServiceLayerName() + "/impl/"
-                        + dmElement.getName() + NameConventions.SERVICE_IMPLEMENTS + ".java",
-                createDefaultAceEditor(JAVA));
-    }
-
-    public void fillServiceModel(ProjectConfiguration pConf, Map<String, Object> propertiesMap, String dmgName,
-            DomainModelElement dmElement, String basePackage) {
-        templateService.fillModel(dmElement, pConf.getId(),
-                LayerConstants.REST_SPRING_JPA_BACK_END_URL + "/service.ftl", propertiesMap,
-                BasePathEnum.SRC_MAIN_JAVA, basePackage.replace('.', '/') + "/" + dmgName + "/"
-                        + pConf.getServiceLayerName() + "/" + dmElement.getName() + NameConventions.SERVICE + ".java",
-                createDefaultAceEditor(JAVA));
+        LOGGER.debug("visitDomainModelElement");
+        service.visitDomainModelElement(pConf, dmElementCollection, propertiesMap, dmgName, dmElement, basePackage);
     }
 }

@@ -240,7 +240,6 @@ public class AngularLayerTask extends AbstractSpringRestLayerTask {
     
     private void fillIndex(ProjectConfiguration pConf, Map<String, Object> model,
             DomainModel domainModel) {
-        System.out.println("creeatin index********************");
         templateService.fillModel(domainModel, pConf.getId(), "common/index.html.ftl", model,
                 WEB_INDEX, "/index.html", createDefaultAceEditor(HTML));
     }
