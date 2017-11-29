@@ -86,6 +86,12 @@ Para hacer los pasos anteriores con un unico comando:
 
 `property.columnType?cap_first`
 
+#### Create docker image
+
+Run the following command
+
+	mvn clean package -Pprod docker:build -DskipTests
+
 #### Update docker image
 
 1. In a terminal, set the environment variable **DOCKER_ID_USER** as your username in Docker Cloud.

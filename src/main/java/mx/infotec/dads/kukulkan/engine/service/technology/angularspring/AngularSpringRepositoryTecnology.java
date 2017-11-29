@@ -36,7 +36,11 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.service.layers.Layer;
+import mx.infotec.dads.kukulkan.engine.service.layers.domain.DomainLayerService;
 import mx.infotec.dads.kukulkan.engine.service.layers.frontend.FrontEndLayerService;
+import mx.infotec.dads.kukulkan.engine.service.layers.repository.DataAccessLayerService;
+import mx.infotec.dads.kukulkan.engine.service.layers.service.BusinessLayerService;
+import mx.infotec.dads.kukulkan.engine.service.layers.web.WebLayerService;
 
 /**
  * Service Layer Task
@@ -45,24 +49,44 @@ import mx.infotec.dads.kukulkan.engine.service.layers.frontend.FrontEndLayerServ
  *
  */
 @Service("angularLayerTask")
-public class AngularLayerTask extends AbstractAngularSpringLayerTask {
+public class AngularSpringRepositoryTecnology extends AbstractAngularSpringLayerTask {
 
     @Autowired
     @Qualifier(Layer.FrontEnd.Angular.SERVICE_NAME)
-    private FrontEndLayerService service;
+    private FrontEndLayerService frontEndservice;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AngularLayerTask.class);
+    @Autowired
+    @Qualifier(Layer.Domain.Core.SERVICE_NAME)
+    private DomainLayerService domainService;
+
+    @Autowired
+    @Qualifier(Layer.Web.SpringRest.SERVICE_NAME)
+    private WebLayerService webLayerService;
+
+    @Autowired
+    @Qualifier(Layer.Business.SpringService.SERVICE_NAME)
+    private BusinessLayerService businessLayerService;
+
+    @Autowired
+    @Qualifier(Layer.DataAccess.Repository.SERVICE_NAME)
+    private DataAccessLayerService dataAccessService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AngularSpringRepositoryTecnology.class);
 
     @Override
     public void doBeforeProcessDataModelGroup(GeneratorContext context, Map<String, Object> model) {
         LOGGER.debug("doBeforeProcessDataModelGroup");
-        service.doBeforeProcessDataModelGroup(context, model);
+        frontEndservice.doBeforeProcessDataModelGroup(context, model);
     }
 
     @Override
     public void visitDomainModelElement(ProjectConfiguration pConf, Collection<DomainModelElement> dmElementCollection,
             Map<String, Object> propertiesMap, String dmgName, DomainModelElement dmElement, String basePackage) {
         LOGGER.debug("visitDomainModelElement");
-        service.visitDomainModelElement(pConf, dmElementCollection, propertiesMap, dmgName, dmElement, basePackage);
+        frontEndservice.visitDomainModelElement(pConf, dmElementCollection, propertiesMap, dmgName, dmElement, basePackage);
+        webLayerService.visitDomainModelElement(pConf, dmElementCollection, propertiesMap, dmgName, dmElement, basePackage);
+        domainService.visitDomainModelElement(pConf, dmElementCollection, propertiesMap, dmgName, dmElement, basePackage);
+        businessLayerService.visitDomainModelElement(pConf, dmElementCollection, propertiesMap, dmgName, dmElement, basePackage);
+        dataAccessService.visitDomainModelElement(pConf, dmElementCollection, propertiesMap, dmgName, dmElement, basePackage);
     }
 }
