@@ -35,6 +35,7 @@ import org.springframework.stereotype.Service;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.Layer;
 import mx.infotec.dads.kukulkan.engine.service.layers.frontend.FrontEndLayerService;
 
 /**
@@ -47,7 +48,7 @@ import mx.infotec.dads.kukulkan.engine.service.layers.frontend.FrontEndLayerServ
 public class AngularLayerTask extends AbstractAngularSpringLayerTask {
 
     @Autowired
-    @Qualifier("angular-js")
+    @Qualifier(Layer.FrontEnd.Angular.SERVICE_NAME)
     private FrontEndLayerService service;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AngularLayerTask.class);

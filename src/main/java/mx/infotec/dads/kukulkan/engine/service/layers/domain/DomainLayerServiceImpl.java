@@ -38,6 +38,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.Layer;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 
@@ -47,7 +48,7 @@ import mx.infotec.dads.kukulkan.util.BasePathEnum;
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("domain-core")
+@Service(Layer.Domain.Core.SERVICE_NAME)
 public class DomainLayerServiceImpl implements DomainLayerService {
 
     @Autowired

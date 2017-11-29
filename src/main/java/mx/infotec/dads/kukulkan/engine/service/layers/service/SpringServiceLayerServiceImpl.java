@@ -39,6 +39,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.Layer;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
@@ -50,7 +51,7 @@ import mx.infotec.dads.kukulkan.util.NameConventions;
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("spring-service")
+@Service(Layer.Business.SpringService.SERVICE_NAME)
 public class SpringServiceLayerServiceImpl implements BusinessLayerService {
 
     @Autowired

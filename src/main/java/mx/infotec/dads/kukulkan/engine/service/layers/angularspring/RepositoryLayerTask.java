@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.Layer;
 import mx.infotec.dads.kukulkan.engine.service.layers.repository.DataAccessLayerService;
 
 /**
@@ -46,7 +47,7 @@ import mx.infotec.dads.kukulkan.engine.service.layers.repository.DataAccessLayer
 public class RepositoryLayerTask extends AbstractAngularSpringLayerTask {
 
     @Autowired
-    @Qualifier("spring-repository-mongo")
+    @Qualifier(Layer.DataAccess.Repository.SERVICE_NAME)
     private DataAccessLayerService service;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryLayerTask.class);

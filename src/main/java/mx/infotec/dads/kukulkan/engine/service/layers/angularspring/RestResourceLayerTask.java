@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.Layer;
 import mx.infotec.dads.kukulkan.engine.service.layers.web.WebLayerService;
 
 /**
@@ -46,7 +47,7 @@ import mx.infotec.dads.kukulkan.engine.service.layers.web.WebLayerService;
 public class RestResourceLayerTask extends AbstractAngularSpringLayerTask {
 
     @Autowired
-    @Qualifier("spring-rest")
+    @Qualifier(Layer.Web.SpringRest.SERVICE_NAME)
     private WebLayerService service;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestResourceLayerTask.class);

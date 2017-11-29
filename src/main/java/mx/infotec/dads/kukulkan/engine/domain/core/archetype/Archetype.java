@@ -24,14 +24,4 @@ public class Archetype extends AbstractElement {
     public void setType(ArchetypeType type) {
         this.type = type;
     }
-
-    public Collection<Layer> getLayers() {
-        return layers;
-    }
-
-    public void setLayers(Collection<Layer> layers) {
-        this.layers = layers;
-    }
-
-    private Collection<Layer> layers;
 }

@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
+import mx.infotec.dads.kukulkan.engine.service.layers.Layer;
 import mx.infotec.dads.kukulkan.engine.service.layers.domain.DomainLayerService;
 
 /**
@@ -46,7 +47,7 @@ import mx.infotec.dads.kukulkan.engine.service.layers.domain.DomainLayerService;
 public class ModelLayerTask extends AbstractAngularSpringLayerTask {
 
     @Autowired
-    @Qualifier("domain-core")
+    @Qualifier(Layer.Domain.Core.SERVICE_NAME)
     private DomainLayerService service;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ModelLayerTask.class);

@@ -61,6 +61,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType;
+import mx.infotec.dads.kukulkan.engine.service.layers.Layer;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
 import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.TemplateFormatter;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
@@ -71,7 +72,7 @@ import mx.infotec.dads.kukulkan.templating.service.TemplateService;
  * @author Daniel Cortes Pichardo
  *
  */
-@Service("angular-js")
+@Service(Layer.FrontEnd.Angular.SERVICE_NAME)
 public class AngularLayerServiceImpl implements FrontEndLayerService {
 
     @Autowired
