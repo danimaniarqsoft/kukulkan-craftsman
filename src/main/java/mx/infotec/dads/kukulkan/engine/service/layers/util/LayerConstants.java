@@ -1,4 +1,4 @@
-package mx.infotec.dads.kukulkan.engine.service.layers.springrest.util;
+package mx.infotec.dads.kukulkan.engine.service.layers.util;
 
 /**
  * Layer Constants

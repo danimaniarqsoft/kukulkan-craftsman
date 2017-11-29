@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
+package mx.infotec.dads.kukulkan.engine.service.technology.springrest;
 
 import javax.annotation.PostConstruct;
 

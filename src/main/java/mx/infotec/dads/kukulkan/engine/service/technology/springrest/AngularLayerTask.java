@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.kukulkan.engine.service.layers.springrest;
+package mx.infotec.dads.kukulkan.engine.service.technology.springrest;
 
 import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
 import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.HTML;
@@ -41,8 +41,8 @@ import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.GeneratorContext;
 import mx.infotec.dads.kukulkan.engine.domain.core.ProjectConfiguration;
 import mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType;
-import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants;
-import mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.TemplateFormatter;
+import mx.infotec.dads.kukulkan.engine.service.layers.util.LayerConstants;
+import mx.infotec.dads.kukulkan.engine.service.layers.util.TemplateFormatter;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
 

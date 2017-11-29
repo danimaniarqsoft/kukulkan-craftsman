@@ -26,7 +26,7 @@ package mx.infotec.dads.kukulkan.engine.service.layers.repository;
 import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
 import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
 import static mx.infotec.dads.kukulkan.engine.service.layers.LayerUtils.PACKAGE_PROPERTY;
-import static mx.infotec.dads.kukulkan.engine.service.layers.springrest.util.LayerConstants.REST_SPRING_JPA_BACK_END_URL;
+import static mx.infotec.dads.kukulkan.engine.service.layers.util.LayerConstants.REST_SPRING_JPA_BACK_END_URL;
 import static mx.infotec.dads.kukulkan.util.BasePathEnum.SRC_MAIN_JAVA;
 import static mx.infotec.dads.kukulkan.util.JavaFileNameParser.formatToPackageStatement;
 
