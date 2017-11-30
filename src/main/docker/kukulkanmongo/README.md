@@ -1,3 +1,0 @@
-# kukulkanmongo
-App for testing
-
