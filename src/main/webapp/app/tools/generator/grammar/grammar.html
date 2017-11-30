@@ -18,10 +18,11 @@
 			<div class="form-group">
 				<label for="codemirror" data-translate="grammar.form.grammar">Kukulkan Grammar</label>
 				<div ui-ace="vm.editorOptions" ng-model="vm.code"></div>
-			</div>
-			<div ng-if="vm.generatedDto.file">
-                <a ng-click="vm.openFile(vm.generatedDto.fileContentType, vm.generatedDto.file)" data-translate="entity.action.open">open</a>
-                {{vm.generatedDto.fileContentType}}, {{vm.byteSize(vm.generatedDto.file)}}
+			</div>	
+			<div ng-if="vm.generatedDto.url">
+				<div class="alert alert-info" role="alert">
+				  App Generated at <a href="{{vm.generatedDto.url}}" class="alert-link">{{vm.generatedDto.fileName}}.zip</a>
+				</div>
             </div>
 			<button type="submit" ng-disabled="form.$invalid"
 				class="btn btn-danger" data-translate="grammar.form.button">Save</button>

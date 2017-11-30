@@ -3,7 +3,7 @@ services:
     kukulkan-nginx:
         image: nginx
         volumes:
-            - "/home/daniel/webapp:/usr/share/nginx/html"
+            - "/home/dadsuser/storage:/usr/share/nginx/html"
         ports:
             - "80:80"
         restart: always

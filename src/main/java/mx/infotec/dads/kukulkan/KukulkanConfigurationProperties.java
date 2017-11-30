@@ -38,29 +38,14 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("kukulkan")
 public class KukulkanConfigurationProperties {
     private final Data data = new Data();
-
-    private String outputdir;
-
-    private String inputdir;
-
-    public String getOutputdir() {
-        return outputdir;
-    }
-
-    public void setOutputdir(String outputdir) {
-        this.outputdir = outputdir;
-    }
+    private final Config config = new Config();
 
     public Data getData() {
         return data;
     }
 
-    public String getInputdir() {
-        return inputdir;
-    }
-
-    public void setInputdir(String inputdir) {
-        this.inputdir = inputdir;
+    public Config getConfig() {
+        return config;
     }
 
     public static class Data {
@@ -99,6 +84,37 @@ public class KukulkanConfigurationProperties {
 
         public Mysql getMysql() {
             return mysql;
+        }
+    }
+
+    public static class Config {
+
+        private String inputdir;
+        private String outputdir;
+        private String documenturl;
+
+        public String getInputdir() {
+            return inputdir;
+        }
+
+        public void setInputdir(String inputdir) {
+            this.inputdir = inputdir;
+        }
+
+        public String getOutputdir() {
+            return outputdir;
+        }
+
+        public void setOutputdir(String outputdir) {
+            this.outputdir = outputdir;
+        }
+
+        public String getDocumenturl() {
+            return documenturl;
+        }
+
+        public void setDocumenturl(String documenturl) {
+            this.documenturl = documenturl;
         }
     }
 }

@@ -117,11 +117,13 @@ jhipster:
 # ===================================================================
 
 kukulkan:
-  inputdir:  /home/daniel/git/
-  outputdir: /home/daniel/webapp/
+  config:
+    inputdir: /home/daniel/git/
+    outputdir: /home/daniel/webapp/
+    documenturl: http://localhost/
   data:
     mysql:
-      uri: jdbc:mysql://kukulkancraftsman-mysql:3306  
+      uri: jdbc:mysql://kukulkancraftsman-mysql:3306
 logging:
   level:
     root: info

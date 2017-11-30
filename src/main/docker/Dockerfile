@@ -6,7 +6,6 @@ ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
 
 # add directly the war
 ADD *.war /app.war
-ADD kukulkanmongo /home/app/kukulkanmongo
 
 EXPOSE 8080
 CMD echo "The application will start in ${SLEEP_TIME}s..." && \

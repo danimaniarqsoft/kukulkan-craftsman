@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,8 @@ import mx.infotec.dads.kukulkan.web.rest.util.HeaderUtil;
 @RestController
 @RequestMapping("/api")
 public class GrammarResource {
+
+    private static final String ZIP_FILE_NAME = "physicalArchitecture";
 
     private final Logger log = LoggerFactory.getLogger(GrammarResource.class);
 
@@ -174,12 +177,14 @@ public class GrammarResource {
         });
 
         FileUtil.saveToFile(genCtx);
+        String fileName = RandomStringUtils.randomAlphanumeric(20).toLowerCase();
+        dto.setFileName(fileName);
         try {
-            FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "app");
+            FileUtil.createZip(Paths.get(prop.getConfig().getOutputdir() + "/" + pConf.getId()), fileName);
         } catch (IOException e) {
             log.error("generateProject: ", e);
         }
-        dto.setUrl("http://localhost/app.zip");
+        dto.setUrl(prop.getConfig().getDocumenturl() + fileName + ".zip");
         return ResponseEntity.created(new URI("/api/grammar/" + 1))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "")).body(dto);
     }

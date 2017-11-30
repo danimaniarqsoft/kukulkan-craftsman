@@ -147,6 +147,6 @@ public class GrammarGenerationServiceTest {
         generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ANGULAR_SPRING));
         FileUtil.saveToFile(genCtx);
 //        System.out.println(Paths.get(prop.getOutputdir() + "/" + pConf.getId()));
-        FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "physicalArchitecture");
+        FileUtil.createZip(Paths.get(prop.getConfig().getOutputdir() + "/" + pConf.getId()), "physicalArchitecture");
     }
 }

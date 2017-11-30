@@ -79,7 +79,7 @@ public class TemplateServiceImpl implements TemplateService {
             BasePathEnum basePath, String filePath, Editor editor) {
         Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
         if (templateOptional.isPresent()) {
-            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
+            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getConfig().getOutputdir());
             String simplePath = basePath.getPath() + filePath;
             dme.addGeneratedElement(processTemplate(model, templateOptional.get(), path, simplePath, editor));
         }
@@ -90,7 +90,7 @@ public class TemplateServiceImpl implements TemplateService {
             String filePath, Editor editor) {
         Optional<Template> templateOptional = TemplateUtil.get(fmConfiguration, templateName);
         if (templateOptional.isPresent()) {
-            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
+            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getConfig().getOutputdir());
             String simplePath = basePath.getPath() + filePath;
             dm.addGeneratedElement(processTemplate(model, templateOptional.get(), path, simplePath, editor));
         } else {
@@ -113,7 +113,7 @@ public class TemplateServiceImpl implements TemplateService {
     public void fillModel(String proyectoId, String templateName, Object model, BasePathEnum basePath, String filePath,
             Editor editor) {
         TemplateUtil.get(fmConfiguration, templateName).ifPresent(template -> {
-            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getOutputdir());
+            Path path = FileUtil.buildPath(proyectoId, basePath, filePath, prop.getConfig().getOutputdir());
             String simplePath = basePath.getPath() + filePath;
             processTemplate(model, template, path, simplePath, editor);
         });

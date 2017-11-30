@@ -218,11 +218,11 @@ public class ProjectResource {
         generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
         FileUtil.saveToFile(genCtx);
         try {
-            FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "compressedFile");
+            FileUtil.createZip(Paths.get(prop.getConfig().getOutputdir() + "/" + pConf.getId()), "compressedFile");
         } catch (IOException e) {
             log.error("generateProject: ", e);
         }
-        Path fileLocation = Paths.get(prop.getOutputdir() + "/compressedFile.zip");
+        Path fileLocation = Paths.get(prop.getConfig().getOutputdir() + "/compressedFile.zip");
         try {
             byte[] data = Files.readAllBytes(fileLocation);
             project.setFile(data);
