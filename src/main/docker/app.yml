@@ -13,6 +13,8 @@ services:
             - KUKULKAN_OUTPUTDIR=/home/app/
         ports:
             - 8080:8080
+        volumes:
+            - ~/webapp/:/home/generator/
     kukulkan-mongodb:
         extends:
             file: mongodb.yml
@@ -21,7 +23,7 @@ services:
         extends:
             file: mysql.yml
             service: kukulkan-mysql
-    kukulkan-modeler:
+    kukulkan-ngix:
         extends:
-            file: modeler.yml
-            service: kukulkan-modeler
+            file: nginx.yml
+            service: kukulkan-nginx

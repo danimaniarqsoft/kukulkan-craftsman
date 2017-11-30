@@ -5,12 +5,14 @@
         .module('kukulkancraftsmanApp')
         .controller('GrammarController', GrammarController);
 
-    GrammarController.$inject = ['$scope', '$rootScope', 'Principal', 'Auth', 'JhiLanguageService', '$translate', 'Grammar'];
+    GrammarController.$inject = ['$scope', '$rootScope', 'Principal', 'Auth', 'JhiLanguageService', '$translate', 'Grammar', 'DataUtils'];
 
-    function GrammarController ($scope, $rootScope, Principal, Auth, JhiLanguageService, $translate, Grammar) {
+    function GrammarController ($scope, $rootScope, Principal, Auth, JhiLanguageService, $translate, Grammar, DataUtils) {
         var vm = this;
 
         vm.action = action;
+        vm.byteSize = DataUtils.byteSize;
+        vm.openFile = DataUtils.openFile;
         vm.code ="entity Usuario (usuarios){\n"+
             "\tnombre String required,\n"+
             "\tedad Integer,\n"+

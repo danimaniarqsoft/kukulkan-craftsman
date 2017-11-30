@@ -3,8 +3,12 @@ package mx.infotec.dads.kukulkan.web.rest;
 import static mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType.ANGULAR_SPRING;
 import static mx.infotec.dads.kukulkan.engine.domain.core.DataContextType.KUKULKAN_GRAMMAR;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +51,7 @@ import mx.infotec.dads.kukulkan.service.ProjectService;
 import mx.infotec.dads.kukulkan.service.dto.EntityDto;
 import mx.infotec.dads.kukulkan.service.dto.GeneratedDto;
 import mx.infotec.dads.kukulkan.util.DataStoreConstants;
+import mx.infotec.dads.kukulkan.util.FileUtil;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 import mx.infotec.dads.kukulkan.util.PKGenerationStrategy;
 import mx.infotec.dads.kukulkan.web.rest.util.HeaderUtil;
@@ -171,6 +176,25 @@ public class GrammarResource {
             entity.setElements(element.getGeneratedElements());
             dto.getEntities().add(entity);
         });
+
+        FileUtil.saveToFile(genCtx);
+        try {
+            FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "app");
+        } catch (IOException e) {
+            log.error("generateProject: ", e);
+        }
+        Path fileLocation = Paths.get(prop.getOutputdir() + "/test.zip");
+        try {
+            System.out.println("reading....");
+            byte[] data = Files.readAllBytes(fileLocation);
+            dto.setFile(data);
+            dto.setFileContentType("application/zip");
+//            dto.setFileContentType("image/png");
+            System.out.println("ok....");
+        } catch (IOException e) {
+            log.error("generateProject: ", e);
+        }
+
         
         return ResponseEntity.created(new URI("/api/grammar/" + 1))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "")).body(dto);
