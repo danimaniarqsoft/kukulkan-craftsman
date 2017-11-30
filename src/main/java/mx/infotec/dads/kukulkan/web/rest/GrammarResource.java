@@ -6,8 +6,6 @@ import static mx.infotec.dads.kukulkan.engine.domain.core.DataContextType.KUKULK
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +26,7 @@ import com.codahale.metrics.annotation.Timed;
 
 import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.domain.DataStore;
-import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
-import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelGroup;
@@ -183,19 +179,7 @@ public class GrammarResource {
         } catch (IOException e) {
             log.error("generateProject: ", e);
         }
-        Path fileLocation = Paths.get(prop.getOutputdir() + "/test.zip");
-        try {
-            System.out.println("reading....");
-            byte[] data = Files.readAllBytes(fileLocation);
-            dto.setFile(data);
-            dto.setFileContentType("application/zip");
-//            dto.setFileContentType("image/png");
-            System.out.println("ok....");
-        } catch (IOException e) {
-            log.error("generateProject: ", e);
-        }
-
-        
+        dto.setUrl("http://localhost/app.zip");
         return ResponseEntity.created(new URI("/api/grammar/" + 1))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "")).body(dto);
     }

@@ -20,10 +20,7 @@ public class GeneratedDto implements Serializable {
     
     private List<GeneratedElement> mainElements;
     
-    private byte[] file;
-    
-    private String fileContentType;
-    
+    private String url;
 
     public List<GeneratedElement> getMainElements() {
         return mainElements;
@@ -41,19 +38,11 @@ public class GeneratedDto implements Serializable {
         this.entities = entities;
     }
 
-    public byte[] getFile() {
-        return file;
+    public String getUrl() {
+        return url;
     }
 
-    public void setFile(byte[] file) {
-        this.file = file;
-    }
-
-    public String getFileContentType() {
-        return fileContentType;
-    }
-
-    public void setFileContentType(String fileContentType) {
-        this.fileContentType = fileContentType;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

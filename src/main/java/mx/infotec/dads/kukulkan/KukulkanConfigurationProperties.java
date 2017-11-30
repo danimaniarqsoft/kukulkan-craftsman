@@ -41,6 +41,8 @@ public class KukulkanConfigurationProperties {
 
     private String outputdir;
 
+    private String inputdir;
+
     public String getOutputdir() {
         return outputdir;
     }
@@ -51,6 +53,14 @@ public class KukulkanConfigurationProperties {
 
     public Data getData() {
         return data;
+    }
+
+    public String getInputdir() {
+        return inputdir;
+    }
+
+    public void setInputdir(String inputdir) {
+        this.inputdir = inputdir;
     }
 
     public static class Data {
