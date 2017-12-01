@@ -25,6 +25,10 @@
 						class="glyphicon glyphicon-home"></span> <span class="hidden-sm"
 						>Presentación</span>
 				</a></li>
+				<li ui-sref-active="active"><a ui-sref="chat-bot"> <span
+						class="glyphicon glyphicon-comment"></span> <span class="hidden-sm"
+						>Chat Bot</span>
+				</a></li>
 				<li ng-class="{active: vm.$state.includes('report')}" uib-dropdown
 					dropdown ng-switch-when="true" has-authority="ROLE_USER"><a
 					class="dropdown-toggle" uib-dropdown-toggle href=""
@@ -49,11 +53,12 @@
 						<li class="dropdown-header"
 							data-translate="global.menu.tools.generatorTitle">Data
 							generator</li>
+							<!--
 						<li ui-sref-active="active"><a ui-sref="project"
 							ng-click="vm.collapseNavbar()"> <span
 								class="glyphicon glyphicon-cog"></span>&nbsp; <span
 								data-translate="global.menu.tools.generator">Generador</span>
-						</a></li>
+						</a></li>   -->
 					    <li ui-sref-active="active"><a ui-sref="grammar"
 							ng-click="vm.collapseNavbar()"> <span
 								class="glyphicon glyphicon-cog"></span>&nbsp; <span
@@ -102,6 +107,8 @@
 									Indicator</span>
 						</a></li>
 					</ul></li>
+
+				<!--  
 				<li ng-class="{active: vm.$state.includes('asset')}" uib-dropdown
 					dropdown ng-switch-when="true" has-authority="ROLE_USER"><a
 					class="dropdown-toggle" uib-dropdown-toggle href=""
@@ -118,7 +125,8 @@
 								data-translate="global.menu.assets.asset">Asset</span>
 						</a></li>
 					</ul></li>
-
+					-->
+				<!-- 
 				<li ng-class="{active: vm.$state.includes('entity')}"
 					ng-switch-when="true" uib-dropdown dropdown><a
 					class="dropdown-toggle" uib-dropdown-toggle href=""
@@ -166,8 +174,9 @@
 								class="glyphicon glyphicon-book"></span>&nbsp; <span
 								data-translate="global.menu.entities.state">State</span>
 						</a></li>
-						<!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+						<!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here 
 					</ul></li>
+					-->
 				<li ng-class="{active: vm.$state.includes('account')}" uib-dropdown
 					dropdown><a class="dropdown-toggle" uib-dropdown-toggle
 					href="" id="account-menu"> <span> <span

@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('presentation', {
+        .state('chat-bot', {
             parent: 'entity',
-            url: '/presentation',
+            url: '/chat-bot',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'kukulkancraftsmanApp.state.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/presentation/presentation.html',
-                    controller: 'PresentationController',
+                    templateUrl: 'app/entities/chat-bot/chat-bot.html',
+                    controller: 'ChatBotController',
                     controllerAs: 'vm'
                 }
             },            
@@ -31,4 +31,5 @@
             }
         });
     }
+
 })();
