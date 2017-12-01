@@ -9,7 +9,7 @@
             "lastname": "Last Name",
             "lastname.placeholder": "Your last name",
             "language": "Language",
-            "button": "Generate Code",
+            "button": "Generate App",
             "grammar":"Kukulkan Grammar"
         },
         "messages": {

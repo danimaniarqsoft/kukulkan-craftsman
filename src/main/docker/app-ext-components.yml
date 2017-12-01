@@ -10,5 +10,5 @@ services:
             service: kukulkan-mysql
     kukulkan-ngix:
         extends:
-            file: nginx.yml
+            file: nginx-local.yml
             service: kukulkan-nginx

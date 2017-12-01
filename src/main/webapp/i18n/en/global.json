@@ -154,5 +154,5 @@
 		"idexists": "A new {{ entityName }} cannot already have an ID",
 		"connection.failure": "connection error"
 	},
-	"footer": "Powered by Docker"
+	"footer": "Powered by INFOTEC Cloud <a href=\"https://cloud.lab.fiware.org\">Cloud</a>"
 }
