@@ -1,9 +1,9 @@
 version: '2'
 services:
-    kukulkan-nginx:
-        image: nginx
+    kukulkan-web:
+        image: danimaniarqsoft/kukulkan-web
         volumes:
-            - "/home/dadsuser/storage:/usr/share/nginx/html"
+            - "~/data:/usr/share/nginx/html/data:ro"
         ports:
             - "80:80"
         restart: always

@@ -8,7 +8,7 @@ services:
         extends:
             file: mysql.yml
             service: kukulkan-mysql
-    kukulkan-ngix:
+    kukulkan-web:
         extends:
-            file: nginx-local.yml
-            service: kukulkan-nginx
+            file: nginx.yml
+            service: kukulkan-web

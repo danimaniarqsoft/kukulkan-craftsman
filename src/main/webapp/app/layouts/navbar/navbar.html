@@ -21,11 +21,15 @@
 						class="glyphicon glyphicon-home"></span> <span class="hidden-sm"
 						data-translate="global.menu.home">Home</span>
 				</a></li>
-				<li ui-sref-active="active"><a ui-sref="presentation"> <span
-						class="glyphicon glyphicon-home"></span> <span class="hidden-sm"
+				<li ui-sref-active="active" has-authority="ROLE_USER"><a ui-sref="kukulkan-slides"> <span
+						class="glyphicon glyphicon-education"></span> <span class="hidden-sm"
+						>Slides</span>
+				</a></li>
+				<li ui-sref-active="active" has-authority="ROLE_USER"><a ui-sref="presentation"> <span
+						class="glyphicon glyphicon-film"></span> <span class="hidden-sm"
 						>Presentación</span>
 				</a></li>
-				<li ui-sref-active="active"><a ui-sref="chat-bot"> <span
+				<li ui-sref-active="active" has-authority="ROLE_USER"><a ui-sref="chat-bot"> <span
 						class="glyphicon glyphicon-comment"></span> <span class="hidden-sm"
 						>Chat Bot</span>
 				</a></li>
