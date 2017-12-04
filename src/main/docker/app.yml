@@ -10,7 +10,10 @@ services:
             - SPRING_DATA_MONGODB_URI=mongodb://kukulkan-mongodb:27017
             - KUKULKAN_DATA_MYSQL_URI=jdbc:mysql://kukulkan-mysql:3307
             - KUKULKAN_CONFIG_OUTPUTDIR=/home/app/
-            - KUKULKAN_CONFIG_DOCUMENTURL=http://localhost/data/
+            - KUKULKAN_CONFIG_DOCUMENTURL=http://200.38.177.199:8080/data/
+            - KUKULKAN_CONFIG_EXTERNAL-APPS_MODELER=http://http://200.38.177.199:8080/dsl-core/
+            - KUKULKAN_CONFIG_EXTERNAL-APPS_PRESENTATION=http://http://200.38.177.199:8080/kukulkan-presentation 
+            - KUKULKAN_CONFIG_EXTERNAL-APPS_SLIDES=http://http://200.38.177.199:8080/data/slides.pdf
         volumes:
             - "~/data:/home/app"
         ports:

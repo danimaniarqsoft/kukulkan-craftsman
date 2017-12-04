@@ -5,19 +5,24 @@
         .module('kukulkancraftsmanApp')
         .controller('PresentationController', PresentationController);
 
-    PresentationController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    PresentationController.$inject = ['$scope', '$sce', 'Principal', 'LoginService', '$state', 'config'];
 
-    function PresentationController ($scope, Principal, LoginService, $state) {
+    function PresentationController ($scope, $sce, Principal, LoginService, $state, config) {
         var vm = this;
 
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
         vm.register = register;
+        vm.config = config;
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });
 
+        $scope.trustSrc = function(src) {
+            return $sce.trustAsResourceUrl(src);
+        }
+        
         getAccount();
 
         function getAccount() {

@@ -92,6 +92,37 @@ public class KukulkanConfigurationProperties {
         private String inputdir;
         private String outputdir;
         private String documenturl;
+        private ExternalApps externalApps;
+
+        public static class ExternalApps {
+            private String modeler;
+            private String presentation;
+            private String slides;
+
+            public String getModeler() {
+                return modeler;
+            }
+
+            public void setModeler(String modeler) {
+                this.modeler = modeler;
+            }
+
+            public String getPresentation() {
+                return presentation;
+            }
+
+            public void setPresentation(String presentation) {
+                this.presentation = presentation;
+            }
+
+            public String getSlides() {
+                return slides;
+            }
+
+            public void setSlides(String slides) {
+                this.slides = slides;
+            }
+        }
 
         public String getInputdir() {
             return inputdir;
@@ -115,6 +146,14 @@ public class KukulkanConfigurationProperties {
 
         public void setDocumenturl(String documenturl) {
             this.documenturl = documenturl;
+        }
+
+        public ExternalApps getExternalApps() {
+            return externalApps;
+        }
+
+        public void setExternalApps(ExternalApps externalApps) {
+            this.externalApps = externalApps;
         }
     }
 }

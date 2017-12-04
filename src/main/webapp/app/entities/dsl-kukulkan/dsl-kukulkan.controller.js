@@ -5,19 +5,23 @@
         .module('kukulkancraftsmanApp')
         .controller('DslController', DslController);
 
-    DslController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    DslController.$inject = ['$scope', '$sce', 'Principal', 'LoginService', '$state', 'config'];
 
-    function DslController ($scope, Principal, LoginService, $state) {
+    function DslController ($scope, $sce, Principal, LoginService, $state, config) {
         var vm = this;
 
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
         vm.register = register;
+        vm.config = config;
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });
 
+        $scope.trustSrc = function(src) {
+            return $sce.trustAsResourceUrl(src);
+        }
         getAccount();
 
         function getAccount() {

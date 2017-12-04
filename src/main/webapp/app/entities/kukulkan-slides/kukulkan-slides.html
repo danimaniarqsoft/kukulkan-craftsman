@@ -1,8 +1,8 @@
 <div ng-cloak>
-<section class="bg-black text-center bg-section">
+	<section class="bg-black text-center bg-section">
 		<div class="container">
-			<iframe src="http://localhost/data/slides.pdf" width="100%"
-				height="700"> </iframe>
+			<iframe ng-src="{{trustSrc(vm.config.slides)}}" width="100%"
+				height="600"> </iframe>
 		</div>
 	</section>
 </div>
