@@ -222,7 +222,7 @@ public class DomainModelElement implements Serializable{
         return dme;
     }
     
-    public static DomainModelElement createDataModel() {
+    public static DomainModelElement createDomainModelElement() {
         DomainModelElement dme = new DomainModelElement();
         dme.setImports(new TreeSet<>());
         dme.setProperties(new ArrayList<>());

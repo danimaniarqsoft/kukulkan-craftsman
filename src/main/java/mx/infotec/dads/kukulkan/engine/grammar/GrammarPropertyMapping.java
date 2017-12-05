@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
 
+import mx.infotec.dads.kukulkan.engine.domain.core.Constraint;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DateTypesContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.NumericTypesContext;
@@ -75,7 +76,7 @@ public class GrammarPropertyMapping {
     }
 
     public static GrammarPropertyType getPropertyType(FieldTypeContext type) {
-        Optional<GrammarPropertyType> optional = Optional.of(map.get(extractPropertyType(type)));
+        Optional<GrammarPropertyType> optional = Optional.of(map.get(extractPropertyType(type).getFieldTypeName()));
         if (optional.isPresent()) {
             return optional.get();
         } else {
@@ -83,21 +84,22 @@ public class GrammarPropertyMapping {
         }
     }
 
-    public static String extractPropertyType(FieldTypeContext type) {
+    public static GrammarProperty extractPropertyType(FieldTypeContext type) {
         if (type.stringFieldType() != null) {
-            return type.stringFieldType().name.getText();
+            return new GrammarProperty(null, type.stringFieldType().name.getText());
         } else if (type.numericFieldType() != null) {
-            return getNumericType(type.numericFieldType().numericTypes());
+            return new GrammarProperty(null, getNumericType(type.numericFieldType().numericTypes()));
         } else if (type.booleanFieldType() != null) {
-            return type.booleanFieldType().name.getText();
+            return new GrammarProperty(null, type.booleanFieldType().name.getText());
         } else if (type.dateFieldType() != null) {
-            return getDateType(type.dateFieldType().dateTypes());
+            return new GrammarProperty(null, getDateType(type.dateFieldType().dateTypes()));
         } else if (type.blobFieldType() != null) {
-            return type.blobFieldType().name.getText();
+            return new GrammarProperty(null, type.blobFieldType().name.getText());
         } else {
             throw new ApplicationException("Property type not found for: " + type.getText());
         }
     }
+
 
     public static String getNumericType(NumericTypesContext numericTypes) {
         if (numericTypes.LONG() != null) {

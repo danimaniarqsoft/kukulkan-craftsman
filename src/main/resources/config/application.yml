@@ -119,7 +119,7 @@ jhipster:
 kukulkan:
   config:
     inputdir: /home/daniel/git/
-    outputdir: /home/daniel/webapp/
+    outputdir: /home/daniel/data/
     documenturl: http://localhost/
     external-apps:
       modeler: http://localhost/dsl-core/

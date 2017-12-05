@@ -38,7 +38,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.Rule;
 import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
 import mx.infotec.dads.kukulkan.engine.factories.LayerTaskFactory;
 import mx.infotec.dads.kukulkan.engine.grammar.GrammarMapping;
-import mx.infotec.dads.kukulkan.engine.grammar.KukulkanSemanticAnalyzer;
+import mx.infotec.dads.kukulkan.engine.grammar.KukulkanVisitor;
 import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
 import mx.infotec.dads.kukulkan.engine.service.GenerationService;
@@ -139,9 +139,9 @@ public class GrammarResource {
         // Create DataModel
         DomainModel dataModel = new JavaDomainModel();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
-        KukulkanSemanticAnalyzer semanticAnalyzer = null;
+        KukulkanVisitor semanticAnalyzer = null;
         if (dataContext.getDataContextType() == KUKULKAN_GRAMMAR) {
-            semanticAnalyzer = (KukulkanSemanticAnalyzer) dataContext.getDataContext();
+            semanticAnalyzer = (KukulkanVisitor) dataContext.getDataContext();
         }
 
         // Tables to process

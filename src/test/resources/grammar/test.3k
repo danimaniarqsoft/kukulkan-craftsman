@@ -1,4 +1,4 @@
-entity Usuario (usuarios){
+entity Persona (usuarios){
     nombre String required,
     edad Integer,
     numeroCredencial Long,
