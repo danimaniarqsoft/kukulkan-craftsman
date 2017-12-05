@@ -8,12 +8,14 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.infotec.dads.kukulkan.engine.domain.core.Constraint;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModelElement;
 import mx.infotec.dads.kukulkan.engine.domain.core.JavaProperty;
 import mx.infotec.dads.kukulkan.grammar.kukulkanBaseVisitor;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityFieldContext;
+import mx.infotec.dads.kukulkan.grammar.kukulkanParser.StringValidatorsContext;
 import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 import mx.infotec.dads.kukulkan.util.InflectorProcessor;
 import mx.infotec.dads.kukulkan.util.SchemaPropertiesParser;
@@ -76,7 +78,6 @@ public class KukulkanSemanticAnalyzer extends kukulkanBaseVisitor<List<DomainMod
                 .isNullable(true)
                 .isPrimaryKey(false)
                 .isIndexed(false)
-                // add if it is zoneDateTime or dateTime or Instant or other.
                 .isLocalDate(propertyType.getJavaEquivalentClass().equals(LocalDate.class))
                 .isZoneDateTime(propertyType.getJavaEquivalentClass().equals(ZonedDateTime.class))
                 .isInstance(propertyType.getJavaEquivalentClass().equals(Instant.class))
