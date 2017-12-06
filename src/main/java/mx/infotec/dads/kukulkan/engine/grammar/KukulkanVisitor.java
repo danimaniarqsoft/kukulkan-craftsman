@@ -54,7 +54,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
         constraint = new Constraint();
         super.visitEntityField(ctx);
         javaProperty.setConstraint(constraint);
-        return super.visitEntityField(ctx);
+        return vctx;
     }
 
     @Override
