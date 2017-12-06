@@ -45,7 +45,7 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 public class JavaProperty implements Property<JavaProperty> {
 
     private static final long serialVersionUID = 1L;
-    
+
     private String name;
     private String type;
     private String qualifiedName;
@@ -231,7 +231,7 @@ public class JavaProperty implements Property<JavaProperty> {
         this.clob = clob;
     }
 
-    protected void setConstraint(Constraint constraint) {
+    public void setConstraint(Constraint constraint) {
         this.constraint = constraint;
     }
 

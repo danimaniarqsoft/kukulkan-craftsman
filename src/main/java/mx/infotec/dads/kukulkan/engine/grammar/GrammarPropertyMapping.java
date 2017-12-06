@@ -34,37 +34,37 @@ public class GrammarPropertyMapping {
         /*
          * Literal
          */
-        map.put("String", new GrammarPropertyTypeImpl("String", LITERAL_TYPE));
-        map.put("TextBlob", new GrammarPropertyTypeImpl("TextBlob", LITERAL_TYPE, String.class, true));
+        getMap().put("String", new GrammarPropertyTypeImpl("String", LITERAL_TYPE));
+        getMap().put("TextBlob", new GrammarPropertyTypeImpl("TextBlob", LITERAL_TYPE, String.class, true));
 
         /*
          * Numbers
          */
-        map.put("Integer", new GrammarPropertyTypeImpl("Integer", NUMBER_TYPE, Integer.class));
-        map.put("Long", new GrammarPropertyTypeImpl("Long", NUMBER_TYPE, Long.class));
-        map.put("BigDecimal", new GrammarPropertyTypeImpl("BigDecimal", NUMBER_TYPE, BigDecimal.class));
-        map.put("Float", new GrammarPropertyTypeImpl("Float", NUMBER_TYPE, Float.class));
-        map.put("Double", new GrammarPropertyTypeImpl("Double", NUMBER_TYPE, Double.class));
+        getMap().put("Integer", new GrammarPropertyTypeImpl("Integer", NUMBER_TYPE, Integer.class));
+        getMap().put("Long", new GrammarPropertyTypeImpl("Long", NUMBER_TYPE, Long.class));
+        getMap().put("BigDecimal", new GrammarPropertyTypeImpl("BigDecimal", NUMBER_TYPE, BigDecimal.class));
+        getMap().put("Float", new GrammarPropertyTypeImpl("Float", NUMBER_TYPE, Float.class));
+        getMap().put("Double", new GrammarPropertyTypeImpl("Double", NUMBER_TYPE, Double.class));
 
         /*
          * Time based
          */
-        map.put("Date", new GrammarPropertyTypeImpl("Date", TIME_TYPE, Date.class));
-        map.put("LocalDate", new GrammarPropertyTypeImpl("LocalDate", TIME_TYPE, LocalDate.class));
-        map.put("ZonedDateTime", new GrammarPropertyTypeImpl("ZonedDateTime", TIME_TYPE, ZonedDateTime.class));
-        map.put("Instant", new GrammarPropertyTypeImpl("Instant", TIME_TYPE, Instant.class));
+        getMap().put("Date", new GrammarPropertyTypeImpl("Date", TIME_TYPE, Date.class));
+        getMap().put("LocalDate", new GrammarPropertyTypeImpl("LocalDate", TIME_TYPE, LocalDate.class));
+        getMap().put("ZonedDateTime", new GrammarPropertyTypeImpl("ZonedDateTime", TIME_TYPE, ZonedDateTime.class));
+        getMap().put("Instant", new GrammarPropertyTypeImpl("Instant", TIME_TYPE, Instant.class));
 
         /*
          * Booleans
          */
-        map.put("Boolean", new GrammarPropertyTypeImpl("Boolean", BOOLEAN_TYPE, boolean.class));
+        getMap().put("Boolean", new GrammarPropertyTypeImpl("Boolean", BOOLEAN_TYPE, boolean.class));
 
         /*
          * Blobs
          */
-        map.put("Blob", new GrammarPropertyTypeImpl("Blob", BINARY_TYPE, byte[].class, true));
-        map.put("AnyBlob", new GrammarPropertyTypeImpl("AnyBlob", BINARY_TYPE, byte[].class, true));
-        map.put("ImageBlob", new GrammarPropertyTypeImpl("ImageBlob", BINARY_TYPE, byte[].class, true));
+        getMap().put("Blob", new GrammarPropertyTypeImpl("Blob", BINARY_TYPE, byte[].class, true));
+        getMap().put("AnyBlob", new GrammarPropertyTypeImpl("AnyBlob", BINARY_TYPE, byte[].class, true));
+        getMap().put("ImageBlob", new GrammarPropertyTypeImpl("ImageBlob", BINARY_TYPE, byte[].class, true));
 
     }
 
@@ -72,11 +72,11 @@ public class GrammarPropertyMapping {
     }
 
     public static GrammarPropertyType getPropertyType(String property) {
-        return map.get(property);
+        return getMap().get(property);
     }
 
     public static GrammarPropertyType getPropertyType(FieldTypeContext type) {
-        Optional<GrammarPropertyType> optional = Optional.of(map.get(extractPropertyType(type).getFieldTypeName()));
+        Optional<GrammarPropertyType> optional = Optional.of(getMap().get(extractPropertyType(type).getFieldTypeName()));
         if (optional.isPresent()) {
             return optional.get();
         } else {
@@ -129,5 +129,9 @@ public class GrammarPropertyMapping {
         } else {
             throw new ApplicationException("Date Type Not Found for: " + dataTypes.getText());
         }
+    }
+
+    public static HashMap<String, GrammarPropertyType> getMap() {
+        return map;
     }
 }

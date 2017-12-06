@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Daniel Cortes Pichardo
  *
  */
-public class Constraint implements Serializable{
+public class Constraint implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -72,6 +72,11 @@ public class Constraint implements Serializable{
      * Min value of the property
      */
     private String minValue;
+
+    /**
+     * Pattern
+     */
+    private String patter;
 
     /**
      * Max value of the property
@@ -180,5 +185,13 @@ public class Constraint implements Serializable{
 
     public void setIndexed(boolean indexed) {
         this.indexed = indexed;
+    }
+
+    public String getPatter() {
+        return patter;
+    }
+
+    public void setPatter(String patter) {
+        this.patter = patter;
     }
 }
