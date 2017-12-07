@@ -28,6 +28,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+<#if hasConstraints==true>
+import javax.validation.constraints.*;
+</#if>
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -62,6 +66,24 @@ public class ${entity} implements Serializable {
      */
     <#if property.constraint.nullable==false>
     @NotNull
+    </#if>
+    <#if property.sizeValidation==true>
+    @Size(<#if property.constraint.minLength??>min =${property.constraint.minLength}</#if><#if property.constraint.minLength?? && property.constraint.maxLength??>, </#if><#if property.constraint.maxLength??>max =${property.constraint.maxLength}</#if>)
+    </#if>
+    <#if property.constraint.pattern??>
+    @Pattern(regexp = "${property.constraint.pattern}")
+    </#if>
+    <#if property.constraint.minNumber??>
+    @Min(value = 1)
+    </#if>
+    <#if property.constraint.maxNumber??>
+    @Max(value = 23)
+    </#if>
+    <#if property.constraint.minNumber??>
+    @DecimalMin(value = "${property.constraint.minNumber}")
+    </#if>
+    <#if property.constraint.maxNumber??>
+    @DecimalMax(value = "${property.constraint.maxNumber}")
     </#if>
     @Field("${property.columnName}")
     private ${property.type} ${property.name};

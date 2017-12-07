@@ -62,6 +62,7 @@ public class JavaProperty implements Property<JavaProperty> {
     private boolean number;
     private boolean literal;
     private boolean largeObject;
+    private boolean sizeValidation;
 
     private Constraint constraint;
 
@@ -361,5 +362,14 @@ public class JavaProperty implements Property<JavaProperty> {
 
     public void setLargeObject(boolean largeObject) {
         this.largeObject = largeObject;
+    }
+    
+    public void setSizeValidation(boolean sizeValidation) {
+        this.sizeValidation = sizeValidation;
+    }
+
+    @Override
+    public boolean isSizeValidation() {
+        return sizeValidation;
     }
 }

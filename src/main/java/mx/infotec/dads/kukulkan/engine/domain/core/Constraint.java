@@ -16,7 +16,7 @@ public class Constraint implements Serializable {
     /**
      * Is column nullable
      */
-    private boolean nullable;
+    private boolean nullable = true;
 
     /**
      * Is the property primaryKey
@@ -71,17 +71,37 @@ public class Constraint implements Serializable {
     /**
      * Min value of the property
      */
-    private String minValue;
+    private String minLength;
+
+    /**
+     * Max value of the property
+     */
+    private String maxLength;
+
+    /**
+     * Min value of the property
+     */
+    private String minNumber;
+
+    /**
+     * Max value of the property
+     */
+    private String maxNumber;
+    
+    /**
+     * Min value of the property
+     */
+    private String minByte;
+
+    /**
+     * Max value of the property
+     */
+    private String maxByte;
 
     /**
      * Pattern
      */
     private String patter;
-
-    /**
-     * Max value of the property
-     */
-    private String maxValue;
 
     public boolean isNullable() {
         return nullable;
@@ -163,22 +183,6 @@ public class Constraint implements Serializable {
         this.initiallyDeferred = initiallyDeferred;
     }
 
-    public String getMinValue() {
-        return minValue;
-    }
-
-    public void setMinValue(String minValue) {
-        this.minValue = minValue;
-    }
-
-    public String getMaxValue() {
-        return maxValue;
-    }
-
-    public void setMaxValue(String maxValue) {
-        this.maxValue = maxValue;
-    }
-
     public boolean isIndexed() {
         return indexed;
     }
@@ -193,5 +197,53 @@ public class Constraint implements Serializable {
 
     public void setPatter(String patter) {
         this.patter = patter;
+    }
+
+    public String getMinLength() {
+        return minLength;
+    }
+
+    public void setMinLength(String minLength) {
+        this.minLength = minLength;
+    }
+
+    public String getMaxLength() {
+        return maxLength;
+    }
+
+    public void setMaxLength(String maxLength) {
+        this.maxLength = maxLength;
+    }
+
+    public String getMinByte() {
+        return minByte;
+    }
+
+    public void setMinByte(String minByte) {
+        this.minByte = minByte;
+    }
+
+    public String getMaxByte() {
+        return maxByte;
+    }
+
+    public void setMaxByte(String maxByte) {
+        this.maxByte = maxByte;
+    }
+    
+    public String getMinNumber() {
+        return minNumber;
+    }
+
+    public void setMinNumber(String minNumber) {
+        this.minNumber = minNumber;
+    }
+
+    public String getMaxNumber() {
+        return maxNumber;
+    }
+
+    public void setMaxNumber(String maxNumber) {
+        this.maxNumber = maxNumber;
     }
 }

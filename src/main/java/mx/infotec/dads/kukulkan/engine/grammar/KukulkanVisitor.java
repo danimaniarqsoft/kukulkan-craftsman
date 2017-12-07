@@ -20,7 +20,6 @@ import mx.infotec.dads.kukulkan.grammar.kukulkanParser.DateFieldTypeContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.EntityFieldContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.NumericFieldTypeContext;
-import mx.infotec.dads.kukulkan.grammar.kukulkanParser.RequiredValidatorContext;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.StringFieldTypeContext;
 import mx.infotec.dads.kukulkan.util.DataBaseMapping;
 
@@ -96,100 +95,63 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
     }
 
     @Override
-    public VisitorContext visitStringValidators(kukulkanParser.StringValidatorsContext ctx) {
-//        if (ctx.required != null) {
-//            constraint.setNullable(false);
-//        }
-//        if (ctx.maxLenght != null) {
-//            constraint.setMaxValue(ctx.maxLenght.NUMERIC_VALUE().getText());
-//        }
-//        if (ctx.minLenght != null) {
-//            constraint.setMinValue(ctx.minLenght.NUMERIC_VALUE().getText());
-//        }
-//        if (ctx.pattern != null) {
-//            constraint.setPatter(ctx.pattern.NUMERIC_VALUE().getText());
-//        }
-//        javaProperty.setConstraint(constraint);
-        return super.visitChildren(ctx);
-    }
-
-    @Override
-    public VisitorContext visitNumericValidators(kukulkanParser.NumericValidatorsContext ctx) {
-//        if (ctx.required != null) {
-//            constraint.setNullable(false);
-//        }
-//        if (ctx.minValue != null) {
-//            constraint.setMinValue(ctx.minValue.NUMERIC_VALUE().getText());
-//        }
-//        if (ctx.maxValue != null) {
-//            constraint.setMaxValue(ctx.maxValue.NUMERIC_VALUE().getText());
-//        }
-//        javaProperty.setConstraint(constraint);
-        return super.visitChildren(ctx);
-    }
-
-    @Override
-    public VisitorContext visitBlobValidators(kukulkanParser.BlobValidatorsContext ctx) {
-//        if (ctx.required != null) {
-//            constraint.setNullable(false);
-//        }
-//        if (ctx.minBytesValue != null) {
-//            constraint.setMinValue(ctx.minBytesValue.NUMERIC_VALUE().getText());
-//        }
-//        if (ctx.maxBytesValue != null) {
-//            constraint.setMaxValue(ctx.maxBytesValue.NUMERIC_VALUE().getText());
-//        }
-//        javaProperty.setConstraint(constraint);
-        return super.visitChildren(ctx);
-    }
-
-    @Override
     public VisitorContext visitRequiredValidator(kukulkanParser.RequiredValidatorContext ctx) {
         constraint.setNullable(false);
+        dme.setHasNotNullElements(true);
+        dme.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
     
-    
-
     @Override
     public VisitorContext visitMinLengthValidator(kukulkanParser.MinLengthValidatorContext ctx) {
-        constraint.setMinValue(ctx.NUMERIC_VALUE().getText());
+        constraint.setMinLength(ctx.NUMERIC_VALUE().getText());
+        dme.setHasConstraints(true);
+        javaProperty.setSizeValidation(true);
         return super.visitChildren(ctx);
     }
 
     @Override
     public VisitorContext visitMaxLengthValidator(kukulkanParser.MaxLengthValidatorContext ctx) {
-        constraint.setMaxValue(ctx.NUMERIC_VALUE().getText());
+        constraint.setMaxLength(ctx.NUMERIC_VALUE().getText());
+        dme.setHasConstraints(true);
+        javaProperty.setSizeValidation(true);
         return super.visitChildren(ctx);
     }
 
     @Override
     public VisitorContext visitPatternValidator(kukulkanParser.PatternValidatorContext ctx) {
         constraint.setPatter(ctx.NUMERIC_VALUE().getText());
+        dme.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
 
     @Override
     public VisitorContext visitMinValidator(kukulkanParser.MinValidatorContext ctx) {
-        constraint.setMinValue(ctx.NUMERIC_VALUE().getText());
+        constraint.setMinNumber(ctx.NUMERIC_VALUE().getText());
+        dme.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
 
     @Override
     public VisitorContext visitMaxValidator(kukulkanParser.MaxValidatorContext ctx) {
-        constraint.setMaxValue(ctx.NUMERIC_VALUE().getText());
+        constraint.setMaxNumber(ctx.NUMERIC_VALUE().getText());
+        dme.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
 
     @Override
     public VisitorContext visitMinBytesValidator(kukulkanParser.MinBytesValidatorContext ctx) {
-        constraint.setMinValue(ctx.NUMERIC_VALUE().getText());
+        constraint.setMinByte(ctx.NUMERIC_VALUE().getText());
+        dme.setHasConstraints(true);
+        javaProperty.setSizeValidation(true);
         return super.visitChildren(ctx);
     }
 
     @Override
     public VisitorContext visitMaxBytesValidator(kukulkanParser.MaxBytesValidatorContext ctx) {
-        constraint.setMaxValue(ctx.NUMERIC_VALUE().getText());
+        constraint.setMaxByte(ctx.NUMERIC_VALUE().getText());
+        dme.setHasConstraints(true);
+        javaProperty.setSizeValidation(true);
         return super.visitChildren(ctx);
     }
 

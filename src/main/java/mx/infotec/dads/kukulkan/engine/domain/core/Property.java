@@ -155,4 +155,7 @@ public interface Property<T> extends Comparable<T>, Serializable{
      * @return true if Large Object
      */
     boolean isLargeObject();
+    
+    
+    boolean isSizeValidation();
 }

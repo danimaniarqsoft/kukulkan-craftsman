@@ -1,6 +1,6 @@
 entity Persona (usuarios){
     nombre String required minlength(3) maxlength(50),
-    edad Integer,
+    edad Integer required,
     numeroCredencial Long,
     sueldo BigDecimal,
     impuesto Float,
@@ -16,18 +16,18 @@ entity Persona (usuarios){
 }
 
 entity Direccion (direcciones){
-    nombre String required,
-    edad Integer,
-    numeroCredencial Long,
-    sueldo BigDecimal,
-    impuesto Float,
-    impuestoDetalle Double,
-    activo Boolean,
-    fechaLocalDate LocalDate,
-    fechaZoneDateTime ZonedDateTime,
-    imagen Blob,
-    imagenAnyBlob AnyBlob,
-    imagenBlob ImageBlob,
-    desc TextBlob,
-    instante Instant
+    nombre String required minlength(3) maxlength(50) pattern(/[A-Z]+/),
+    edad Integer required min(1) max(23),
+    numeroCredencial Long required min(1) max(23),
+    sueldo BigDecimal required min(1) max(23),
+    impuesto Float required min(1) max(23),
+    impuestoDetalle Double required min(1) max(23),
+    activo Boolean required,
+    fechaLocalDate LocalDate required,
+    fechaZoneDateTime ZonedDateTime required,
+    imagen Blob required minbytes(12) maxbytes(56),
+    imagenAnyBlob AnyBlob required minbytes(78) maxbytes(90),
+    imagenBlob ImageBlob required minbytes(21) maxbytes(23),
+    desc TextBlob required minbytes(3) maxbytes(45),
+    instante Instant required
 }

@@ -40,6 +40,7 @@ public class LayerUtils {
     public static final String HAS_ZONE_DATE_TIME_PROPERTY = "hasZoneDateTime";
     public static final String HAS_INSTANT_PROPERTY = "hasInstant";
     public static final String HAS_CONSTRAINTS_PROPERTY = "hasConstraints";
+    public static final String HAS_NOT_NULL = "hasNotNull";
     public static final String TABLE_NAME_PROPERTY = "tableName";
     public static final String PACKAGE_PROPERTY = "package";
     public static final String PACKAGE_SIMPLE_FORMAT_PROPERTY = "packageSimpleFormat";
@@ -95,6 +96,7 @@ public class LayerUtils {
         map.put(HAS_INSTANT_PROPERTY, dme.isHasInstant());
         map.put(HAS_ZONE_DATE_TIME_PROPERTY, dme.isHasZoneDateTime());
         map.put(HAS_BIG_DECIMAL_PROPERTY, dme.isHasBigDecimal());
+        map.put(HAS_NOT_NULL, dme.isHasNotNullElements());
         map.put(URL_NAME_PROPERTY, dme.getCamelCaseFormat());
         map.put(TABLE_NAME_PROPERTY, dme.getTableName());
         map.put(PACKAGE_PROPERTY, null);// must be provided in individual files
