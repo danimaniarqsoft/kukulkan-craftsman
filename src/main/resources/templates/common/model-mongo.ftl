@@ -68,7 +68,11 @@ public class ${entity} implements Serializable {
     @NotNull
     </#if>
     <#if property.sizeValidation==true>
-    @Size(<#if property.constraint.minLength??>min =${property.constraint.minLength}</#if><#if property.constraint.minLength?? && property.constraint.maxLength??>, </#if><#if property.constraint.maxLength??>max =${property.constraint.maxLength}</#if>)
+	    <#if property.blob==true>
+    @Size(<#if property.constraint.minByte??>min = ${property.constraint.minByte}</#if><#if property.constraint.minByte?? && property.constraint.maxByte??>, </#if><#if property.constraint.maxByte??>max = ${property.constraint.maxByte}</#if>)
+	    <#else>
+    @Size(<#if property.constraint.minLength??>min = ${property.constraint.minLength}</#if><#if property.constraint.minLength?? && property.constraint.maxLength??>, </#if><#if property.constraint.maxLength??>max = ${property.constraint.maxLength}</#if>)	    
+	    </#if>
     </#if>
     <#if property.constraint.pattern??>
     @Pattern(regexp = "${property.constraint.pattern}")
