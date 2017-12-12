@@ -73,17 +73,22 @@ public class ${entity} implements Serializable {
     <#if property.constraint.pattern??>
     @Pattern(regexp = "${property.constraint.pattern}")
     </#if>
-    <#if property.constraint.minNumber??>
-    @Min(value = 1)
-    </#if>
-    <#if property.constraint.maxNumber??>
-    @Max(value = 23)
-    </#if>
-    <#if property.constraint.minNumber??>
+    <#if property.number==true>
+    	<#if property.long==true || property.integer==true>
+		    <#if property.constraint.minNumber??>
+    @Min(value = ${property.constraint.minNumber})
+		    </#if>
+	    	<#if property.constraint.maxNumber??>
+    @Max(value = ${property.constraint.maxNumber})
+    		</#if>
+    	<#else>
+    		<#if property.constraint.minNumber??>
     @DecimalMin(value = "${property.constraint.minNumber}")
-    </#if>
-    <#if property.constraint.maxNumber??>
+    		</#if>
+    		<#if property.constraint.maxNumber??>
     @DecimalMax(value = "${property.constraint.maxNumber}")
+    		</#if>
+    	</#if>	
     </#if>
     @Field("${property.columnName}")
     private ${property.type} ${property.name};

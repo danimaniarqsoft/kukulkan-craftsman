@@ -101,7 +101,7 @@ public class Constraint implements Serializable {
     /**
      * Pattern
      */
-    private String patter;
+    private String pattern;
 
     public boolean isNullable() {
         return nullable;
@@ -190,15 +190,7 @@ public class Constraint implements Serializable {
     public void setIndexed(boolean indexed) {
         this.indexed = indexed;
     }
-
-    public String getPatter() {
-        return patter;
-    }
-
-    public void setPatter(String patter) {
-        this.patter = patter;
-    }
-
+    
     public String getMinLength() {
         return minLength;
     }
@@ -245,5 +237,13 @@ public class Constraint implements Serializable {
 
     public void setMaxNumber(String maxNumber) {
         this.maxNumber = maxNumber;
+    }
+
+    public String getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
     }
 }

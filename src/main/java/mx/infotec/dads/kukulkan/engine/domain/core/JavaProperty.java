@@ -33,7 +33,6 @@ import mx.infotec.dads.kukulkan.engine.grammar.GrammarMapping;
 import mx.infotec.dads.kukulkan.engine.grammar.GrammarPropertyType;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
 import mx.infotec.dads.kukulkan.util.DataBaseMapping;
-import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
  * 
@@ -63,6 +62,8 @@ public class JavaProperty implements Property<JavaProperty> {
     private boolean literal;
     private boolean largeObject;
     private boolean sizeValidation;
+
+    private Class<?> javaEquivalentClass;
 
     private Constraint constraint;
 
@@ -245,6 +246,11 @@ public class JavaProperty implements Property<JavaProperty> {
             this.javaProperty.setConstraint(new Constraint());
         }
 
+        public JavaPropertyBuilder withJavaEquivalentClass(Class<?> javaEquivalentClass) {
+            this.javaProperty.setJavaEquivalentClass(javaEquivalentClass);
+            return this;
+        }
+
         public JavaPropertyBuilder withName(String propertyName) {
             this.javaProperty.setName(propertyName);
             return this;
@@ -363,7 +369,7 @@ public class JavaProperty implements Property<JavaProperty> {
     public void setLargeObject(boolean largeObject) {
         this.largeObject = largeObject;
     }
-    
+
     public void setSizeValidation(boolean sizeValidation) {
         this.sizeValidation = sizeValidation;
     }
@@ -371,5 +377,33 @@ public class JavaProperty implements Property<JavaProperty> {
     @Override
     public boolean isSizeValidation() {
         return sizeValidation;
+    }
+
+    @Override
+    public boolean isLong() {
+        return getJavaEquivalentClass().equals(Long.class);
+    }
+
+    @Override
+    public boolean isInteger() {
+        return getJavaEquivalentClass().equals(Integer.class);
+    }
+
+    @Override
+    public boolean isDouble() {
+        return getJavaEquivalentClass().equals(Double.class);
+    }
+
+    @Override
+    public boolean isFloat() {
+        return getJavaEquivalentClass().equals(Float.class);
+    }
+
+    public Class<?> getJavaEquivalentClass() {
+        return javaEquivalentClass;
+    }
+
+    public void setJavaEquivalentClass(Class<?> javaEquivalentClass) {
+        this.javaEquivalentClass = javaEquivalentClass;
     }
 }

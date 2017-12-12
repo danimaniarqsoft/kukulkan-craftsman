@@ -78,7 +78,7 @@ public class GrammarUtil {
     public static kukulkanLexer getKukulkanLexer(InputStream is) throws IOException {
         return new kukulkanLexer(new ANTLRInputStream(is));
     }
-    
+
     public static void addMetaData(EntityContext entity, DomainModelElement dme) {
         String singularName = InflectorProcessor.getInstance().singularize(entity.name.getText());
         dme.setTableName(entity.name.getText().toUpperCase());
@@ -96,19 +96,27 @@ public class GrammarUtil {
 
     public static JavaProperty createJavaProperty(EntityFieldContext field, String propertyName,
             GrammarPropertyType propertyType) {
-        return JavaProperty.builder().withName(propertyName).withType(propertyType.getJavaName())
-                .withColumnName(propertyName).withColumnType(propertyType.getGrammarName())
-                .withQualifiedName(propertyType.getJavaQualifiedName()).isNullable(true).isPrimaryKey(false)
-                .isIndexed(false).isLocalDate(propertyType.getJavaEquivalentClass().equals(LocalDate.class))
+        return JavaProperty.builder()
+                .withName(propertyName)
+                .withType(propertyType.getJavaName())
+                .withColumnName(propertyName)
+                .withColumnType(propertyType.getGrammarName())
+                .withQualifiedName(propertyType.getJavaQualifiedName())
+                .isNullable(true)
+                .isPrimaryKey(false)
+                .isIndexed(false)
+                .isLocalDate(propertyType.getJavaEquivalentClass().equals(LocalDate.class))
                 .isZoneDateTime(propertyType.getJavaEquivalentClass().equals(ZonedDateTime.class))
                 .isInstance(propertyType.getJavaEquivalentClass().equals(Instant.class))
-                .isLargeObject(propertyType.isLargeObject()).addType(field.type).build();
+                .isLargeObject(propertyType.isLargeObject())
+                .addType(field.type)
+                .withJavaEquivalentClass(propertyType.getJavaEquivalentClass()).build();
     }
 
     public static JavaProperty createContentTypeProperty(String propertyName) {
         return JavaProperty.builder().withName(propertyName + "ContentType").withType("String")
                 .withColumnName(propertyName + "ContentType").withColumnType("TextBlob")
                 .withQualifiedName("java.lang.String").isNullable(true).isPrimaryKey(false).isIndexed(false)
-                .isLargeObject(false).isLiteral(true).build();
+                .isLargeObject(false).isLiteral(true).withJavaEquivalentClass(String.class).build();
     }
 }

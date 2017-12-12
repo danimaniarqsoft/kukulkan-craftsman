@@ -112,7 +112,6 @@ public class GrammarMapping {
         if (type.BIG_DECIMAL() != null) {
             javaProperty.setBigDecimal(true);
         }
-
     }
 
     private static void setKindOfBlobType(JavaProperty property, BlobTypesContext ctx) {

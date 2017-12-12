@@ -35,7 +35,7 @@ import java.util.Collection;
  * @param <T>
  *
  */
-public interface Property<T> extends Comparable<T>, Serializable{
+public interface Property<T> extends Comparable<T>, Serializable {
 
     /**
      * Return the name of the property
@@ -102,6 +102,34 @@ public interface Property<T> extends Comparable<T>, Serializable{
     boolean isBigDecimal();
 
     /**
+     * Return true if it is Long element
+     * 
+     * @return boolean
+     */
+    boolean isLong();
+
+    /**
+     * Return true if it is Integer element
+     * 
+     * @return boolean
+     */
+    boolean isInteger();
+
+    /**
+     * Return true if it is Double element
+     * 
+     * @return boolean
+     */
+    boolean isDouble();
+
+    /**
+     * Return true if it is Float element
+     * 
+     * @return boolean
+     */
+    boolean isFloat();
+
+    /**
      * Return true if it is Clob element
      * 
      * @return boolean
@@ -155,7 +183,6 @@ public interface Property<T> extends Comparable<T>, Serializable{
      * @return true if Large Object
      */
     boolean isLargeObject();
-    
-    
+
     boolean isSizeValidation();
 }

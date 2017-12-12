@@ -16,7 +16,7 @@ entity Persona (usuarios){
 }
 
 entity Direccion (direcciones){
-    nombre String required minlength(3) maxlength(50) pattern(/[A-Z]+/),
+    nombre String required minlength(3) maxlength(50) pattern(234),
     edad Integer required min(1) max(23),
     numeroCredencial Long required min(1) max(23),
     sueldo BigDecimal required min(1) max(23),

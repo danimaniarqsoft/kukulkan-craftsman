@@ -36,7 +36,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
     private EntityFieldContext efc = null;
     private String propertyName = null;
     private JavaProperty javaProperty = null;
-    private Constraint constraint =null;
+    private Constraint constraint = null;
 
     @Override
     public VisitorContext visitEntity(EntityContext ctx) {
@@ -79,7 +79,6 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
         return super.visitNumericFieldType(ctx);
     }
 
-
     @Override
     public VisitorContext visitBlobFieldType(BlobFieldTypeContext ctx) {
         Optional<GrammarPropertyType> optional = Optional.of(GrammarPropertyMapping.getMap().get(ctx.name.getText()));
@@ -94,6 +93,9 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
         return super.visitBooleanFieldType(ctx);
     }
 
+    /**
+     * Visit Constraints
+     */
     @Override
     public VisitorContext visitRequiredValidator(kukulkanParser.RequiredValidatorContext ctx) {
         constraint.setNullable(false);
@@ -101,7 +103,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
         dme.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
-    
+
     @Override
     public VisitorContext visitMinLengthValidator(kukulkanParser.MinLengthValidatorContext ctx) {
         constraint.setMinLength(ctx.NUMERIC_VALUE().getText());
@@ -120,7 +122,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
 
     @Override
     public VisitorContext visitPatternValidator(kukulkanParser.PatternValidatorContext ctx) {
-        constraint.setPatter(ctx.NUMERIC_VALUE().getText());
+        constraint.setPattern(ctx.NUMERIC_VALUE().getText());
         dme.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
@@ -158,7 +160,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
     public VisitorContext getVctx() {
         return vctx;
     }
-    
+
     public void processFieldType(Optional<GrammarPropertyType> optional) {
         if (optional.isPresent()) {
             GrammarPropertyType grammarPropertyType = optional.get();
