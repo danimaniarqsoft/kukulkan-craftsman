@@ -49,19 +49,21 @@
                     <td><a ui-sref="${entityCamelCase}-detail({id:${entityCamelCase}.id})">{{${entityCamelCase}.id}}</a></td>
 				   <#list properties as property>
                     	<#if property.name?ends_with("ContentType") == false >
-                    		<#if  property.columnType?contains("TIMESTAMP")>
+							<#if property.time == true>
+                    			<#if property.zoneDateTime == true || property.instant == true>
 					<td>{{${entityCamelCase}.${property.name} | date:'medium'}}</td>
-							<#elseif property.columnType?contains("DATE")>
+								<#elseif property.localDate == true>
 					<td>{{${entityCamelCase}.${property.name} | date:'mediumDate'}}</td>
+							</#if>
 					        <#elseif property.blob == true>
-					        <#if property.clob == true>
+					        	<#if property.clob == true>
 					<td>{{${entityCamelCase}.${property.name}}}</td>        
-					        <#else>
+					        	<#else>
 					<td>
 						<a ng-if="${entityCamelCase}.${property.name}" ng-click="vm.openFile(${entityCamelCase}.${property.name}ContentType, ${entityCamelCase}.${property.name})" data-translate="entity.action.open">open</a>
                         <span ng-if="${entityCamelCase}.${property.name}">{{${entityCamelCase}.${property.name}ContentType}}, {{vm.byteSize(${entityCamelCase}.${property.name})}}</span> 
 					</td>     
-					        </#if>
+					        	</#if>
                     		<#else>
 					<td>{{${entityCamelCase}.${property.name}}}</td>
 							</#if>

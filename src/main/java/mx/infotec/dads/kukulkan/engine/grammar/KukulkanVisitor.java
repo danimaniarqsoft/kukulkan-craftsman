@@ -101,6 +101,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
         constraint.setNullable(false);
         dme.setHasNotNullElements(true);
         dme.setHasConstraints(true);
+        javaProperty.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
 
@@ -109,6 +110,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
         constraint.setMinLength(ctx.NUMERIC_VALUE().getText());
         dme.setHasConstraints(true);
         javaProperty.setSizeValidation(true);
+        javaProperty.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
 
@@ -117,6 +119,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
         constraint.setMaxLength(ctx.NUMERIC_VALUE().getText());
         dme.setHasConstraints(true);
         javaProperty.setSizeValidation(true);
+        javaProperty.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
 
@@ -124,6 +127,8 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
     public VisitorContext visitPatternValidator(kukulkanParser.PatternValidatorContext ctx) {
         constraint.setPattern(ctx.NUMERIC_VALUE().getText());
         dme.setHasConstraints(true);
+        javaProperty.setHasConstraints(true);
+        javaProperty.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
 
@@ -131,6 +136,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
     public VisitorContext visitMinValidator(kukulkanParser.MinValidatorContext ctx) {
         constraint.setMinNumber(ctx.NUMERIC_VALUE().getText());
         dme.setHasConstraints(true);
+        javaProperty.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
 
@@ -138,6 +144,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
     public VisitorContext visitMaxValidator(kukulkanParser.MaxValidatorContext ctx) {
         constraint.setMaxNumber(ctx.NUMERIC_VALUE().getText());
         dme.setHasConstraints(true);
+        javaProperty.setHasConstraints(true);
         return super.visitChildren(ctx);
     }
 
@@ -145,6 +152,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
     public VisitorContext visitMinBytesValidator(kukulkanParser.MinBytesValidatorContext ctx) {
         constraint.setMinByte(ctx.NUMERIC_VALUE().getText());
         dme.setHasConstraints(true);
+        javaProperty.setHasConstraints(true);
         javaProperty.setSizeValidation(true);
         return super.visitChildren(ctx);
     }
@@ -153,6 +161,7 @@ public class KukulkanVisitor extends kukulkanBaseVisitor<VisitorContext> {
     public VisitorContext visitMaxBytesValidator(kukulkanParser.MaxBytesValidatorContext ctx) {
         constraint.setMaxByte(ctx.NUMERIC_VALUE().getText());
         dme.setHasConstraints(true);
+        javaProperty.setHasConstraints(true);
         javaProperty.setSizeValidation(true);
         return super.visitChildren(ctx);
     }

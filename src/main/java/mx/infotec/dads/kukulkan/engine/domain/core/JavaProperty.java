@@ -62,6 +62,7 @@ public class JavaProperty implements Property<JavaProperty> {
     private boolean literal;
     private boolean largeObject;
     private boolean sizeValidation;
+    private boolean hasConstraints;
 
     private Class<?> javaEquivalentClass;
 
@@ -405,5 +406,14 @@ public class JavaProperty implements Property<JavaProperty> {
 
     public void setJavaEquivalentClass(Class<?> javaEquivalentClass) {
         this.javaEquivalentClass = javaEquivalentClass;
+    }
+
+    public void setHasConstraints(boolean hasConstraints) {
+        this.hasConstraints = hasConstraints;
+    }
+
+    @Override
+    public boolean isHasConstraints() {
+        return hasConstraints;
     }
 }

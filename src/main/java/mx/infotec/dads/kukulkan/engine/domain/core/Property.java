@@ -163,6 +163,13 @@ public interface Property<T> extends Comparable<T>, Serializable {
      * @return boolean
      */
     boolean isLiteral();
+    
+    /**
+     * Return true if has constraints
+     * 
+     * @return boolean
+     */
+    boolean isHasConstraints();
 
     /**
      * Return associations if it exists
