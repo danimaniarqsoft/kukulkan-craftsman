@@ -30,7 +30,6 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.metamodel.DataContext;
 import org.apache.metamodel.factory.DataContextFactoryRegistryImpl;
 import org.apache.metamodel.factory.DataContextPropertiesImpl;
 import org.slf4j.Logger;
@@ -44,7 +43,7 @@ import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.domain.DataStore;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
-import mx.infotec.dads.kukulkan.engine.grammar.KukulkanSemanticAnalyzer;
+import mx.infotec.dads.kukulkan.engine.grammar.KukulkanVisitor;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.util.DataStoreConstants;
@@ -136,17 +135,17 @@ public class DataStoreServiceImpl implements DataStoreService {
             properties.put(DATA_STORE_DRIVER_CLASS, dataStore.getDriverClass());
             properties.put(DATA_STORE_USERNAME, dataStore.getUsername());
             properties.put(DATA_STORE_PASSWORD, dataStore.getPassword());
-            return new DataContextContainer<DataContext>(DataContextType.RELATIONAL_DATA_BASE,
+            return new DataContextContainer<>(DataContextType.RELATIONAL_DATA_BASE,
                     DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties));
         } else if (dataStore.getDataStoreType().getName().equals(DataStoreConstants.DATA_STORE_TYPE_CSV)) {
             DataContextPropertiesImpl properties = new DataContextPropertiesImpl();
             properties.put(DATA_STORE_TYPE, dataStore.getDataStoreType().getName());
             properties.put(DATA_STORE_URL, dataStore.getUrl());
-            return new DataContextContainer<DataContext>(DataContextType.RELATIONAL_DATA_BASE,
+            return new DataContextContainer<>(DataContextType.RELATIONAL_DATA_BASE,
                     DataContextFactoryRegistryImpl.getDefaultInstance().createDataContext(properties));
         } else if (dataStore.getDataStoreType().getName().equals(DataStoreConstants.DATA_STORE_TYPE_GRAMMAR)) {
-            return new DataContextContainer<KukulkanSemanticAnalyzer>(DataContextType.KUKULKAN_GRAMMAR,
-                    new KukulkanSemanticAnalyzer());
+            return new DataContextContainer<>(DataContextType.KUKULKAN_GRAMMAR,
+                    new KukulkanVisitor());
         } else {
             return null;
         }

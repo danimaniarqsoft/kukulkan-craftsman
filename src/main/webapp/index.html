@@ -63,6 +63,22 @@
     <script src="bower_components/codemirror/mode/sql/sql.js"></script>
     <script src="bower_components/chart.js/dist/Chart.js"></script>
     <script src="bower_components/papaparse/papaparse.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-json.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-javascript.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-yaml.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-dockerfile.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-markdown.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-typescript.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-mysql.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-java.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-sql.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-csharp.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-css.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-ftl.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/mode-html.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/theme-idle_fingers.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/worker-json.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -87,6 +103,7 @@
     <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
     <script src="bower_components/angular-papa-promise/dist/angular-papa-promise.js"></script>
     <script src="bower_components/ng-csv/build/ng-csv.min.js"></script>
+    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:js app/app.js  -->
@@ -101,6 +118,7 @@
     <script src="app/tools/generator/project/project.generator.service.js"></script>
     <script src="app/tools/generator/project/project.controller.js"></script>
     <script src="app/tools/generator/grammar/grammar.state.js"></script>
+    <script src="app/tools/generator/grammar/grammar.service.js"></script>
     <script src="app/tools/generator/grammar/grammar.controller.js"></script>
     <script src="app/tools/generator/generator.state.js"></script>
     <script src="app/tools/generator/data-store/data-store-dialog.controller.js"></script>
@@ -124,6 +142,7 @@
     <script src="app/services/user/user.service.js"></script>
     <script src="app/services/profiles/profile.service.js"></script>
     <script src="app/services/profiles/page-ribbon.directive.js"></script>
+    <script src="app/services/config/config.service.js"></script>
     <script src="app/services/auth/register.service.js"></script>
     <script src="app/services/auth/principal.service.js"></script>
     <script src="app/services/auth/password-reset-init.service.js"></script>
@@ -172,6 +191,7 @@
     <script src="app/entities/problem-domain/problem-domain.service.js"></script>
     <script src="app/entities/problem-domain/problem-domain.controller.js"></script>
     <script src="app/entities/presentation/presentation.state.js"></script>
+    <script src="app/entities/presentation/presentation.controller.js"></script>
     <script src="app/entities/phase/phase-dialog.controller.js"></script>
     <script src="app/entities/phase/phase-detail.controller.js"></script>
     <script src="app/entities/phase/phase-delete-dialog.controller.js"></script>
@@ -184,6 +204,8 @@
     <script src="app/entities/level-of-implementation/level-of-implementation.state.js"></script>
     <script src="app/entities/level-of-implementation/level-of-implementation.service.js"></script>
     <script src="app/entities/level-of-implementation/level-of-implementation.controller.js"></script>
+    <script src="app/entities/kukulkan-slides/kukulkan-slides.state.js"></script>
+    <script src="app/entities/kukulkan-slides/kukulkan-slides.controller.js"></script>
     <script src="app/entities/granularity/granularity-dialog.controller.js"></script>
     <script src="app/entities/granularity/granularity-detail.controller.js"></script>
     <script src="app/entities/granularity/granularity-delete-dialog.controller.js"></script>
@@ -197,12 +219,18 @@
     <script src="app/entities/file/file.service.js"></script>
     <script src="app/entities/file/file.controller.js"></script>
     <script src="app/entities/entity.state.js"></script>
+    <script src="app/entities/dsl-kukulkan-full/dsl-kukulkan.state.js"></script>
+    <script src="app/entities/dsl-kukulkan-full/dsl-kukulkan.controller.js"></script>
+    <script src="app/entities/dsl-kukulkan/dsl-kukulkan.state.js"></script>
+    <script src="app/entities/dsl-kukulkan/dsl-kukulkan.controller.js"></script>
     <script src="app/entities/discipline/discipline-dialog.controller.js"></script>
     <script src="app/entities/discipline/discipline-detail.controller.js"></script>
     <script src="app/entities/discipline/discipline-delete-dialog.controller.js"></script>
     <script src="app/entities/discipline/discipline.state.js"></script>
     <script src="app/entities/discipline/discipline.service.js"></script>
     <script src="app/entities/discipline/discipline.controller.js"></script>
+    <script src="app/entities/chat-bot/chat-bot.state.js"></script>
+    <script src="app/entities/chat-bot/chat-bot.controller.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>

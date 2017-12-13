@@ -23,6 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.engine.service;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +47,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
 import mx.infotec.dads.kukulkan.service.DataStoreService;
 import mx.infotec.dads.kukulkan.templating.domain.Station;
@@ -90,8 +94,8 @@ public class FiwareStationLocationDataTest {
             Random random = new Random();
             Station station = new Station();
             station.setCount(i++);
-            station.setClave((String)row.getValue(0));
-            station.setAddress((String)row.getValue(1));
+            station.setClave((String) row.getValue(0));
+            station.setAddress((String) row.getValue(1));
             station.setCo(random.nextInt(79 - 10 + 1) + 10);
             station.setHumidity(random.nextInt(79 - 10 + 1) + 10);
             station.setLatitud(row.getValue(2).toString());
@@ -102,12 +106,13 @@ public class FiwareStationLocationDataTest {
             station.setSo2(random.nextInt(79 - 10 + 1) + 10);
             station.setTemperature(random.nextInt(79 - 10 + 1) + 10);
             stations.add(station);
-            
+
         }
-        
+
         Map<String, Object> input = new HashMap<String, Object>();
         input.put("stations", stations);
-        templateService.fillModel("orion", "fiware-orion-data/stations.ftl", input, BasePathEnum.SRC_MAIN_JAVA, "stations-others.js");
+        templateService.fillModel("orion", "fiware-orion-data/stations.ftl", input, BasePathEnum.SRC_MAIN_JAVA,
+                "stations-others.js", createDefaultAceEditor(LanguageType.JAVASCRIPT));
     }
 
 }

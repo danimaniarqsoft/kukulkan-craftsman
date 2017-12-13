@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -34,7 +35,7 @@ import java.util.Collection;
  * @param <T>
  *
  */
-public interface Property<T> extends Comparable<T> {
+public interface Property<T> extends Comparable<T>, Serializable {
 
     /**
      * Return the name of the property
@@ -101,6 +102,34 @@ public interface Property<T> extends Comparable<T> {
     boolean isBigDecimal();
 
     /**
+     * Return true if it is Long element
+     * 
+     * @return boolean
+     */
+    boolean isLong();
+
+    /**
+     * Return true if it is Integer element
+     * 
+     * @return boolean
+     */
+    boolean isInteger();
+
+    /**
+     * Return true if it is Double element
+     * 
+     * @return boolean
+     */
+    boolean isDouble();
+
+    /**
+     * Return true if it is Float element
+     * 
+     * @return boolean
+     */
+    boolean isFloat();
+
+    /**
      * Return true if it is Clob element
      * 
      * @return boolean
@@ -134,6 +163,13 @@ public interface Property<T> extends Comparable<T> {
      * @return boolean
      */
     boolean isLiteral();
+    
+    /**
+     * Return true if has constraints
+     * 
+     * @return boolean
+     */
+    boolean isHasConstraints();
 
     /**
      * Return associations if it exists
@@ -154,4 +190,6 @@ public interface Property<T> extends Comparable<T> {
      * @return true if Large Object
      */
     boolean isLargeObject();
+
+    boolean isSizeValidation();
 }

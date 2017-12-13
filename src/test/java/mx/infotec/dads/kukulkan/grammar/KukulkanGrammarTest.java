@@ -29,8 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
-import mx.infotec.dads.kukulkan.engine.grammar.KukulkanSemanticAnalyzer;
+import mx.infotec.dads.kukulkan.engine.grammar.KukulkanVisitor;
 
 /**
  * Test for GeneratorService
@@ -55,8 +54,8 @@ public class KukulkanGrammarTest {
 
         kukulkanParser.DomainModelContext tree = parser.domainModel();
 
-        KukulkanSemanticAnalyzer visitor = new KukulkanSemanticAnalyzer();
-//        DataModel dataModel = visitor.visit(tree);
+        KukulkanVisitor visitor = new KukulkanVisitor();
+        // DataModel dataModel = visitor.visit(tree);
         System.out.println("Interpretation finished");
     }
 

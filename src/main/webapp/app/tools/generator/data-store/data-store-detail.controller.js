@@ -15,11 +15,17 @@
         vm.action = action;
         vm.option = '';
 		vm.editorOptions = {
-				lineWrapping : true,
-				lineNumbers: true,
-				matchBrackets: true,
-				mode: 'text/x-sql',
+				useWrapMode : true,
+				showGutter: true,
+				mode: 'mysql',
+				theme:'twilight',
+				firstLineNumber: 1,
+				onLoad: vm.aceLoaded
 			};
+		vm.aceLoaded  = function (_editor) {
+			// Options
+		    _editor.setReadOnly(false);
+		};
 
         vm.isTestingConnection = false;
 

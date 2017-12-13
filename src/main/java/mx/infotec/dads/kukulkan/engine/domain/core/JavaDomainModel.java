@@ -23,12 +23,15 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
+
 /**
  * JavaDataModelContext
  * 
  * @author Daniel Cortes Pichardo
  *
  */
-public class JavaDomainModel extends DomainModel {
+public class JavaDomainModel extends DomainModel implements Serializable {
+    private static final long serialVersionUID = 1L;
 
 }

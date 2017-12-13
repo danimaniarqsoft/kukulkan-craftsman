@@ -34,7 +34,8 @@
     "angular-ui-codemirror": "^0.3.0",
     "angular-chart.js": "^1.1.1",
     "angular-papa-promise": "^0.0.4",
-    "ng-csv": "^0.3.6"
+    "ng-csv": "^0.3.6",
+    "angular-ui-ace": "^0.2.3"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"
@@ -66,6 +67,31 @@
         "lib/codemirror.css",
         "mode/clike/clike.js",
         "mode/sql/sql.js"
+      ]
+    },
+    "angular-ui-ace": {
+      "main": [
+        "./ui-ace.js"
+      ]
+    },
+    "ace-builds": {
+      "main": [
+        "src-min-noconflict/ace.js",
+        "src-min-noconflict/mode-json.js",
+        "src-min-noconflict/mode-javascript.js",
+        "src-min-noconflict/mode-yaml.js",
+        "src-min-noconflict/mode-dockerfile.js",
+        "src-min-noconflict/mode-markdown.js",
+        "src-min-noconflict/mode-typescript.js",
+        "src-min-noconflict/mode-mysql.js",
+        "src-min-noconflict/mode-java.js",
+        "src-min-noconflict/mode-sql.js",
+        "src-min-noconflict/mode-csharp.js",
+		"src-min-noconflict/mode-css.js",
+		"src-min-noconflict/mode-ftl.js",
+		"src-min-noconflict/mode-html.js",
+        "src-min-noconflict/theme-idle_fingers.js",
+        "src-min-noconflict/worker-json.js"
       ]
     }
   },

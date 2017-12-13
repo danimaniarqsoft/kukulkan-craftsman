@@ -35,6 +35,7 @@ public enum BasePathEnum {
     WEB_APP_ENTITIES("src/main/webapp/app/entities"),
     WEB_APP_I18N("src/main/webapp/i18n"),
     WEB_APP_NAV_BAR("src/main/webapp/app/layouts/navbar"),
+    WEB_INDEX("src/main/webapp"),
     INFO("info");
 
     private String path;

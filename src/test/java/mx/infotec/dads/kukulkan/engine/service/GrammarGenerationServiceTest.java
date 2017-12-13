@@ -23,6 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.engine.service;
 
+import static mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType.ANGULAR_SPRING;
+
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +42,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import mx.infotec.dads.kukulkan.KukulkanConfigurationProperties;
 import mx.infotec.dads.kukulkan.KukulkancraftsmanApp;
 import mx.infotec.dads.kukulkan.domain.DataStore;
-import mx.infotec.dads.kukulkan.domain.enumeration.ArchetypeType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextContainer;
 import mx.infotec.dads.kukulkan.engine.domain.core.DataContextType;
 import mx.infotec.dads.kukulkan.engine.domain.core.DomainModel;
@@ -51,7 +53,7 @@ import mx.infotec.dads.kukulkan.engine.domain.core.Rule;
 import mx.infotec.dads.kukulkan.engine.domain.core.RuleType;
 import mx.infotec.dads.kukulkan.engine.factories.LayerTaskFactory;
 import mx.infotec.dads.kukulkan.engine.grammar.GrammarMapping;
-import mx.infotec.dads.kukulkan.engine.grammar.KukulkanSemanticAnalyzer;
+import mx.infotec.dads.kukulkan.engine.grammar.KukulkanVisitor;
 import mx.infotec.dads.kukulkan.engine.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.engine.repository.RuleTypeRepository;
 import mx.infotec.dads.kukulkan.repository.DataStoreRepository;
@@ -129,9 +131,9 @@ public class GrammarGenerationServiceTest {
         // Create DataModel
         DomainModel dataModel = new JavaDomainModel();
         DataContextContainer<?> dataContext = dataStoreService.createDataContext(dataStore);
-        KukulkanSemanticAnalyzer semanticAnalyzer = null;
+        KukulkanVisitor semanticAnalyzer = null;
         if (dataContext.getDataContextType() == DataContextType.KUKULKAN_GRAMMAR) {
-            semanticAnalyzer = (KukulkanSemanticAnalyzer) dataContext.getDataContext();
+            semanticAnalyzer = (KukulkanVisitor) dataContext.getDataContext();
         }
 
         // Tables to process
@@ -142,9 +144,9 @@ public class GrammarGenerationServiceTest {
         // Create GeneratorContext
         GeneratorContext genCtx = new GeneratorContext(dataModel, pConf);
         // Process Activities
-        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
+        generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ANGULAR_SPRING));
         FileUtil.saveToFile(genCtx);
-        // FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" +
-        // pConf.getId()), "compressedFile");
+//        System.out.println(Paths.get(prop.getOutputdir() + "/" + pConf.getId()));
+        FileUtil.createZip(Paths.get(prop.getConfig().getOutputdir() + "/" + pConf.getId()), "physicalArchitecture");
     }
 }

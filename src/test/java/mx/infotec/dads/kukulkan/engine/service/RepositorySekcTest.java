@@ -23,6 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.engine.service;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -76,7 +79,7 @@ public class RepositorySekcTest {
 
         for (Map<String, String> map : inputs) {
             templateService.fillModel("orion", "repository/repository.ftl", map, BasePathEnum.SRC_MAIN_JAVA,
-                    map.get("name") + "Repository.java");
+                    map.get("name") + "Repository.java", createDefaultAceEditor(JAVA));
         }
     }
 

@@ -403,6 +403,12 @@
 			<artifactId>kukulkan-grammar</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>ai.api</groupId>
+			<artifactId>libai</artifactId>
+			<version>1.6.12</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<defaultGoal>spring-boot:run</defaultGoal>

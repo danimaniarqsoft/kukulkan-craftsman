@@ -56,8 +56,7 @@ public class GrammarMapping {
      * @param dataContext
      * @return DataModelGroup
      */
-    public static DomainModelGroup createDefaultDataModelGroup(DomainModelContext dmc,
-            KukulkanSemanticAnalyzer visitor) {
+    public static DomainModelGroup createDefaultDataModelGroup(DomainModelContext dmc, KukulkanVisitor visitor) {
         DomainModelGroup dmg = new DomainModelGroup();
         dmg.setName("");
         dmg.setDescription("Default package");
@@ -77,9 +76,10 @@ public class GrammarMapping {
      * @param visitor
      * @param dmeList
      */
-    private static void createDataModelElement(DomainModelContext dmc, KukulkanSemanticAnalyzer visitor,
+    private static void createDataModelElement(DomainModelContext dmc, KukulkanVisitor visitor,
             List<DomainModelElement> dmeList) {
-        dmeList.addAll(visitor.visit(dmc));
+        visitor.visit(dmc);
+        dmeList.addAll(visitor.getVctx().getElements());
     }
 
     public static boolean addImports(Collection<String> imports, JavaProperty property) {
@@ -112,7 +112,6 @@ public class GrammarMapping {
         if (type.BIG_DECIMAL() != null) {
             javaProperty.setBigDecimal(true);
         }
-
     }
 
     private static void setKindOfBlobType(JavaProperty property, BlobTypesContext ctx) {
@@ -142,9 +141,24 @@ public class GrammarMapping {
      * @return
      * @throws IOException
      */
-    public static List<DomainModelGroup> createSingleDataModelGroupList(KukulkanSemanticAnalyzer visitor) {
+    public static List<DomainModelGroup> createSingleDataModelGroupList(KukulkanVisitor visitor) {
         String program = "src/test/resources/grammar/test." + "3k";
         DomainModelContext tree = GrammarUtil.getDomainModelContext(program);
+        List<DomainModelGroup> dataModelGroupList = new ArrayList<>();
+        dataModelGroupList.add(createDefaultDataModelGroup(tree, visitor));
+        return dataModelGroupList;
+    }
+
+    /**
+     * createSingleDataModelGroupList
+     * 
+     * @param visitor
+     * @param tablesToProcess
+     * @return
+     * @throws IOException
+     */
+    public static List<DomainModelGroup> createSingleDataModelGroupList(KukulkanVisitor visitor, String textFile) {
+        DomainModelContext tree = GrammarUtil.getDomainModelContext(textFile, true);
         List<DomainModelGroup> dataModelGroupList = new ArrayList<>();
         dataModelGroupList.add(createDefaultDataModelGroup(tree, visitor));
         return dataModelGroupList;

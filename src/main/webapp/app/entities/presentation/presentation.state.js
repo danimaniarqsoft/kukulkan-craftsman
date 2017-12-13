@@ -18,10 +18,20 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/presentation/presentation.html'
+                    templateUrl: 'app/entities/presentation/presentation.html',
+                    controller: 'PresentationController',
+                    controllerAs: 'vm'
                 }
+            },            
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('global');
+                    return $translate.refresh();
+                }],
+                config: ['Config', function(Config) {
+                    return Config.get().$promise;
+                }]
             }
         });
     }
-
 })();

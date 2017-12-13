@@ -4,8 +4,6 @@
 # This configuration will be overriden by the Spring profile you use,
 # for example application-dev.yml if you use the "dev" profile.
 #
-# More information on profiles: https://jhipster.github.io/profiles/
-# More information on configuration properties: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
 # ===================================================================
@@ -73,8 +71,6 @@ info:
 
 # ===================================================================
 # JHipster specific properties
-#
-# Full reference is available at: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
 jhipster:
@@ -110,17 +106,22 @@ jhipster:
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
-# to have type-safe configuration, like in the JHipsterProperties above
+# to have type-safe configuration
 #
-# More documentation is available at:
-# https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
 kukulkan:
-  outputdir: /home/daniel/git/
+  config:
+    inputdir: /home/daniel/git/
+    outputdir: /home/daniel/git/
+    documenturl: http://localhost/
+    external-apps:
+      modeler: http://localhost/dsl-core/
+      presentation: http://localhost/kukulkan-presentation 
+      slides: http://localhost/data/slides.pdf
   data:
     mysql:
-      uri: jdbc:mysql://kukulkancraftsman-mysql:3306  
+      uri: jdbc:mysql://kukulkancraftsman-mysql:3306
 logging:
   level:
     root: info

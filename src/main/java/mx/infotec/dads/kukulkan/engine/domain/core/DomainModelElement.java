@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +35,9 @@ import java.util.TreeSet;
  * @author Daniel Cortes Pichardo
  *
  */
-public class DomainModelElement {
+public class DomainModelElement implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * id of the dataModelElement, it is the primary key
@@ -49,7 +52,7 @@ public class DomainModelElement {
     /**
      * imports statements of the elements
      */
-    protected Collection<String> imports;
+    private Collection<String> imports;
 
     /**
      * Name of the dataModel, usually it is the name of the Schema formatted for
@@ -81,12 +84,12 @@ public class DomainModelElement {
      * The columns mapped into the PropertyHolder class
      */
     @SuppressWarnings("rawtypes")
-    protected Collection<Property> properties;
+    private Collection<Property> properties;
 
     /**
      * The generated elements
      */
-    protected List<GeneratedElement> generatedElements = new ArrayList<>();
+    private List<GeneratedElement> generatedElements = new ArrayList<>();
 
     protected boolean hasNotNullElements;
 
@@ -219,7 +222,7 @@ public class DomainModelElement {
         return dme;
     }
     
-    public static DomainModelElement createDataModel() {
+    public static DomainModelElement createDomainModelElement() {
         DomainModelElement dme = new DomainModelElement();
         dme.setImports(new TreeSet<>());
         dme.setProperties(new ArrayList<>());

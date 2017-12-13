@@ -35,9 +35,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,6 +114,7 @@ public class FileUtil {
 
     public static boolean saveToFile(GeneratedElement ge) {
         createDirectories(ge.getPath());
+        LOGGER.info("saveFile" + ge.getPath().toString());
         try (final BufferedWriter out = Files.newBufferedWriter(ge.getPath(), StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
             out.write(ge.getContent());

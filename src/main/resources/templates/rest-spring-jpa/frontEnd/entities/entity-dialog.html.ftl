@@ -25,6 +25,8 @@
 		        		<#include "./edit/zonedatetime.ftl">
 			    	<#elseif property.localDate == true>
 			    		<#include "./edit/localdate.ftl">
+			    	<#else>
+			    		<#include "./edit/instant.ftl">
 		    		</#if>
 				<#elseif property.boolean == true>
 					<#include "./edit/boolean.ftl">

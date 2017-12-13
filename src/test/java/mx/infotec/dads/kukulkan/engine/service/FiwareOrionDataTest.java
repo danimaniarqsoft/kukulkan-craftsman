@@ -23,6 +23,9 @@
  */
 package mx.infotec.dads.kukulkan.engine.service;
 
+import static mx.infotec.dads.kukulkan.engine.domain.editor.EditorFactory.createDefaultAceEditor;
+import static mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType.JAVA;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +40,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import mx.infotec.dads.kukulkan.engine.domain.editor.LanguageType;
 import mx.infotec.dads.kukulkan.templating.domain.Room;
 import mx.infotec.dads.kukulkan.templating.service.TemplateService;
 import mx.infotec.dads.kukulkan.util.BasePathEnum;
@@ -146,7 +150,8 @@ public class FiwareOrionDataTest {
             rooms.add(room);
         }
         input.put("rooms", rooms);
-        templateService.fillModel("orion", "fiware-orion-data/room.ftl", input, BasePathEnum.SRC_MAIN_JAVA, "room.js");
+        templateService.fillModel("orion", "fiware-orion-data/room.ftl", input, BasePathEnum.SRC_MAIN_JAVA, "room.js",
+                createDefaultAceEditor(LanguageType.JAVASCRIPT));
     }
 
 }

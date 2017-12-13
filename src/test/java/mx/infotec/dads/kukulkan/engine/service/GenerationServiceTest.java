@@ -146,6 +146,6 @@ public class GenerationServiceTest {
         // Process Activities
         generationService.process(genCtx, layerTaskFactory.getLayerTaskSet(ArchetypeType.ANGULAR_SPRING));
         FileUtil.saveToFile(genCtx);
-        FileUtil.createZip(Paths.get(prop.getOutputdir() + "/" + pConf.getId()), "compressedFile");
+        FileUtil.createZip(Paths.get(prop.getConfig().getOutputdir() + "/" + pConf.getId()), "compressedFile");
     }
 }

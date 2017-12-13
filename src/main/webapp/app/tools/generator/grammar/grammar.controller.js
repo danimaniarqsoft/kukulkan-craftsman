@@ -5,57 +5,73 @@
         .module('kukulkancraftsmanApp')
         .controller('GrammarController', GrammarController);
 
-    GrammarController.$inject = ['Principal', 'Auth', 'JhiLanguageService', '$translate'];
+    GrammarController.$inject = ['$scope', '$rootScope', 'Principal', 'Auth', 'JhiLanguageService', '$translate', 'Grammar', 'DataUtils'];
 
-    function GrammarController (Principal, Auth, JhiLanguageService, $translate) {
+    function GrammarController ($scope, $rootScope, Principal, Auth, JhiLanguageService, $translate, Grammar, DataUtils) {
         var vm = this;
 
-        vm.error = null;
-        vm.save = save;
-        vm.settingsAccount = null;
-        vm.success = null;
-        vm.code ='public class Entity{}';
-		vm.editorOptions = {
-				lineWrapping : true,
-				lineNumbers: true,
-				matchBrackets: true,
-				mode: 'text/x-java',
-			};
-
-        /**
-         * Store the "settings account" in a separate variable, and not in the shared "account" variable.
-         */
-        var copyAccount = function (account) {
-            return {
-                activated: account.activated,
-                email: account.email,
-                firstName: account.firstName,
-                langKey: account.langKey,
-                lastName: account.lastName,
-                login: account.login
-            };
+        vm.action = action;
+        vm.byteSize = DataUtils.byteSize;
+        vm.openFile = DataUtils.openFile;
+        vm.code ="entity Usuario (usuarios){\n"+
+            "\tnombre String required,\n"+
+            "\tedad Integer,\n"+
+            "\tnumeroCredencial Long,\n"+
+            "\tfechaLocalDate LocalDate,\n"+
+            "\tfechaZoneDateTime ZonedDateTime,\n"+
+            "\timagen Blob,\n"+
+            "\tdesc TextBlob\n"+
+            "}";
+        vm.console ="kukulkan >\n";
+        vm.aceLoaded  = function (_editor) {
+        	// Options
+        	_editor.setReadOnly(false);
+        	_editor.setFontSize(20);
         };
+        vm.consoleLoaded  = function (_editor) {
+        	// Options
+        	_editor.setOptions({
+        	    readOnly : true,
+        	    fontSize: 20
+        	})
+        };
+        vm.editorOptions = {
+    			useWrapMode : true,
+    			showGutter: true,
+    			mode: 'java',
+    			firstLineNumber: 1,
+    			onLoad: vm.aceLoaded
+    			};
+        vm.consoleOptions = {
+    			useWrapMode : true,
+    			showGutter: true,
+    			mode: 'java',
+    			theme:'twilight',
+    			firstLineNumber: 1,
+    			onLoad: vm.consoleLoaded
+    			};
+        
 
-        Principal.identity().then(function(account) {
-            vm.settingsAccount = copyAccount(account);
-        });
-
-        function save () {
-            Auth.updateAccount(vm.settingsAccount).then(function() {
-                vm.error = null;
-                vm.success = 'OK';
-                Principal.identity(true).then(function(account) {
-                    vm.settingsAccount = copyAccount(account);
-                });
-                JhiLanguageService.getCurrent().then(function(current) {
-                    if (vm.settingsAccount.langKey !== current) {
-                        $translate.use(vm.settingsAccount.langKey);
-                    }
-                });
-            }).catch(function() {
-                vm.success = null;
-                vm.error = 'ERROR';
-            });
+    	var unsubscribe = $rootScope.$on('kukulkancraftsmanApp:grammarUpdate', function(event, result) {
+    			vm.generatedDto = result;
+          	});
+    	
+        $scope.$on('$destroy', unsubscribe);
+        
+        function action(option){
+        	vm.console = vm.console+">Generating app...\n";
+        	vm.console = vm.console+">Connection to the server...\n";
+        	Grammar.generateCode(vm.code, onConnectionSuccess, onConnectionError);
+        	vm.console = vm.console+">App Generation in process, please wait...\n";
+        }
+        
+        function onConnectionSuccess (result) {
+        	vm.console = vm.console+">Success, app generated :)\n";
+        	$scope.$emit('kukulkancraftsmanApp:grammarUpdate', result);
+        }
+        
+        function onConnectionError () {
+        	vm.console = vm.console+">Error, please check the console:(\n";
         }
     }
 })();

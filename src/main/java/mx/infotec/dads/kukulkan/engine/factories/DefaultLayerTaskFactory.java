@@ -60,7 +60,7 @@ public class DefaultLayerTaskFactory implements LayerTaskFactory {
         case REST_SPRING_JPA:
         case ANGULAR_SPRING:
             Map<String, LayerTask> taskMap = appContext.getBeansOfType(LayerTask.class);
-            return DataBaseMapping.createLaterTaskList(taskMap, ArchetypeType.REST_SPRING_JPA);
+            return DataBaseMapping.createLaterTaskList(taskMap, ArchetypeType.ANGULAR_SPRING);
         default:
             throw new ApplicationException("Operation Not Supported" + archetype.toString());
         }

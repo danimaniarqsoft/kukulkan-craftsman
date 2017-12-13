@@ -1,5 +1,7 @@
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.io.Serializable;
+
 /**
  * Constraint Class, This class represent a Constraint applied to a column in a
  * table
@@ -7,12 +9,14 @@ package mx.infotec.dads.kukulkan.engine.domain.core;
  * @author Daniel Cortes Pichardo
  *
  */
-public class Constraint {
+public class Constraint implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Is column nullable
      */
-    private boolean nullable;
+    private boolean nullable = true;
 
     /**
      * Is the property primaryKey
@@ -67,12 +71,37 @@ public class Constraint {
     /**
      * Min value of the property
      */
-    private String minValue;
+    private String minLength;
 
     /**
      * Max value of the property
      */
-    private String maxValue;
+    private String maxLength;
+
+    /**
+     * Min value of the property
+     */
+    private String minNumber;
+
+    /**
+     * Max value of the property
+     */
+    private String maxNumber;
+    
+    /**
+     * Min value of the property
+     */
+    private String minByte;
+
+    /**
+     * Max value of the property
+     */
+    private String maxByte;
+
+    /**
+     * Pattern
+     */
+    private String pattern;
 
     public boolean isNullable() {
         return nullable;
@@ -154,27 +183,67 @@ public class Constraint {
         this.initiallyDeferred = initiallyDeferred;
     }
 
-    public String getMinValue() {
-        return minValue;
-    }
-
-    public void setMinValue(String minValue) {
-        this.minValue = minValue;
-    }
-
-    public String getMaxValue() {
-        return maxValue;
-    }
-
-    public void setMaxValue(String maxValue) {
-        this.maxValue = maxValue;
-    }
-
     public boolean isIndexed() {
         return indexed;
     }
 
     public void setIndexed(boolean indexed) {
         this.indexed = indexed;
+    }
+    
+    public String getMinLength() {
+        return minLength;
+    }
+
+    public void setMinLength(String minLength) {
+        this.minLength = minLength;
+    }
+
+    public String getMaxLength() {
+        return maxLength;
+    }
+
+    public void setMaxLength(String maxLength) {
+        this.maxLength = maxLength;
+    }
+
+    public String getMinByte() {
+        return minByte;
+    }
+
+    public void setMinByte(String minByte) {
+        this.minByte = minByte;
+    }
+
+    public String getMaxByte() {
+        return maxByte;
+    }
+
+    public void setMaxByte(String maxByte) {
+        this.maxByte = maxByte;
+    }
+    
+    public String getMinNumber() {
+        return minNumber;
+    }
+
+    public void setMinNumber(String minNumber) {
+        this.minNumber = minNumber;
+    }
+
+    public String getMaxNumber() {
+        return maxNumber;
+    }
+
+    public void setMaxNumber(String maxNumber) {
+        this.maxNumber = maxNumber;
+    }
+
+    public String getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
     }
 }

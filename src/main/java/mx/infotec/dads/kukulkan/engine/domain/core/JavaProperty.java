@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.kukulkan.engine.domain.core;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -32,7 +33,6 @@ import mx.infotec.dads.kukulkan.engine.grammar.GrammarMapping;
 import mx.infotec.dads.kukulkan.engine.grammar.GrammarPropertyType;
 import mx.infotec.dads.kukulkan.grammar.kukulkanParser.FieldTypeContext;
 import mx.infotec.dads.kukulkan.util.DataBaseMapping;
-import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
 
 /**
  * 
@@ -42,6 +42,8 @@ import mx.infotec.dads.kukulkan.util.exceptions.ApplicationException;
  *
  */
 public class JavaProperty implements Property<JavaProperty> {
+
+    private static final long serialVersionUID = 1L;
 
     private String name;
     private String type;
@@ -59,6 +61,10 @@ public class JavaProperty implements Property<JavaProperty> {
     private boolean number;
     private boolean literal;
     private boolean largeObject;
+    private boolean sizeValidation;
+    private boolean hasConstraints;
+
+    private Class<?> javaEquivalentClass;
 
     private Constraint constraint;
 
@@ -151,7 +157,7 @@ public class JavaProperty implements Property<JavaProperty> {
     @Override
     @SuppressWarnings("rawtypes")
     public Collection<Property> getAssociations() {
-        throw new ApplicationException("Method not implemented");
+        return new ArrayList<>();
     }
 
     @Override
@@ -228,7 +234,7 @@ public class JavaProperty implements Property<JavaProperty> {
         this.clob = clob;
     }
 
-    protected void setConstraint(Constraint constraint) {
+    public void setConstraint(Constraint constraint) {
         this.constraint = constraint;
     }
 
@@ -239,6 +245,11 @@ public class JavaProperty implements Property<JavaProperty> {
         public JavaPropertyBuilder() {
             this.javaProperty = new JavaProperty();
             this.javaProperty.setConstraint(new Constraint());
+        }
+
+        public JavaPropertyBuilder withJavaEquivalentClass(Class<?> javaEquivalentClass) {
+            this.javaProperty.setJavaEquivalentClass(javaEquivalentClass);
+            return this;
         }
 
         public JavaPropertyBuilder withName(String propertyName) {
@@ -358,5 +369,51 @@ public class JavaProperty implements Property<JavaProperty> {
 
     public void setLargeObject(boolean largeObject) {
         this.largeObject = largeObject;
+    }
+
+    public void setSizeValidation(boolean sizeValidation) {
+        this.sizeValidation = sizeValidation;
+    }
+
+    @Override
+    public boolean isSizeValidation() {
+        return sizeValidation;
+    }
+
+    @Override
+    public boolean isLong() {
+        return getJavaEquivalentClass().equals(Long.class);
+    }
+
+    @Override
+    public boolean isInteger() {
+        return getJavaEquivalentClass().equals(Integer.class);
+    }
+
+    @Override
+    public boolean isDouble() {
+        return getJavaEquivalentClass().equals(Double.class);
+    }
+
+    @Override
+    public boolean isFloat() {
+        return getJavaEquivalentClass().equals(Float.class);
+    }
+
+    public Class<?> getJavaEquivalentClass() {
+        return javaEquivalentClass;
+    }
+
+    public void setJavaEquivalentClass(Class<?> javaEquivalentClass) {
+        this.javaEquivalentClass = javaEquivalentClass;
+    }
+
+    public void setHasConstraints(boolean hasConstraints) {
+        this.hasConstraints = hasConstraints;
+    }
+
+    @Override
+    public boolean isHasConstraints() {
+        return hasConstraints;
     }
 }
